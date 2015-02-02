@@ -42,6 +42,14 @@ class Author(models.Model):
 	def __str__(self): 
 		return self.display_name()
 
+class Editor(models.Model):
+	user = models.OneToOneField(User)
+	position = models.CharField(max_length=50)
+	def display_name(self):
+		return self.user.first_name+" "+self.user.last_name
+	def __str__(self): 
+		return self.display_name()
+
 class Photographer(models.Model):
 	user =models.OneToOneField(User)
 	def display_name(self):
