@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.template.defaultfilters import slugify
 # Create your models here.
 
 class Section(models.Model):
@@ -24,6 +25,8 @@ class Article(models.Model):
 	updated_date = models.DateTimeField(default = timezone.now)
 	def __str__(self):
 		return self.title
+	def slug(self):
+		return slugify(self.title)
 
 class FrontArticle(models.Model):
 	article = models.OneToOneField(Article)
@@ -41,6 +44,8 @@ class Author(models.Model):
 		return self.user.first_name+" "+self.user.last_name
 	def __str__(self): 
 		return self.display_name()
+	def slug(self):
+		return slugify(self.display_name())
 
 class Editor(models.Model):
 	user = models.OneToOneField(User)
@@ -49,6 +54,8 @@ class Editor(models.Model):
 		return self.user.first_name+" "+self.user.last_name
 	def __str__(self): 
 		return self.display_name()
+	def slug(self):
+		return slugify(self.display_name())
 
 class Photographer(models.Model):
 	user =models.OneToOneField(User)
@@ -56,6 +63,8 @@ class Photographer(models.Model):
 		return self.user.first_name+" "+self.user.last_name
 	def __str__(self): 
 		return self.display_name()
+	def slug(self):
+		return slugify(self.display_name())
 
 class Photo(models.Model):
 	date = models.DateTimeField(default = timezone.now)
