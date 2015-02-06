@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from mainsite import views
 
 urlpatterns = patterns('',
-    url(r'^$', 'views.home', name='home'),
+    url(r'^$', views.home, name='home'),
     url(r'^(?P<section>\w+)/$', views.section, name='section'),
     url(r'^(?P<section>\w+)/(?P<article_id>\d+)(/?P<article_name>.+)?/$', views.article, name='article'),
     url(r'^author/(?P<author_id>\d+)(/?P<author_name>.+)?/$', views.author, name='author'),
