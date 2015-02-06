@@ -10,6 +10,9 @@ def section(request):
 def article(request, article_id):
     return HttpResponse('This is article ' + str(article_id));
 
+def author(request, author_id):
+    return HttpResponse('This is author ' + str(author_id));
+
 def photographer(request, photographer_id):
     return HttpResponse('This is photographer ' + str(photographer_id));
 

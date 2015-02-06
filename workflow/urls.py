@@ -7,7 +7,7 @@ urlpatterns = patterns('',
     #issues
     url(r'^articles/issues/$',views.issues,name="issues"),
     url(r'^articles/issue/(?P<issue_id>[0-9]+)/$',views.issue,name="issue"),
-    url(r'^articles/issue/new/$',views.new,name="new_issue"),
+    url(r'^articles/issue/new/$',views.new_issue,name="new_issue"),
     #articles
     url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<article_id>[0-9]+)(/?P<article_name>.+)?/$',
     	views.article,name='article'),
