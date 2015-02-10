@@ -4,6 +4,22 @@ from mainsite.models import Article,Editor
 from django.utils import timezone
 # Create your models here.
 
+class WProfile(models.Model):
+	user = models.OneToOneField(User,related_name="profile")
+	POSITIONS_CHOICES= (
+		('ChiefEditor','Chief Editor'),
+		('CopyEditor','Copy Editor'),
+		)
+	position = models.CharField(choices=YEAR_IN_SCHOOL_CHOICES,default='Editor')
+	def is_author():
+		return self.user.author != None
+	def is_photographer():
+		return self.user.photographer != None
+	def is_editor():
+		return self.editor != None
+	def display_name(self):
+		return self.user.first_name+" "+self.user.last_name
+
 class WArticle(models.Model):
 	date = models.DateTimeField(default = timezone.now)
 	article = models.OneToOneField(Article)

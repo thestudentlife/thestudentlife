@@ -40,31 +40,39 @@ class CarouselArticle(models.Model):
 
 class Author(models.Model):
 	user = models.OneToOneField(User)
-	def display_name(self):
-		return self.user.first_name+" "+self.user.last_name
+	active = models.BooleanField(default=True)
+	def get_profile():
+		return self.user.profile
+	def display_name():
+		return self.get_profile().display_name()
+	def slug(self):
+		return slugify(self.get_profile().display_name())
 	def __str__(self): 
 		return self.display_name()
-	def slug(self):
-		return slugify(self.display_name())
 
 class Editor(models.Model):
 	user = models.OneToOneField(User)
-	position = models.CharField(max_length=50)
-	def display_name(self):
-		return self.user.first_name+" "+self.user.last_name
-	def __str__(self): 
-		return self.display_name()
+	def get_profile():
+		return self.user.profile
+	def display_name():
+		return self.get_profile().display_name()
+	def get_position():
+		return self.get_profile().position
 	def slug(self):
 		return slugify(self.display_name())
+	def __str__(self): 
+		return self.display_name()
 
 class Photographer(models.Model):
 	user =models.OneToOneField(User)
-	def display_name(self):
-		return self.user.first_name+" "+self.user.last_name
-	def __str__(self): 
-		return self.display_name()
+	def get_profile():
+		return self.user.profile
+	def display_name():
+		return self.get_profile().display_name()
 	def slug(self):
 		return slugify(self.display_name())
+	def __str__(self): 
+		return self.display_name()
 
 class Photo(models.Model):
 	date = models.DateTimeField(default = timezone.now)
