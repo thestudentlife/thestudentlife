@@ -38,7 +38,7 @@ class CarouselArticle(models.Model):
 	def __str__(self):
 		return self.article.title
 
-class Author(models.Model):
+class Maker(models.Model):
 	user = models.OneToOneField(User)
 	active = models.BooleanField(default=True)
 	def get_profile():
@@ -49,6 +49,15 @@ class Author(models.Model):
 		return slugify(self.get_profile().display_name())
 	def __str__(self): 
 		return self.display_name()
+
+class Photographer(Maker):
+	pass
+
+class author(Maker):
+	pass
+
+class Designer(Maker):
+	pass
 
 class Editor(models.Model):
 	user = models.OneToOneField(User)
@@ -63,16 +72,7 @@ class Editor(models.Model):
 	def __str__(self): 
 		return self.display_name()
 
-class Photographer(models.Model):
-	user =models.OneToOneField(User)
-	def get_profile():
-		return self.user.profile
-	def display_name():
-		return self.get_profile().display_name()
-	def slug(self):
-		return slugify(self.display_name())
-	def __str__(self): 
-		return self.display_name()
+
 
 class Photo(models.Model):
 	date = models.DateTimeField(default = timezone.now)
