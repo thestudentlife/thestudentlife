@@ -1,11 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
-from mainsite.models import Article,Editor
+from mainsite.models import Article,Editor,Maker
 from django.utils import timezone
 # Create your models here.
 
-class WProfile(models.Model):
-	user = models.OneToOneField(User,related_name="profile")
+class Profile(models.Model):
+	user = models.OneToOneField(User)
 	POSITIONS_CHOICES= (
 		('ChiefEditor','Chief Editor'),
 		('CopyEditor','Copy Editor'),
@@ -30,17 +30,26 @@ class WArticle(models.Model):
 	def __str__(self):
 		return self.article.title
 
-class WReview(models.Model):
+class Review(models.Model):
 	date = models.DateTimeField(default = timezone.now)
 	article = models.ForeignKey(Article)
 	reviewer = models.CharField(max_length=50)
 	comment = models.TextField(blank=True)
 
-class WRevision(models.Model):
+class Revision(models.Model):
 	date = models.DateTimeField(default = timezone.now)
 	article = models.ForeignKey(Article)
 	editor = models.ForeignKey(Editor)
 	body = models.TextField()
+
+class Assignment(models.Model):
+	sender = model.ForeignKey(Editor)
+	receiver = models.ForeignKey(Maker)
+	title = models.CharField(max_length=200)
+	content = models.TextField()
+	has_read = models.BooleanField(default=False)
+	has_finished=models.BooleanField(default=False)
+	date = models.DateTimeField(default = timezone.now)	
 
 
 
