@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from mainsite.models import Article,Editor,Maker
+from mainsite.models import Article,Editor,Maker,Section,Photo
 from django.utils import timezone
 # Create your models here.
 
@@ -44,12 +44,27 @@ class Revision(models.Model):
 
 class Assignment(models.Model):
 	sender = model.ForeignKey(Editor)
-	receiver = models.ForeignKey(Maker)
+	receiver = models.ForeignKey(Maker,default=None)
 	title = models.CharField(max_length=200)
 	content = models.TextField()
-	has_read = models.BooleanField(default=False)
-	has_finished=models.BooleanField(default=False)
-	date = models.DateTimeField(default = timezone.now)	
+	section = models.ForeignKey(Section)
+	created_date = models.DateTimeField(default = timezone.now)	
+	due_date = models.DateTimeField()	
+
+class Article_Assignment(Assignment):
+	article = model.Foreignkey(Article,default=None)
+	def is_article(self):
+		return True
+	def finished(self):
+		self.article != None
+
+class Photo_assignment(Assignment):
+	photo = model.ForeignKey(Photo,default=None)
+	def finished(self):
+		self.article != None
+	def is_article(self):
+		return False
+
 
 
 

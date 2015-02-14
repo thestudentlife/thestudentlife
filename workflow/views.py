@@ -47,8 +47,24 @@ def edit_photo(request,photo_id):
 def home(request):
 	return HttpResponse('This should be the latest issue.')
 
+#assignments
+def assignments(request):
+	return HttpResponse('This should return all the assignments')
 
+def assignment(request,assignment_id):
+	return HttpResponse('This is assignment '+ str(assignment_id))
 
+def new_assignment(request):
+	return HttpResponse('Create a new assignment') 
 
+def edit_assignment(request,assignment_id):
+	return HttpResponse('You are going to edit assignment '+str(assignment_id))
 
+def filter_by_receiver(request,maker_id):
+	return HttpResponse('The assignments of the maker '+str(maker_id))
 
+def filter_by_section(request,section_name):
+	return HttpResponse('The assignments of the section '+str(section_name))
+
+def filter_by_type(request,type_name):
+	return HttpResponse('The assignments of the type '+str(type_name))
