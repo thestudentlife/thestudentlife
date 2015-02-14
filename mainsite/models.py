@@ -76,7 +76,7 @@ class Editor(models.Model):
 
 class Photo(models.Model):
 	date = models.DateTimeField(default = timezone.now)
-	image = models.ImageField(upload_to='static/uploads/')
+	image = models.ImageField(upload_to='media/uploads/')
 	caption = models.TextField(max_length=500,blank=True)
 	credit = models.ForeignKey(Photographer)	
 	def __str__(self): 
