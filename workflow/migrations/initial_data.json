@@ -1,0 +1,31 @@
+[
+  {
+    "model": "models.Group",
+    "fields": {
+      "name": "Plastic",
+      "permissions": [
+        {
+          "model": "models.Permission",
+          "fields": {
+            "name": "login",
+            "content_type": [
+              {
+                "app_label":"random",
+                "model":"random",
+                "name":"random"
+              }
+            ],
+            "codename":"can_do_something"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "model": "models.User",
+    "fields": {
+      "name": "Hello",
+      "groups": ["Plastic"]
+    }
+  }
+]
