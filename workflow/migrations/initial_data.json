@@ -1,106 +1,82 @@
 [
   {
-    "model": "models.Permission",
+    "model": "auth.Permission",
     "fields": {
       "name": "Assignment",
-      "content_type": [
-        {
-          "app_label":"1",
-          "model":"",
-          "name":""
-        }
-      ],
+      "content_type": "1",
       "codename":"assignment"
     }
   },
   {
-    "model": "models.Permission",
+    "model": "auth.Permission",
     "fields": {
       "name": "Post",
-      "content_type": [
-        {
-          "app_label": "2",
-          "model": "",
-          "name": ""
-        }
-      ],
+      "content_type": "2",
       "codename": "post"
     }
   },
   {
-    "model": "models.Permission",
+    "model": "auth.Permission",
     "fields": {
       "name": "Edit",
-      "content_type": [
-        {
-          "app_label": "3",
-          "model": "",
-          "name": ""
-        }
-      ],
+      "content_type": "3",
       "codename": "edit"
     }
   },
   {
-    "model": "models.Permission",
+    "model": "auth.Permission",
     "fields": {
       "name": "Manage",
-      "content_type": [
-        {
-          "app_label": "4",
-          "model": "",
-          "name": ""
-        }
-      ],
+      "content_type": "4",
       "codename": "manage"
     }
   },
   {
-    "model": "models.Group",
+    "model": "auth.Group",
     "fields": {
       "name": "Plastic"
     }
   },
   {
-    "model": "models.Group",
+    "model": "auth.Group",
     "fields": {
       "name": "Bronze",
-      "permissions": ["assignment","post"]
+      "permissions": ["1","2"]
     }
   },
   {
-    "model": "models.Group",
+    "model": "auth.Group",
     "fields": {
       "name": "Silver",
-      "permissions": ["assignment","post","edit"]
+      "permissions": ["1","2","3"]
     }
   },
   {
-    "model": "models.Group",
+    "model": "auth.Group",
     "fields": {
       "name": "Gold",
-      "permissions": ["assignment","post","edit","manage"]
+      "permissions": ["1","2","3","4"]
     }
   },
   {
-    "model": "models.User",
+    "model": "auth.User",
     "fields": {
-      "name": "Default",
-      "groups": ["Plastic"]
+      "username": "Default",
+      "groups": ["1"]
     }
   },
   {
-    "model": "models.User",
+    "model": "auth.User",
     "fields": {
-      "name": "Kent",
-      "groups": ["Gold"]
+      "username": "Kent",
+      "groups": ["4"]
     }
   },
   {
-    "model": "models.User",
+    "model": "auth.User",
     "fields": {
-      "name": "ZQ",
-      "groups": ["Gold"]
+      "username": "ZQ",
+      "groups": ["4"]
     }
   }
 ]
