@@ -10,7 +10,7 @@ class Profile(models.Model):
 		('ChiefEditor','Chief Editor'),
 		('CopyEditor','Copy Editor'),
 		)
-	position = models.CharField(choices=YEAR_IN_SCHOOL_CHOICES,default='Editor')
+	position = models.CharField(choices=POSITIONS_CHOICES,max_length=50,default='Editor')
 	def is_author():
 		return self.user.author != None
 	def is_photographer():
@@ -43,7 +43,7 @@ class Revision(models.Model):
 	body = models.TextField()
 
 class Assignment(models.Model):
-	sender = model.ForeignKey(Editor)
+	sender = models.ForeignKey(Editor)
 	receiver = models.ForeignKey(Maker,default=None)
 	title = models.CharField(max_length=200)
 	content = models.TextField()
@@ -52,14 +52,14 @@ class Assignment(models.Model):
 	due_date = models.DateTimeField()	
 
 class Article_Assignment(Assignment):
-	article = model.Foreignkey(Article,default=None)
+	article = models.ForeignKey(Article,default=None)
 	def is_article(self):
 		return True
 	def finished(self):
 		self.article != None
 
 class Photo_assignment(Assignment):
-	photo = model.ForeignKey(Photo,default=None)
+	photo = models.ForeignKey(Photo,default=None)
 	def finished(self):
 		self.article != None
 	def is_article(self):
