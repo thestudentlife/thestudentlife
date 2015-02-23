@@ -48,8 +48,8 @@ class Assignment(models.Model):
 	title = models.CharField(max_length=200)
 	content = models.TextField()
 	section = models.ForeignKey(Section)
-	created_date = models.DateTimeField(default = timezone.now)	
-	due_date = models.DateTimeField()	
+	created_date = models.DateTimeField(default = timezone.now)
+	due_date = models.DateTimeField()
 
 class Article_Assignment(Assignment):
 	article = models.ForeignKey(Article,default=None)
