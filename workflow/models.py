@@ -11,11 +11,11 @@ class Profile(models.Model):
 		('CopyEditor','Copy Editor'),
 		)
 	position = models.CharField(choices=POSITIONS_CHOICES,max_length=50,default='Editor')
-	def is_author():
+	def is_author(self):
 		return self.user.author != None
-	def is_photographer():
+	def is_photographer(self):
 		return self.user.photographer != None
-	def is_editor():
+	def is_editor(self):
 		return self.editor != None
 	def display_name(self):
 		return self.user.first_name+" "+self.user.last_name
