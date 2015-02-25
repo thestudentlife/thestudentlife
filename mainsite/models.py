@@ -42,7 +42,7 @@ class Issue(models.Model):
 class Article(models.Model):
 	title = models.CharField(max_length=200)
 	content = models.TextField()
-	section = models.ForeignKey(Section)
+	section = models.ForeignKey(Section,related_name='articles')
 	issue= models.ForeignKey(Issue)
 	subsections = models.ManyToManyField(Subsection,blank=True)
 	authors = models.ManyToManyField(Author)
