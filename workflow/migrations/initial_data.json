@@ -41,7 +41,7 @@
     "model": "auth.Group",
     "fields": {
       "name": "Bronze",
-      "permissions": ["1","2"]
+      "permissions": [{"pk":1},"2"]
     }
   },
   {

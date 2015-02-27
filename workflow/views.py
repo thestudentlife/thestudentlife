@@ -6,13 +6,16 @@ from django.contrib.auth import authenticate, login as do_login, logout as do_lo
 from django.db.models import Count
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail
+from workflow.models import Issue
 # Create your views here.
 
 # issues
 def issues(request):
+    issues = Issue.objects.all()
     return HttpResponse('These are the issues.')
 
 def issue(request, issue_id):
+    issue = Issue.objects.get(pk=issue_id)
     return HttpResponse('This is issue ' + str(issue_id))
 
 def new_issue(request):
