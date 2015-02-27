@@ -29,13 +29,16 @@ gold.save();
 gold.permissions.add(assignment_perm, post_perm, edit_perm, manage_perm);
 
 kent = User(username="kshikama")
+kent.set_password("tsl")
 kent.save()
 kent.groups.add(gold)
 
 zq = User(username="zxiong")
+zq.set_password("tsl")
 zq.save()
 zq.groups.add(gold)
 
 latina = User(username="vlatina")
+latina.set_password("tsl")
 latina.save()
 latina.groups.add(gold)
