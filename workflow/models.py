@@ -2,21 +2,25 @@ from django.db import models
 from django.contrib.auth.models import User
 from mainsite.models import Article,Editor,Maker,Section,Photo
 from django.utils import timezone
+from django.forms import ModelForm,EmailInput,TextInput,Textarea,PasswordInput
 # Create your models here.
 
 class Profile(models.Model):
 	user = models.OneToOneField(User)
 	POSITIONS_CHOICES= (
-		('ChiefEditor','Chief Editor'),
-		('CopyEditor','Copy Editor'),
+		('chief_editor','Chief Editor'),
+		('copy_editor','Copy Editor'),
+		('photographer','Photographer'),
+		('author','Author'),
+		('graphic_designer','Graphic Designer')
 		)
 	position = models.CharField(choices=POSITIONS_CHOICES,max_length=50,default='Editor')
 	def is_author(self):
-		return self.user.author != None
+		return self.user.author.exists()
 	def is_photographer(self):
-		return self.user.photographer != None
+		return self.user.photographer.exists()
 	def is_editor(self):
-		return self.editor != None
+		return self.editor.exists()
 	def display_name(self):
 		return self.user.first_name+" "+self.user.last_name
 
@@ -26,7 +30,7 @@ class WArticle(models.Model):
 	status = models.TextField()
 	locker = models.ForeignKey(User,blank=True)
 	def locked(self):
-		return self.locker != None
+		return self.locker.exists()
 	def __str__(self):
 		return self.article.title
 
@@ -56,15 +60,29 @@ class Article_Assignment(Assignment):
 	def is_article(self):
 		return True
 	def finished(self):
-		self.article != None
+		self.article.exists()
 
 class Photo_assignment(Assignment):
 	photo = models.ForeignKey(Photo,default=None)
 	def finished(self):
-		self.article != None
+		self.photo.exists()
 	def is_article(self):
 		return False
 
+class LoginForm(ModelForm):
+	class Meta:
+		model = User
+		fields = ['username','password']
+		widgets = {
+		'username':TextInput(attrs={
+			'required':True
+			}),
+		'password':PasswordInput(attrs={
+			'required':True
+			})		
+		} 
+
+class RegistrationForm(ModelForm):
 
 
 
