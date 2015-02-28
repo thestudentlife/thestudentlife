@@ -3,8 +3,6 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.template.defaultfilters import slugify
 from workflow.models import Profile
-# Create your models here.
-
 
 class Section(models.Model):
 	name = models.CharField(max_length=50)
@@ -15,7 +13,6 @@ class Subsection(models.Model):
 	name = models.CharField(max_length=50)
 	def __str__(self):
 		return self.name
-
 
 class Issue(models.Model):
 	name = models.CharField(max_length=200)	

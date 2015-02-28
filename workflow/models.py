@@ -1,9 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-from mainsite.models import Article,Editor,Maker,Section,Photo
 from django.utils import timezone
 from django.forms import ModelForm,EmailInput,TextInput,Textarea,PasswordInput
-# Create your models here.
+from django.template.defaultfilters import slugify
+from mainsite.models import Article,Section,Photo
 
 class Profile(models.Model):
 	user = models.OneToOneField(User)
@@ -41,12 +41,12 @@ class Review(models.Model):
 class Revision(models.Model):
 	date = models.DateTimeField(default = timezone.now)
 	article = models.ForeignKey(Article)
-	editor = models.ForeignKey(Editor)
+	editor = models.ForeignKey(Profile)
 	body = models.TextField()
 
 class Assignment(models.Model):
-	sender = models.ForeignKey(Editor)
-	receiver = models.ForeignKey(Maker,default=None)
+	sender = models.ForeignKey(Profile)
+	receiver = models.ForeignKey(Profile,default=None)
 	title = models.CharField(max_length=200)
 	content = models.TextField()
 	section = models.ForeignKey(Section)
