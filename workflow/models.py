@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.forms import ModelForm,EmailInput,TextInput,Textarea,PasswordInput
 from django.template.defaultfilters import slugify
-from mainsite.models import Article,Section,Photo
 
 class Profile(models.Model):
 	user = models.OneToOneField(User)
@@ -24,7 +23,7 @@ class Profile(models.Model):
 
 class WArticle(models.Model):
 	date = models.DateTimeField(default = timezone.now)
-	article = models.OneToOneField(Article)
+	article = models.OneToOneField('mainsite.Article')
 	status = models.TextField()
 	locker = models.ForeignKey(User,blank=True)
 	def locked(self):
@@ -34,34 +33,34 @@ class WArticle(models.Model):
 
 class Review(models.Model):
 	date = models.DateTimeField(default = timezone.now)
-	article = models.ForeignKey(Article)
+	article = models.ForeignKey('mainsite.Article')
 	reviewer = models.CharField(max_length=50)
 	comment = models.TextField(blank=True)
 
 class Revision(models.Model):
 	date = models.DateTimeField(default = timezone.now)
-	article = models.ForeignKey(Article)
+	article = models.ForeignKey('mainsite.Article')
 	editor = models.ForeignKey(Profile)
 	body = models.TextField()
 
 class Assignment(models.Model):
-	sender = models.ForeignKey(Profile)
-	receiver = models.ForeignKey(Profile,default=None)
+	sender = models.ForeignKey(Profile,related_name="sender")
+	receiver = models.ForeignKey(Profile,default=None,related_name="receiver")
 	title = models.CharField(max_length=200)
 	content = models.TextField()
-	section = models.ForeignKey(Section)
+	section = models.ForeignKey('mainsite.Section')
 	created_date = models.DateTimeField(default = timezone.now)
 	due_date = models.DateTimeField()
 
 class Article_Assignment(Assignment):
-	article = models.ForeignKey(Article,default=None)
+	article = models.ForeignKey('mainsite.Article',default=None)
 	def is_article(self):
 		return True
 	def finished(self):
 		self.article.exists()
 
 class Photo_assignment(Assignment):
-	photo = models.ForeignKey(Photo,default=None)
+	photo = models.ForeignKey('mainsite.Photo',default=None)
 	def finished(self):
 		self.photo.exists()
 	def is_article(self):
