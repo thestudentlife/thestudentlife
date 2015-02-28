@@ -2,28 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.template.defaultfilters import slugify
+from workflow.models import Profile
 # Create your models here.
 
-class Maker(models.Model):
-	user = models.OneToOneField(User)
-	active = models.BooleanField(default=True)
-	def get_profile():
-		return self.user.profile
-	def display_name():
-		return self.get_profile().display_name()
-	def slug(self):
-		return slugify(self.get_profile().display_name())
-	def __str__(self): 
-		return self.display_name()
-
-class Photographer(Maker):
-	pass
-
-class Author(Maker):
-	pass
-
-class Designer(Maker):
-	pass
 
 class Section(models.Model):
 	name = models.CharField(max_length=50)
@@ -45,7 +26,7 @@ class Article(models.Model):
 	section = models.ForeignKey(Section,related_name='articles')
 	issue= models.ForeignKey(Issue)
 	subsections = models.ManyToManyField(Subsection,blank=True)
-	authors = models.ManyToManyField(Author)
+	authors = models.ManyToManyField(Profile)
 	published_date = models.DateTimeField(default = timezone.now)
 	updated_date = models.DateTimeField(default = timezone.now)
 	def __str__(self):
@@ -64,27 +45,11 @@ class CarouselArticle(models.Model):
 		return self.article.title
 
 
-
-class Editor(models.Model):
-	user = models.OneToOneField(User)
-	def get_profile():
-		return self.user.profile
-	def display_name():
-		return self.get_profile().display_name()
-	def get_position():
-		return self.get_profile().position
-	def slug(self):
-		return slugify(self.display_name())
-	def __str__(self): 
-		return self.display_name()
-
-
-
 class Photo(models.Model):
 	date = models.DateTimeField(default = timezone.now)
 	image = models.ImageField(upload_to='media/uploads/')
 	caption = models.TextField(max_length=500,blank=True)
-	credit = models.ForeignKey(Photographer)	
+	credit = models.ForeignKey(Profile)	
 	def __str__(self): 
 		return self.image.url
 

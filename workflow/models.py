@@ -15,14 +15,12 @@ class Profile(models.Model):
 		('graphic_designer','Graphic Designer')
 		)
 	position = models.CharField(choices=POSITIONS_CHOICES,max_length=50,default='Editor')
-	def is_author(self):
-		return self.user.author.exists()
-	def is_photographer(self):
-		return self.user.photographer.exists()
-	def is_editor(self):
-		return self.editor.exists()
+	def slug(self):
+		return slugify(self.get_profile().display_name())
 	def display_name(self):
 		return self.user.first_name+" "+self.user.last_name
+	def __str__(self): 
+		return self.display_name()+"'profile"
 
 class WArticle(models.Model):
 	date = models.DateTimeField(default = timezone.now)
@@ -82,8 +80,22 @@ class LoginForm(ModelForm):
 			})		
 		} 
 
-class RegistrationForm(ModelForm):
-
+class RegisterForm(ModelForm):
+	class Meta:
+		model = User
+		fields = ['username','first_name','last_name','email','password']
+		widgets = {
+		'email':EmailInput(attrs={
+			'required':True
+			}),
+		'first_name':TextInput(attrs={
+			'required':True
+			}),
+		'last_name':TextInput(attrs={
+			'required':True
+			}),
+		'password': PasswordInput()		
+		}
 
 
 
