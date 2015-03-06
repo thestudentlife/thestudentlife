@@ -1,7 +1,7 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 from django.contrib.auth import authenticate, login as do_login, logout as do_logout
 from django.db.models import Count
 from django.core.urlresolvers import reverse
@@ -23,15 +23,17 @@ def register(request):
         'form': registerForm
     })
 
-
 def home(request):
     issue = Issue.objects.all()[:1].get()
     return HttpResponse('This should be the latest issue.')
 
 # issues
 def issues(request):
-    issues = Issue.objects.all()
-    return HttpResponse('These are the issues.')
+    if request.user.has_perm(Permission.objects.get(codename="edit")):
+        issues = Issue.objects.all()
+        return HttpResponse('These are the issues.')
+    else:
+        return HttpResponse('You do not have permissions')
 
 def issue(request, issue_id):
     issue = Issue.objects.get(pk=issue_id)
