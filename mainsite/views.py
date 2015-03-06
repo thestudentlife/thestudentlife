@@ -1,10 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-<<<<<<< HEAD
 from mainsite.models import Section, Article, Profile
-=======
-from mainsite.models import Section,Article,Profile
->>>>>>> 0867cccbf600761cf97b1d89caf879109e7b9dea
 
 def home(request):
     return HttpResponse('This is the homepage');
