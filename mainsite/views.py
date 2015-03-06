@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from mainsite.models import Section,Article,Profile
+from mainsite.models import Section, Article, Profile
 
 def home(request):
     return HttpResponse('This is the homepage');
@@ -12,6 +12,7 @@ def section(request, section_name):
 def article(request, section_name, article_id, article_name='default'):
     article = Article.objects.get(pk=article_id);
     return HttpResponse('This is article ' + str(article_id) + ' with name ' + article_name + ' in section ' + section_name);
+
 
 def person(request, person_id, person_name='ZQ'):
     person = Profile.objects.get(pk=person_id);
