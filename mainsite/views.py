@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from mainsite.models import Section,Article,Author,Photographer
+from mainsite.models import Section, Article, Profile
 
 def home(request):
     return HttpResponse('This is the homepage');
@@ -14,17 +14,17 @@ def article(request, section_name, article_id, article_name='default'):
     return HttpResponse('This is article ' + str(article_id) + ' with name ' + article_name + ' in section ' + section_name);
 
 def author(request, author_id, author_name='ZQ'):
-    author = Author.objects.get(pk=author_id);
+    author = Profile.objects.get(pk=author_id);
     articles = Article.objects.filter(author=author);
     return HttpResponse('This is author ' + str(author_id) + ' with name ' + author_name);
 
 def photographer(request, photographer_id, photographer_name='ZQ'):
-    photographer = Photographer.objects.get(pk=photographer_id);
+    photographer = Profile.objects.get(pk=photographer_id);
     photos = Article.objects.filter(credit=photographer);
     return HttpResponse('This is photographer ' + str(photographer_id) + ' with name ' + photographer_name);
 
 def designer(request, designer_id, designer_name='ZQ'):
-    designer = Designer.objects.get(pk=designer_id);
+    designer = Profile.objects.get(pk=designer_id);
     return HttpResponse('This is designer ' + str(designer_id) + ' with name ' + designer_name);
 
 def staff(request):
