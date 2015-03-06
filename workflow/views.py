@@ -7,7 +7,12 @@ from django.db.models import Count
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail
 from mainsite.models import Issue
+from workflow.models import Assignment
 # Create your views here.
+
+def home(request):
+    issue = Issue.objects.all()[:1].get()
+    return HttpResponse('This should be the latest issue.')
 
 # issues
 def issues(request):
@@ -46,9 +51,6 @@ def new_photo(request):
 
 def edit_photo(request, photo_id):
     return HttpResponse('You are going to edit photo ' + str(photo_id))
-
-def home(request):
-    return HttpResponse('This should be the latest issue.')
 
 #assignments
 def assignments(request):
