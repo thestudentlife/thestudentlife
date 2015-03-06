@@ -9,7 +9,7 @@ from django.core.mail import send_mail
 from mainsite.models import Issue
 from workflow.models import Assignment
 # Create your views here.
-from workflow.models import RegisterForm
+from workflow.models import RegisterForm,LoginForm
 
 def register(request):
     if request.method == "POST":
@@ -17,11 +17,40 @@ def register(request):
         if registerForm.is_valid():
             registerForm.save()
             return HttpResponse('Thanks for registering')
+        else:
+            return render(request, 'register.html', {
+                'form': registerForm
+            })
     else:
         registerForm = RegisterForm()
-    return render(request, 'register.html', {
+        return render(request, 'register.html', {
         'form': registerForm
-    })
+     })
+
+def login(request):
+    if request.method == "POST":
+        loginForm = LoginForm(request.POST)
+        if loginForm.is_valid():
+            username = loginForm.cleaned_data['username']
+            password = loginForm.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+            if user:
+                do_login(request,user)
+                return HttpResponse('Welcome')
+            else:
+                return render(request,'register.html',{
+                'form':loginForm
+            })
+        else:
+            return render(request,'register.html',{
+                'form':loginForm
+            })
+    else:
+        loginForm = LoginForm()
+        return render(request,'login.html',{
+            'form': loginForm
+        })
+
 
 
 def home(request):

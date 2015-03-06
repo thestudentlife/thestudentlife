@@ -5,6 +5,7 @@ urlpatterns = patterns('',
     url(r'^$',views.home,name='home'),
 
     url(r'^register/$',views.register,name="register"),
+    url(r'^login/$',views.login,name="login"),
     #issues
     url(r'^articles/issues/$',views.issues,name="issues"),
     url(r'^articles/issue/(?P<issue_id>[0-9]+)/$',views.issue,name="issue"),
