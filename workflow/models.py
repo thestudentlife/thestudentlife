@@ -93,8 +93,17 @@ class RegisterForm(ModelForm):
 		'last_name':TextInput(attrs={
 			'required':True
 			}),
-		'password': PasswordInput()		
+		'password': PasswordInput()	(attrs={
+			'required':True
+			}),
 		}
+
+class ProfileForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['position']
+
+
 
 
 
