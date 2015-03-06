@@ -1,7 +1,7 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 from django.contrib.auth import authenticate, login as do_login, logout as do_logout
 from django.db.models import Count
 from django.core.urlresolvers import reverse
@@ -52,35 +52,55 @@ def login(request):
         })
 
 
-
 def home(request):
     issue = Issue.objects.all()[:1].get()
     return HttpResponse('This should be the latest issue.')
 
 # issues
 def issues(request):
-    issues = Issue.objects.all()
-    return HttpResponse('These are the issues.')
+    if request.user.has_perm(Permission.objects.get(codename="edit")):
+        issues = Issue.objects.all()
+        return HttpResponse('These are the issues.')
+    else:
+        return HttpResponse('You do not have permissions to see the issues.')
 
 def issue(request, issue_id):
-    issue = Issue.objects.get(pk=issue_id)
-    return HttpResponse('This is issue ' + str(issue_id))
+    if request.user.has_perm(Permission.objects.get(codename="edit")):
+        issue = Issue.objects.get(pk=issue_id)
+        return HttpResponse('This is issue ' + str(issue_id))
+    else:
+        return HttpResponse('You do not have permissions to access this particular issue.')
 
 def new_issue(request):
-    return HttpResponse('Create a new issue')
+    if request.user.has_perm(Permission.objects.get(codename="edit")):
+        return HttpResponse('Create a new issue')
+    else:
+        return HttpResponse('You do not have permissions to create this new issue.')
 
 #articles
 def article(request, issue_id, article_id, article_name="default"):
-    return HttpResponse('This is issue ' + issue_id + " and article " + str(article_id) + ' with name ' + article_name)
+    if request.user.has_perm(Permission.objects.get(codename="edit")):
+        return HttpResponse('This is issue ' + str(issue_id) + " and article " + str(article_id) + ' with name ' + article_name)
+    else:
+        return HttpResponse('You do not have permissions to view ' + article_name + ' in issue ' + str(issue_id))
 
 def new_article(request, issue_id):
-    return HttpResponse('Create a new article in issue ' + str(issue_id))
+    if request.user.has_perm(Permission.objects.get(codename="edit")):
+        return HttpResponse('Create a new article in issue ' + str(issue_id))
+    else:
+        return HttpResponse('You do not have permissions to create a new article in issue ' + str(issue_id))
 
 def edit_article(request, issue_id, article_id, article_name="default"):
-    return HttpResponse('You are going to edit article ' + str(article_id) + ' with name ' + article_name)
+    if request.user.has_perm(Permission.objects.get(codename="edit")):
+        return HttpResponse('You are going to edit article ' + str(article_id) + ' with name ' + article_name)
+    else:
+        return HttpResponse('You do not have permissions to edit this article.')
 
 def delete_article(request, issue_id, article_id, article_name="default"):
-    return HttpResponse('You are going to delete article ' + str(article_id) + ' with name ' + article_name)
+    if request.user.has_perm(Permission.objects.get(codename="edit")):
+        return HttpResponse('You are going to delete article ' + str(article_id) + ' with name ' + article_name)
+    else:
+        return HttpResponse('You do not have permissions to delete ' + article_name)
 
 #photos
 def photos(request):
