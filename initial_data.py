@@ -16,17 +16,21 @@ manage_type = ContentType.objects.get(app_label="auth", model="user")
 manage_perm = Permission(name="manage",content_type=edit_type,codename="manage")
 manage_perm.save()
 
+plastic = Group(name="plastic")
+plastic.save()
+plastic.permissions.add(post_perm)
+
 bronze = Group(name="bronze")
-bronze.save();
+bronze.save()
 bronze.permissions.add(assignment_perm, post_perm)
 
 silver = Group(name="silver")
-silver.save();
+silver.save()
 silver.permissions.add(assignment_perm, post_perm, edit_perm)
 
 gold = Group(name="gold")
-gold.save();
-gold.permissions.add(assignment_perm, post_perm, edit_perm, manage_perm);
+gold.save()
+gold.permissions.add(assignment_perm, post_perm, edit_perm, manage_perm)
 
 kent = User(username="kshikama")
 kent.set_password("tsl")
