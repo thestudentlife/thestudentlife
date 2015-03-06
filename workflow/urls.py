@@ -4,6 +4,7 @@ from workflow import views
 urlpatterns = patterns('',
     url(r'^$',views.home,name='home'),
 
+    url(r'^register/$',views.register,name="register"),
     #issues
     url(r'^articles/issues/$',views.issues,name="issues"),
     url(r'^articles/issue/(?P<issue_id>[0-9]+)/$',views.issue,name="issue"),

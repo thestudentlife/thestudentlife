@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
@@ -8,6 +8,20 @@ from django.core.urlresolvers import reverse
 from django.core.mail import send_mail
 from mainsite.models import Issue
 # Create your views here.
+from workflow.models import RegisterForm
+
+def register(request):
+    if request.method == "POST":
+        registerForm = RegisterForm(request.POST)
+        if registerForm.is_valid():
+            registerForm.save()
+            return HttpResponse('Thanks for registering')
+    else:
+        registerForm = RegisterForm()
+    return render(request, 'register.html', {
+        'form': registerForm
+    })
+
 
 # issues
 def issues(request):
