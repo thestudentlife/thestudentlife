@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from mainsite.models import Section,Article,Author,Photographer
+from mainsite.models import Section,Article,Profile
 
 def home(request):
     return HttpResponse('This is the homepage');
