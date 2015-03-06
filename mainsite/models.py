@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.forms import ModelForm, Textarea, TextInput
 from django.template.defaultfilters import slugify
 from workflow.models import Profile
 
@@ -30,6 +31,20 @@ class Article(models.Model):
 		return self.title
 	def slug(self):
 		return slugify(self.title)
+
+class ArticleForm(ModelForm):
+    class Meta:
+        model = Article
+        fields = ['title','content','section','subsections']
+        widgets = {
+		'title':TextInput(attrs={
+			'required':True
+			}),
+		'content':Textarea(attrs={
+			'required':True
+			}),
+		}
+
 
 class FrontArticle(models.Model):
 	article = models.OneToOneField(Article)
