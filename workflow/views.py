@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login as do_login, logout as do_lo
 from django.db.models import Count
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail
-from workflow.models import Issue
+from mainsite.models import Issue
 # Create your views here.
 
 # issues

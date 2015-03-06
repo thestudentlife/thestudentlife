@@ -93,7 +93,7 @@ class RegisterForm(ModelForm):
 		'last_name':TextInput(attrs={
 			'required':True
 			}),
-		'password': PasswordInput()	(attrs={
+		'password': PasswordInput(attrs={
 			'required':True
 			}),
 		}
