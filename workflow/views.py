@@ -30,20 +30,15 @@ def register(request):
 def login(request):
     if request.method == "POST":
         loginForm = LoginForm(request.POST)
-        if loginForm.is_valid():
-            username = loginForm.cleaned_data['username']
-            password = loginForm.cleaned_data['password']
-            user = authenticate(username=username, password=password)
-            if user:
-                do_login(request,user)
-                return HttpResponse('Welcome')
-            else:
-                return render(request,'register.html',{
-                'form':loginForm
-            })
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user:
+            do_login(request,user)
+            return HttpResponse('Welcome')
         else:
-            return render(request,'register.html',{
-                'form':loginForm
+            return render(request,'login.html',{
+            'form':loginForm
             })
     else:
         loginForm = LoginForm()
