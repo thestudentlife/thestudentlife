@@ -53,46 +53,46 @@ def home(request):
 
 # issues
 def issues(request):
-    if request.user.has_perm(Permission.objects.get(codename="edit")):
+    if request.user.is_authenticated() and request.user.groups.all()[0].permissions.all().filter(codename="edit").exists():
         issues = Issue.objects.all()
         return HttpResponse('These are the issues.')
     else:
         return HttpResponse('You do not have permissions to see the issues.')
 
 def issue(request, issue_id):
-    if request.user.has_perm(Permission.objects.get(codename="edit")):
+    if request.user.is_authenticated() and request.user.groups.all()[0].permissions.all().filter(codename="edit").exists():
         issue = Issue.objects.get(pk=issue_id)
         return HttpResponse('This is issue ' + str(issue_id))
     else:
         return HttpResponse('You do not have permissions to access this particular issue.')
 
 def new_issue(request):
-    if request.user.has_perm(Permission.objects.get(codename="edit")):
+    if request.user.is_authenticated() and request.user.groups.all()[0].permissions.all().filter(codename="edit").exists():
         return HttpResponse('Create a new issue')
     else:
         return HttpResponse('You do not have permissions to create this new issue.')
 
 #articles
 def article(request, issue_id, article_id, article_name="default"):
-    if request.user.has_perm(Permission.objects.get(codename="edit")):
+    if request.user.is_authenticated() and request.user.groups.all()[0].permissions.all().filter(codename="edit").exists():
         return HttpResponse('This is issue ' + str(issue_id) + " and article " + str(article_id) + ' with name ' + article_name)
     else:
         return HttpResponse('You do not have permissions to view ' + article_name + ' in issue ' + str(issue_id))
 
 def new_article(request, issue_id):
-    if request.user.has_perm(Permission.objects.get(codename="edit")):
+    if request.user.is_authenticated() and request.user.groups.all()[0].permissions.all().filter(codename="edit").exists():
         return HttpResponse('Create a new article in issue ' + str(issue_id))
     else:
         return HttpResponse('You do not have permissions to create a new article in issue ' + str(issue_id))
 
 def edit_article(request, issue_id, article_id, article_name="default"):
-    if request.user.has_perm(Permission.objects.get(codename="edit")):
+    if request.user.is_authenticated() and request.user.groups.all()[0].permissions.all().filter(codename="edit").exists():
         return HttpResponse('You are going to edit article ' + str(article_id) + ' with name ' + article_name)
     else:
         return HttpResponse('You do not have permissions to edit this article.')
 
 def delete_article(request, issue_id, article_id, article_name="default"):
-    if request.user.has_perm(Permission.objects.get(codename="edit")):
+    if request.user.is_authenticated() and request.user.groups.all()[0].permissions.all().filter(codename="edit").exists():
         return HttpResponse('You are going to delete article ' + str(article_id) + ' with name ' + article_name)
     else:
         return HttpResponse('You do not have permissions to delete ' + article_name)
