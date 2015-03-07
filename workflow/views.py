@@ -1,5 +1,6 @@
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, render_to_response
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, Permission
 from django.contrib.auth import authenticate, login as do_login, logout as do_logout
@@ -10,6 +11,16 @@ from mainsite.models import Issue
 from workflow.models import Assignment
 # Create your views here.
 from workflow.models import RegisterForm,LoginForm
+from django.contrib.auth.decorators import user_passes_test
+
+def group_required(*group_names):
+    """Requires user membership in at least one of the groups passed in."""
+    def in_groups(u):
+        if u.is_authenticated():
+            if bool(u.groups.filter(name__in=group_names)) | u.is_superuser:
+                return True
+        return False
+    return user_passes_test(in_groups, '/workflow/login')
 
 def register(request):
     if request.method == "POST":
@@ -35,7 +46,11 @@ def login(request):
         user = authenticate(username=username, password=password)
         if user:
             do_login(request,user)
-            return HttpResponse('Welcome')
+            next = request.GET.get('next')
+            if next is None:
+                return HttpResponse('Welcome')
+            else:
+                return HttpResponseRedirect(request.GET['next'])
         else:
             return render(request,'login.html',{
             'form':loginForm
@@ -52,50 +67,37 @@ def home(request):
     return HttpResponse('This should be the latest issue.')
 
 # issues
+@group_required('silver')
 def issues(request):
-    if request.user.is_authenticated() and request.user.groups.all()[0].permissions.all().filter(codename="edit").exists():
-        issues = Issue.objects.all()
-        return HttpResponse('These are the issues.')
-    else:
-        return HttpResponse('You do not have permissions to see the issues.')
+    issues = Issue.objects.all()
+    return HttpResponse('These are the issues.')
 
+@group_required('silver')
 def issue(request, issue_id):
-    if request.user.is_authenticated() and request.user.groups.all()[0].permissions.all().filter(codename="edit").exists():
-        issue = Issue.objects.get(pk=issue_id)
-        return HttpResponse('This is issue ' + str(issue_id))
-    else:
-        return HttpResponse('You do not have permissions to access this particular issue.')
+    issue = Issue.objects.get(pk=issue_id)
+    return HttpResponse('This is issue ' + str(issue_id))
 
+@group_required('silver')
 def new_issue(request):
-    if request.user.is_authenticated() and request.user.groups.all()[0].permissions.all().filter(codename="edit").exists():
-        return HttpResponse('Create a new issue')
-    else:
-        return HttpResponse('You do not have permissions to create this new issue.')
+    return HttpResponse('Create a new issue')
+
 
 #articles
+@group_required('silver')
 def article(request, issue_id, article_id, article_name="default"):
-    if request.user.is_authenticated() and request.user.groups.all()[0].permissions.all().filter(codename="edit").exists():
-        return HttpResponse('This is issue ' + str(issue_id) + " and article " + str(article_id) + ' with name ' + article_name)
-    else:
-        return HttpResponse('You do not have permissions to view ' + article_name + ' in issue ' + str(issue_id))
+    return HttpResponse('This is issue ' + str(issue_id) + " and article " + str(article_id) + ' with name ' + article_name)
 
+@group_required('silver')
 def new_article(request, issue_id):
-    if request.user.is_authenticated() and request.user.groups.all()[0].permissions.all().filter(codename="edit").exists():
-        return HttpResponse('Create a new article in issue ' + str(issue_id))
-    else:
-        return HttpResponse('You do not have permissions to create a new article in issue ' + str(issue_id))
+    return HttpResponse('Create a new article in issue ' + str(issue_id))
 
+@group_required('silver')
 def edit_article(request, issue_id, article_id, article_name="default"):
-    if request.user.is_authenticated() and request.user.groups.all()[0].permissions.all().filter(codename="edit").exists():
-        return HttpResponse('You are going to edit article ' + str(article_id) + ' with name ' + article_name)
-    else:
-        return HttpResponse('You do not have permissions to edit this article.')
+    return HttpResponse('You are going to edit article ' + str(article_id) + ' with name ' + article_name)
 
+@group_required('silver')
 def delete_article(request, issue_id, article_id, article_name="default"):
-    if request.user.is_authenticated() and request.user.groups.all()[0].permissions.all().filter(codename="edit").exists():
-        return HttpResponse('You are going to delete article ' + str(article_id) + ' with name ' + article_name)
-    else:
-        return HttpResponse('You do not have permissions to delete ' + article_name)
+    return HttpResponse('You are going to delete article ' + str(article_id) + ' with name ' + article_name)
 
 #photos
 def photos(request):

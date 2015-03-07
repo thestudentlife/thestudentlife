@@ -14,9 +14,4 @@ latina = Group.objects.all()[3].user_set.all()[2]
 print("username for latina: " + latina.username)
 print("password for latina: " + latina.password)
 
-goldPermissions = Group.objects.all()[3].permissions.all()
-print("Gold Permissions:")
-for index, permission in enumerate(goldPermissions):
-    print("Gold Permission " + str(index) + ": " + permission.name)
-
 print("End test")
