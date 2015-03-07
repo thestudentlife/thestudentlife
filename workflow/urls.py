@@ -34,7 +34,7 @@ urlpatterns = patterns('',
     url(r'^assignments/(?P<assignment_id>[0-9]+)/$',views.assignment,name="assignment"),
     url(r'^assignments/new/$',views.new_assignment,name="new_assignment"),
     url(r'^assignments/(?P<assignment_id>[0-9]+)/edit/$',views.edit_assignment,name="edit_assignment"),
-    url(r'^assignments/receiver/(?P<maker_id>[0-9]+)$',views.filter_by_receiver,name="filter_by_receiver"),
+    url(r'^assignments/receiver/(?P<profile_id>[0-9]+)$',views.filter_by_receiver,name="filter_by_receiver"),
     url(r'^assignments/section/(?P<section_name>[a-z]+)$',views.filter_by_section,name="filter_by_section"),
     url(r'^assignments/type/(?P<type_name>[a-z]+)$',views.filter_by_type,name="filter_by_type"),
 )

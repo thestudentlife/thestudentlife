@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import permission_required, login_required
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -14,7 +14,6 @@ from workflow.models import RegisterForm,LoginForm
 from django.contrib.auth.decorators import user_passes_test
 
 def group_required(*group_names):
-    """Requires user membership in at least one of the groups passed in."""
     def in_groups(u):
         if u.is_authenticated():
             if bool(u.groups.filter(name__in=group_names)) | u.is_superuser:
@@ -87,7 +86,7 @@ def new_issue(request):
 def article(request, issue_id, article_id, article_name="default"):
     return HttpResponse('This is issue ' + str(issue_id) + " and article " + str(article_id) + ' with name ' + article_name)
 
-@group_required('silver')
+@login_required(login_url='/workflow/login/')
 def new_article(request, issue_id):
     return HttpResponse('Create a new article in issue ' + str(issue_id))
 
@@ -100,36 +99,47 @@ def delete_article(request, issue_id, article_id, article_name="default"):
     return HttpResponse('You are going to delete article ' + str(article_id) + ' with name ' + article_name)
 
 #photos
+@group_required('silver')
 def photos(request):
     return HttpResponse('These are the photos.')
 
+@group_required('bronze')
 def photo(request, photo_id):
     return HttpResponse('This is photo ' + str(photo_id))
 
+@group_required('bronze')
 def new_photo(request):
     return HttpResponse('Create a new photo')
 
+@group_required('bronze')
 def edit_photo(request, photo_id):
     return HttpResponse('You are going to edit photo ' + str(photo_id))
 
 #assignments
+@group_required('bronze')
 def assignments(request):
     return HttpResponse('This should return all the assignments')
 
+@group_required('bronze')
 def assignment(request, assignment_id):
     return HttpResponse('This is assignment ' + str(assignment_id))
 
+@group_required('silver')
 def new_assignment(request):
     return HttpResponse('Create a new assignment')
 
+@group_required('silver')
 def edit_assignment(request, assignment_id):
     return HttpResponse('You are going to edit assignment ' + str(assignment_id))
 
-def filter_by_receiver(request, maker_id):
-    return HttpResponse('The assignments of the maker ' + str(maker_id))
+@group_required('bronze')
+def filter_by_receiver(request, profile_id):
+    return HttpResponse('The assignments of the profile ' + str(profile_id))
 
+@group_required('bronze')
 def filter_by_section(request, section_name):
     return HttpResponse('The assignments of the section ' + str(section_name))
 
+@group_required('bronze')
 def filter_by_type(request, type_name):
     return HttpResponse('The assignments of the type ' + str(type_name))
