@@ -23,7 +23,7 @@ class Article(models.Model):
 	content = models.TextField()
 	section = models.ForeignKey(Section,related_name='articles')
 	issue= models.ForeignKey(Issue)
-	subsections = models.ManyToManyField(Subsection,blank=True)
+	subsections = models.ManyToManyField(Subsection,null=True)
 	authors = models.ManyToManyField(Profile)
 	published_date = models.DateTimeField(default = timezone.now)
 	updated_date = models.DateTimeField(default = timezone.now)
