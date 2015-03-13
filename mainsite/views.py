@@ -7,7 +7,7 @@ def home(request):
 
 def section(request, section_name):
     articles = Section.objects.get(name = section_name).articles;
-    return HttpResponse('This is a section ' + section_name);
+    return render(request,{"articles":articles});
 
 def article(request, section_name, article_id, article_name='default'):
     article = Article.objects.get(pk=article_id);

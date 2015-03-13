@@ -12,7 +12,7 @@ from workflow.models import Assignment
 # Create your views here.
 from workflow.models import RegisterForm,LoginForm
 from django.contrib.auth.decorators import user_passes_test
-from mainsite.models import Article, Author
+from mainsite.models import Article, Profile
 
 def group_required(*group_names):
     def in_groups(u):
@@ -84,7 +84,7 @@ def new_issue(request):
 
 #articles
 def article_by_author(request,author_id):
-    author = Author.objects.get(id=author_id)
+    author = Profile.objects.get(id=author_id)
     articles = Article.objects.filter(author=author)
 
 @group_required('silver')
