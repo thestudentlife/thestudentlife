@@ -11,7 +11,8 @@ class Profile(models.Model):
         ('copy_editor','Copy Editor'),
         ('photographer','Photographer'),
         ('author','Author'),
-        ('graphic_designer','Graphic Designer')
+        ('graphic_designer','Graphic Designer'),
+        ('web_developer','Web Developer'),
         )
     position = models.CharField(choices=POSITIONS_CHOICES,max_length=50,default='Editor')
     def slug(self):
