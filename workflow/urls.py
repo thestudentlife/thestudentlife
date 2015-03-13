@@ -24,6 +24,7 @@ urlpatterns = patterns('',
     	views.delete_article,name='delete_article'),
     url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<article_id>[0-9]+)/delete/$',
         views.delete_article,name='delete_article'),
+    url(r'^articles/author/(?P<author_id>\d+)/$',views.article_by_author,name='article_by_author'),
 	#photos
 	url(r'^photos/$',views.photos,name="photos"),
 	url(r'^photos/(?P<photo_id>[0-9]+)/$',views.photo,name="photo"),
