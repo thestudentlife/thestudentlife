@@ -22,7 +22,7 @@ zq = User(username="zxiong")
 zq.set_password("tsl")
 zq.save()
 zq.groups.add(gold, silver, bronze, plastic)
-zq_profile = Profile(user=zq,position="author")
+zq_profile = Profile(user=zq,position="photographer")
 zq_profile.save();
 
 latina = User(username="vlatina")
@@ -38,14 +38,6 @@ news.save();
 sports = Section(name="sports")
 sports.save();
 
-
-#zq_profile = Profile.objects.filter(user=zq)
-#article = Article(title="Latina configures git!",
-                   #content="She got a new copy of our repository! Yeah~",
-                   #section=news,
-                   #authors=zq_profile,
-                   #issue=issue)
-#article.save();
 zq.profile.article_set.create(title="Latina configures git!",
                    content="She got a new copy of our repository! Yeah~",
                    section=news,

@@ -1,18 +1,15 @@
-from django.contrib.auth.decorators import permission_required, login_required
-from django.shortcuts import render, render_to_response
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
-from django.contrib.auth.models import User, Permission
 from django.contrib.auth import authenticate, login as do_login, logout as do_logout
+from django.contrib.auth.decorators import permission_required, login_required, user_passes_test
+from django.contrib.auth.models import User, Permission
+
+from django.shortcuts import render, render_to_response, redirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Count
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail
-from mainsite.models import Issue
-from workflow.models import Assignment
-# Create your views here.
-from workflow.models import RegisterForm,LoginForm
-from django.contrib.auth.decorators import user_passes_test
-from mainsite.models import Article, Profile
+
+from mainsite.models import Issue, Article, Profile
+from workflow.models import Assignment, RegisterForm, LoginForm
 
 def group_required(*group_names):
     def in_groups(u):
@@ -60,7 +57,6 @@ def login(request):
         return render(request,'login.html',{
             'form': loginForm
         })
-
 
 def home(request):
     issue = Issue.objects.all()[:1].get()
