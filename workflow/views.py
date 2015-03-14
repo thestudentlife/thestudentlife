@@ -10,9 +10,10 @@ from django.core.mail import send_mail
 from mainsite.models import Issue
 from workflow.models import Assignment
 # Create your views here.
-from workflow.models import RegisterForm,LoginForm
+from workflow.models import RegisterForm,LoginForm, Profile
 from django.contrib.auth.decorators import user_passes_test
-from mainsite.models import Article, Profile
+from mainsite.models import Article, Section
+from django.template.loader import render_to_string
 
 def group_required(*group_names):
     def in_groups(u):
@@ -75,7 +76,9 @@ def issues(request):
 @group_required('silver')
 def issue(request, issue_id):
     issue = Issue.objects.get(pk=issue_id)
-    return HttpResponse('This is issue ' + str(issue_id))
+    sections = Section.objects.all()
+    articles = Article.objects.filter(issue=issue)
+    return render(request,'issue.html',{'issue':issue,'sections':sections,'articles':articles})
 
 @group_required('silver')
 def new_issue(request):
@@ -102,6 +105,11 @@ def edit_article(request, issue_id, article_id, article_name="default"):
 @group_required('silver')
 def delete_article(request, issue_id, article_id, article_name="default"):
     return HttpResponse('You are going to delete article ' + str(article_id) + ' with name ' + article_name)
+
+def article_xml(request,article_id):
+    article = Article.objects.get(id=article_id)
+    data = render_to_string('article_xml.xml',{'article':article})
+    return HttpResponse(data,content_type='application/xml')
 
 #photos
 @group_required('silver')
@@ -148,3 +156,4 @@ def filter_by_section(request, section_name):
 @group_required('bronze')
 def filter_by_type(request, type_name):
     return HttpResponse('The assignments of the type ' + str(type_name))
+

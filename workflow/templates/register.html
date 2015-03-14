@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% extends 'base.html' %}
 
-</head>
-<body>
+{% block body_block %}
 <form method="POST" action="">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Submit" />
 </form>
-</body>
-</html>
+{% endblock %}
