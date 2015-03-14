@@ -3,7 +3,7 @@
         <h1 class="article_title">{{ article.title }}</h1>
         <h2 class="article_category">{{ article.section }}</h2>
         <h2 class="article_authors">
-            {%   for author in article.authors %}
+            {%   for author in article.authors.all %}
                 <span class="article_author">{{ author.display_name }}</span>
             {% endfor % %}
         </h2>
