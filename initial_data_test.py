@@ -31,7 +31,7 @@ for section in sections:
 articles = Article.objects.all()
 for article in articles:
     print("article title: "+article.title)
-    print("article author: "+article.author.user.username)
+    print("article author: "+article.authors.all()[0].user.username)
     print("article content: "+article.content)
 
 print("End test")
