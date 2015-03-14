@@ -66,8 +66,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('date', models.DateTimeField(default=django.utils.timezone.now)),
-                ('image', models.ImageField(upload_to='media/uploads/')),
-                ('caption', models.TextField(blank=True, max_length=500)),
+                ('image', models.ImageField(upload_to=b'photo/')),
+                ('caption', models.TextField(max_length=500, blank=True)),
             ],
             options={
             },
