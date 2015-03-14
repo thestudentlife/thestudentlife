@@ -17,9 +17,11 @@ def article(request, section_name, article_id, article_name='default'):
 def person(request, person_id, person_name='ZQ'):
     person = Profile.objects.get(pk=person_id);
     if person.position=="author":
-        articles = Article.objects.filter(author=person);
-    if person.position=="photographer" or "graphic_designer":
-        photos = Article.objects.filter(photographers=person);
+        articles = person.article_set.all();
+        print(articles)
+    if person.position=="photographer" or person.position=="graphic_designer":
+        photos = person.credit_set.all();
+        print(photos)
     return HttpResponse('This is author ' + str(person_id) + ' with name ' + person_name);
 
 def staff(request):
