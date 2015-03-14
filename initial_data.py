@@ -22,7 +22,7 @@ zq = User(username="zxiong")
 zq.set_password("tsl")
 zq.save()
 zq.groups.add(gold, silver, bronze, plastic)
-zq_profile = Profile(user=zq,position="web_developer")
+zq_profile = Profile(user=zq,position="author")
 zq_profile.save();
 
 latina = User(username="vlatina")
