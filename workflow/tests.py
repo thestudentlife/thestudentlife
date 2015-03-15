@@ -53,7 +53,7 @@ class WorkflowModels(TestCase):
         response = client.post('/workflow/assignments/new/',
                                {'title': 'Take photo of Oldenborg',
                                 'content': 'Go into Oldenborg during lunch, and take a picture of their apples',
-                                'section': 1, 'type': 'photo_assignment', 'receiver': 1,
+                                'section': 1, 'type': 'photo', 'receiver': 1,
                                 'due_date': '03/11/2011'})
         self.assertEqual("Thanks for assignment", response.content)
 
