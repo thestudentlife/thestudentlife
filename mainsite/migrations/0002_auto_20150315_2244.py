@@ -7,8 +7,8 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('workflow', '0001_initial'),
         ('mainsite', '0001_initial'),
+        ('workflow', '0001_initial'),
     ]
 
     operations = [
@@ -51,7 +51,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='article',
             name='subsections',
-            field=models.ManyToManyField(null=True, to='mainsite.Subsection'),
+            field=models.ManyToManyField(to='mainsite.Subsection', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
