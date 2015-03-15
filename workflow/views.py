@@ -80,10 +80,6 @@ def new_issue(request):
 
 
 #articles
-def article_by_author(request,author_id):
-    author = Profile.objects.get(id=author_id)
-    articles = Article.objects.filter(author=author)
-
 @group_required('silver')
 def article(request, issue_id, article_id, article_name="default"):
     return HttpResponse('This is issue ' + str(issue_id) + " and article " + str(article_id) + ' with name ' + article_name)
