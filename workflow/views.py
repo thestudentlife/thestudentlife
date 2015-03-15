@@ -1,15 +1,13 @@
 from django.contrib.auth import authenticate, login as do_login, logout as do_logout
 from django.contrib.auth.decorators import permission_required, login_required, user_passes_test
 from django.contrib.auth.models import User, Permission
-
+from django.template.loader import render_to_string
 from django.shortcuts import render, render_to_response, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Count
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail
-from django.template.loader import render_to_string
-
-from mainsite.models import Issue, Article, Profile, Section
+from mainsite.models import Issue, Article, Section, Profile
 from workflow.models import Assignment, RegisterForm, LoginForm
 
 def group_required(*group_names):
@@ -134,7 +132,7 @@ def assignments(request):
 @group_required('bronze')
 def assignment(request, assignment_id):
     assignment = Assignment.objects.get(id=assignment_id)
-    return render(request,'assignment.html')
+    return render(request,'assignment.html',{'assignment':assignment})
 
 @group_required('silver')
 def new_assignment(request):
