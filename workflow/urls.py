@@ -1,4 +1,6 @@
 from django.conf.urls import patterns, include, url
+from django.contrib.auth.decorators import login_required
+from mainsite.models import PhotoCreateView
 from workflow import views
 
 urlpatterns = patterns('',
@@ -31,6 +33,8 @@ urlpatterns = patterns('',
 	url(r'^photos/(?P<photo_id>[0-9]+)/$',views.photo,name="photo"),
 	url(r'^photos/new/',views.new_photo,name="new_photo"),
 	url(r'^photos/(?P<photo_id>[0-9]+)/edit/',views.edit_photo,name="edit_photo"),
+    url(r'^photos/upload/', login_required(PhotoCreateView.as_view()), name="upload_photo"),
+
     #assignments
     url(r'^assignments/$',views.assignments,name="assignments"),
     url(r'^assignments/(?P<assignment_id>[0-9]+)/$',views.assignment,name="assignment"),

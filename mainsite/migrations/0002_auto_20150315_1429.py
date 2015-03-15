@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='article',
             name='section',
-            field=models.ForeignKey(to='mainsite.Section', related_name='articles'),
+            field=models.ForeignKey(related_name='articles', to='mainsite.Section'),
             preserve_default=True,
         ),
         migrations.AddField(
