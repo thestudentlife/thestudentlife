@@ -10,4 +10,4 @@ touch workflow/migrations/__init__.py;
 python manage.py makemigrations;
 python manage.py migrate;
 python manage.py shell < website/initial_data.py;
-python manage.py shell < website/initial_data_test.py;
+python manage.py test
