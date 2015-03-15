@@ -49,13 +49,12 @@ class WorkflowModels(TestCase):
     def test_assignment_creation(self):
         client = Client()
         response = client.post('/workflow/login/', {'username': 'zxiong', 'password': 'tsl'})
-        self.assertEqual("Welcome", response.content)
         response = client.post('/workflow/assignments/new/',
                                {'title': 'Take photo of Oldenborg',
                                 'content': 'Go into Oldenborg during lunch, and take a picture of their apples',
                                 'section': 1, 'type': 'photo', 'receiver': 1,
                                 'due_date': '03/11/2011'})
-        self.assertEqual("Thanks for assignment", response.content)
+        self.assertEqual(b"Thanks for assignment",response.content)
 
     def print_assignments(self):
         assignments = Assignment.objects.all()

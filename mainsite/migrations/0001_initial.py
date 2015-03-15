@@ -14,11 +14,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Album',
             fields=[
-<<<<<<< HEAD
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-=======
-                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
->>>>>>> e49c23bf1566fb26e60209ed719bd2c9da909757
+                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
             ],
             options={
             },
@@ -27,11 +23,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Article',
             fields=[
-<<<<<<< HEAD
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-=======
-                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
->>>>>>> e49c23bf1566fb26e60209ed719bd2c9da909757
+                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
                 ('title', models.CharField(max_length=200)),
                 ('content', models.TextField()),
                 ('published_date', models.DateTimeField(default=django.utils.timezone.now)),
@@ -44,11 +36,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CarouselArticle',
             fields=[
-<<<<<<< HEAD
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-=======
-                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
->>>>>>> e49c23bf1566fb26e60209ed719bd2c9da909757
+                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
             ],
             options={
             },
@@ -57,11 +45,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='FrontArticle',
             fields=[
-<<<<<<< HEAD
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-=======
-                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
->>>>>>> e49c23bf1566fb26e60209ed719bd2c9da909757
+                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
             ],
             options={
             },
@@ -70,11 +54,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Issue',
             fields=[
-<<<<<<< HEAD
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-=======
-                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
->>>>>>> e49c23bf1566fb26e60209ed719bd2c9da909757
+                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
                 ('name', models.CharField(max_length=200)),
             ],
             options={
@@ -84,16 +64,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Photo',
             fields=[
-<<<<<<< HEAD
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('date', models.DateTimeField(default=django.utils.timezone.now)),
-                ('image', models.ImageField(upload_to=b'photo/')),
-=======
-                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
                 ('date', models.DateTimeField(default=django.utils.timezone.now)),
                 ('image', models.ImageField(upload_to='photo/')),
->>>>>>> e49c23bf1566fb26e60209ed719bd2c9da909757
-                ('caption', models.TextField(max_length=500, blank=True)),
+                ('caption', models.TextField(blank=True, max_length=500)),
             ],
             options={
             },
@@ -102,11 +76,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Section',
             fields=[
-<<<<<<< HEAD
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-=======
-                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
->>>>>>> e49c23bf1566fb26e60209ed719bd2c9da909757
+                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
                 ('name', models.CharField(max_length=50)),
             ],
             options={
@@ -116,11 +86,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Subsection',
             fields=[
-<<<<<<< HEAD
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-=======
-                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
->>>>>>> e49c23bf1566fb26e60209ed719bd2c9da909757
+                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
                 ('name', models.CharField(max_length=50)),
             ],
             options={
