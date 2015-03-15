@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
-from django.forms import ModelForm,EmailInput,TextInput,Textarea,PasswordInput
+from django.forms import ModelForm,EmailInput,TextInput,Textarea,PasswordInput, CharField,DateField
 from django.template.defaultfilters import slugify
 
 class Profile(models.Model):
@@ -50,7 +50,7 @@ class Assignment(models.Model):
         ('article_assignment','Article Assignment')
     )
     sender = models.ForeignKey(Profile,related_name="assignment_created")
-    receiver = models.ForeignKey(Profile,default=None,related_name="assignment_received")
+    receiver = models.ForeignKey(Profile,related_name="assignment_received",null=True)
     title = models.CharField(max_length=200)
     type = models.CharField(choices=TYPES_CHOICES,max_length=50,default='photo_assignment')
     content = models.TextField(blank=True)
@@ -69,9 +69,7 @@ class Assignment(models.Model):
     def __str__(self):
         return self.title
 
-class AssignmentForm(models.Model):
-    class meta:
-        fields = ['title','content','section','type','due_date']
+
 
 class LoginForm(ModelForm):
     class Meta:

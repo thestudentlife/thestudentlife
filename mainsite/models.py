@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.forms import ModelForm, Textarea, TextInput
 from django.template.defaultfilters import slugify
 from django.views.generic import CreateView
-from workflow.models import Profile
+from workflow.models import Profile, Assignment
 
 class Section(models.Model):
     name = models.CharField(max_length=50)
@@ -85,7 +85,15 @@ class Album(models.Model):
         return self.article.title
 
 
-
+class AssignmentForm(ModelForm):
+    class Meta:
+        model = Assignment
+        fields = ['title','content','section','type','due_date']
+        widgets = {
+            'due_date':TextInput(attrs={
+            'type':'date',
+        })
+        }
 
 
 
