@@ -6,12 +6,15 @@ from workflow import views
 urlpatterns = patterns('',
     url(r'^$',views.home,name='home'),
 
+    #login/register
     url(r'^register/$',views.register,name="register"),
     url(r'^login/$',views.login,name="login"),
+
     #issues
     url(r'^articles/issues/$',views.issues,name="issues"),
     url(r'^articles/issue/(?P<issue_id>[0-9]+)/$',views.issue,name="issue"),
     url(r'^articles/issue/new/$',views.new_issue,name="new_issue"),
+
     #articles
     url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<article_id>[0-9]+)/(?P<article_name>[^/]+)/$',
     	views.article,name='article'),
@@ -28,6 +31,7 @@ urlpatterns = patterns('',
         views.delete_article,name='delete_article'),
     url(r'^articles/author/(?P<author_id>\d+)/$',views.article_by_author,name='article_by_author'),
     url(r'^articles/xml/(?P<article_id>\d+)',views.article_xml,name="article_xml"),
+
 	#photos
 	url(r'^photos/$',views.photos,name="photos"),
 	url(r'^photos/(?P<photo_id>[0-9]+)/$',views.photo,name="photo"),
