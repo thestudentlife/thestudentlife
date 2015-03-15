@@ -1,0 +1,152 @@
+@import url(http://fonts.googleapis.com/css?family=Inconsolata);
+@import url(http://fonts.googleapis.com/css?family=Merriweather:400,700,300,900);
+
+*{
+    margin:0;
+    padding:0;
+}
+body{
+    background:#000;
+    font-family:Merriweather, serif;
+    font-size: 34px;
+    letter-spacing:-1px;
+}
+/* 12-column responsive grid */
+
+.row {
+    clear: both;
+    max-width: 1040px;
+    margin: 0 auto;
+	padding-bottom:10px;
+	padding-top: 10px;
+}
+
+[class^="col-"] {
+    float: left;
+    margin: 0 3.84615384615% 0 0;
+    list-style: none;
+    position: relative;
+}
+
+[class^="col-"]:last-child {
+    margin: 0;
+}
+
+.col-1 { width: 4.8076923077% }
+.col-2 { width: 13.4615384615% }
+.col-3 { width: 22.1153846154% }
+.col-4 { width: 30.7692307692% }
+.col-5 { width: 39.4230769231% }
+.col-6 { width: 48.0769230769% }
+.col-7 { width: 56.7307692308% }
+.col-8 { width: 65.3846153846% }
+.col-9 { width: 74.0384615385% }
+.col-10 { width: 82.6923076923% }
+.col-11 { width: 91.3461538462% }
+.col-12 { width: 100%; margin: 0 }
+
+/*end grid */
+
+
+
+.tile{
+	background: seagreen;
+	height: 150px;
+}
+
+/* Carousel */
+
+.slider {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background: pink;
+
+}
+
+.slide {
+  background: seagreen;
+  background-size: cover;
+  display: none;
+  position: absolute;
+  top: 20%;
+
+}
+
+.active-slide {
+    display: block;
+}
+
+.slider-nav {
+  text-align: center;
+  margin-top: 60px;
+  z-index: 2;
+  position: absolute;
+}
+
+
+/*links*/
+
+.slider-nav a:link {
+  text-decoration: none;
+  color: red;
+  background-color: #ffffff;
+}
+
+.slider-nav a:hover {
+  text-decoration: none;
+  background-color: #FF704D;
+}
+
+.slider-nav a:active {
+  text-decoration: none;
+  background-color: #FF704D;
+}
+
+.slider-nav a:visited {
+  text-decoration: none;
+  color: red;
+  background-color: #B2FF99;
+}
+
+.arrow-prev {
+  margin-right: 45px;
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 9px;
+}
+
+.arrow-home {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 9px;
+}
+
+.arrow-next {
+  margin-left: 45px;
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 9px;
+}
+
+div p a:link {
+	font-size: 20px;
+    text-decoration: none;
+	background-color: #ffffff;
+}
+
+div p a:visited {
+    text-decoration: none;
+}
+
+div p a:hover {
+    text-decoration: none;
+	background-color:#fffff0;
+}
+
+div p a:active {
+    text-decoration: underline;
+}
+
+
