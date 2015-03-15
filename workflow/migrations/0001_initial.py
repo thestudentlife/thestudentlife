@@ -17,9 +17,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Assignment',
             fields=[
+<<<<<<< HEAD
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('title', models.CharField(max_length=200)),
+                ('type', models.CharField(default=b'photo_assignment', max_length=50, choices=[(b'photo_assignment', b'Photo Assignment'), (b'article_assignment', b'Article Assignment')])),
+=======
                 ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
                 ('title', models.CharField(max_length=200)),
                 ('type', models.CharField(max_length=50, default='photo_assignment', choices=[('photo_assignment', 'Photo Assignment'), ('article_assignment', 'Article Assignment')])),
+>>>>>>> e49c23bf1566fb26e60209ed719bd2c9da909757
                 ('content', models.TextField(blank=True)),
                 ('created_date', models.DateTimeField(default=django.utils.timezone.now)),
                 ('due_date', models.DateTimeField(default=django.utils.timezone.now)),
@@ -29,10 +35,26 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
+<<<<<<< HEAD
+            name='AssignmentForm',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Profile',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('position', models.CharField(default=b'Editor', max_length=50, choices=[(b'chief_editor', b'Chief Editor'), (b'copy_editor', b'Copy Editor'), (b'photographer', b'Photographer'), (b'author', b'Author'), (b'graphic_designer', b'Graphic Designer'), (b'web_developer', b'Web Developer')])),
+=======
             name='Profile',
             fields=[
                 ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
                 ('position', models.CharField(max_length=50, default='Editor', choices=[('chief_editor', 'Chief Editor'), ('copy_editor', 'Copy Editor'), ('photographer', 'Photographer'), ('author', 'Author'), ('graphic_designer', 'Graphic Designer'), ('web_developer', 'Web Developer')])),
+>>>>>>> e49c23bf1566fb26e60209ed719bd2c9da909757
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
             ],
             options={
@@ -42,7 +64,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Review',
             fields=[
+<<<<<<< HEAD
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+=======
                 ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
+>>>>>>> e49c23bf1566fb26e60209ed719bd2c9da909757
                 ('date', models.DateTimeField(default=django.utils.timezone.now)),
                 ('reviewer', models.CharField(max_length=50)),
                 ('comment', models.TextField(blank=True)),
@@ -55,7 +81,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Revision',
             fields=[
+<<<<<<< HEAD
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+=======
                 ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
+>>>>>>> e49c23bf1566fb26e60209ed719bd2c9da909757
                 ('date', models.DateTimeField(default=django.utils.timezone.now)),
                 ('body', models.TextField()),
                 ('article', models.ForeignKey(to='mainsite.Article')),
@@ -68,11 +98,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='WArticle',
             fields=[
+<<<<<<< HEAD
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+=======
                 ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
+>>>>>>> e49c23bf1566fb26e60209ed719bd2c9da909757
                 ('date', models.DateTimeField(default=django.utils.timezone.now)),
                 ('status', models.TextField()),
                 ('article', models.OneToOneField(to='mainsite.Article')),
-                ('locker', models.ForeignKey(blank=True, to=settings.AUTH_USER_MODEL)),
+                ('locker', models.ForeignKey(to=settings.AUTH_USER_MODEL, blank=True)),
             ],
             options={
             },
@@ -81,7 +115,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='assignment',
             name='receiver',
+<<<<<<< HEAD
+            field=models.ForeignKey(related_name='assignment_received', default=None, to='workflow.Profile'),
+=======
             field=models.ForeignKey(related_name='assignment_received', to='workflow.Profile', null=True),
+>>>>>>> e49c23bf1566fb26e60209ed719bd2c9da909757
             preserve_default=True,
         ),
         migrations.AddField(
