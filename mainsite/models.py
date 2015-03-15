@@ -88,7 +88,7 @@ class Album(models.Model):
 class AssignmentForm(ModelForm):
     class Meta:
         model = Assignment
-        fields = ['title','content','section','type','due_date']
+        fields = ['title','content','section','type','receiver','due_date']
         widgets = {
             'due_date':TextInput(attrs={
             'type':'date',

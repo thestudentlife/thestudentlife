@@ -151,11 +151,26 @@ def new_assignment(request):
 
 @group_required('silver')
 def edit_assignment(request, assignment_id):
-    return HttpResponse('You are going to edit assignment ' + str(assignment_id))
+    assignment = Assignment.objects.get(id=assignment_id)
+    if request.method == 'GET':
+        form = AssignmentForm(instance=assignment)
+        return render(request,'new_assignment.html',{
+            'form':form
+        })
+    else:
+        form = AssignmentForm(request.POST,instance=assignment)
+        if form.is_valid():
+            assignment = form.save()
+            return redirect(reverse("assignments"))
+        return render(request,'new_assignment.html',{
+                      'form':form
+                })
 
 @group_required('bronze')
 def filter_by_receiver(request, profile_id):
-    return HttpResponse('The assignments of the profile ' + str(profile_id))
+    profile = Profile.objects.get(id=profile_id)
+    assignments = Assignment.objects.filter(receiver=profile)
+    return render(request,'assignments.html',{'assignments':assignments})
 
 @group_required('bronze')
 def filter_by_section(request, section_name):

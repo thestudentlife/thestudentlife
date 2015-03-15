@@ -20,7 +20,7 @@ class Profile(models.Model):
     def display_name(self):
         return self.user.first_name+" "+self.user.last_name
     def __str__(self):
-        return self.display_name()+"'profile"
+        return self.user.username
 
 class WArticle(models.Model):
     date = models.DateTimeField(default = timezone.now)
