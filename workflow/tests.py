@@ -41,7 +41,7 @@ class WorkflowModels(TestCase):
     def test_photo_upload(self):
         client = Client()
         response = client.post('/workflow/login/', {'username': 'zxiong', 'password': 'tsl'})
-        self.assertEqual("Welcome", response.content)
+        self.assertEqual(200, response.status_code)
         with open(ENV_PATH + '/test_upload_file.jpg') as image:
             response = client.post('/workflow/photos/upload/', {'caption': 'water image', 'image': image}, follow=True)
         self.assertEqual("This is the homepage", response.content)
