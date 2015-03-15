@@ -22,10 +22,6 @@ def person(request, person_id, person_name='ZQ'):
         photographs = person.photo_set.all();
         return render(request,'photographer.html',{"photographs": photographs});
 
-def article_by_author(request,author_id):
-    author = Profile.objects.get(id=author_id)
-    articles = Article.objects.filter(author=author)
-
 def staff(request):
     return HttpResponse('Staff page');
 
