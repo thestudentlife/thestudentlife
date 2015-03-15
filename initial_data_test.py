@@ -2,7 +2,7 @@ import django
 django.setup()
 from django.contrib.auth.models import Permission, User, Group, ContentType
 from mainsite.models import Issue,Section, Article
-from workflow.models import Profile
+from workflow.models import Profile, Assignment
 
 kent = Group.objects.all()[3].user_set.all()[0]
 print("username for kent: " + kent.username)
@@ -33,5 +33,12 @@ for article in articles:
     print("article title: "+article.title)
     print("article author: "+article.authors.all()[0].user.username)
     print("article content: "+article.content)
+
+assignments = Assignment.objects.all()
+for assignment in assignments:
+    print("assignment title: "+assignment.title)
+    print("assignment content: "+assignment.content)
+    print("assignment sender: " +assignment.sender.user.username)
+    print("assignment.recipient: "+assignment.receiver.user.username)
 
 print("End test")

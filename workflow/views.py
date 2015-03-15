@@ -131,11 +131,13 @@ def edit_photo(request, photo_id):
 #assignments
 @group_required('bronze')
 def assignments(request):
-    return HttpResponse('This should return all the assignments')
+    assignments = Assignment.objects.all()
+    return render(request,'assignments.html',{'assignments':assignments})
 
 @group_required('bronze')
 def assignment(request, assignment_id):
-    return HttpResponse('This is assignment ' + str(assignment_id))
+    assignment = Assignment.objects.get(id=assignment_id)
+    return render(request,'assignment.html')
 
 @group_required('silver')
 def new_assignment(request):

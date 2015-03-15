@@ -49,16 +49,25 @@ class Assignment(models.Model):
         ('photo_assignment','Photo Assignment'),
         ('article_assignment','Article Assignment')
     )
-    sender = models.ForeignKey(Profile,related_name="sender")
-    receiver = models.ForeignKey(Profile,default=None,related_name="receiver")
+    sender = models.ForeignKey(Profile,related_name="assignment_created")
+    receiver = models.ForeignKey(Profile,default=None,related_name="assignment_received")
     title = models.CharField(max_length=200)
     type = models.CharField(choices=TYPES_CHOICES,max_length=50,default='photo_assignment')
-    content = models.TextField()
+    content = models.TextField(blank=True)
     section = models.ForeignKey('mainsite.Section')
     created_date = models.DateTimeField(default = timezone.now)
-    due_date = models.DateTimeField()
+    due_date = models.DateTimeField(default = timezone.now)
     response_article = models.ForeignKey('mainsite.Article',related_name="assignment",null=True)
     response_photo = models.ForeignKey('mainsite.Photo',related_name="assignment",null=True)
+    def progress(self):
+        if self.response_article is not None or self.response_photo is not None:
+            return "finished"
+        elif self.receiver is not None:
+            return "in progress"
+        else:
+            return "not started"
+    def __str__(self):
+        return self.title
 
 class AssignmentForm(models.Model):
     class meta:

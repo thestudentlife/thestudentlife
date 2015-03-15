@@ -51,7 +51,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='article',
             name='subsections',
-            field=models.ManyToManyField(to='mainsite.Subsection', null=True),
+            field=models.ManyToManyField(null=True, to='mainsite.Subsection'),
             preserve_default=True,
         ),
         migrations.AddField(

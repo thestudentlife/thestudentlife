@@ -2,10 +2,12 @@
 
 {% block body_block %}
 <div class="articles_block">
+<ul class="article_ls"></ul>
     {% for article in articles %}
         <li class="article_item">
             {% include 'short_article_partial.html' %}
         </li>
     {% endfor %}
+</ul>
 </div>
 {% endblock %}

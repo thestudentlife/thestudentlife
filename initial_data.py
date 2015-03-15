@@ -1,6 +1,6 @@
 from django.contrib.auth.models import Permission, User, Group, ContentType
 from mainsite.models import Issue, Article, Section
-from workflow.models import Profile
+from workflow.models import Profile, Assignment
 plastic = Group(name="plastic")
 plastic.save()
 
@@ -17,6 +17,8 @@ kent = User(username="kshikama")
 kent.set_password("tsl")
 kent.save()
 kent.groups.add(gold, silver, bronze, plastic)
+kent_profile = Profile(user=kent,position="author")
+kent_profile.save();
 
 zq = User(username="zxiong")
 zq.set_password("tsl")
@@ -50,3 +52,7 @@ zq.profile.article_set.create(title="Latina configures git!",
                    content="She got a new copy of our repository! Yeah~",
                    section=news,
                    issue=issue)
+
+assignment1 = Assignment(sender=zq_profile,receiver=kent_profile,title="Take a photo of Latina Vidolova",
+                         content="Don't let her know!",section=sports)
+assignment1.save()
