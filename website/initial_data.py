@@ -1,6 +1,7 @@
 from django.contrib.auth.models import Permission, User, Group, ContentType
 from mainsite.models import Issue, Article, Section
 from workflow.models import Profile
+
 plastic = Group(name="plastic")
 plastic.save()
 
