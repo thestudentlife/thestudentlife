@@ -7,7 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Count
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail
-from mainsite.models import Issue, Article, Section, Profile
+from mainsite.models import Issue, Article, Section, Profile, AssignmentForm
 from workflow.models import Assignment, RegisterForm, LoginForm
 
 def group_required(*group_names):
@@ -100,6 +100,7 @@ def edit_article(request, issue_id, article_id, article_name="default"):
 def delete_article(request, issue_id, article_id, article_name="default"):
     return HttpResponse('You are going to delete article ' + str(article_id) + ' with name ' + article_name)
 
+@group_required('silver')
 def article_xml(request,article_id):
     article = Article.objects.get(id=article_id)
     data = render_to_string('article_xml.xml',{'article':article})
@@ -135,7 +136,22 @@ def assignment(request, assignment_id):
 
 @group_required('silver')
 def new_assignment(request):
-    return HttpResponse('Create a new assignment')
+    if request.method == 'GET':
+        form = AssignmentForm()
+        return render(request,'new_assignment.html',{'form':form})
+    else:
+         form = AssignmentForm(request.POST)
+         if form.is_valid():
+                new_assignment=form.save(commit=False)
+                new_assignment.sender=request.user.profile
+                new_assignment.save()
+                form.save_m2m
+                return HttpResponse('Thanks for assignment')
+         else:
+                return render(request, 'new_assignment.html', {
+                        'form': form
+                    })
+
 
 @group_required('silver')
 def edit_assignment(request, assignment_id):
