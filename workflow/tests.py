@@ -1,5 +1,6 @@
 from unittest import TestCase
 from django.contrib.auth.models import Permission, User, Group, ContentType
+from django.test import Client
 from workflow.models import Profile, Assignment
 from mainsite.models import Issue, Section, Article
 
@@ -35,6 +36,11 @@ class WorkflowModels(TestCase):
 
         profile_kent = Profile(user=kent, position='photographer')
         self.assertEqual("Kent Shikama", profile_kent.display_name())
+
+    def test_login(self):
+        client = Client()
+        response = client.post('/workflow/login/', {'username': 'kshikama', 'password': 'tsl'})
+        self.assertEqual("Welcome", response.content)
 
     def print_assignments(self):
         assignments = Assignment.objects.all()
