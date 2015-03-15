@@ -46,13 +46,24 @@ class WorkflowModels(TestCase):
             response = client.post('/workflow/photos/upload/', {'caption': 'water image', 'image': image}, follow=True)
         self.assertEqual("This is the homepage", response.content)
 
+    def test_assignment_creation(self):
+        client = Client()
+        response = client.post('/workflow/login/', {'username': 'zxiong', 'password': 'tsl'})
+        self.assertEqual("Welcome", response.content)
+        response = client.post('/workflow/assignments/new/',
+                               {'title': 'Take photo of Oldenborg',
+                                'content': 'Go into Oldenborg during lunch, and take a picture of their apples',
+                                'section': 1, 'type': 'photo_assignment', 'receiver': 1,
+                                'due_date': '03/11/2011'})
+        self.assertEqual("Thanks for assignment", response.content)
+
     def print_assignments(self):
         assignments = Assignment.objects.all()
         for assignment in assignments:
             print("assignment title: " + assignment.title)
             print("assignment content: " + assignment.content)
             print("assignment sender: " + assignment.sender.user.username)
-            print("assignment.recipient: " + assignment.receiver.user.username)
+            print("assignment recipient: " + assignment.receiver.user.username)
 
     def print_articles(self):
         articles = Article.objects.all()
