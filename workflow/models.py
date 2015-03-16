@@ -32,17 +32,17 @@ class WArticle(models.Model):
     def __str__(self):
         return self.article.title
 
-class Review(models.Model):
-    date = models.DateTimeField(default = timezone.now)
-    article = models.ForeignKey('mainsite.Article')
-    reviewer = models.CharField(max_length=50)
-    comment = models.TextField(blank=True)
-
 class Revision(models.Model):
     date = models.DateTimeField(default = timezone.now)
     article = models.ForeignKey('mainsite.Article')
     editor = models.ForeignKey(Profile)
     body = models.TextField()
+
+class Review(models.Model):
+    date = models.DateTimeField(default = timezone.now)
+    article = models.ForeignKey('mainsite.Article')
+    reviewer = models.CharField(max_length=50)
+    comment = models.TextField(blank=True)
 
 class Assignment(models.Model):
     TYPES_CHOICES = (
