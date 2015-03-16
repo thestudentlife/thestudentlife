@@ -17,10 +17,10 @@ def person(request, person_id, person_name='ZQ'):
     person = Profile.objects.get(pk=person_id);
     if person.position=="author":
         articles = person.article_set.all();
-        return render(request,'section.html',{"articles":articles});
+        return render(request, 'author.html', {"articles":articles});
     if person.position=="photographer" or person.position=="graphic_designer":
         photographs = person.photo_set.all();
-        return render(request,'photographer.html',{"photographs": photographs});
+        return render(request, 'photographer.html', {"photographs": photographs});
 
 def staff(request):
     return HttpResponse('Staff page');

@@ -1,14 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
-from django.forms import ModelForm,EmailInput,TextInput,Textarea,PasswordInput
+from django.forms import ModelForm,EmailInput,TextInput,Textarea,PasswordInput, CharField,DateField
 from django.template.defaultfilters import slugify
 
 class Profile(models.Model):
     user = models.OneToOneField(User)
     POSITIONS_CHOICES= (
-        ('chief_editor','Chief Editor'),
+        ('chief_editor','Editor-in-Chief'),
+        ('managing_editor','Managing Editor'),
+        ('design_editor','Design Editor')
         ('copy_editor','Copy Editor'),
+        ('section_editor','Section Editor'),
+        ('manager','Manager'),
         ('photographer','Photographer'),
         ('author','Author'),
         ('graphic_designer','Graphic Designer'),
@@ -20,23 +24,20 @@ class Profile(models.Model):
     def display_name(self):
         return self.user.first_name+" "+self.user.last_name
     def __str__(self):
-        return self.display_name()+"'profile"
+        return self.user.username
+    def is_editor(self):
+        return "editor" in self.position
+
 
 class WArticle(models.Model):
     date = models.DateTimeField(default = timezone.now)
     article = models.OneToOneField('mainsite.Article')
     status = models.TextField()
-    locker = models.ForeignKey(User,blank=True)
+    locker = models.ForeignKey(User,null=True)
     def locked(self):
-        return self.locker.exists()
+        return self.locker is not None
     def __str__(self):
         return self.article.title
-
-class Review(models.Model):
-    date = models.DateTimeField(default = timezone.now)
-    article = models.ForeignKey('mainsite.Article')
-    reviewer = models.CharField(max_length=50)
-    comment = models.TextField(blank=True)
 
 class Revision(models.Model):
     date = models.DateTimeField(default = timezone.now)
@@ -44,13 +45,19 @@ class Revision(models.Model):
     editor = models.ForeignKey(Profile)
     body = models.TextField()
 
+class Review(models.Model):
+    date = models.DateTimeField(default = timezone.now)
+    article = models.ForeignKey('mainsite.Article')
+    reviewer = models.CharField(max_length=50)
+    comment = models.TextField(blank=True)
+
 class Assignment(models.Model):
     TYPES_CHOICES = (
-        ('photo_assignment','Photo Assignment'),
-        ('article_assignment','Article Assignment')
+        ('photo','Photo Assignment'),
+        ('article','Article Assignment')
     )
     sender = models.ForeignKey(Profile,related_name="assignment_created")
-    receiver = models.ForeignKey(Profile,default=None,related_name="assignment_received")
+    receiver = models.ForeignKey(Profile,related_name="assignment_received",null=True)
     title = models.CharField(max_length=200)
     type = models.CharField(choices=TYPES_CHOICES,max_length=50,default='photo_assignment')
     content = models.TextField(blank=True)
@@ -68,10 +75,6 @@ class Assignment(models.Model):
             return "not started"
     def __str__(self):
         return self.title
-
-class AssignmentForm(models.Model):
-    class meta:
-        fields = ['title','content','section','type','due_date']
 
 class LoginForm(ModelForm):
     class Meta:

@@ -1,5 +1,7 @@
 from unittest import TestCase
 from django.contrib.auth.models import Permission, User, Group, ContentType
+from django.test import Client
+from website.settings import ENV_PATH
 from workflow.models import Profile, Assignment
 from mainsite.models import Issue, Section, Article
 
@@ -36,13 +38,52 @@ class WorkflowModels(TestCase):
         profile_kent = Profile(user=kent, position='photographer')
         self.assertEqual("Kent Shikama", profile_kent.display_name())
 
+    def test_photo_upload(self):
+        client = Client()
+        response = client.post('/workflow/login/', {'username': 'zxiong', 'password': 'tsl'}, follow=True)
+        self.assertEqual(200, response.status_code)
+        with open(ENV_PATH + '/test_upload_file.jpg') as image:
+            response = client.post('/workflow/photos/upload/', {'caption': 'water image', 'image': image}, follow=True)
+        self.assertEqual(200, response.status_code)
+
+    def test_assignment_creation(self):
+        client = Client()
+        response = client.post('/workflow/login/', {'username': 'zxiong', 'password': 'tsl'}, follow=True)
+        self.assertEqual(200, response.status_code)
+        response = client.post('/workflow/assignments/new/',
+                               {'title': 'Take photo of Oldenborg',
+                                'content': 'Go into Oldenborg during lunch, and take a picture of their apples',
+                                'section': 1, 'type': 'photo', 'receiver': 1,
+                                'due_date': '03/11/2011'}, follow=True)
+        self.assertEqual(200, response.status_code)
+
+    def test_article_creation(self):
+        client = Client()
+        response = client.post('/workflow/login/', {'username': 'zxiong', 'password': 'tsl'}, follow=True)
+        self.assertEqual(200, response.status_code)
+        response = client.post('/workflow/articles/issue/1/new/',
+                               {'title': 'Three people are coding in Oldenborg at 20:05',
+                                'content': 'More than one tenth done!!!!!',
+                                'section': 1, 'issue': 1, 'authors': 'kshikama'})
+        self.assertEqual(200, response.status_code)
+
+    def test_article_edit(self):
+        client = Client()
+        response = client.post('/workflow/login/', {'username': 'zxiong', 'password': 'tsl'}, follow=True)
+        self.assertEqual(200, response.status_code)
+        response = client.post('/workflow/articles/issue/1/1/edit/',
+                               {'title': 'Three people are coding in Oldenborg at 20:05',
+                                'content': 'More than one tenth done!!!!!',
+                                'section': 1, 'issue': 1, 'authors': 'kshikama'})
+        self.assertEqual(200, response.status_code)
+
     def print_assignments(self):
         assignments = Assignment.objects.all()
         for assignment in assignments:
             print("assignment title: " + assignment.title)
             print("assignment content: " + assignment.content)
             print("assignment sender: " + assignment.sender.user.username)
-            print("assignment.recipient: " + assignment.receiver.user.username)
+            print("assignment recipient: " + assignment.receiver.user.username)
 
     def print_articles(self):
         articles = Article.objects.all()
