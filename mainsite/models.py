@@ -82,7 +82,7 @@ class Photo(models.Model):
     image = models.ImageField(upload_to='photo/')
     caption = models.TextField(max_length=500, blank=True)
     credit = models.ForeignKey(Profile)
-    album = models.ForgeinKey(Album, null=True)
+    album = models.ForeignKey(Album, null=True)
 
     def __str__(self):
         return self.image.url
