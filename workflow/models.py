@@ -46,8 +46,8 @@ class Revision(models.Model):
 
 class Assignment(models.Model):
     TYPES_CHOICES = (
-        ('photo_assignment','Photo Assignment'),
-        ('article_assignment','Article Assignment')
+        ('photo','Photo Assignment'),
+        ('article','Article Assignment')
     )
     sender = models.ForeignKey(Profile,related_name="assignment_created")
     receiver = models.ForeignKey(Profile,related_name="assignment_received",null=True)

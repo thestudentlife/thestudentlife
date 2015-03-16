@@ -7,8 +7,8 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mainsite', '0001_initial'),
         ('workflow', '0001_initial'),
+        ('mainsite', '0001_initial'),
     ]
 
     operations = [

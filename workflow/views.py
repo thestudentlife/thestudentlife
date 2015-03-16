@@ -170,9 +170,12 @@ def filter_by_receiver(request, profile_id):
 
 @group_required('bronze')
 def filter_by_section(request, section_name):
-    return HttpResponse('The assignments of the section ' + str(section_name))
+    section = Section.objects.get(name=section_name)
+    assignments = Assignment.objects.filter(section=section)
+    return render(request,'assignments.html',{'assignments':assignments})
 
 @group_required('bronze')
 def filter_by_type(request, type_name):
-    return HttpResponse('The assignments of the type ' + str(type_name))
+    assignments = Assignment.objects.filter(type=type_name)
+    return render(request,'assignments.html',{'assignments':assignments})
 
