@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.forms import ModelForm, Textarea, TextInput
 from django.template.defaultfilters import slugify
 from django.views.generic import CreateView
-from workflow.models import Profile, Assignment
+from workflow.models import Profile, Assignment, WArticle
 
 class Section(models.Model):
     name = models.CharField(max_length=50)
@@ -37,18 +37,18 @@ class Article(models.Model):
     def slug(self):
         return slugify(self.title)
 
-class ArticleForm(ModelForm):
-    class Meta:
-        model = Article
-        fields = ['title', 'content', 'section', 'subsections']
-        widgets = {
-            'title': TextInput(attrs={
-                'required': True
-            }),
-            'content': Textarea(attrs={
-                'required': True
-            }),
-        }
+class ArticleCreateView(CreateView):
+    model = Article
+    fields = ['title', 'content','section','issue','authors']
+    template_name = 'new_article.html'
+    success_url = '/'
+
+    def form_valid(self, form):
+        obj = form.save()
+        obj.save()
+        workflowArticle = WArticle(article=obj, status='')
+        workflowArticle.save()
+        return super(ArticleCreateView, self).form_valid(form)
 
 class FrontArticle(models.Model):
     article = models.OneToOneField(Article)

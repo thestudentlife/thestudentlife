@@ -26,9 +26,9 @@ class WArticle(models.Model):
     date = models.DateTimeField(default = timezone.now)
     article = models.OneToOneField('mainsite.Article')
     status = models.TextField()
-    locker = models.ForeignKey(User,blank=True)
+    locker = models.ForeignKey(User,null=True)
     def locked(self):
-        return self.locker.exists()
+        return self.locker is not None
     def __str__(self):
         return self.article.title
 
@@ -68,8 +68,6 @@ class Assignment(models.Model):
             return "not started"
     def __str__(self):
         return self.title
-
-
 
 class LoginForm(ModelForm):
     class Meta:

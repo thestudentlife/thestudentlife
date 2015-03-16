@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import login_required
-from mainsite.models import PhotoCreateView
+from mainsite.models import PhotoCreateView, ArticleCreateView
 from workflow import views
 
 urlpatterns = patterns('',
@@ -20,7 +20,7 @@ urlpatterns = patterns('',
     	views.article,name='article'),
     url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<article_id>[0-9]+)/$',
         views.article,name='article'),
-    url(r'^articles/issue/(?P<issue_id>[0-9]+)/new/$',views.new_article,name='new_article'),
+    url(r'^articles/issue/(?P<issue_id>[0-9]+)/new/$', login_required(ArticleCreateView.as_view()),name='new_article'),
     url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<article_id>[0-9]+)/(?P<article_name>.+)/edit/$',
     	views.edit_article,name='edit_article'),
     url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<article_id>[0-9]+)/edit/$',
