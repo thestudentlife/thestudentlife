@@ -42,6 +42,8 @@ class WArticle(models.Model):
         return self.locker is not None
     def __str__(self):
         return self.article.title
+    def get_absolute_url(self):
+        return reverse('warticle',kwargs={'issue_id':self.article.issue.id,'pk':self.article.id})
 
 class Revision(models.Model):
     date = models.DateTimeField(default = timezone.now)
