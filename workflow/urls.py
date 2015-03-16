@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import login_required
 from mainsite.models import PhotoCreateView, ArticleCreateView
 from workflow import views
-
+from workflow.views import ArticleDeleteView
 urlpatterns = patterns('',
     url(r'^$',views.home,name='home'),
 
@@ -25,10 +25,10 @@ urlpatterns = patterns('',
     	views.edit_article,name='edit_article'),
     url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<article_id>[0-9]+)/edit/$',
         views.edit_article,name='edit_article'),
-    url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<article_id>[0-9]+)/(?P<article_name>.+)/delete/$',
-    	views.delete_article,name='delete_article'),
-    url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<article_id>[0-9]+)/delete/$',
-        views.delete_article,name='delete_article'),
+    url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<pk>[0-9]+)/(?P<article_name>.+)/delete/$',
+    	ArticleDeleteView.as_view(),name='delete_article'),
+    url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<pk>[0-9]+)/delete/$',
+       ArticleDeleteView.as_view(),name='delete_article'),
     url(r'^articles/xml/(?P<article_id>\d+)',views.article_xml,name="article_xml"),
 
 	#photos
