@@ -1,14 +1,13 @@
-from django.contrib.auth import authenticate, login as do_login, logout as do_logout
-from django.contrib.auth.decorators import permission_required, login_required, user_passes_test
-from django.contrib.auth.models import User, Permission, Group
+from django.contrib.auth import authenticate, login as do_login
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.models import Group
 from django.template.loader import render_to_string
-from django.shortcuts import render, render_to_response, redirect
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, Photo, FrontArticle, CarouselArticle
-from workflow.models import Assignment, RegisterForm, LoginForm, Revision, WArticle
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic.detail import DetailView
+from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, Photo, FrontArticle
+from workflow.models import Assignment, RegisterForm, LoginForm
+from django.views.generic.edit import CreateView, DeleteView
 from django.views.generic.list import ListView
 from django.core.urlresolvers import reverse_lazy
 
@@ -69,69 +68,6 @@ def home(request):
     else:
         id = request.user.id
         return redirect(reverse('filter_by_receiver', args=[id]))
-
-# issues
-@group_required('silver')
-def issues(request):
-    issues = Issue.objects.all()
-    return HttpResponse('These are the issues.')
-
-@group_required('silver')
-def issue(request, issue_id):
-    issue = Issue.objects.get(pk=issue_id)
-    sections = Section.objects.all()
-    articles = Article.objects.filter(issue=issue)
-    return render(request, 'issue.html', {'issue': issue, 'sections': sections, 'articles': articles})
-
-class IssueCreateView(CreateView):
-    model = Issue
-    fields = ['name']
-    successful_url = reverse_lazy('issues')
-    template_name = "create_issue.html"
-
-class IssueEditView(UpdateView):
-    model = Issue
-    fields = ['name']
-    successful_url = reverse_lazy('issues')
-    template_name = "edit_issue.html"
-
-# articles
-class ArticleDetailView(DetailView):
-    model = Article
-    template_name = "warticle.html"
-
-class ArticleCreateView(CreateView):
-    model = Article
-    fields = ['title', 'content', 'section', 'issue', 'authors']
-    template_name = 'new_article.html'
-    success_url = '/'
-
-    def form_valid(self, form):
-        obj = form.save()
-        obj.save()
-        workflowArticle = WArticle(article=obj, status='')
-        workflowArticle.save()
-        return super(ArticleCreateView, self).form_valid(form)
-
-class ArticleEditView(UpdateView):
-    model = Article
-    fields = ['title', 'content', 'section', 'issue', 'authors']
-    template_name = 'edit_article.html'
-    success_url = '/'
-
-    def form_valid(self, form):
-        obj = form.save()
-        obj.save()
-        body = obj.content
-        editor = self.request.user.profile
-        revision = Revision(article=obj, editor=editor, body=body)
-        revision.save()
-        return super(ArticleEditView, self).form_valid(form)
-
-class ArticleDeleteView(DeleteView):
-    model = Article
-    template_name = "article_confirm_delete.html"
-    success_url = reverse_lazy('home')
 
 class FrontListView(ListView):
     model = FrontArticle
