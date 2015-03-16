@@ -6,6 +6,9 @@ from django.template.defaultfilters import slugify
 from django.views.generic import CreateView
 from workflow.models import Profile, Assignment, WArticle
 from django.core.urlresolvers import reverse
+from django.views.generic import CreateView, UpdateView
+from workflow.models import Profile, Assignment, WArticle, Revision
+
 class Section(models.Model):
     name = models.CharField(max_length=50)
     def __str__(self):
@@ -56,6 +59,23 @@ class ArticleCreateView(CreateView):
         workflowArticle = WArticle(article=obj, status='')
         workflowArticle.save()
         return super(ArticleCreateView, self).form_valid(form)
+
+class ArticleEditView(UpdateView):
+    model = Article
+    fields = ['title', 'content','section','issue','authors']
+    template_name = 'edit_article.html'
+    success_url = '/'
+
+    def form_valid(self, form):
+        obj = form.save()
+        obj.save()
+
+        body = obj.content
+        editor = self.request.user.profile
+        revision = Revision(article=obj, editor=editor, body=body)
+        revision.save()
+
+        return super(ArticleEditView, self).form_valid(form)
 
 class FrontArticle(models.Model):
     article = models.OneToOneField(Article)

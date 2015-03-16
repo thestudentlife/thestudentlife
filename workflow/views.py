@@ -93,6 +93,7 @@ def article(request, issue_id, article_id, article_name="default"):
     return HttpResponse(
         'This is issue ' + str(issue_id) + " and article " + str(article_id) + ' with name ' + article_name)
 
+
 @group_required('silver')
 def edit_article(request, issue_id, article_id, article_name="default"):
     return HttpResponse('You are going to edit article ' + str(article_id) + ' with name ' + article_name)
@@ -100,9 +101,8 @@ def edit_article(request, issue_id, article_id, article_name="default"):
 
 class ArticleDeleteView(DeleteView):
     model = Article
-
+    template_name = "article_confirm_delete.html"
     success_url = reverse_lazy('home')
-
 
 @group_required('silver')
 def article_xml(request, article_id):
