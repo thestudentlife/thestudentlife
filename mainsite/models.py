@@ -5,24 +5,28 @@ from django.forms import ModelForm, Textarea, TextInput
 from django.template.defaultfilters import slugify
 from django.views.generic import CreateView
 from workflow.models import Profile, Assignment, WArticle
-
+from django.core.urlresolvers import reverse
 class Section(models.Model):
     name = models.CharField(max_length=50)
-
     def __str__(self):
         return self.name
+    def get_absolute_url(self):
+        return reverse('section',kwargs={'section_name':self.name})
 
 class Subsection(models.Model):
     name = models.CharField(max_length=50)
-
     def __str__(self):
         return self.name
+    def get_absolute_url(self):
+        return reverse('section',kwargs={'section_name':self.name})
 
 class Issue(models.Model):
     name = models.CharField(max_length=200)
     created_date = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.name
+    def get_absolute_url(self):
+        return reverse('issue',kwargs={'issue_id':self.id})
 
 class Article(models.Model):
     title = models.CharField(max_length=200)
@@ -33,12 +37,12 @@ class Article(models.Model):
     subsections = models.ManyToManyField(Subsection, null=True)
     published_date = models.DateTimeField(default=timezone.now)
     updated_date = models.DateTimeField(default=timezone.now)
-
     def __str__(self):
         return self.title
-
     def slug(self):
         return slugify(self.title)
+    def get_absolute_url(self):
+        return reverse('article',kwargs={'article_id':self.id})
 
 class ArticleCreateView(CreateView):
     model = Article

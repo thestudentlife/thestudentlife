@@ -97,9 +97,10 @@ def article(request, issue_id, article_id, article_name="default"):
 def edit_article(request, issue_id, article_id, article_name="default"):
     return HttpResponse('You are going to edit article ' + str(article_id) + ' with name ' + article_name)
 
-@group_required('silver')
+
 class ArticleDeleteView(DeleteView):
     model = Article
+
     success_url = reverse_lazy('home')
 
 
