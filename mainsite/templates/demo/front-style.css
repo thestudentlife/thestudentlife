@@ -7,7 +7,7 @@
 }
 body{
     background: #FCFCFC;
-    font-family:Merriweather, serif;
+    font-family: 'Libre Baskerville', serif;
 //    font-size: 34px;
     letter-spacing:-1px;
 }
@@ -47,6 +47,58 @@ body{
 
 /*end grid */
 
+/*header*/
+#header {
+	display: inline-block;
+	height:auto;
+	padding-right: 5%;
+	padding-left: 5%;
+	background-color:lightblue;
+}
+
+#header h2 {
+	display: inline-block;
+}
+
+#banner{
+	background-color: pink;
+	display: inline-block;
+}
+#banner img{
+	width:100px;
+	height: auto;
+}
+#main-menu{
+	display: inline-block;
+	background-color: seagreen;
+}
+#main-menu a{
+	padding-right: 20px;
+}
+
+#info-menu, #sub-menu {
+	padding-right: 20%;
+	padding-left: 20%;
+    margin-left: auto; 
+    margin-right: auto;
+
+     text-align: justify;
+    -ms-text-justify: distribute-all-lines;
+    text-justify: distribute-all-lines;
+}
+#info-menu a, #sub-menu a {
+    vertical-align: top;
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+}
+.stretch {
+    width: 100%;
+    display: inline-block;
+    font-size: 0;
+    line-height: 0
+}
+/*article previews: 4 from each section*/
 .section-header{
 	border-top: 2px solid #191970;
 	font-size: 16pt;
@@ -55,7 +107,6 @@ body{
 .article-previews{
 	padding-right: 5%;
 	padding-left: 5%;
-	background: lightyellow;
 }
 
 .article-preview{
