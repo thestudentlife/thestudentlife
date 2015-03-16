@@ -44,17 +44,28 @@ class WorkflowModels(TestCase):
         self.assertEqual(200, response.status_code)
         with open(ENV_PATH + '/test_upload_file.jpg') as image:
             response = client.post('/workflow/photos/upload/', {'caption': 'water image', 'image': image}, follow=True)
-        self.assertEqual("This is the homepage", response.content)
+        self.assertEqual(200, response.status_code)
 
     def test_assignment_creation(self):
         client = Client()
         response = client.post('/workflow/login/', {'username': 'zxiong', 'password': 'tsl'})
+        self.assertEqual(200, response.status_code)
         response = client.post('/workflow/assignments/new/',
                                {'title': 'Take photo of Oldenborg',
                                 'content': 'Go into Oldenborg during lunch, and take a picture of their apples',
                                 'section': 1, 'type': 'photo', 'receiver': 1,
                                 'due_date': '03/11/2011'})
-        self.assertEqual(b"Thanks for assignment",response.content)
+        self.assertEqual(200, response.status_code)
+
+    def test_article_creation(self):
+        client = Client()
+        response = client.post('/workflow/login/', {'username': 'zxiong', 'password': 'tsl'})
+        self.assertEqual(200, response.status_code)
+        response = client.post('/workflow/articles/issue/1/new/',
+                               {'title': 'Three people are coding in Oldenborg at 20:05',
+                                'content': 'More than one tenth done!!!!!',
+                                'section': 1, 'issue': 1, 'authors': 'kshikama'})
+        self.assertEqual(200, response.status_code)
 
     def print_assignments(self):
         assignments = Assignment.objects.all()
