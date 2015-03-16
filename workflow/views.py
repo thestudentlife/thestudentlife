@@ -4,12 +4,11 @@ from django.contrib.auth.models import User, Permission, Group
 from django.template.loader import render_to_string
 from django.shortcuts import render, render_to_response, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from django.db.models import Count
 from django.core.urlresolvers import reverse
-from django.core.mail import send_mail
-from mainsite.models import Issue, Article, Section, Profile, AssignmentForm
-from workflow.models import Assignment, RegisterForm, LoginForm
+from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, Photo
+from workflow.models import Assignment, RegisterForm, LoginForm, Revision, WArticle
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse_lazy
 
 def group_required(*group_names):
@@ -88,16 +87,39 @@ def new_issue(request):
     return HttpResponse('Create a new issue')
 
 # articles
-@group_required('silver')
-def article(request, issue_id, article_id, article_name="default"):
-    return HttpResponse(
-        'This is issue ' + str(issue_id) + " and article " + str(article_id) + ' with name ' + article_name)
+class ArticleDetailView(DetailView):
+    model = Article
+    template_name = "article.html"
 
 
-@group_required('silver')
-def edit_article(request, issue_id, article_id, article_name="default"):
-    return HttpResponse('You are going to edit article ' + str(article_id) + ' with name ' + article_name)
+class ArticleCreateView(CreateView):
+    model = Article
+    fields = ['title', 'content','section','issue','authors']
+    template_name = 'new_article.html'
+    success_url = '/'
 
+    def form_valid(self, form):
+        obj = form.save()
+        obj.save()
+        workflowArticle = WArticle(article=obj, status='')
+        workflowArticle.save()
+        return super(ArticleCreateView, self).form_valid(form)
+
+class ArticleEditView(UpdateView):
+    model = Article
+    fields = ['title', 'content','section','issue','authors']
+    template_name = 'edit_article.html'
+    success_url = '/'
+
+    def form_valid(self, form):
+        obj = form.save()
+        obj.save()
+
+        body = obj.content
+        editor = self.request.user.profile
+        revision = Revision(article=obj, editor=editor, body=body)
+        revision.save()
+        return super(ArticleEditView, self).form_valid(form)
 
 class ArticleDeleteView(DeleteView):
     model = Article
@@ -119,9 +141,17 @@ def photos(request):
 def photo(request, photo_id):
     return HttpResponse('This is photo ' + str(photo_id))
 
-@group_required('bronze')
-def new_photo(request):
-    return HttpResponse('Create a new photo')
+class PhotoCreateView(CreateView):
+    model = Photo
+    fields = ['image', 'caption']
+    template_name = 'upload_photo.html'
+    success_url = '/'
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.credit = self.request.user.profile
+        obj.save()
+        return super(PhotoCreateView, self).form_valid(form)
 
 @group_required('bronze')
 def edit_photo(request, photo_id):

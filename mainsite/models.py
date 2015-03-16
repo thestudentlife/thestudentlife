@@ -47,36 +47,6 @@ class Article(models.Model):
     def get_absolute_url(self):
         return reverse('article',kwargs={'article_id':self.id})
 
-class ArticleCreateView(CreateView):
-    model = Article
-    fields = ['title', 'content','section','issue','authors']
-    template_name = 'new_article.html'
-    success_url = '/'
-
-    def form_valid(self, form):
-        obj = form.save()
-        obj.save()
-        workflowArticle = WArticle(article=obj, status='')
-        workflowArticle.save()
-        return super(ArticleCreateView, self).form_valid(form)
-
-class ArticleEditView(UpdateView):
-    model = Article
-    fields = ['title', 'content','section','issue','authors']
-    template_name = 'edit_article.html'
-    success_url = '/'
-
-    def form_valid(self, form):
-        obj = form.save()
-        obj.save()
-
-        body = obj.content
-        editor = self.request.user.profile
-        revision = Revision(article=obj, editor=editor, body=body)
-        revision.save()
-
-        return super(ArticleEditView, self).form_valid(form)
-
 class FrontArticle(models.Model):
     article = models.OneToOneField(Article)
 
@@ -97,18 +67,6 @@ class Photo(models.Model):
 
     def __str__(self):
         return self.image.url
-
-class PhotoCreateView(CreateView):
-    model = Photo
-    fields = ['image', 'caption']
-    template_name = 'upload_photo.html'
-    success_url = '/'
-
-    def form_valid(self, form):
-        obj = form.save(commit=False)
-        obj.credit = self.request.user.profile
-        obj.save()
-        return super(PhotoCreateView, self).form_valid(form)
 
 class Album(models.Model):
     article = models.ForeignKey(Article)
