@@ -9,6 +9,8 @@ from django.core.urlresolvers import reverse
 from django.core.mail import send_mail
 from mainsite.models import Issue, Article, Section, Profile, AssignmentForm
 from workflow.models import Assignment, RegisterForm, LoginForm
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.core.urlresolvers import reverse_lazy
 
 def group_required(*group_names):
     def in_groups(u):
@@ -92,8 +94,19 @@ def article(request, issue_id, article_id, article_name="default"):
         'This is issue ' + str(issue_id) + " and article " + str(article_id) + ' with name ' + article_name)
 
 @group_required('silver')
+<<<<<<< HEAD
 def delete_article(request, issue_id, article_id, article_name="default"):
     return HttpResponse('You are going to delete article ' + str(article_id) + ' with name ' + article_name)
+=======
+def edit_article(request, issue_id, article_id, article_name="default"):
+    return HttpResponse('You are going to edit article ' + str(article_id) + ' with name ' + article_name)
+
+@group_required('silver')
+class ArticleDeleteView(DeleteView):
+    model = Article
+    success_url = reverse_lazy('home')
+
+>>>>>>> 84ea5a11f3784c54aa99dd4e98c5e68bc46b12da
 
 @group_required('silver')
 def article_xml(request, article_id):
