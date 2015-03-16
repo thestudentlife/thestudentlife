@@ -92,10 +92,6 @@ def article(request, issue_id, article_id, article_name="default"):
         'This is issue ' + str(issue_id) + " and article " + str(article_id) + ' with name ' + article_name)
 
 @group_required('silver')
-def edit_article(request, issue_id, article_id, article_name="default"):
-    return HttpResponse('You are going to edit article ' + str(article_id) + ' with name ' + article_name)
-
-@group_required('silver')
 def delete_article(request, issue_id, article_id, article_name="default"):
     return HttpResponse('You are going to delete article ' + str(article_id) + ' with name ' + article_name)
 

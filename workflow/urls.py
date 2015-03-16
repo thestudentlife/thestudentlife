@@ -1,7 +1,8 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import login_required
-from mainsite.models import PhotoCreateView, ArticleCreateView
+from mainsite.models import PhotoCreateView, ArticleCreateView, ArticleEditView
 from workflow import views
+from workflow.views import group_required
 
 urlpatterns = patterns('',
     url(r'^$',views.home,name='home'),
@@ -21,10 +22,10 @@ urlpatterns = patterns('',
     url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<article_id>[0-9]+)/$',
         views.article,name='article'),
     url(r'^articles/issue/(?P<issue_id>[0-9]+)/new/$', login_required(ArticleCreateView.as_view()),name='new_article'),
-    url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<article_id>[0-9]+)/(?P<article_name>.+)/edit/$',
-    	views.edit_article,name='edit_article'),
-    url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<article_id>[0-9]+)/edit/$',
-        views.edit_article,name='edit_article'),
+    url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<pk>[0-9]+)/(?P<article_name>.+)/edit/$',
+    	group_required('silver')(ArticleEditView.as_view()), name='edit_article'),
+    url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<pk>[0-9]+)/edit/$',
+        group_required('silver')(ArticleEditView.as_view()), name='edit_article'),
     url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<article_id>[0-9]+)/(?P<article_name>.+)/delete/$',
     	views.delete_article,name='delete_article'),
     url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<article_id>[0-9]+)/delete/$',
