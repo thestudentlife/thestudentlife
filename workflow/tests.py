@@ -71,7 +71,7 @@ class WorkflowModels(TestCase):
         client = Client()
         response = client.post('/workflow/login/', {'username': 'zxiong', 'password': 'tsl'}, follow=True)
         self.assertEqual(200, response.status_code)
-        response = client.post('/workflow/articles/issue/1/1/latina-configures-git/edit/',
+        response = client.post('/workflow/articles/issue/1/1/edit/',
                                {'title': 'Three people are coding in Oldenborg at 20:05',
                                 'content': 'More than one tenth done!!!!!',
                                 'section': 1, 'issue': 1, 'authors': 'kshikama'})

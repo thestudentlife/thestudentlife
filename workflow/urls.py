@@ -23,7 +23,7 @@ urlpatterns = patterns('',
     url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<pk>[0-9]+)/edit/$',
         group_required('silver')(ArticleEditView.as_view()), name='edit_article'),
     url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<pk>[0-9]+)/delete/$',
-       ArticleDeleteView.as_view(),name='delete_article'),
+        group_required('silver')(ArticleDeleteView.as_view()), name='delete_article'),
     url(r'^articles/xml/(?P<article_id>\d+)',views.article_xml,name="article_xml"),
 
 	#photos
