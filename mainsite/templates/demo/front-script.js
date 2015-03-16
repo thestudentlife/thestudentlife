@@ -1,5 +1,5 @@
 $(function() {
-	
+
 	//carousel
 	$('.arrow-next').click(function() {
 		var currentSlide = $('.active-slide');
