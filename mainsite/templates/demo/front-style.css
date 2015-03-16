@@ -6,9 +6,9 @@
     padding:0;
 }
 body{
-    background:#000;
+    background: #FCFCFC;
     font-family:Merriweather, serif;
-    font-size: 34px;
+//    font-size: 34px;
     letter-spacing:-1px;
 }
 /* 12-column responsive grid */
@@ -47,42 +47,73 @@ body{
 
 /*end grid */
 
+.section-header{
+	border-top: 2px solid #191970;
+	font-size: 16pt;
+}
 
+.article-previews{
+	padding-right: 5%;
+	padding-left: 5%;
+	background: lightyellow;
+}
 
-.tile{
-	background: seagreen;
-	height: 150px;
+.article-preview{
+	margin-top: 1px;
+	margin-bottom: 1px;
+	height: 250px;
+}
+
+.frame {
+//  width: 100%;
+  height: 70%;
+  overflow: hidden;
+  position: relative;
+}
+
+.frame img {
+  width: 100%;
+}
+
+.side-menu{
+	background:lightblue;
+	height: 500px;
 }
 
 /* Carousel */
-
+.slider-container{
+	padding-right: 5%;
+	padding-left: 5%;
+}
 .slider {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  background: pink;
+	position: relative;
+	height: 450px;
+	background: pink;
+	margin: 0 auto;
 
 }
 
 .slide {
-  background: seagreen;
-  background-size: cover;
-  display: none;
-  position: absolute;
-  top: 20%;
-
+	background: seagreen;
+	background-size: cover;
+	display: none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
 }
 
 .active-slide {
     display: block;
+	background-image: url('https://placekitten.com/g/900/400');
+	background-position: center;
+	background-repeat: no-repeat;
 }
 
+
 .slider-nav {
-  text-align: center;
-  margin-top: 60px;
-  z-index: 2;
-  position: absolute;
+	background: lightyellow;
+	text-align: center;
+	padding: 5px;
 }
 
 
@@ -111,23 +142,13 @@ body{
 }
 
 .arrow-prev {
-  margin-right: 45px;
   display: inline-block;
   vertical-align: top;
-  margin-top: 9px;
-}
-
-.arrow-home {
-  display: inline-block;
-  vertical-align: top;
-  margin-top: 9px;
 }
 
 .arrow-next {
-  margin-left: 45px;
   display: inline-block;
   vertical-align: top;
-  margin-top: 9px;
 }
 
 div p a:link {
@@ -149,4 +170,6 @@ div p a:active {
     text-decoration: underline;
 }
 
-
+p{
+	font-size: 9pt;
+}
