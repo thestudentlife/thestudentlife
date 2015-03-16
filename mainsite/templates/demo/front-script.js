@@ -13,17 +13,6 @@ $(function() {
 		nextSlide.fadeIn(600).addClass('active-slide');
 
 	});
-
-	$('.arrow-home').click(function() {
-		var currentSlide = $('.active-slide');
-		var nextSlide = $('.slide').first();
-    
-		if(currentSlide=== nextSlide){
-					}
-		else{currentSlide.fadeOut(600).removeClass('active-slide');
-			nextSlide.fadeIn(600).addClass('active-slide');
-		}			
-	});
 	
 	$('.arrow-prev').click(function() {
 		var currentSlide = $('.active-slide');
