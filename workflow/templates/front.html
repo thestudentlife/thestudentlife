@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+    <ul class="front_ls">
+        {% for front in object_list %}
+            <ls>
+            {% include 'short_article_partial.html' with article=front.article %}
+            <a href="{% url 'front_delete' front.id %}">Remove this article from the front page.</a>
+            </ls>
+        {% endfor %}
+    <ul>
+{% endblock %}

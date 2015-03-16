@@ -5,10 +5,11 @@ from django.template.loader import render_to_string
 from django.shortcuts import render, render_to_response, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, Photo
+from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, Photo, FrontArticle, CarouselArticle
 from workflow.models import Assignment, RegisterForm, LoginForm, Revision, WArticle
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
 from django.core.urlresolvers import reverse_lazy
 
 def group_required(*group_names):
@@ -97,7 +98,7 @@ class IssueEditView(UpdateView):
 # articles
 class ArticleDetailView(DetailView):
     model = Article
-    template_name = "article.html"
+    template_name = "warticle.html"
 
 class ArticleCreateView(CreateView):
     model = Article
@@ -131,6 +132,15 @@ class ArticleDeleteView(DeleteView):
     model = Article
     template_name = "article_confirm_delete.html"
     success_url = reverse_lazy('home')
+
+class FrontListView(ListView):
+    model = FrontArticle
+    template_name = "front.html"
+
+class FrontDeleteView(DeleteView):
+    model = FrontArticle
+    template_name= "front_confirm_delete.html"
+    success_url = reverse_lazy('front')
 
 @group_required('silver')
 def article_xml(request, article_id):
