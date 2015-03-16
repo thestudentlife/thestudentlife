@@ -5,7 +5,7 @@ from django.forms import ModelForm, Textarea, TextInput
 from django.template.defaultfilters import slugify
 from django.views.generic import CreateView
 from workflow.models import Profile, Assignment, WArticle
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.views.generic import CreateView, UpdateView
 from workflow.models import Profile, Assignment, WArticle, Revision
 
@@ -29,7 +29,7 @@ class Issue(models.Model):
     def __str__(self):
         return self.name
     def get_absolute_url(self):
-        return reverse('issue',kwargs={'issue_id':self.id})
+        return reverse_lazy('issue',kwargs={'issue_id':self.id})
 
 class Article(models.Model):
     title = models.CharField(max_length=200)

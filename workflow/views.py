@@ -82,9 +82,11 @@ def issue(request, issue_id):
     articles = Article.objects.filter(issue=issue)
     return render(request, 'issue.html', {'issue': issue, 'sections': sections, 'articles': articles})
 
-@group_required('silver')
-def new_issue(request):
-    return HttpResponse('Create a new issue')
+class IssueCreate(CreateView):
+    model = Issue
+    fields = ['name']
+    successful_url = reverse_lazy('issues')
+    template_name = "create_issue.html"
 
 # articles
 class ArticleDetailView(DetailView):

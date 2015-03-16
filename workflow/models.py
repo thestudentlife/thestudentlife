@@ -7,8 +7,12 @@ from django.template.defaultfilters import slugify
 class Profile(models.Model):
     user = models.OneToOneField(User)
     POSITIONS_CHOICES= (
-        ('chief_editor','Chief Editor'),
+        ('chief_editor','Editor-in-Chief'),
+        ('managing_editor','Managing Editor'),
+        ('design_editor','Design Editor')
         ('copy_editor','Copy Editor'),
+        ('section_editor','Section Editor'),
+        ('manager','Manager'),
         ('photographer','Photographer'),
         ('author','Author'),
         ('graphic_designer','Graphic Designer'),
@@ -21,6 +25,9 @@ class Profile(models.Model):
         return self.user.first_name+" "+self.user.last_name
     def __str__(self):
         return self.user.username
+    def is_editor(self):
+        return "editor" in self.position
+
 
 class WArticle(models.Model):
     date = models.DateTimeField(default = timezone.now)
