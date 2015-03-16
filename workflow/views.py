@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login as do_login, logout as do_logout
 from django.contrib.auth.decorators import permission_required, login_required, user_passes_test
-from django.contrib.auth.models import User, Permission
+from django.contrib.auth.models import User, Permission, Group
 from django.template.loader import render_to_string
 from django.shortcuts import render, render_to_response, redirect
 from django.http import HttpResponse, HttpResponseRedirect
@@ -24,7 +24,7 @@ def register(request):
         registerForm = RegisterForm(request.POST)
         if registerForm.is_valid():
             registerForm.save()
-            return HttpResponse('Thanks for registering')
+            return redirect(reverse('home'))
         else:
             return render(request, 'register.html', {
                 'form': registerForm
@@ -45,7 +45,7 @@ def login(request):
             do_login(request, user)
             next = request.GET.get('next')
             if next is None:
-                return HttpResponse('Welcome')
+                return redirect(reverse('home'))
             else:
                 return HttpResponseRedirect(request.GET['next'])
         else:
@@ -59,8 +59,14 @@ def login(request):
         })
 
 def home(request):
-    issue = Issue.objects.all()[:1].get()
-    return HttpResponse('This should be the latest issue.')
+    if request.user.is_anonymous():
+        return redirect(reverse('login'))
+    elif isMember(request.user,"silver"):
+        issue = Issue.objects.latest('created_date')
+        return render(request,'issue.html',{'issue':issue})
+    else:
+        id = request.user.id
+        return redirect(reverse('filter_by_receiver',args=[id]))
 
 # issues
 @group_required('silver')
@@ -139,7 +145,7 @@ def new_assignment(request):
             new_assignment.sender = request.user.profile
             new_assignment.save()
             form.save_m2m
-            return HttpResponse('Thanks for assignment')
+            return redirect(reverse("assignments"))
         else:
             return render(request, 'new_assignment.html', {
                 'form': form
@@ -179,3 +185,7 @@ def filter_by_type(request, type_name):
     assignments = Assignment.objects.filter(type=type_name)
     return render(request,'assignments.html',{'assignments':assignments})
 
+def isMember(user,group_name):
+    groups = user.groups.all()
+    group = Group.objects.get(name=group_name)
+    return group in groups
