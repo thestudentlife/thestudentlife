@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import login_required
-from mainsite.models import PhotoCreateView
+from workflow.views import PhotoCreateView, ArticleCreateView, ArticleEditView,group_required, ArticleDeleteView, ArticleDetailView, IssueCreate
+
 from workflow import views
 
 urlpatterns = patterns('',
@@ -13,29 +14,23 @@ urlpatterns = patterns('',
     #issues
     url(r'^articles/issues/$',views.issues,name="issues"),
     url(r'^articles/issue/(?P<issue_id>[0-9]+)/$',views.issue,name="issue"),
-    url(r'^articles/issue/new/$',views.new_issue,name="new_issue"),
+    url(r'^articles/issue/new/$',IssueCreate.as_view(),name="new_issue"),
 
     #articles
-    url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<article_id>[0-9]+)/(?P<article_name>[^/]+)/$',
-    	views.article,name='article'),
-    url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<article_id>[0-9]+)/$',
-        views.article,name='article'),
-    url(r'^articles/issue/(?P<issue_id>[0-9]+)/new/$',views.new_article,name='new_article'),
-    url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<article_id>[0-9]+)/(?P<article_name>.+)/edit/$',
-    	views.edit_article,name='edit_article'),
-    url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<article_id>[0-9]+)/edit/$',
-        views.edit_article,name='edit_article'),
-    url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<article_id>[0-9]+)/(?P<article_name>.+)/delete/$',
-    	views.delete_article,name='delete_article'),
-    url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<article_id>[0-9]+)/delete/$',
-        views.delete_article,name='delete_article'),
+    url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<pk>[0-9]+)/$',
+        group_required('silver')(ArticleDetailView.as_view()),name='article'),
+    url(r'^articles/issue/(?P<issue_id>[0-9]+)/new/$', login_required(ArticleCreateView.as_view()),name='new_article'),
+    url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<pk>[0-9]+)/edit/$',
+        group_required('silver')(ArticleEditView.as_view()), name='edit_article'),
+    url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<pk>[0-9]+)/delete/$',
+        group_required('silver')(ArticleDeleteView.as_view()), name='delete_article'),
     url(r'^articles/xml/(?P<article_id>\d+)',views.article_xml,name="article_xml"),
 
-	#photos
-	url(r'^photos/$',views.photos,name="photos"),
-	url(r'^photos/(?P<photo_id>[0-9]+)/$',views.photo,name="photo"),
-	url(r'^photos/new/',views.new_photo,name="new_photo"),
-	url(r'^photos/(?P<photo_id>[0-9]+)/edit/',views.edit_photo,name="edit_photo"),
+    #photos
+    url(r'^photos/$',views.photos,name="photos"),
+    url(r'^photos/(?P<photo_id>[0-9]+)/$',views.photo,name="photo"),
+    url(r'^photos/new/',PhotoCreateView.as_view(),name="new_photo"),
+    url(r'^photos/(?P<photo_id>[0-9]+)/edit/',views.edit_photo,name="edit_photo"),
     url(r'^photos/upload/', login_required(PhotoCreateView.as_view()), name="upload_photo"),
 
     #assignments

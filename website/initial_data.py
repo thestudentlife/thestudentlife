@@ -47,5 +47,5 @@ zq.profile.article_set.create(title="Latina configures git!",
                    issue=issue)
 
 assignment1 = Assignment(sender=zq_profile,receiver=kent_profile,title="Take a photo of Latina Vidolova",
-                         content="Don't let her know!",section=sports)
+                         content="Don't let her know!",section=sports,type="photo")
 assignment1.save()
