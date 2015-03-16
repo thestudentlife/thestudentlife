@@ -88,6 +88,12 @@ class IssueCreateView(CreateView):
     successful_url = reverse_lazy('issues')
     template_name = "create_issue.html"
 
+class IssueEditView(UpdateView):
+    model = Issue
+    fields = ['name']
+    successful_url = reverse_lazy('issues')
+    template_name = "edit_issue.html"
+
 # articles
 class ArticleDetailView(DetailView):
     model = Article

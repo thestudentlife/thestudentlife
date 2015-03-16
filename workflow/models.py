@@ -9,7 +9,7 @@ class Profile(models.Model):
     POSITIONS_CHOICES= (
         ('chief_editor','Editor-in-Chief'),
         ('managing_editor','Managing Editor'),
-        ('design_editor','Design Editor')
+        ('design_editor','Design Editor'),
         ('copy_editor','Copy Editor'),
         ('section_editor','Section Editor'),
         ('manager','Manager'),

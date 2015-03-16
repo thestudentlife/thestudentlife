@@ -74,7 +74,15 @@ class WorkflowModels(TestCase):
         response = client.post('/workflow/articles/issue/1/1/edit/',
                                {'title': 'Three people are coding in Oldenborg at 20:05',
                                 'content': 'More than one tenth done!!!!!',
-                                'section': 1, 'issue': 1, 'authors': 'kshikama'})
+                                'section': 1, 'issue': 1, 'authors': 'kshikama'}, follow=True)
+        self.assertEqual(200, response.status_code)
+
+    def test_issue_edit(self):
+        client = Client()
+        response = client.post('/workflow/login/', {'username': 'zxiong', 'password': 'tsl'}, follow=True)
+        self.assertEqual(200, response.status_code)
+        response = client.post('/workflow/articles/issue/1/edit/',
+                               {'name': 'Excited for new issue to be published with the Manhattan Project'}, follow=True)
         self.assertEqual(200, response.status_code)
 
     def print_assignments(self):
