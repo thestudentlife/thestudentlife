@@ -3,13 +3,14 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.forms import ModelForm,EmailInput,TextInput,Textarea,PasswordInput, CharField,DateField
 from django.template.defaultfilters import slugify
+from django.core.urlresolvers import reverse, reverse_lazy
 
 class Profile(models.Model):
     user = models.OneToOneField(User)
     POSITIONS_CHOICES= (
         ('chief_editor','Editor-in-Chief'),
         ('managing_editor','Managing Editor'),
-        ('design_editor','Design Editor')
+        ('design_editor','Design Editor'),
         ('copy_editor','Copy Editor'),
         ('section_editor','Section Editor'),
         ('manager','Manager'),
@@ -27,13 +28,16 @@ class Profile(models.Model):
         return self.user.username
     def is_editor(self):
         return "editor" in self.position
+    def get_absolute_url(self):
+        return reverse('person',kwargs={'person_id':self.id})
 
 
 class WArticle(models.Model):
     date = models.DateTimeField(default = timezone.now)
     article = models.OneToOneField('mainsite.Article')
     status = models.TextField()
-    locker = models.ForeignKey(User,null=True)
+    locker = models.ForeignKey(
+        User,null=True)
     def locked(self):
         return self.locker is not None
     def __str__(self):
@@ -75,6 +79,8 @@ class Assignment(models.Model):
             return "not started"
     def __str__(self):
         return self.title
+    def get_absolute_url(self):
+        return reverse('assignment',kwargs={'assignment_id':self.id})
 
 class LoginForm(ModelForm):
     class Meta:

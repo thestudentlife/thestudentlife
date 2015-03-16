@@ -42,6 +42,8 @@ class Article(models.Model):
     updated_date = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.title
+    def has_photo(self):
+        return self.albums.photos is not None
     def slug(self):
         return slugify(self.title)
     def get_absolute_url(self):
@@ -69,9 +71,8 @@ class Photo(models.Model):
         return self.image.url
 
 class Album(models.Model):
-    article = models.ForeignKey(Article)
-    photos = models.ManyToManyField(Photo)
-
+    article = models.OneToOneField(Article)
+    photos = models.ManyToManyField(Photo,null=True)
     def __str__(self):
         return self.article.title
 

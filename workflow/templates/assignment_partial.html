@@ -1,7 +1,11 @@
 <article>
     <hgroup>
-        <h1 class="assignment_title">{{ assignment.title }}</h1>
-        <h2 class="assignment_category">{{ assignment.section }}</h2>
+        <h1 class="assignment_title">
+            <a href="{{ assignment.get_absolute_url }}">{{ assignment.title }}</a>
+        </h1>
+        <h2 class="assignment_category">
+            <a href="{{  }}">{{ assignment.section }}
+        </h2>
         {% if assignment.receiver %}
             <h2 class="assignment_receiver">Received by {{ assignment.receiver.user.username }}</h2>
         {% endif %}
