@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import login_required
-from workflow.views import PhotoCreateView, ArticleCreateView, ArticleEditView,group_required, ArticleDeleteView, ArticleDetailView, IssueCreate
+from workflow.views import PhotoCreateView, ArticleCreateView, ArticleEditView,group_required, ArticleDeleteView, ArticleDetailView, IssueCreateView, \
+    IssueEditView
 
 from workflow import views
 
@@ -14,7 +15,8 @@ urlpatterns = patterns('',
     #issues
     url(r'^articles/issues/$',views.issues,name="issues"),
     url(r'^articles/issue/(?P<issue_id>[0-9]+)/$',views.issue,name="issue"),
-    url(r'^articles/issue/new/$',IssueCreate.as_view(),name="new_issue"),
+    url(r'^articles/issue/new/$', group_required('silver')(IssueCreateView.as_view()),name="new_issue"),
+    url(r'^articles/issue/(?P<pk>[0-9]+)/edit/$', group_required('silver')(IssueEditView.as_view()), name="edit_issue"),
 
     #articles
     url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<pk>[0-9]+)/$',
