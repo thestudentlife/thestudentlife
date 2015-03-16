@@ -62,12 +62,12 @@ def login(request):
 def home(request):
     if request.user.is_anonymous():
         return redirect(reverse('login'))
-    elif isMember(request.user,"silver"):
+    elif isMember(request.user, "silver"):
         issue = Issue.objects.latest('created_date')
-        return render(request,'issue.html',{'issue':issue})
+        return render(request, 'issue.html', {'issue': issue})
     else:
         id = request.user.id
-        return redirect(reverse('filter_by_receiver',args=[id]))
+        return redirect(reverse('filter_by_receiver', args=[id]))
 
 # issues
 @group_required('silver')
@@ -82,7 +82,7 @@ def issue(request, issue_id):
     articles = Article.objects.filter(issue=issue)
     return render(request, 'issue.html', {'issue': issue, 'sections': sections, 'articles': articles})
 
-class IssueCreate(CreateView):
+class IssueCreateView(CreateView):
     model = Issue
     fields = ['name']
     successful_url = reverse_lazy('issues')
@@ -93,10 +93,9 @@ class ArticleDetailView(DetailView):
     model = Article
     template_name = "article.html"
 
-
 class ArticleCreateView(CreateView):
     model = Article
-    fields = ['title', 'content','section','issue','authors']
+    fields = ['title', 'content', 'section', 'issue', 'authors']
     template_name = 'new_article.html'
     success_url = '/'
 
@@ -109,14 +108,13 @@ class ArticleCreateView(CreateView):
 
 class ArticleEditView(UpdateView):
     model = Article
-    fields = ['title', 'content','section','issue','authors']
+    fields = ['title', 'content', 'section', 'issue', 'authors']
     template_name = 'edit_article.html'
     success_url = '/'
 
     def form_valid(self, form):
         obj = form.save()
         obj.save()
-
         body = obj.content
         editor = self.request.user.profile
         revision = Revision(article=obj, editor=editor, body=body)
@@ -134,7 +132,7 @@ def article_xml(request, article_id):
     data = render_to_string('article_xml.xml', {'article': article})
     return HttpResponse(data, content_type='application/xml')
 
-#photos
+# photos
 @group_required('silver')
 def photos(request):
     return HttpResponse('These are the photos.')
@@ -193,36 +191,36 @@ def edit_assignment(request, assignment_id):
     assignment = Assignment.objects.get(id=assignment_id)
     if request.method == 'GET':
         form = AssignmentForm(instance=assignment)
-        return render(request,'new_assignment.html',{
-            'form':form
+        return render(request, 'new_assignment.html', {
+            'form': form
         })
     else:
-        form = AssignmentForm(request.POST,instance=assignment)
+        form = AssignmentForm(request.POST, instance=assignment)
         if form.is_valid():
             assignment = form.save()
             return redirect(reverse("assignments"))
-        return render(request,'new_assignment.html',{
-                      'form':form
-                })
+        return render(request, 'new_assignment.html', {
+            'form': form
+        })
 
 @group_required('bronze')
 def filter_by_receiver(request, profile_id):
     profile = Profile.objects.get(id=profile_id)
     assignments = Assignment.objects.filter(receiver=profile)
-    return render(request,'assignments.html',{'assignments':assignments})
+    return render(request, 'assignments.html', {'assignments': assignments})
 
 @group_required('bronze')
 def filter_by_section(request, section_name):
     section = Section.objects.get(name=section_name)
     assignments = Assignment.objects.filter(section=section)
-    return render(request,'assignments.html',{'assignments':assignments})
+    return render(request, 'assignments.html', {'assignments': assignments})
 
 @group_required('bronze')
 def filter_by_type(request, type_name):
     assignments = Assignment.objects.filter(type=type_name)
-    return render(request,'assignments.html',{'assignments':assignments})
+    return render(request, 'assignments.html', {'assignments': assignments})
 
-def isMember(user,group_name):
+def isMember(user, group_name):
     groups = user.groups.all()
     group = Group.objects.get(name=group_name)
     return group in groups
