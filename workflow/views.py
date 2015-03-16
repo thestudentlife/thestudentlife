@@ -91,10 +91,6 @@ def article(request, issue_id, article_id, article_name="default"):
     return HttpResponse(
         'This is issue ' + str(issue_id) + " and article " + str(article_id) + ' with name ' + article_name)
 
-@login_required(login_url='/workflow/login/')
-def new_article(request, issue_id):
-    return HttpResponse('Create a new article in issue ' + str(issue_id))
-
 @group_required('silver')
 def edit_article(request, issue_id, article_id, article_name="default"):
     return HttpResponse('You are going to edit article ' + str(article_id) + ' with name ' + article_name)
