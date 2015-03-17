@@ -2,8 +2,13 @@ from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import login_required
 from workflow.views import PhotoCreateView, ArticleCreateView, ArticleEditView,group_required, ArticleDeleteView, ArticleDetailView, IssueCreateView, \
     IssueEditView
+from workflow.article_views import ArticleCreateView, ArticleDetailView, ArticleEditView, ArticleDeleteView
+from workflow.issue_views import IssueCreateView, IssueEditView
+
+
 
 from workflow import views
+from workflow import issue_views
 
 urlpatterns = patterns('',
     url(r'^$',views.home,name='home'),
@@ -13,8 +18,8 @@ urlpatterns = patterns('',
     url(r'^login/$',views.login,name="login"),
 
     #issues
-    url(r'^articles/issues/$',views.issues,name="issues"),
-    url(r'^articles/issue/(?P<issue_id>[0-9]+)/$',views.issue,name="issue"),
+    url(r'^articles/issues/$',issue_views.issues,name="issues"),
+    url(r'^articles/issue/(?P<issue_id>[0-9]+)/$',issue_views.issue,name="issue"),
     url(r'^articles/issue/new/$', group_required('silver')(IssueCreateView.as_view()),name="new_issue"),
     url(r'^articles/issue/(?P<pk>[0-9]+)/edit/$', group_required('silver')(IssueEditView.as_view()), name="edit_issue"),
     url(r'articles/front/$',views.front,name="front"),

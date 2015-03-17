@@ -1,15 +1,15 @@
-from django.contrib.auth import authenticate, login as do_login, logout as do_logout
-from django.contrib.auth.decorators import permission_required, login_required, user_passes_test
-from django.contrib.auth.models import User, Permission, Group
+from django.contrib.auth import authenticate, login as do_login
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.models import Group
 from django.template.loader import render_to_string
-from django.shortcuts import render, render_to_response, redirect
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, Photo, FrontArticle, CarouselArticle
-from workflow.models import Assignment, RegisterForm, LoginForm, Revision, WArticle
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic.detail import DetailView
+from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, Photo, FrontArticle
+from workflow.models import Assignment, RegisterForm, LoginForm, WArticle, Revision
+from django.views.generic.edit import CreateView, DeleteView,UpdateView
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse_lazy
 
 def group_required(*group_names):
