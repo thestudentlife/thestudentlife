@@ -1,12 +1,33 @@
 {% extends 'base.html' %}
-
+{% block title_block %}
+    <link rel="stylesheet" type="text/css" href="/static/selectbox.css">
+{% endblock %}
 {% block body_block %}
-    <ul class="front_ls">
-        {% for front in object_list %}
-            <ls>
-            {% include 'short_article_partial.html' with article=front.article %}
-            <a href="{% url 'front_delete' front.id %}">Remove this article from the front page.</a>
-            </ls>
-        {% endfor %}
-    <ul>
+    <form action="" method="post">
+        {% csrf_token %}
+            <section class="container">
+            <div>
+            <select id="leftValues" multiple>
+                {% for article in articles %}
+                    <option value="{{ article.id }}">{{ article.title }}</option>
+                {% endfor %}
+            </select>
+            </div>
+            <div>
+            <input type="button" id="btnLeft" value="&lt;&lt;" />
+            <input type="button" id="btnRight" value="&gt;&gt;" />
+            </div>
+            <div>
+            <select name="selected[]" id="rightValues"  multiple>
+                {% for front in fronts %}
+                    <option value="{{ front.article.id }}">{{ front.article.title }}</option>
+                {% endfor %}
+            </select>
+            </div>
+            </section>
+        <input type="submit" value="Confirm">
+    </form>
+    <script src="/static/jquery.js"></script>
+    <script src="/static/selectbox.js"></script>
+
 {% endblock %}

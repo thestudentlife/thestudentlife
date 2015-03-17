@@ -133,14 +133,23 @@ class ArticleDeleteView(DeleteView):
     template_name = "article_confirm_delete.html"
     success_url = reverse_lazy('home')
 
-class FrontListView(ListView):
-    model = FrontArticle
-    template_name = "front.html"
-
-class FrontDeleteView(DeleteView):
-    model = FrontArticle
-    template_name= "front_confirm_delete.html"
-    success_url = reverse_lazy('front')
+@group_required('silver')
+def front(request):
+    if request.method=="GET":
+        latest_articles = Article.objects.order_by('-published_date')[:40]
+        latest_articles = list(latest_articles)
+        fronts = FrontArticle.objects.all()
+        for front in fronts:
+            if front.article in latest_articles:
+                latest_articles.remove(front.article)
+        return render(request, 'front.html',{'articles':latest_articles,'fronts':fronts})
+    else:
+        FrontArticle.objects.all().delete()
+        for id in request.POST.getlist("selected[]"):
+            article = Article.objects.get(id=id)
+            front = FrontArticle(article=article)
+            front.save()
+        return redirect(reverse('front'))
 
 @group_required('silver')
 def article_xml(request, article_id):

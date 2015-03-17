@@ -59,6 +59,13 @@ class Article(models.Model):
         return slugify(self.title)
     def get_absolute_url(self):
         return reverse('article',kwargs={'article_id':self.id,'section_name':self.section.name})
+    def is_front(self):
+        fronts = FrontArticle.objects.all()
+        for front in fronts:
+            if front.article==self:
+                return True
+        else:
+            return False
 
 class Album(models.Model):
     article = models.OneToOneField(Article)
