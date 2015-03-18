@@ -1,0 +1,10 @@
+<article>
+    <hgroup>
+        <h1>{{ revision.article.title }}</h1>
+        <h2>{{ revision.date }}</h2>
+        <h2>{{ revision.editor }}</h2>
+    </hgroup>
+    <section class='revision_body'>
+        {{ body | safe}}
+    </section>
+</article>

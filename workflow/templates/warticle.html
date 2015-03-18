@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-<div class="article_block">
-    {% include 'workflow_long_article_partial.html' %}
-</div>
+    <div class="article_block">
+        {% include 'workflow_long_article_partial.html' %}
+    </div>
+    <div class="revision_block">
+        {% include 'revision_list_partial.html' %}
+    </div>
 {% endblock %}
