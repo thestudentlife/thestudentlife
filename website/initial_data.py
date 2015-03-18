@@ -1,5 +1,5 @@
 from django.contrib.auth.models import Permission, User, Group, ContentType
-from mainsite.models import Issue, Article, Section, FrontArticle
+from mainsite.models import Issue, Article, Section, FrontArticle, Album
 from workflow.models import Profile, Assignment
 
 plastic = Group(name="plastic")
@@ -53,3 +53,6 @@ front.save()
 assignment1 = Assignment(sender=zq_profile,receiver=kent_profile,title="Take a photo of Latina Vidolova",
                          content="Don't let her know!",section=sports,type="photo")
 assignment1.save()
+
+album = Album(article=article)
+album.save()

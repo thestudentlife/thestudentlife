@@ -1,11 +1,14 @@
 from django.contrib.auth import authenticate, login as do_login
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import Group
+from django.core.context_processors import csrf
+from django.forms import inlineformset_factory, ModelForm
+from django.template import RequestContext
 from django.template.loader import render_to_string
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, Photo, FrontArticle
+from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, Photo, FrontArticle, Album
 from workflow.models import Assignment, RegisterForm, LoginForm
 from django.views.generic.edit import CreateView, DeleteView
 from django.views.generic.list import ListView
@@ -84,6 +87,7 @@ def article_xml(request, article_id):
     data = render_to_string('article_xml.xml', {'article': article})
     return HttpResponse(data, content_type='application/xml')
 
+
 # photos
 @group_required('silver')
 def photos(request):
@@ -93,17 +97,31 @@ def photos(request):
 def photo(request, photo_id):
     return HttpResponse('This is photo ' + str(photo_id))
 
-class PhotoCreateView(CreateView):
-    model = Photo
-    fields = ['image', 'caption']
-    template_name = 'upload_photo.html'
-    success_url = '/'
+class PhotoForm(ModelForm):
+    class Meta:
+        model = Photo
+        fields = ['image', 'caption']
 
-    def form_valid(self, form):
-        obj = form.save(commit=False)
-        obj.credit = self.request.user.profile
-        obj.save()
-        return super(PhotoCreateView, self).form_valid(form)
+@group_required('silver')
+def update_album(request, album_id):
+    album = Album.objects.get(pk=album_id)
+    PhotoInlineFormSet = inlineformset_factory(Album, Photo, form=PhotoForm)
+    if request.method == "POST":
+        formset = PhotoInlineFormSet(request.POST, request.FILES, instance=album)
+        if formset.is_valid():
+            instances = formset.save(commit=False)
+            for instance in instances:
+                instance.credit = request.user.profile
+                instance.save()
+            for obj in formset.deleted_objects:
+                obj.delete()
+            formset.save_m2m()
+            return HttpResponse("Success!")
+    else:
+        formset = PhotoInlineFormSet(instance=album)
+    return render_to_response("update_album.html", RequestContext(request, {
+        "formset": formset
+    }))
 
 @group_required('bronze')
 def edit_photo(request, photo_id):

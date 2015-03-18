@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import login_required
 from workflow.article_views import ArticleCreateView, ArticleDetailView, ArticleEditView, ArticleDeleteView
 from workflow.issue_views import IssueCreateView, IssueEditView
-from workflow.views import PhotoCreateView, group_required, FrontListView, FrontDeleteView
+from workflow.views import group_required, FrontListView, FrontDeleteView
 
 from workflow import views
 from workflow import issue_views
@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     url(r'^articles/issue/(?P<pk>[0-9]+)/edit/$', group_required('silver')(IssueEditView.as_view()), name="edit_issue"),
     url(r'^articles/front/$',group_required('silver')(FrontListView.as_view()),name="front"),
     url(r'^articles/front/(?P<pk>\d+)/delete/$',group_required('silver')(FrontDeleteView.as_view()),name="front_delete"),
+
     #articles
     url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<pk>[0-9]+)/$',
         group_required('silver')(ArticleDetailView.as_view()),name='warticle'),
@@ -31,12 +32,15 @@ urlpatterns = patterns('',
         group_required('silver')(ArticleDeleteView.as_view()), name='delete_article'),
     url(r'^articles/xml/(?P<article_id>\d+)',views.article_xml,name="article_xml"),
 
+    #album
+    url(r'^album/(?P<album_id>\d+)$', views.update_album, name="update_album"),
+
     #photos
     url(r'^photos/$',views.photos,name="photos"),
-    url(r'^photos/(?P<photo_id>[0-9]+)/$',views.photo,name="photo"),
-    url(r'^photos/new/',PhotoCreateView.as_view(),name="new_photo"),
-    url(r'^photos/(?P<photo_id>[0-9]+)/edit/',views.edit_photo,name="edit_photo"),
-    url(r'^photos/upload/', login_required(PhotoCreateView.as_view()), name="upload_photo"),
+#    url(r'^photos/(?P<photo_id>[0-9]+)/$',views.photo,name="photo"),
+#    url(r'^photos/new/',PhotoCreateView.as_view(),name="new_photo"),
+#    url(r'^photos/(?P<photo_id>[0-9]+)/edit/',views.edit_photo,name="edit_photo"),
+#    url(r'^photos/upload/', login_required(PhotoCreateView.as_view()), name="upload_photo"),
 
     #assignments
     url(r'^assignments/$',views.assignments,name="assignments"),
