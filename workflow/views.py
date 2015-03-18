@@ -8,10 +8,14 @@ from django.template.loader import render_to_string
 from django.shortcuts import render, redirect, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, Photo, FrontArticle, Album
-from workflow.models import Assignment, RegisterForm, LoginForm
-from django.views.generic.edit import CreateView, DeleteView
+from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, Photo, FrontArticle, CarouselArticle, \
+    Album
+from workflow.models import Assignment, RegisterForm, LoginForm, WArticle, Revision
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
+
+
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse_lazy
 
 def group_required(*group_names):
@@ -72,14 +76,104 @@ def home(request):
         id = request.user.id
         return redirect(reverse('filter_by_receiver', args=[id]))
 
-class FrontListView(ListView):
-    model = FrontArticle
-    template_name = "front.html"
+# issues
+@group_required('silver')
+def issues(request):
+    issues = Issue.objects.all()
+    return HttpResponse('These are the issues.')
 
-class FrontDeleteView(DeleteView):
-    model = FrontArticle
-    template_name= "front_confirm_delete.html"
-    success_url = reverse_lazy('front')
+@group_required('silver')
+def issue(request, issue_id):
+    issue = Issue.objects.get(pk=issue_id)
+    sections = Section.objects.all()
+    articles = Article.objects.filter(issue=issue)
+    return render(request, 'issue.html', {'issue': issue, 'sections': sections, 'articles': articles})
+
+class IssueCreateView(CreateView):
+    model = Issue
+    fields = ['name']
+    successful_url = reverse_lazy('issues')
+    template_name = "create_issue.html"
+
+class IssueEditView(UpdateView):
+    model = Issue
+    fields = ['name']
+    successful_url = reverse_lazy('issues')
+    template_name = "edit_issue.html"
+
+# articles
+class ArticleDetailView(DetailView):
+    model = Article
+    template_name = "warticle.html"
+
+class ArticleCreateView(CreateView):
+    model = Article
+    fields = ['title', 'content', 'section', 'issue', 'authors']
+    template_name = 'new_article.html'
+    success_url = '/'
+
+    def form_valid(self, form):
+        obj = form.save()
+        obj.save()
+        workflowArticle = WArticle(article=obj, status='')
+        workflowArticle.save()
+        return super(ArticleCreateView, self).form_valid(form)
+
+class ArticleEditView(UpdateView):
+    model = Article
+    fields = ['title', 'content', 'section', 'issue', 'authors']
+    template_name = 'edit_article.html'
+    success_url = '/'
+
+    def form_valid(self, form):
+        obj = form.save()
+        obj.save()
+        body = obj.content
+        editor = self.request.user.profile
+        revision = Revision(article=obj, editor=editor, body=body)
+        revision.save()
+        return super(ArticleEditView, self).form_valid(form)
+
+class ArticleDeleteView(DeleteView):
+    model = Article
+    template_name = "article_confirm_delete.html"
+    success_url = reverse_lazy('home')
+
+@group_required('silver')
+def front(request):
+    if request.method=="GET":
+        latest_articles = Article.objects.order_by('-published_date')[:40]
+        latest_articles = list(latest_articles)
+        fronts = FrontArticle.objects.all()
+        for front in fronts:
+            if front.article in latest_articles:
+                latest_articles.remove(front.article)
+        return render(request, 'front.html',{'articles':latest_articles,'fronts':fronts})
+    else:
+        FrontArticle.objects.all().delete()
+        for id in request.POST.getlist("selected[]"):
+            article = Article.objects.get(id=id)
+            front = FrontArticle(article=article)
+            front.save()
+        return redirect(reverse('front'))
+
+@group_required('silver')
+def carousel(request):
+    if request.method=="GET":
+        latest_articles = Article.objects.order_by('-published_date')[:40]
+        latest_articles = list(latest_articles)
+        carousels = CarouselArticle.objects.all()
+        for carousel in carousels:
+            if carousel.article in latest_articles:
+                latest_articles.remove(carousel.article)
+        return render(request, 'front.html',{'articles':latest_articles,'fronts':carousels})
+    else:
+        CarouselArticle.objects.all().delete()
+        for id in request.POST.getlist("selected[]"):
+            article = Article.objects.get(id=id)
+            carousel = FrontArticle(article=article)
+            carousel.save()
+        return redirect(reverse('carousel'))
 
 @group_required('silver')
 def article_xml(request, article_id):
