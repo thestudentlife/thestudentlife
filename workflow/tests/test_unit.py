@@ -38,13 +38,13 @@ class WorkflowModels(TestCase):
         profile_kent = Profile(user=kent, position='photographer')
         self.assertEqual("Kent Shikama", profile_kent.display_name())
 
-    def test_photo_upload(self):
-        client = Client()
-        response = client.post('/workflow/login/', {'username': 'zxiong', 'password': 'tsl'}, follow=True)
-        self.assertEqual(200, response.status_code)
-        with open(ENV_PATH + '/test_upload_file.jpg') as image:
-            response = client.post('/workflow/photos/upload/', {'caption': 'water image', 'image': image}, follow=True)
-        self.assertEqual(200, response.status_code)
+#    def test_photo_upload(self):
+#        client = Client()
+#        response = client.post('/workflow/login/', {'username': 'zxiong', 'password': 'tsl'}, follow=True)
+#        self.assertEqual(200, response.status_code)
+#        with open(ENV_PATH + '/test_upload_file.jpg') as image:
+#            response = client.post('/workflow/photos/upload/', {'caption': 'water image', 'image': image}, follow=True)
+#        self.assertEqual(200, response.status_code)
 
     def test_assignment_creation(self):
         client = Client()
