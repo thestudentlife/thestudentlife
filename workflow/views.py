@@ -17,6 +17,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse_lazy
+import os, subprocess
 
 def group_required(*group_names):
     def in_groups(u):
@@ -180,6 +181,29 @@ def article_xml(request, article_id):
     article = Article.objects.get(id=article_id)
     data = render_to_string('article_xml.xml', {'article': article})
     return HttpResponse(data, content_type='application/xml')
+
+
+@group_required('silver')
+def revision(request,pk):
+    revision = Revision.objects.get(pk=pk);
+    article = revision.article;
+    index = list(article.revision_set.order_by('date')).index(revision)
+    if index > 0:
+        previous_revision_body = list(article.revision_set.order_by('date'))[index-1].body
+    else:
+        previous_revision_body = ''
+    file_1 = open('file_1','w')
+    file_1.write(revision.body)
+    file_1.close()
+    file_2 = open('file_2','w')
+    file_2.write(previous_revision_body)
+    file_2.close()
+    command = ['py', 'workflow\static\htmldiff.py','file_2','file_1']
+    p = subprocess.Popen(command, stdout=subprocess.PIPE)
+    text = p.stdout.read()
+    os.remove('file_1')
+    os.remove('file_2')
+    return render(request,'revision.html',{'revision':revision,'body':text})
 
 
 # photos

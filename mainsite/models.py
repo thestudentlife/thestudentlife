@@ -51,7 +51,7 @@ class Article(models.Model):
         return self.title
 
     def has_photo(self):
-        return self.albums.photos is not None
+        return self.album.photos is not None
 
     def slug(self):
         return slugify(self.title)

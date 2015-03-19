@@ -50,6 +50,8 @@ class Revision(models.Model):
     article = models.ForeignKey('mainsite.Article')
     editor = models.ForeignKey(Profile)
     body = models.TextField()
+    def __str__(self):
+        return str(self.date)
 
 class Review(models.Model):
     date = models.DateTimeField(default = timezone.now)
