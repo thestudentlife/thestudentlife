@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% block body_block %}
 <article>
     <hgroup>
         <h1>{{ revision.article.title }}</h1>
@@ -8,3 +10,8 @@
         {{ body | safe}}
     </section>
 </article>
+
+    <div class="revision_block">
+        {% include 'revision_list_partial.html' with article=revision.article %}
+    </div>
+{% endblock %}
