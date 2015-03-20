@@ -8,7 +8,7 @@ from workflow import views
 from workflow import issue_views
 
 urlpatterns = patterns('',
-    url(r'^$',views.home,name='home'),
+    url(r'^$',views.home,name='whome'),
 
     #login/register
     url(r'^register/$',views.register,name="register"),

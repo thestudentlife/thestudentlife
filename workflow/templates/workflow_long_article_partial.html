@@ -8,11 +8,15 @@
         </h2>
         <h2 class="article_authors">
             {%   for author in article.authors.all %}
-                <a href="{{ article.author.get_absolute_url }}">{{ author.display_name }}</a>
+                <a href="{{ article.author.get_absolute_url }}">{{ author.user.username }}</a>
             {% endfor % %}
         </h2>
         <h2 class="article_updated_date">{{ article.updated_date }}</h2>
     </hgroup>
+    <div class="button_groups">
+        <a href="{% url 'edit_article' article.issue.id article.id %}"><button class="edit_button">Edit</button></a>
+        <a href="{% url 'delete_article' article.issue.id article.id %}"><button class="delete_button">Delete</button></a>
+    </div>
     <ul class="photo_ls">
     {% if article.has_photo %}
         {%   for photo in article.album.photos %}

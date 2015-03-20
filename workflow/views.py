@@ -12,12 +12,11 @@ from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, Ph
     Album
 from workflow.models import Assignment, RegisterForm, LoginForm, WArticle, Revision
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
-
-
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse_lazy
 import os, subprocess
+from workflow.static import getText
 
 def group_required(*group_names):
     def in_groups(u):
@@ -111,7 +110,7 @@ class ArticleCreateView(CreateView):
     model = Article
     fields = ['title', 'content', 'section', 'issue', 'authors']
     template_name = 'new_article.html'
-    success_url = '/'
+    success_url = reverse_lazy('whome')
 
     def form_valid(self, form):
         obj = form.save()
@@ -124,7 +123,7 @@ class ArticleEditView(UpdateView):
     model = Article
     fields = ['title', 'content', 'section', 'issue', 'authors']
     template_name = 'edit_article.html'
-    success_url = '/'
+    success_url = reverse_lazy('whome')
 
     def form_valid(self, form):
         obj = form.save()
@@ -138,7 +137,7 @@ class ArticleEditView(UpdateView):
 class ArticleDeleteView(DeleteView):
     model = Article
     template_name = "article_confirm_delete.html"
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('whome')
 
 @group_required('silver')
 def front(request):
@@ -179,7 +178,8 @@ def carousel(request):
 @group_required('silver')
 def article_xml(request, article_id):
     article = Article.objects.get(id=article_id)
-    data = render_to_string('article_xml.xml', {'article': article})
+    paragraphs = getText.dehtml(article.content).split('\n\n')
+    data = render_to_string('article_xml.xml', {'article': article,'paragraphs':paragraphs})
     return HttpResponse(data, content_type='application/xml')
 
 

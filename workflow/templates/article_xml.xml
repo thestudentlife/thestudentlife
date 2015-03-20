@@ -4,5 +4,7 @@
     {% for author in article.authors.all %}
         <author>{{ author.user.username }}</author>
     {% endfor %}
-    <body>{{ article.content }}</body>
+    {% for paragraph in paragraphs %}
+        <p>{{ paragraph }}</p>
+    {% endfor %}
 </article>
