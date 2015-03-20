@@ -5,10 +5,11 @@ from django.views.generic import CreateView, UpdateView
 from mainsite.models import Issue, Section, Article
 from workflow.views import group_required
 
+
 @group_required('silver')
 def issues(request):
-    issues = Issue.objects.all()
-    return HttpResponse('These are the issues.')
+    issues = Issue.objects.order_by('-created_date')
+    return render(request,'issues.html',{'issues':issues})
 
 @group_required('silver')
 def issue(request, issue_id):

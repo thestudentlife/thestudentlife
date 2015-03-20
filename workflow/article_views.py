@@ -13,7 +13,7 @@ class ArticleCreateView(CreateView):
     model = Article
     fields = ['title', 'content', 'section', 'issue', 'authors']
     template_name = 'new_article.html'
-    success_url = '/'
+    success_url = reverse_lazy('whome')
 
     def form_valid(self, form):
         obj = form.save()
@@ -26,7 +26,7 @@ class ArticleEditView(UpdateView):
     model = Article
     fields = ['title', 'content', 'section', 'issue', 'authors']
     template_name = 'edit_article.html'
-    success_url = '/'
+    success_url = reverse_lazy('whome')
 
     def form_valid(self, form):
         obj = form.save()
@@ -40,4 +40,4 @@ class ArticleEditView(UpdateView):
 class ArticleDeleteView(DeleteView):
     model = Article
     template_name = "article_confirm_delete.html"
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('whome')

@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from workflow.article_views import ArticleCreateView, ArticleDetailView, ArticleEditView, ArticleDeleteView
 from workflow.issue_views import IssueCreateView, IssueEditView
 from workflow.views import group_required
-
 from workflow import views
 from workflow import issue_views
 
