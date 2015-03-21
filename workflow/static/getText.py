@@ -27,7 +27,6 @@ class _DeHTMLParser(HTMLParser):
     def text(self):
         return ''.join(self.__text).strip()
 
-
 def dehtml(text):
     try:
         parser = _DeHTMLParser()
@@ -38,7 +37,6 @@ def dehtml(text):
         print_exc(file=stderr)
         return text
 
-
 def main():
     text = r'''
         <p>Hello!</p>
@@ -46,7 +44,6 @@ def main():
         <p>How are you? <p>
     '''
     print(dehtml(text))
-
 
 if __name__ == '__main__':
     main()

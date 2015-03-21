@@ -5,10 +5,10 @@
     <title>Edit Album</title>
 </head>
 <body>
-<form method="post" enctype="multipart/form-data"  action="">
+<form method="post" enctype="multipart/form-data" action="">
     {% csrf_token %}
     {{ formset.as_p }}
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Submit"/>
 </form>
 </body>
 </html>

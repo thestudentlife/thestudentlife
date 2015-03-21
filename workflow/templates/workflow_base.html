@@ -2,12 +2,12 @@
 
 {% block body_block %}
     {% if 'silver' in permission or 'gold' in permission %}
-        {%  include 'navigation/silver_nav.html' %}
+        {% include 'navigation/silver_nav.html' %}
     {% elif 'bronze' in permission %}
-        {%  include 'navigation/bronze_nav.html' %}
+        {% include 'navigation/bronze_nav.html' %}
     {% elif 'plastic' in permission %}
         {% include 'navigation/plastic_nav.html' %}
     {% endif %}
     {% block content_block %}
-    {%  endblock %}
+    {% endblock %}
 {% endblock %}

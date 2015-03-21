@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-<form method="POST" action="">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input id="login" type="submit" value="Submit" />
-</form>
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input id="login" type="submit" value="Submit"/>
+    </form>
     <p>Don't have an TSL account? Take 30 seconds to <a href="{% url 'register' %}">register!</a></p>
 {% endblock %}

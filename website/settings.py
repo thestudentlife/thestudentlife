@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -92,7 +93,6 @@ MEDIA_ROOT = os.path.join(ENV_PATH, 'media/')
 
 LOGIN_URL = '/workflow/login'
 
-
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
@@ -105,7 +105,7 @@ HAYSTACK_CONNECTIONS = {
 from django.conf import settings
 # Specify the selenium test runner
 SELENIUM_TEST_RUNNER = getattr(settings, 'SELENIUM_TEST_RUNNER',
-                             'django_selenium.selenium_runner.SeleniumTestRunner')
+                               'django_selenium.selenium_runner.SeleniumTestRunner')
 
 SELENIUM_TIMEOUT = getattr(settings, 'SELENIUM_TIMEOUT', 120)
 SELENIUM_DRIVER_TIMEOUT = getattr(settings, 'SELENIUM_DRIVER_TIMEOUT', 10)

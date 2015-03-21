@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block body_block %}
-     <p class="confirm_info">Are you sure to delete this article?</p>
-<form method="POST" action="">
-   {% csrf_token %}<input type="submit" value="DELETE">
-</form>
+    <p class="confirm_info">Are you sure to delete this article?</p>
+    <form method="POST" action="">
+        {% csrf_token %}<input type="submit" value="DELETE">
+    </form>
 {% endblock %}

@@ -6,7 +6,6 @@ from workflow.models import Profile, Assignment
 from mainsite.models import Issue, Section, Article
 
 class WorkflowModels(TestCase):
-
     def test_initial_data(self):
         kent = Group.objects.all()[3].user_set.all()[0]
         self.assertEqual("kshikama", kent.username)
@@ -36,13 +35,14 @@ class WorkflowModels(TestCase):
         profile_kent = Profile(user=kent, position='photographer')
         self.assertEqual("Kent Shikama", profile_kent.display_name())
 
-#    def test_photo_upload(self):
-#        client = Client()
-#        response = client.post('/workflow/login/', {'username': 'zxiong', 'password': 'tsl'}, follow=True)
-#        self.assertEqual(200, response.status_code)
-#        with open(ENV_PATH + '/test_upload_file.jpg') as image:
-#            response = client.post('/workflow/photos/upload/', {'caption': 'water image', 'image': image}, follow=True)
-#        self.assertEqual(200, response.status_code)
+        # def test_photo_upload(self):
+
+    #        client = Client()
+    #        response = client.post('/workflow/login/', {'username': 'zxiong', 'password': 'tsl'}, follow=True)
+    #        self.assertEqual(200, response.status_code)
+    #        with open(ENV_PATH + '/test_upload_file.jpg') as image:
+    #            response = client.post('/workflow/photos/upload/', {'caption': 'water image', 'image': image}, follow=True)
+    #        self.assertEqual(200, response.status_code)
 
     def article_creation(self):
         client = Client()
@@ -69,7 +69,8 @@ class WorkflowModels(TestCase):
         response = client.post('/workflow/login/', {'username': 'zxiong', 'password': 'tsl'}, follow=True)
         self.assertEqual(200, response.status_code)
         response = client.post('/workflow/articles/issue/1/edit/',
-                               {'name': 'Excited for new issue to be published with the Manhattan Project'}, follow=True)
+                               {'name': 'Excited for new issue to be published with the Manhattan Project'},
+                               follow=True)
         self.assertEqual(200, response.status_code)
 
     def print_assignments(self):

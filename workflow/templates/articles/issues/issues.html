@@ -4,7 +4,7 @@
     <ul class="issues_ls">
         {% for issue in issues %}
             <li>
-                <a href="{%   url 'issue' issue.id %}">{{ issue.name }}</a>
+                <a href="{% url 'issue' issue.id %}">{{ issue.name }}</a>
             </li>
         {% endfor %}
     </ul>

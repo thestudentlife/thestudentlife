@@ -7,7 +7,7 @@ class FunctionalTest(LiveServerTestCase):
         self.selenium = webdriver.Firefox()
         self.selenium.maximize_window()
         self.selenium.get(
-            '%s%s' % (self.live_server_url,  "/workflow/login/")
+            '%s%s' % (self.live_server_url, "/workflow/login/")
         )
         username = self.selenium.find_element_by_id("id_username")
         password = self.selenium.find_element_by_id("id_password")
@@ -23,7 +23,7 @@ class FunctionalTest(LiveServerTestCase):
 
     def test_create_assignment(self):
         self.selenium.get(
-            '%s%s' % (self.live_server_url,  "/workflow/assignments/new/")
+            '%s%s' % (self.live_server_url, "/workflow/assignments/new/")
         )
         title = self.selenium.find_element_by_id("id_title")
         content = self.selenium.find_element_by_id("id_content")

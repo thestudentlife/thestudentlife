@@ -57,9 +57,7 @@ class Article(models.Model):
         return slugify(self.title)
 
     def get_absolute_url(self):
-        return reverse('article',kwargs={'article_id':self.id,'section_name':self.section.name})
-
-
+        return reverse('article', kwargs={'article_id': self.id, 'section_name': self.section.name})
 
 class FrontArticle(models.Model):
     article = models.OneToOneField(Article)
@@ -78,7 +76,7 @@ class Album(models.Model):
 
     def __str__(self):
         return self.article.title
-    
+
 class Photo(models.Model):
     date = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to='photo/')

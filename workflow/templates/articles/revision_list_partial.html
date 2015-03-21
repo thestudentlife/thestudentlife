@@ -3,6 +3,6 @@
 </p>
 <ul class=revision_ls">
     {% for revision in article.revision_set.all %}
-        <li><a href="{%  url 'revision' revision.id %}">{{ revision.date }}</a></li>
+        <li><a href="{% url 'revision' revision.id %}">{{ revision.date }}</a></li>
     {% endfor %}
 </ul>

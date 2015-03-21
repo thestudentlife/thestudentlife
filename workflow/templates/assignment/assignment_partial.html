@@ -3,18 +3,20 @@
         <h1 class="assignment_title">
             <a href="{{ assignment.get_absolute_url }}">{{ assignment.title }}</a>
         </h1>
+
         <h2 class="assignment_category">
             <a href="{% url 'filter_by_section' assignment.section.name %}">{{ assignment.section }}</a>
         </h2>
         {% if assignment.receiver %}
             <h2 class="assignment_receiver">Received by
-                <a href="{% url 'filter_by_receiver' assignment.receiver.id%}">{{ assignment.receiver.user.username }}</a>
+                <a href="{% url 'filter_by_receiver' assignment.receiver.id %}">{{ assignment.receiver.user.username }}</a>
             </h2>
         {% endif %}
         <h2 class="assignment_due">{{ assignment.due_date }}</h2>
+
         <h2 class="assignment_progress">{{ assignment.progress }}</h2>
     </hgroup>
     <p class="assignment_content">
-        {{assignment.content}}
+        {{ assignment.content }}
     </p>
 </article>

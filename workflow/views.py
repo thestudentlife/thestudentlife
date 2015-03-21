@@ -83,10 +83,9 @@ def home(request):
         id = request.user.id
         return redirect(reverse('filter_by_receiver', args=[id]))
 
-
 @group_required('silver')
 def front(request):
-    if request.method=="GET":
+    if request.method == "GET":
         latest_articles_for_front = list(Article.objects.order_by('-published_date')[:40])
         fronts = FrontArticle.objects.all()
         for front in fronts:
@@ -97,9 +96,9 @@ def front(request):
         for carousel in carousels:
             if carousel.article in latest_articles_for_carousel:
                 latest_articles_for_carousel.remove(carousel.article)
-        return render(request, 'front.html',{'latest_articles_for_front':latest_articles_for_front,'fronts':fronts,
-                                                'latest_articles_for_carousel':latest_articles_for_carousel,
-                                                'carousels':carousels})
+        return render(request, 'front.html', {'latest_articles_for_front': latest_articles_for_front, 'fronts': fronts,
+                                              'latest_articles_for_carousel': latest_articles_for_carousel,
+                                              'carousels': carousels})
     else:
         FrontArticle.objects.all().delete()
         CarouselArticle.objects.all().delete()
@@ -117,32 +116,30 @@ def front(request):
 def article_xml(request, article_id):
     article = Article.objects.get(id=article_id)
     paragraphs = getText.dehtml(article.content).split('\n\n')
-    data = render_to_string('articles/article_xml.xml', {'article': article,'paragraphs':paragraphs})
+    data = render_to_string('articles/article_xml.xml', {'article': article, 'paragraphs': paragraphs})
     return HttpResponse(data, content_type='application/xml')
 
-
 @group_required('silver')
-def revision(request,pk):
+def revision(request, pk):
     revision = Revision.objects.get(pk=pk);
     article = revision.article;
     index = list(article.revision_set.order_by('date')).index(revision)
     if index > 0:
-        previous_revision_body = list(article.revision_set.order_by('date'))[index-1].body
+        previous_revision_body = list(article.revision_set.order_by('date'))[index - 1].body
     else:
         previous_revision_body = ''
-    file_1 = open('file_1','w')
+    file_1 = open('file_1', 'w')
     file_1.write(revision.body)
     file_1.close()
-    file_2 = open('file_2','w')
+    file_2 = open('file_2', 'w')
     file_2.write(previous_revision_body)
     file_2.close()
-    command = ['python', 'workflow' + os.sep + 'static' + os.sep + 'htmldiff.py','file_2','file_1']
+    command = ['python', 'workflow' + os.sep + 'static' + os.sep + 'htmldiff.py', 'file_2', 'file_1']
     p = subprocess.Popen(command, stdout=subprocess.PIPE)
     text = p.stdout.read()
     os.remove('file_1')
     os.remove('file_2')
-    return render(request, 'articles/revision.html',{'revision':revision,'body':text})
-
+    return render(request, 'articles/revision.html', {'revision': revision, 'body': text})
 
 # photos
 @group_required('silver')
@@ -183,7 +180,7 @@ def update_album(request, album_id):
 def edit_photo(request, photo_id):
     return HttpResponse('You are going to edit photo ' + str(photo_id))
 
-#assignments
+# assignments
 @group_required('bronze')
 def assignments(request):
     assignments = Assignment.objects.all()
@@ -233,7 +230,8 @@ def edit_assignment(request, assignment_id):
 def filter_by_receiver(request, profile_id):
     profile = Profile.objects.get(id=profile_id)
     assignments = Assignment.objects.filter(receiver=profile)
-    return render(request, 'assignment/assignments.html', {'assignments': assignments, 'permission': request.user.profile.get_highest_group()})
+    return render(request, 'assignment/assignments.html',
+                  {'assignments': assignments, 'permission': request.user.profile.get_highest_group()})
 
 @group_required('bronze')
 def filter_by_section(request, section_name):

@@ -15,6 +15,7 @@ Better results if you use mxTidy first.  The output is HTML.
 
 from difflib import SequenceMatcher
 import re
+
 try:
     from cStringIO import StringIO
 except ImportError:
@@ -28,16 +29,16 @@ commentRE = re.compile('<!--.*?-->', re.S)
 tagRE = re.compile('<script.*?>.*?</script>|<.*?>', re.S)
 headRE = re.compile('<\s*head\s*>', re.S | re.I)
 wsRE = re.compile('^([ \n\r\t]|&nbsp;)+$')
-stopwords = ['I', 'a', 'about', 'an', 'and', 'are', 'as', 'at', 'be', 'by', 'for', 'from', 'have', 'how', 'in', 'is', 'it', 'of', 'on', 'or', 'that', 'the', 'this', 'to', 'was', 'what', 'when', 'where', 'who', 'will', 'with']
+stopwords = ['I', 'a', 'about', 'an', 'and', 'are', 'as', 'at', 'be', 'by', 'for', 'from', 'have', 'how', 'in', 'is',
+             'it', 'of', 'on', 'or', 'that', 'the', 'this', 'to', 'was', 'what', 'when', 'where', 'who', 'will', 'with']
 
 # Note: Just returning false here gives a generally more accurate,
 # but much slower and more noisy result.
 def isJunk(x):
-#    return False
+    # return False
     return wsRE.match(x) or x.lower() in stopwords
 
 class HTMLMatcher(SequenceMatcher):
-
     def __init__(self, source1, source2):
         SequenceMatcher.__init__(self, isJunk, source1, source2, False)
 
@@ -46,7 +47,7 @@ class HTMLMatcher(SequenceMatcher):
 
     def set_seq2(self, b):
         SequenceMatcher.set_seq2(self, self.splitHTML(b))
-        
+
     def splitTags(self, t):
         result = []
         pos = 0
@@ -78,9 +79,9 @@ class HTMLMatcher(SequenceMatcher):
         opcodes = self.get_opcodes()
         a = self.a
         b = self.b
-#        print a
-#        print b
-#        print opcodes
+        # print a
+        #        print b
+        #        print opcodes
         out = StringIO()
         for tag, i1, i2, j1, j2 in opcodes:
             if tag == 'equal':
@@ -173,20 +174,26 @@ class HTMLMatcher(SequenceMatcher):
 
     def startInsertText(self):
         return '<span class="insert">'
+
     def endInsertText(self):
         return '</span>'
+
     def startDeleteText(self):
         return '<span class="delete">'
+
     def endDeleteText(self):
         return '</span>'
+
     def formatInsertTag(self, tag):
         return '<span class="tagInsert">insert: <tt>%s</tt></span>' % htmlEncode(tag)
+
     def formatDeleteTag(self, tag):
         return '<span class="tagDelete">delete: <tt>%s</tt></span>' % htmlEncode(tag)
 
 class NoTagHTMLMatcher(HTMLMatcher):
     def formatInsertTag(self, tag):
         return ''
+
     def formatDeleteTag(self, tag):
         return ''
 
@@ -201,7 +208,7 @@ def htmldiff(source1, source2, addStylesheet=False):
         >>> htmldiff('<b>test1</b>', '<i>test1</i>')
         '<span class="tagDelete">delete: <tt>&lt;b&gt;</tt></span> <span class="tagInsert">insert: <tt>&lt;i&gt;</tt></span> <i> test1 <span class="tagDelete">delete: <tt>&lt;/b&gt;</tt></span> <span class="tagInsert">insert: <tt>&lt;/i&gt;</tt></span> </i> '
     """
-#    h = HTMLMatcher(source1, source2)
+    # h = HTMLMatcher(source1, source2)
     h = NoTagHTMLMatcher(source1, source2)
     return h.htmlDiff(addStylesheet)
 
@@ -214,16 +221,22 @@ class SimpleHTMLMatcher(HTMLMatcher):
     """
     Like HTMLMatcher, but returns a simpler diff
     """
+
     def startInsertText(self):
         return '+['
+
     def endInsertText(self):
         return ']'
+
     def startDeleteText(self):
         return '-['
+
     def endDeleteText(self):
         return ']'
+
     def formatInsertTag(self, tag):
         return '+[%s]' % tag
+
     def formatDeleteTag(self, tag):
         return '-[%s]' % tag
 
@@ -240,8 +253,6 @@ def simplehtmldiff(source1, source2):
     return h.htmlDiff()
 
 class TextMatcher(HTMLMatcher):
-
-
     def set_seq1(self, a):
         SequenceMatcher.set_seq1(self, a.split('\n'))
 
@@ -281,11 +292,13 @@ class TextMatcher(HTMLMatcher):
 
 if __name__ == '__main__':
     import sys
+
     if not sys.argv[1:]:
         print("Usage: %s file1 file2" % sys.argv[0])
-        print ("or to test: %s test" % sys.argv[0])
+        print("or to test: %s test" % sys.argv[0])
     elif sys.argv[1] == 'test' and not sys.argv[2:]:
         import doctest
+
         doctest.testmod()
     else:
         print(diffFiles(sys.argv[1], sys.argv[2]))

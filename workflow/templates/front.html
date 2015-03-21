@@ -5,49 +5,49 @@
 {% block body_block %}
     <form action="" method="post">
         {% csrf_token %}
-            <section class="container">
+        <section class="container">
             <div>
-            <label>Front Articles</label>
-            <select id="leftValues" multiple>
-                {% for article in latest_articles_for_front %}
-                    <option value="{{ article.id }}">{{ article.title }}</option>
-                {% endfor %}
-            </select>
+                <label>Front Articles</label>
+                <select id="leftValues" multiple>
+                    {% for article in latest_articles_for_front %}
+                        <option value="{{ article.id }}">{{ article.title }}</option>
+                    {% endfor %}
+                </select>
             </div>
             <div>
-            <input type="button" id="btnLeft" value="&lt;&lt;" />
-            <input type="button" id="btnRight" value="&gt;&gt;" />
+                <input type="button" id="btnLeft" value="&lt;&lt;"/>
+                <input type="button" id="btnRight" value="&gt;&gt;"/>
             </div>
             <div>
-            <select name="front_selected[]" id="rightValues"  multiple>
-                {% for front in fronts %}
-                    <option selected value="{{ front.article.id }}">{{ front.article.title }}</option>
-                {% endfor %}
-            </select>
+                <select name="front_selected[]" id="rightValues" multiple>
+                    {% for front in fronts %}
+                        <option selected value="{{ front.article.id }}">{{ front.article.title }}</option>
+                    {% endfor %}
+                </select>
             </div>
-            </section>
-            <section class="container">
+        </section>
+        <section class="container">
             <div>
 
-            <label>Carousel Articles</label>
-            <select id="leftValues2" multiple>
-                {% for article in latest_articles_for_carousel %}
-                    <option value="{{ article.id }}">{{ article.title }}</option>
-                {% endfor %}
-            </select>
+                <label>Carousel Articles</label>
+                <select id="leftValues2" multiple>
+                    {% for article in latest_articles_for_carousel %}
+                        <option value="{{ article.id }}">{{ article.title }}</option>
+                    {% endfor %}
+                </select>
             </div>
             <div>
-            <input type="button" id="btnLeft2" value="&lt;&lt;" />
-            <input type="button" id="btnRight2" value="&gt;&gt;" />
+                <input type="button" id="btnLeft2" value="&lt;&lt;"/>
+                <input type="button" id="btnRight2" value="&gt;&gt;"/>
             </div>
             <div>
-            <select name="carousel_selected[]" id="rightValues2"  multiple>
-                {% for carousel in carousels %}
-                    <option selected value="{{ carousel.article.id }}">{{ carousel.article.title }}</option>
-                {% endfor %}
-            </select>
+                <select name="carousel_selected[]" id="rightValues2" multiple>
+                    {% for carousel in carousels %}
+                        <option selected value="{{ carousel.article.id }}">{{ carousel.article.title }}</option>
+                    {% endfor %}
+                </select>
             </div>
-            </section>
+        </section>
         <input type="submit" value="Confirm">
     </form>
     <script src="/static/jquery.js"></script>

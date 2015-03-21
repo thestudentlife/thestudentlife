@@ -6,18 +6,18 @@ from mainsite.models import Issue, Section, Article
 from workflow.views import ExtraContext
 from workflow.views import group_required
 
-
 @group_required('silver')
 def issues(request):
     issues = Issue.objects.order_by('-created_date')
-    return render(request, 'articles/issues/issues.html',{'issues':issues})
+    return render(request, 'articles/issues/issues.html', {'issues': issues})
 
 @group_required('silver')
 def issue(request, issue_id):
     issue = Issue.objects.get(pk=issue_id)
     sections = Section.objects.all()
     articles = Article.objects.filter(issue=issue)
-    return render(request, 'articles/issues/issue.html', {'issue': issue, 'sections': sections, 'articles': articles, 'permission': request.user.profile.get_highest_group()})
+    return render(request, 'articles/issues/issue.html', {'issue': issue, 'sections': sections, 'articles': articles,
+                                                          'permission': request.user.profile.get_highest_group()})
 
 class IssueCreateView(CreateView, ExtraContext):
     model = Issue
