@@ -8,12 +8,12 @@ from workflow.views import ExtraContext
 
 class ArticleDetailView(DetailView, ExtraContext):
     model = Article
-    template_name = "warticle.html"
+    template_name = "articles/warticle.html"
 
 class ArticleCreateView(CreateView, ExtraContext):
     model = Article
     fields = ['title', 'content', 'section', 'issue', 'authors']
-    template_name = 'new_article.html'
+    template_name = 'articles/new_article.html'
     success_url = reverse_lazy('whome')
 
     def form_valid(self, form):
@@ -26,7 +26,7 @@ class ArticleCreateView(CreateView, ExtraContext):
 class ArticleEditView(UpdateView, ExtraContext):
     model = Article
     fields = ['title', 'content', 'section', 'issue', 'authors']
-    template_name = 'edit_article.html'
+    template_name = 'articles/edit_article.html'
     success_url = reverse_lazy('whome')
 
     def form_valid(self, form):
@@ -40,5 +40,5 @@ class ArticleEditView(UpdateView, ExtraContext):
 
 class ArticleDeleteView(DeleteView, ExtraContext):
     model = Article
-    template_name = "article_confirm_delete.html"
+    template_name = "articles/article_confirm_delete.html"
     success_url = reverse_lazy('whome')

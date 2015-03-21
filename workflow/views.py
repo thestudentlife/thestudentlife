@@ -117,7 +117,7 @@ def front(request):
 def article_xml(request, article_id):
     article = Article.objects.get(id=article_id)
     paragraphs = getText.dehtml(article.content).split('\n\n')
-    data = render_to_string('article_xml.xml', {'article': article,'paragraphs':paragraphs})
+    data = render_to_string('articles/article_xml.xml', {'article': article,'paragraphs':paragraphs})
     return HttpResponse(data, content_type='application/xml')
 
 
@@ -141,7 +141,7 @@ def revision(request,pk):
     text = p.stdout.read()
     os.remove('file_1')
     os.remove('file_2')
-    return render(request,'revision.html',{'revision':revision,'body':text})
+    return render(request, 'articles/revision.html',{'revision':revision,'body':text})
 
 
 # photos
@@ -175,7 +175,7 @@ def update_album(request, album_id):
             return HttpResponse("Success!")
     else:
         formset = PhotoInlineFormSet(instance=album)
-    return render_to_response("update_album.html", RequestContext(request, {
+    return render_to_response("articles/update_album.html", RequestContext(request, {
         "formset": formset
     }))
 
@@ -187,18 +187,18 @@ def edit_photo(request, photo_id):
 @group_required('bronze')
 def assignments(request):
     assignments = Assignment.objects.all()
-    return render(request, 'assignments.html', {'assignments': assignments})
+    return render(request, 'assignment/assignments.html', {'assignments': assignments})
 
 @group_required('bronze')
 def assignment(request, assignment_id):
     assignment = Assignment.objects.get(id=assignment_id)
-    return render(request, 'assignment.html', {'assignment': assignment})
+    return render(request, 'assignment/assignment.html', {'assignment': assignment})
 
 @group_required('silver')
 def new_assignment(request):
     if request.method == 'GET':
         form = AssignmentForm()
-        return render(request, 'new_assignment.html', {'form': form})
+        return render(request, 'assignment/new_assignment.html', {'form': form})
     else:
         form = AssignmentForm(request.POST)
         if form.is_valid():
@@ -208,7 +208,7 @@ def new_assignment(request):
             form.save_m2m
             return redirect(reverse("assignments"))
         else:
-            return render(request, 'new_assignment.html', {
+            return render(request, 'assignment/new_assignment.html', {
                 'form': form
             })
 
@@ -217,7 +217,7 @@ def edit_assignment(request, assignment_id):
     assignment = Assignment.objects.get(id=assignment_id)
     if request.method == 'GET':
         form = AssignmentForm(instance=assignment)
-        return render(request, 'new_assignment.html', {
+        return render(request, 'assignment/new_assignment.html', {
             'form': form
         })
     else:
@@ -225,7 +225,7 @@ def edit_assignment(request, assignment_id):
         if form.is_valid():
             assignment = form.save()
             return redirect(reverse("assignments"))
-        return render(request, 'new_assignment.html', {
+        return render(request, 'assignment/new_assignment.html', {
             'form': form
         })
 
@@ -233,18 +233,18 @@ def edit_assignment(request, assignment_id):
 def filter_by_receiver(request, profile_id):
     profile = Profile.objects.get(id=profile_id)
     assignments = Assignment.objects.filter(receiver=profile)
-    return render(request, 'assignments.html', {'assignments': assignments, 'permission': request.user.profile.get_highest_group()})
+    return render(request, 'assignment/assignments.html', {'assignments': assignments, 'permission': request.user.profile.get_highest_group()})
 
 @group_required('bronze')
 def filter_by_section(request, section_name):
     section = Section.objects.get(name=section_name)
     assignments = Assignment.objects.filter(section=section)
-    return render(request, 'assignments.html', {'assignments': assignments})
+    return render(request, 'assignment/assignments.html', {'assignments': assignments})
 
 @group_required('bronze')
 def filter_by_type(request, type_name):
     assignments = Assignment.objects.filter(type=type_name)
-    return render(request, 'assignments.html', {'assignments': assignments})
+    return render(request, 'assignment/assignments.html', {'assignments': assignments})
 
 def isMember(user, group_name):
     groups = user.groups.all()
