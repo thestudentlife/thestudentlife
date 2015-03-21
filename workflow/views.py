@@ -87,38 +87,31 @@ def home(request):
 @group_required('silver')
 def front(request):
     if request.method=="GET":
-        latest_articles = Article.objects.order_by('-published_date')[:40]
-        latest_articles = list(latest_articles)
+        latest_articles_for_front = list(Article.objects.order_by('-published_date')[:40])
         fronts = FrontArticle.objects.all()
         for front in fronts:
-            if front.article in latest_articles:
-                latest_articles.remove(front.article)
-        return render(request, 'front.html',{'articles':latest_articles,'fronts':fronts})
+            if front.article in latest_articles_for_front:
+                latest_articles_for_front.remove(front.article)
+        latest_articles_for_carousel = list(Article.objects.order_by('-published_date')[:40])
+        carousels = CarouselArticle.objects.all()
+        for carousel in carousels:
+            if carousel.article in latest_articles_for_carousel:
+                latest_articles_for_carousel.remove(carousel.article)
+        return render(request, 'front.html',{'latest_articles_for_front':latest_articles_for_front,'fronts':fronts,
+                                                'latest_articles_for_carousel':latest_articles_for_carousel,
+                                                'carousels':carousels})
     else:
         FrontArticle.objects.all().delete()
-        for id in request.POST.getlist("selected[]"):
+        CarouselArticle.objects.all().delete()
+        for id in request.POST.getlist("front_selected[]"):
             article = Article.objects.get(id=id)
             front = FrontArticle(article=article)
             front.save()
-        return redirect(reverse('front'))
-
-@group_required('silver')
-def carousel(request):
-    if request.method=="GET":
-        latest_articles = Article.objects.order_by('-published_date')[:40]
-        latest_articles = list(latest_articles)
-        carousels = CarouselArticle.objects.all()
-        for carousel in carousels:
-            if carousel.article in latest_articles:
-                latest_articles.remove(carousel.article)
-        return render(request, 'front.html',{'articles':latest_articles,'fronts':carousels})
-    else:
-        CarouselArticle.objects.all().delete()
-        for id in request.POST.getlist("selected[]"):
+        for id in request.POST.getlist("carousel_selected[]"):
             article = Article.objects.get(id=id)
-            carousel = FrontArticle(article=article)
+            carousel = CarouselArticle(article=article)
             carousel.save()
-        return redirect(reverse('carousel'))
+        return redirect(reverse('front'))
 
 @group_required('silver')
 def article_xml(request, article_id):

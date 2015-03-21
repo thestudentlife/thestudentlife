@@ -19,7 +19,6 @@ urlpatterns = patterns('',
     url(r'^articles/issue/new/$', group_required('silver')(IssueCreateView.as_view()),name="new_issue"),
     url(r'^articles/issue/(?P<pk>[0-9]+)/edit/$', group_required('silver')(IssueEditView.as_view()), name="edit_issue"),
     url(r'articles/front/$',views.front,name="front"),
-    url(r'articles/carousel$',views.carousel,name="carousel"),
 
     #articles
     url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<pk>[0-9]+)/$',
