@@ -21,7 +21,7 @@
             <div>
             <select name="front_selected[]" id="rightValues"  multiple>
                 {% for front in fronts %}
-                    <option value="{{ front.article.id }}">{{ front.article.title }}</option>
+                    <option selected value="{{ front.article.id }}">{{ front.article.title }}</option>
                 {% endfor %}
             </select>
             </div>
@@ -43,7 +43,7 @@
             <div>
             <select name="carousel_selected[]" id="rightValues2"  multiple>
                 {% for carousel in carousels %}
-                    <option value="{{ carousel.article.id }}">{{ carousel.article.title }}</option>
+                    <option selected value="{{ carousel.article.id }}">{{ carousel.article.title }}</option>
                 {% endfor %}
             </select>
             </div>
