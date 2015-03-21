@@ -70,8 +70,8 @@ def home(request):
     if request.user.is_anonymous():
         return redirect(reverse('login'))
     elif isMember(request.user, "silver"):
-        issue = Issue.objects.latest('created_date')
-        return render(request, 'issue.html', {'issue': issue})
+        latest = Issue.objects.latest('created_date')
+        return redirect(latest.get_absolute_url())
     else:
         id = request.user.id
         return redirect(reverse('filter_by_receiver', args=[id]))
