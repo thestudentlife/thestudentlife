@@ -36,10 +36,6 @@ class WArticle(models.Model):
     date = models.DateTimeField(default = timezone.now)
     article = models.OneToOneField('mainsite.Article')
     status = models.TextField()
-    locker = models.ForeignKey(
-        User,null=True)
-    def locked(self):
-        return self.locker is not None
     def __str__(self):
         return self.article.title
     def get_absolute_url(self):
