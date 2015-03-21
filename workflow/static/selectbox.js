@@ -11,3 +11,17 @@ $("#btnRight").click(function () {
 $("#rightValues").change(function () {
     var selectedItem = $("#rightValues option:selected");
 });
+
+$("#btnLeft2").click(function () {
+    var selectedItem = $("#rightValues2 option:selected");
+    $("#leftValues2").append(selectedItem);
+});
+
+$("#btnRight2").click(function () {
+    var selectedItem = $("#leftValues2 option:selected");
+    $("#rightValues2").append(selectedItem);
+});
+
+$("#rightValues2").change(function () {
+    var selectedItem = $("#rightValues2 option:selected");
+});

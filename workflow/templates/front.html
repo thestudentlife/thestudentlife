@@ -7,8 +7,9 @@
         {% csrf_token %}
             <section class="container">
             <div>
+            <label>Front Articles</label>
             <select id="leftValues" multiple>
-                {% for article in articles %}
+                {% for article in latest_articles_for_front %}
                     <option value="{{ article.id }}">{{ article.title }}</option>
                 {% endfor %}
             </select>
@@ -18,9 +19,31 @@
             <input type="button" id="btnRight" value="&gt;&gt;" />
             </div>
             <div>
-            <select name="selected[]" id="rightValues"  multiple>
+            <select name="front_selected[]" id="rightValues"  multiple>
                 {% for front in fronts %}
                     <option value="{{ front.article.id }}">{{ front.article.title }}</option>
+                {% endfor %}
+            </select>
+            </div>
+            </section>
+            <section class="container">
+            <div>
+
+            <label>Carousel Articles</label>
+            <select id="leftValues2" multiple>
+                {% for article in latest_articles_for_carousel %}
+                    <option value="{{ article.id }}">{{ article.title }}</option>
+                {% endfor %}
+            </select>
+            </div>
+            <div>
+            <input type="button" id="btnLeft2" value="&lt;&lt;" />
+            <input type="button" id="btnRight2" value="&gt;&gt;" />
+            </div>
+            <div>
+            <select name="carousel_selected[]" id="rightValues2"  multiple>
+                {% for carousel in carousels %}
+                    <option value="{{ carousel.article.id }}">{{ carousel.article.title }}</option>
                 {% endfor %}
             </select>
             </div>
