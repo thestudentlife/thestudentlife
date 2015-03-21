@@ -38,7 +38,9 @@ class Migration(migrations.Migration):
         latina = User(username="vlatina")
         latina.set_password("tsl")
         latina.save()
-        latina.groups.add(gold, silver, bronze, plastic)
+        latina.groups.add(bronze, plastic)
+        latina_profile = Profile(user=latina,position="author")
+        latina_profile.save()
 
         issue = Issue(name="SP 2015 1")
         issue.save()

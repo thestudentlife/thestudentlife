@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+    {% if 'silver' in permission or 'gold' in permission %}
+        {%  include 'silver_nav.html' %}
+    {% elif 'bronze' in permission %}
+        {%  include 'bronze_nav.html' %}
+    {% elif 'plastic' in permission %}
+        {% include 'plastic_nav.html' %}
+    {% endif %}
+    {% block content_block %}
+    {%  endblock %}
+{% endblock %}

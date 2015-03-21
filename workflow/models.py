@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.utils import timezone
 from django.forms import ModelForm,EmailInput,TextInput,Textarea,PasswordInput, CharField,DateField
 from django.template.defaultfilters import slugify
@@ -30,6 +30,18 @@ class Profile(models.Model):
         return "editor" in self.position
     def get_absolute_url(self):
         return reverse('person',kwargs={'person_id':self.id})
+    def get_highest_group(self):
+        groups = self.user.groups.all();
+        if Group.objects.all()[3] in groups:
+            return 'gold'
+        elif Group.objects.all()[2] in groups:
+            return 'silver'
+        elif Group.objects.all()[1] in groups:
+            return 'bronze'
+        elif Group.objects.all()[0] in groups:
+            return 'plastic'
+        else:
+            return 'none'
 
 
 class WArticle(models.Model):
