@@ -4,7 +4,7 @@
 <form method="POST" action="">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Submit" />
+    <input id="login" type="submit" value="Submit" />
 </form>
     <p>Don't have an TSL account? Take 30 seconds to <a href="{% url 'register' %}">register!</a></p>
 {% endblock %}
