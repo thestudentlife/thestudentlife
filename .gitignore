@@ -63,3 +63,4 @@ media/
 migrations/
 
 workflow/static/ckeditor/*
+reset_database.sh
