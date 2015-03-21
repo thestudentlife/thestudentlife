@@ -8,7 +8,7 @@
         <h2 class='section_title'>{{ section.name }}</h2>
         {% for article in articles %}
             {% if article.section == section %}
-                {% include 'workflow_short_article_partial.html' %}
+                {% include 'articles/workflow_short_article_partial.html' %}
             {% endif %}
         {% endfor %}
     {% endfor %}
