@@ -27,14 +27,23 @@ def group_required(*group_names):
 
     return user_passes_test(in_groups, '/workflow/login')
 
+class ExtraContext():
+    def get_context_data(self, **kwargs):
+        context = super(ExtraContext, self).get_context_data(**kwargs)
+        extra_context = {'permission': self.request.user.profile.get_highest_group()}
+        context.update(self.extra_context)
+        return context
+
 def register(request):
     if request.method == "POST":
         registerForm = RegisterForm(request.POST)
         if registerForm.is_valid():
+
             user = registerForm.save()
             profile = Profile(user=user,position=request.POST['position'])
             profile.save()
-            return redirect(reverse('home'))
+            return redirect(reverse('whome'))
+
         else:
             return render(request, 'register.html', {
                 'form': registerForm
@@ -57,7 +66,7 @@ def login(request):
             do_login(request, user)
             next = request.GET.get('next')
             if next is None:
-                return redirect(reverse('home'))
+                return redirect(reverse('whome'))
             else:
                 return HttpResponseRedirect(request.GET['next'])
         else:
@@ -230,7 +239,7 @@ def edit_assignment(request, assignment_id):
 def filter_by_receiver(request, profile_id):
     profile = Profile.objects.get(id=profile_id)
     assignments = Assignment.objects.filter(receiver=profile)
-    return render(request, 'assignments.html', {'assignments': assignments})
+    return render(request, 'assignments.html', {'assignments': assignments, 'permission': request.user.profile.get_highest_group()})
 
 @group_required('bronze')
 def filter_by_section(request, section_name):

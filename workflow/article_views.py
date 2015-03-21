@@ -4,12 +4,13 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from mainsite.models import Article
 from workflow.models import WArticle, Revision
+from workflow.views import ExtraContext
 
-class ArticleDetailView(DetailView):
+class ArticleDetailView(DetailView, ExtraContext):
     model = Article
     template_name = "warticle.html"
 
-class ArticleCreateView(CreateView):
+class ArticleCreateView(CreateView, ExtraContext):
     model = Article
     fields = ['title', 'content', 'section', 'issue', 'authors']
     template_name = 'new_article.html'
@@ -22,7 +23,7 @@ class ArticleCreateView(CreateView):
         workflowArticle.save()
         return super(ArticleCreateView, self).form_valid(form)
 
-class ArticleEditView(UpdateView):
+class ArticleEditView(UpdateView, ExtraContext):
     model = Article
     fields = ['title', 'content', 'section', 'issue', 'authors']
     template_name = 'edit_article.html'
@@ -37,7 +38,7 @@ class ArticleEditView(UpdateView):
         revision.save()
         return super(ArticleEditView, self).form_valid(form)
 
-class ArticleDeleteView(DeleteView):
+class ArticleDeleteView(DeleteView, ExtraContext):
     model = Article
     template_name = "article_confirm_delete.html"
     success_url = reverse_lazy('whome')

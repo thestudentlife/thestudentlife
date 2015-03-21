@@ -1,15 +1,16 @@
-{% extends 'base.html' %}
+{% extends 'workflow_base.html' %}
 
-{% block body_block %}
-<header>
-    <h1 class="issue_title">{{ issue.name }}</h1>
-</header>
-{% for section in sections %}
-    <h2 class='section_title'>{{ section.name }}</h2>
-    {% for article in articles %}
-        {% if article.section == section %}
-            {% include 'workflow_short_article_partial.html' %}
-        {% endif %}
+{% block content_block %}
+    <header>
+        <h1 class="issue_title">{{ issue.name }}</h1>
+    </header>
+    {% for section in sections %}
+        <h2 class='section_title'>{{ section.name }}</h2>
+        {% for article in articles %}
+            {% if article.section == section %}
+                {% include 'workflow_short_article_partial.html' %}
+            {% endif %}
+        {% endfor %}
     {% endfor %}
-{% endfor %}
 {% endblock %}
+
