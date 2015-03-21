@@ -21,7 +21,7 @@ class FunctionalTest(LiveServerTestCase):
         self.selenium.quit()
         super(FunctionalTest, self).tearDown()
 
-    def test_create_user(self):
+    def test_create_assignment(self):
         self.selenium.get(
             '%s%s' % (self.live_server_url,  "/workflow/assignments/new/")
         )
@@ -42,3 +42,6 @@ class FunctionalTest(LiveServerTestCase):
         submit.click()
         title = self.selenium.find_element_by_css_selector('a[href="/workflow/assignments/2/"]')
         assert "Take photo of Oldenborg" in title.text
+
+    def create_article_and_upload_photos(self):
+        pass
