@@ -10,7 +10,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, Photo, FrontArticle, CarouselArticle, \
     Album
-from workflow.models import Assignment, RegisterForm, LoginForm, WArticle, Revision
+from workflow.models import Assignment, RegisterForm, LoginForm, WArticle, Revision, ProfileForm
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -31,7 +31,9 @@ def register(request):
     if request.method == "POST":
         registerForm = RegisterForm(request.POST)
         if registerForm.is_valid():
-            registerForm.save()
+            user = registerForm.save()
+            profile = Profile(user=user,position=request.POST['position'])
+            profile.save()
             return redirect(reverse('home'))
         else:
             return render(request, 'register.html', {
@@ -39,8 +41,10 @@ def register(request):
             })
     else:
         registerForm = RegisterForm()
+        profileForm = ProfileForm()
         return render(request, 'register.html', {
-            'form': registerForm
+            'form': registerForm,
+            'profile_form':profileForm
         })
 
 def login(request):
