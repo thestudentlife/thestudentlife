@@ -136,7 +136,7 @@ def revision(request,pk):
     file_2 = open('file_2','w')
     file_2.write(previous_revision_body)
     file_2.close()
-    command = ['py', 'workflow\static\htmldiff.py','file_2','file_1']
+    command = ['python', 'workflow' + os.sep + 'static' + os.sep + 'htmldiff.py','file_2','file_1']
     p = subprocess.Popen(command, stdout=subprocess.PIPE)
     text = p.stdout.read()
     os.remove('file_1')
