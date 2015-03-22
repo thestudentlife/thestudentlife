@@ -1,6 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'workflow_base.html' %}
 
-{% block body_block %}
+{% block content_block %}
     <form method="POST" action="">
         {% csrf_token %}
         {{ form.as_p }}

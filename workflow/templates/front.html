@@ -1,8 +1,8 @@
-{% extends 'base.html' %}
+{% extends 'workflow_base.html' %}
 {% block title_block %}
     <link rel="stylesheet" type="text/css" href="/static/selectbox.css">
 {% endblock %}
-{% block body_block %}
+{% block content_block %}
     <form action="" method="post">
         {% csrf_token %}
         <section class="container">
