@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import login_required
-from workflow.article_views import ArticleCreateView, ArticleDetailView, ArticleEditView, ArticleDeleteView
+from workflow.article_views import ArticleCreateView, ArticleDetailView, article_edit, ArticleDeleteView
 from workflow.issue_views import IssueCreateView, IssueEditView
 from workflow.views import group_required
 from workflow import views
@@ -28,7 +28,7 @@ urlpatterns = patterns('',
                        url(r'^articles/issue/(?P<issue_id>[0-9]+)/new/$', login_required(ArticleCreateView.as_view()),
                            name='new_article'),
                        url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<pk>[0-9]+)/edit/$',
-                           group_required('silver')(ArticleEditView.as_view()), name='edit_article'),
+                           article_edit, name='edit_article'),
                        url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<pk>[0-9]+)/delete/$',
                            group_required('silver')(ArticleDeleteView.as_view()), name='delete_article'),
                        url(r'^articles/xml/(?P<article_id>\d+)', views.article_xml, name="article_xml"),

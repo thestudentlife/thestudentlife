@@ -4,6 +4,10 @@
     <form method="POST" action="">
         {% csrf_token %}
         {{ form.as_p }}
+        <textarea name='original_content' style="display:none">
+            {{ original_content }}
+        </textarea>
+        <input type="hidden" name="original_second" value="{{ original_second }}">
         <input type="submit" value="Submit"/>
     </form>
     <script src="/static/ckeditor/ckeditor.js"></script>
