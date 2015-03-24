@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
         kent = User(username="kshikama")
         kent.set_password("tsl")
         kent.save()
-        kent.groups.add(gold, silver, bronze, plastic)
+        kent.groups.add(bronze, plastic)
         kent_profile = Profile(user=kent, position="author")
         kent_profile.save();
 
@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
         latina = User(username="vlatina")
         latina.set_password("tsl")
         latina.save()
-        latina.groups.add(bronze, plastic)
+        latina.groups.add(gold, silver, bronze, plastic)
         latina_profile = Profile(user=latina, position="author")
         latina_profile.save()
 

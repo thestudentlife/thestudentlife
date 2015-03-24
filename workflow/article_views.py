@@ -38,7 +38,7 @@ def article_edit(request,issue_id,pk):
         original_second = original_article.updated_date.second
         form = ArticleForm(instance=original_article)
         return render(request,'articles/edit_article.html',
-                      {'form':form,'original_content':original_content,'original_second':original_second})
+                      {'form':form,'original_content':original_content,'original_second':original_second,'permission': request.user.profile.get_highest_group()})
     else:
         base_content = request.POST['original_content']
         base_second = request.POST['original_second']
@@ -64,9 +64,9 @@ def article_edit(request,issue_id,pk):
             revision = Revision(article=original_article,
                                     editor=request.user.profile, body=original_article.content)
             revision.save()
-            return redirect(reverse('warticle',args=[issue_id,pk]))
+            return redirect(reverse('warticle',args=[issue_id,pk]) + "/?permission=%s" % (request.user.profile.get_highest_group()))
         else:
-            return render(request,'articles/edit_article.html',{'form':form})
+            return render(request,'articles/edit_article.html',{'form':form,'permission': request.user.profile.get_highest_group()})
 
 
 

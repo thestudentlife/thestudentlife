@@ -104,7 +104,7 @@ def front(request):
                 latest_articles_for_carousel.remove(carousel.article)
         return render(request, 'front.html', {'latest_articles_for_front': latest_articles_for_front, 'fronts': fronts,
                                               'latest_articles_for_carousel': latest_articles_for_carousel,
-                                              'carousels': carousels})
+                                              'carousels': carousels, 'permission': request.user.profile.get_highest_group()})
     else:
         FrontArticle.objects.all().delete()
         CarouselArticle.objects.all().delete()
@@ -145,7 +145,7 @@ def revision(request, pk):
     text = p.stdout.read()
     os.remove('file_1')
     os.remove('file_2')
-    return render(request, 'articles/revision.html', {'revision': revision, 'body': text})
+    return render(request, 'articles/revision.html', {'revision': revision, 'body': text, 'permission': request.user.profile.get_highest_group()})
 
 # photos
 @group_required('silver')
@@ -190,12 +190,12 @@ def edit_photo(request, photo_id):
 @group_required('bronze')
 def assignments(request):
     assignments = Assignment.objects.all()
-    return render(request, 'assignment/assignments.html', {'assignments': assignments})
+    return render(request, 'assignment/assignments.html', {'assignments': assignments, 'permission': request.user.profile.get_highest_group()})
 
 @group_required('bronze')
 def assignment(request, assignment_id):
     assignment = Assignment.objects.get(id=assignment_id)
-    return render(request, 'assignment/assignment.html', {'assignment': assignment})
+    return render(request, 'assignment/assignment.html', {'assignment': assignment, 'permission': request.user.profile.get_highest_group()})
 
 @group_required('silver')
 def new_assignment(request):

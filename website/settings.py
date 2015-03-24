@@ -91,6 +91,20 @@ STATIC_URL = '/static/'
 ENV_PATH = os.path.abspath(os.path.dirname(__file__))
 MEDIA_ROOT = os.path.join(ENV_PATH, 'media/')
 
+PROJECT_PATH = os.path.join(ENV_PATH, os.pardir)
+
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_PATH, 'workflow', 'static'),
+    os.path.join(PROJECT_PATH, 'mainsite', 'static'),
+)
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+)
+
+STATIC_ROOT = os.path.join(ENV_PATH, 'static')
+
+
 LOGIN_URL = '/workflow/login'
 
 HAYSTACK_CONNECTIONS = {
