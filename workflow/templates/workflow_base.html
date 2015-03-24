@@ -1,13 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title_block %}
-{% endblock %}
 {% block body_block %}
-    {% if 'silver' in permission or 'gold' in permission %}
+    {% if 'silver' in user.profile.get_highest_group or 'gold' in user.profile.get_highest_group %}
         {% include 'navigation/silver_nav.html' %}
-    {% elif 'bronze' in permission %}
+    {% elif 'bronze' in perms.user.profile.get_highest_group %}
         {% include 'navigation/bronze_nav.html' %}
-    {% elif 'plastic' in permission %}
+    {% elif 'plastic' in perms.user.profile.get_highest_group %}
         {% include 'navigation/plastic_nav.html' %}
     {% endif %}
     {% block content_block %}

@@ -4,17 +4,17 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from mainsite.models import Article, Issue,ArticleForm
 from workflow.models import WArticle, Revision
-from workflow.views import ExtraContext,group_required
+from workflow.views import group_required
 from django.utils import timezone,dateparse
 from django.shortcuts import render,redirect
 from django.core.urlresolvers import reverse
 import subprocess,os
 
-class ArticleDetailView(DetailView, ExtraContext):
+class ArticleDetailView(DetailView):
     model = Article
     template_name = "articles/warticle.html"
 
-class ArticleCreateView(CreateView, ExtraContext):
+class ArticleCreateView(CreateView):
     model = Article
     fields = ['title', 'content', 'section','issue']
     template_name = 'articles/new_article.html'
@@ -38,7 +38,7 @@ def article_edit(request,issue_id,pk):
         original_second = original_article.updated_date.second
         form = ArticleForm(instance=original_article)
         return render(request,'articles/edit_article.html',
-                      {'form':form,'original_content':original_content,'original_second':original_second,'permission': request.user.profile.get_highest_group()})
+                      {'form':form,'original_content':original_content,'original_second':original_second})
     else:
         base_content = request.POST['original_content']
         base_second = request.POST['original_second']
@@ -64,13 +64,13 @@ def article_edit(request,issue_id,pk):
             revision = Revision(article=original_article,
                                     editor=request.user.profile, body=original_article.content)
             revision.save()
-            return redirect(reverse('warticle',args=[issue_id,pk]) + "/?permission=%s" % (request.user.profile.get_highest_group()))
+            return redirect(reverse('warticle',args=[issue_id,pk]))
         else:
-            return render(request,'articles/edit_article.html',{'form':form,'permission': request.user.profile.get_highest_group()})
+            return render(request,'articles/edit_article.html',{'form':form})
 
 
 
-class ArticleDeleteView(DeleteView, ExtraContext):
+class ArticleDeleteView(DeleteView):
     model = Article
     template_name = "articles/article_confirm_delete.html"
     success_url = reverse_lazy('whome')
