@@ -5,7 +5,7 @@
         </h1>
 
         <h2 class="assignment_category">
-            <a href="{% url 'filter_by_section' assignment.section.name %}">{{ assignment.section }}</a>
+            <a href="{% url 'filter_by_section' assignment.section.pk %}">{{ assignment.section.name }}</a>
         </h2>
         {% if assignment.receiver %}
             <h2 class="assignment_receiver">Received by

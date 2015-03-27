@@ -232,8 +232,8 @@ def filter_by_receiver(request, profile_id):
                   {'assignments': assignments})
 
 @group_required('bronze')
-def filter_by_section(request, section_name):
-    section = Section.objects.get(name=section_name)
+def filter_by_section(request, pk_id):
+    section = Section.objects.get(pk=pk_id)
     assignments = Assignment.objects.filter(section=section)
     return render(request, 'assignment/assignments.html', {'assignments': assignments})
 
