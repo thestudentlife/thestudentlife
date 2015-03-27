@@ -1,5 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Inconsolata);
 @import url(http://fonts.googleapis.com/css?family=Merriweather:400,700,300,900);
+@import url(http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic);
 
 *{
     margin:0;
@@ -61,11 +62,11 @@ body{
 }
 
 #banner{
-	background-color: pink;
 	display: inline-block;
+	padding-right: 5px;
 }
 #banner img{
-	width:100px;
+	width:40px;
 	height: auto;
 }
 #main-menu{
@@ -113,6 +114,7 @@ body{
 	margin-top: 1px;
 	margin-bottom: 1px;
 	height: 250px;
+	font-family: Lora;
 }
 
 .frame {
@@ -223,4 +225,5 @@ div p a:active {
 
 p{
 	font-size: 9pt;
+	font-family: Lora;
 }
