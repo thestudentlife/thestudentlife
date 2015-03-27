@@ -5,6 +5,7 @@ from workflow.issue_views import IssueCreateView, IssueEditView
 from workflow.views import group_required
 from workflow import views
 from workflow import issue_views
+from workflow import photo_views
 
 urlpatterns = patterns('',
                        url(r'^$', views.whome, name='whome'),
@@ -17,6 +18,7 @@ urlpatterns = patterns('',
                        #issues
                        url(r'^articles/issues/$', issue_views.issues, name="issues"),
                        url(r'^articles/issue/(?P<issue_id>[0-9]+)/$', issue_views.issue, name="issue"),
+                       url(r'^articles/issue/latest/$', issue_views.latest_issue, name="latest_issue"),
                        url(r'^articles/issue/new/$', group_required('silver')(IssueCreateView.as_view()),
                            name="new_issue"),
                        url(r'^articles/issue/(?P<pk>[0-9]+)/edit/$', group_required('silver')(IssueEditView.as_view()),
