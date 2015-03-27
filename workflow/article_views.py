@@ -53,8 +53,11 @@ def article_edit(request,issue_id,pk):
                 article = form.save(commit=False)
                 base = open('base','w');me = open('v1','w');other = open('v2','w')
                 base.write(base_content)
+                base.close()
                 me.write(article.content)
+                me.close()
                 other.write(original_content)
+                other.close()
                 command=['bash','merge.sh']
                 p = subprocess.Popen(command, stdout=subprocess.PIPE,shell=True)
                 (output, err) = p.communicate()
