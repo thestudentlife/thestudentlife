@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from mainsite.models import Section, Article, Profile
 
 def home(request):
-    return render(request, 'front.html')
+    return render(request, 'index.html')
 
 def section(request, section_name):
     articles = Section.objects.get(name=section_name).articles.all();
