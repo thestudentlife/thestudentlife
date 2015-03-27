@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+
+{% block title_block %}
+    {% load staticfiles %}
+    <link href='http://fonts.googleapis.com/css?family=Libre+Baskerville' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link rel='stylesheet' href='{% static 'front-style.css' %}'/>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src='{% static 'front-script.js' %}'></script>
+{% endblock %}
+
+{% block body_block %}
+    <div id="header">
+    <div id="banner"><img src="{% static 'TSLlogo-02-01.svg' %}"/></div>
+    <h2>THE STUDENT LIFE</h2>
+    <div id="main-menu">
+        <a>News</a>
+        <a>Life & Style</a>
+        <a>Opinions</a>
+        <a>Sports</a>
+        <span class="stretch"></span>
+    </div>
+<!-- 			<div id="sub-menu">
+        <a>trend</a>
+        <a>so hot</a>
+        <a>scandal</a>
+        <span class="stretch"></span>
+    </div> -->
+</div>
+<div class="slider-container">
+    <div class="slider">
+        <div class="slide active-slide" id="feature1">
+                <h4>Feature 1</h4>
+                <p>this is the 1st featured article</p>
+        </div>
+
+        <div class="slide" id="feature2">
+            <div class="row">
+                <h4>Feature 2</h4>
+                <p>this is the 2nd featured article</p>
+            </div>
+        </div>
+
+        <div class="slide" id="feature3">
+            <div class="row">
+                <h4>Feature 3</h4>
+                <p>this is the 3rd featured article</p>
+            </div>
+        </div>
+
+        <div class="slide" id="feature4">
+            <div class="row">
+                <h4>Feature 4</h4>
+                <p>this is the 4th featured article</p>
+            </div>
+        </div>
+    </div>
+    <div class="slider-nav">
+        <a class="arrow-prev"><</a>
+        <a class="arrow-next">></a>
+    </div>
+</div>
+<div class="article-previews">
+    <div class="col-9">
+        <div class="row">
+            <div class="col-12 section-header">NEWS</div>
+            <div class="row">
+                <div class="col-6 article-preview">
+                    <div class="frame">
+                        <img src="http://stuffpoint.com/parrots/image/240658-parrots-white-parrot.jpg" />
+                    </div>
+                    <h4>Title</h4>
+                    <p>Duis maximus libero a tincidunt egestas. Aliquam lobortis fermentum justo eget maximus. Sed posuere ligula vel maximus volutpat. Aenean volutpat ullamcorper dapibus. Cras viverra sed erat in lobortis.</p>
+                </div>
+                <div class="col-6 article-preview">
+                    <div class="frame">
+                        <img src="http://stuffpoint.com/parrots/image/240658-parrots-white-parrot.jpg" />
+                    </div>
+                    <h4>Title</h4>
+                    <p>Duis maximus libero a tincidunt egestas. Aliquam lobortis fermentum justo eget maximus. Sed posuere ligula vel maximus volutpat. Aenean volutpat ullamcorper dapibus. Cras viverra sed erat in lobortis.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 article-preview">
+                    <div class="frame">
+                        <img src="http://stuffpoint.com/parrots/image/240658-parrots-white-parrot.jpg" />
+                    </div>
+                    <h4>Title</h4>
+                    <p>Duis maximus libero a tincidunt egestas. Aliquam lobortis fermentum justo eget maximus. Sed posuere ligula vel maximus volutpat. Aenean volutpat ullamcorper dapibus. Cras viverra sed erat in lobortis.</p>
+                </div>
+                <div class="col-6 article-preview">
+                    <div class="frame">
+                        <img src="http://stuffpoint.com/parrots/image/240658-parrots-white-parrot.jpg" />
+                    </div>
+                    <h4>Title</h4>
+                    <p>Duis maximus libero a tincidunt egestas. Aliquam lobortis fermentum justo eget maximus. Sed posuere ligula vel maximus volutpat. Aenean volutpat ullamcorper dapibus. Cras viverra sed erat in lobortis.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="section-header">LIFE & STYLE</div>
+            <div class="row">
+                <div class="col-6 article-preview">
+                    <div class="frame">
+                        <img src="http://stuffpoint.com/parrots/image/240658-parrots-white-parrot.jpg" />
+                    </div>
+                    <h4>Title</h4>
+                    <p>Duis maximus libero a tincidunt egestas. Aliquam lobortis fermentum justo eget maximus. Sed posuere ligula vel maximus volutpat. Aenean volutpat ullamcorper dapibus. Cras viverra sed erat in lobortis.</p>
+                </div>
+                <div class="col-6 article-preview">
+                    <div class="frame">
+                        <img src="http://stuffpoint.com/parrots/image/240658-parrots-white-parrot.jpg" />
+                    </div>
+                    <h4>Title</h4>
+                    <p>Duis maximus libero a tincidunt egestas. Aliquam lobortis fermentum justo eget maximus. Sed posuere ligula vel maximus volutpat. Aenean volutpat ullamcorper dapibus. Cras viverra sed erat in lobortis.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 article-preview">
+                    <div class="frame">
+                        <img src="http://stuffpoint.com/parrots/image/240658-parrots-white-parrot.jpg" />
+                    </div>
+                    <h4>Title</h4>
+                    <p>Duis maximus libero a tincidunt egestas. Aliquam lobortis fermentum justo eget maximus. Sed posuere ligula vel maximus volutpat. Aenean volutpat ullamcorper dapibus. Cras viverra sed erat in lobortis.</p>
+                </div>
+                <div class="col-6 article-preview">
+                    <div class="frame">
+                        <img src="http://stuffpoint.com/parrots/image/240658-parrots-white-parrot.jpg" />
+                    </div>
+                    <h4>Title</h4>
+                    <p>Duis maximus libero a tincidunt egestas. Aliquam lobortis fermentum justo eget maximus. Sed posuere ligula vel maximus volutpat. Aenean volutpat ullamcorper dapibus. Cras viverra sed erat in lobortis.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="section-header">OPINIONS</div>
+            <div class="row">
+                <div class="col-6 article-preview">
+                    <div class="frame">
+                        <img src="http://stuffpoint.com/parrots/image/240658-parrots-white-parrot.jpg" />
+                    </div>
+                    <h4>Title</h4>
+                    <p>Duis maximus libero a tincidunt egestas. Aliquam lobortis fermentum justo eget maximus. Sed posuere ligula vel maximus volutpat. Aenean volutpat ullamcorper dapibus. Cras viverra sed erat in lobortis.</p>
+                </div>
+                <div class="col-6 article-preview">
+                    <div class="frame">
+                        <img src="http://stuffpoint.com/parrots/image/240658-parrots-white-parrot.jpg" />
+                    </div>
+                    <h4>Title</h4>
+                    <p>Duis maximus libero a tincidunt egestas. Aliquam lobortis fermentum justo eget maximus. Sed posuere ligula vel maximus volutpat. Aenean volutpat ullamcorper dapibus. Cras viverra sed erat in lobortis.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 article-preview">
+                    <div class="frame">
+                        <img src="http://stuffpoint.com/parrots/image/240658-parrots-white-parrot.jpg" />
+                    </div>
+                    <h4>Title</h4>
+                    <p>Duis maximus libero a tincidunt egestas. Aliquam lobortis fermentum justo eget maximus. Sed posuere ligula vel maximus volutpat. Aenean volutpat ullamcorper dapibus. Cras viverra sed erat in lobortis.</p>
+                </div>
+                <div class="col-6 article-preview">
+                    <div class="frame">
+                        <img src="http://stuffpoint.com/parrots/image/240658-parrots-white-parrot.jpg" />
+                    </div>
+                    <h4>Title</h4>
+                    <p>Duis maximus libero a tincidunt egestas. Aliquam lobortis fermentum justo eget maximus. Sed posuere ligula vel maximus volutpat. Aenean volutpat ullamcorper dapibus. Cras viverra sed erat in lobortis.</p>
+                </div>
+            </div>
+        </div>
+        <div class = "row">
+            <div class="section-header">SPORTS</div>
+            <div class="row">
+                <div class="col-6 article-preview">
+                    <div class="frame">
+                        <img src="http://stuffpoint.com/parrots/image/240658-parrots-white-parrot.jpg" />
+                    </div>
+                    <h4>Title</h4>
+                    <p>Duis maximus libero a tincidunt egestas. Aliquam lobortis fermentum justo eget maximus. Sed posuere ligula vel maximus volutpat. Aenean volutpat ullamcorper dapibus. Cras viverra sed erat in lobortis.</p>
+                </div>
+                <div class="col-6 article-preview">
+                    <div class="frame">
+                        <img src="http://stuffpoint.com/parrots/image/240658-parrots-white-parrot.jpg" />
+                    </div>
+                    <h4>Title</h4>
+                    <p>Duis maximus libero a tincidunt egestas. Aliquam lobortis fermentum justo eget maximus. Sed posuere ligula vel maximus volutpat. Aenean volutpat ullamcorper dapibus. Cras viverra sed erat in lobortis.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 article-preview">
+                    <div class="frame">
+                        <img src="http://stuffpoint.com/parrots/image/240658-parrots-white-parrot.jpg" />
+                    </div>
+                    <h4>Title</h4>
+                    <p>Duis maximus libero a tincidunt egestas. Aliquam lobortis fermentum justo eget maximus. Sed posuere ligula vel maximus volutpat. Aenean volutpat ullamcorper dapibus. Cras viverra sed erat in lobortis.</p>
+                </div>
+                <div class="col-6 article-preview">
+                    <div class="frame">
+                        <img src="http://stuffpoint.com/parrots/image/240658-parrots-white-parrot.jpg" />
+                    </div>
+                    <h4>Title</h4>
+                    <p>Duis maximus libero a tincidunt egestas. Aliquam lobortis fermentum justo eget maximus. Sed posuere ligula vel maximus volutpat. Aenean volutpat ullamcorper dapibus. Cras viverra sed erat in lobortis.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-3 side-menu">
+    </div>
+</div>
+{% endblock %}

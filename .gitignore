@@ -65,3 +65,4 @@ workflow/static/ckeditor/*
 migrations/
 reset_database.sh
 workflow/migrations/data_migration_initial.py
+website/static/
