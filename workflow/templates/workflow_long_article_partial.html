@@ -1,7 +1,7 @@
 <article>
     <hgroup>
         <h1 class="article_title">
-            <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+            <a href="{%  url 'warticle' article.issue.id article.id %}">{{ article.title }}</a>
         </h1>
         <h2 class="article_category">
             <a href="{{ article.section.get_absolute_url }}">{{ article.section }}</a>
@@ -21,6 +21,6 @@
     {% endif %}
     </ul>
     <p class="article_content">
-        {{ article.content}}
+        {{ article.content | safe}}
     </p>
 </article>
