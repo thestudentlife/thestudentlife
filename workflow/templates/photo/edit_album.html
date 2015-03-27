@@ -1,0 +1,12 @@
+{% extends "workflow_base.html" %}
+
+{% block content_block %}
+
+<body>
+<form method="post" enctype="multipart/form-data" action="">
+    {% csrf_token %}
+    {{ formset.as_p }}
+    <input type="submit" value="Submit"/>
+</form>
+
+{% endblock %}

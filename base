@@ -1,0 +1,61 @@
+            .
+..
+.git
+.gitignore
+.idea
+README.md
+__pycache__
+base
+db.sqlite3
+mainsite
+manage.py
+merge.sh
+requirements.txt
+reset_database.sh
+v1
+v2
+v3
+website
+workflow
+On branch master
+Your branch is up-to-date with 'origin/master'.
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	modified:   base
+	modified:   v1
+	modified:   v2
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   workflow/article_views.py
+
+<<<<<<< v1
+<p>hello!</p>
+
+=======
+<p>world!</p>
+
+>>>>>>> v2
+goodbye
+On branch master
+Your branch is up-to-date with 'origin/master'.
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	modified:   base
+	modified:   v1
+	modified:   v2
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   workflow/article_views.py
+
+
+        

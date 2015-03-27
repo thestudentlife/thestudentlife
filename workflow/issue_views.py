@@ -7,24 +7,28 @@ from workflow.views import group_required
 
 @group_required('silver')
 def issues(request):
-    issues = Issue.objects.all()
-    return HttpResponse('These are the issues.')
+    issues = Issue.objects.order_by('-created_date')
+    return render(request, 'articles/issues/issues.html', {'issues': issues})
 
 @group_required('silver')
 def issue(request, issue_id):
     issue = Issue.objects.get(pk=issue_id)
     sections = Section.objects.all()
     articles = Article.objects.filter(issue=issue)
-    return render(request, 'issue.html', {'issue': issue, 'sections': sections, 'articles': articles})
+    return render(request, 'articles/issues/issue.html', {'issue': issue, 'sections': sections, 'articles': articles})
+
+def latest_issue(request):
+    latest = Issue.objects.latest('created_date')
+    return issue(request, latest.pk)
 
 class IssueCreateView(CreateView):
     model = Issue
     fields = ['name']
     successful_url = reverse_lazy('issues')
-    template_name = "create_issue.html"
+    template_name = "articles/issues/create_issue.html"
 
 class IssueEditView(UpdateView):
     model = Issue
     fields = ['name']
     successful_url = reverse_lazy('issues')
-    template_name = "edit_issue.html"
+    template_name = "articles/issues/edit_issue.html"

@@ -1,0 +1,11 @@
+{% extends 'workflow_base.html' %}
+
+{% block content_block %}
+    <div class="assignment_block">
+        <ul class="assignment_ls">
+            {% for assignment in assignments %}
+                {% include 'assignment/assignment_partial.html' %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

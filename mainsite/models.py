@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
-from django.forms import ModelForm, Textarea, TextInput
+from django.forms import ModelForm, Textarea, TextInput,HiddenInput
 from django.template.defaultfilters import slugify
 from django.views.generic import CreateView
 from workflow.models import Profile, Assignment, WArticle
@@ -44,22 +44,22 @@ class Article(models.Model):
     issue = models.ForeignKey(Issue)
     authors = models.ManyToManyField(Profile)
     subsections = models.ManyToManyField(Subsection, null=True)
-    published_date = models.DateTimeField(default=timezone.now)
+    created_date = models.DateTimeField(default=timezone.now)
+    published = models.BooleanField(default=False)
+    published_date = models.DateTimeField(null=True)
     updated_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.title
 
     def has_photo(self):
-        return self.albums.photos is not None
+        return self.album.photo_set is not None
 
     def slug(self):
         return slugify(self.title)
 
     def get_absolute_url(self):
-        return reverse('article',kwargs={'article_id':self.id,'section_name':self.section.name})
-
-
+        return reverse('article', kwargs={'article_id': self.id, 'section_name': self.section.name})
 
 class FrontArticle(models.Model):
     article = models.OneToOneField(Article)
@@ -78,7 +78,7 @@ class Album(models.Model):
 
     def __str__(self):
         return self.article.title
-    
+
 class Photo(models.Model):
     date = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to='photo/')
@@ -101,6 +101,11 @@ class AssignmentForm(ModelForm):
                 'type': 'date',
             })
         }
+
+class ArticleForm(ModelForm):
+    class Meta:
+        model = Article
+        fields = ['title', 'content', 'section', 'issue', 'authors']
 
 
 

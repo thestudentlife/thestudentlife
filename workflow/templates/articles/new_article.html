@@ -1,0 +1,16 @@
+{% extends 'workflow_base.html' %}
+
+{% block content_block %}
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit"/>
+    </form>
+    <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+    <script>
+
+        CKEDITOR.replace(id_content, {
+            customConfig: '{% static 'ckeditor_config.js' %}'
+        })
+    </script>
+{% endblock %}

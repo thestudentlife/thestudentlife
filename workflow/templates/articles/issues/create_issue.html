@@ -1,0 +1,8 @@
+{% extends 'workflow_base.html' %}
+
+{% block content_block %}
+    <form action="" method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Create"/>
+    </form>
+{% endblock %}

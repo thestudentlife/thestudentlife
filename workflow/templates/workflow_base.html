@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+    {% if 'silver' in user.profile.get_highest_group or 'gold' in user.profile.get_highest_group %}
+        {% include 'navigation/silver_nav.html' %}
+    {% elif 'bronze' in perms.user.profile.get_highest_group %}
+        {% include 'navigation/bronze_nav.html' %}
+    {% elif 'plastic' in perms.user.profile.get_highest_group %}
+        {% include 'navigation/plastic_nav.html' %}
+    {% endif %}
+    {% block content_block %}
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'workflow_base.html' %}
+
+{% block content_block %}
+    <ul class="albums_ls">
+        {% for album in albums %}
+            <li>
+                <a href="{% url 'edit_album' album.id %}">{{ album.article.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

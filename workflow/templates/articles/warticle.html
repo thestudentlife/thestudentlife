@@ -1,0 +1,10 @@
+{% extends 'workflow_base.html' %}
+
+{% block content_block %}
+    <div class="article_block">
+        {% include 'articles/workflow_long_article_partial.html' %}
+    </div>
+    <div class="revision_block">
+        {% include 'articles/revision_list_partial.html' %}
+    </div>
+{% endblock %}

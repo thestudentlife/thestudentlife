@@ -1,0 +1,7 @@
+{% extends "workflow_base.html" %}
+{% block content_block %}
+    <p class="confirm_info">Are you sure to delete this article?</p>
+    <form method="POST" action="">
+        {% csrf_token %}<input type="submit" value="DELETE">
+    </form>
+{% endblock %}

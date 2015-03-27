@@ -3,24 +3,27 @@
         <h1 class="article_title">
             <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
         </h1>
+
         <h2 class="article_category">
             <a href="{{ article.section.get_absolute_url }}">{{ article.section }}</a>
         </h2>
+
         <h2 class="article_authors">
-            {%   for author in article.authors.all %}
+            {% for author in article.authors.all %}
                 <a href="{{ article.author.get_absolute_url }}">{{ author.display_name }}</a>
             {% endfor % %}
         </h2>
+
         <h2 class="article_updated_date">{{ article.updated_date }}</h2>
     </hgroup>
     <ul class="photo_ls">
-    {% if article.has_photo %}
-        {%   for photo in article.album.photos %}
-            <ls><img src="{{ photo.image.path }}"/></ls>
-        {% endfor %}
-    {% endif %}
+        {% if article.has_photo %}
+            {% for photo in article.album.photos %}
+                <ls><img src="{{ photo.image.path }}"/></ls>
+            {% endfor %}
+        {% endif %}
     </ul>
-    <p class="article_content">
-        {{ article.content}}
-    </p>
+    <section class="article_content">
+        {{ article.content|safe }}
+    </section>
 </article>

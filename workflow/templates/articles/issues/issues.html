@@ -1,0 +1,11 @@
+{% extends 'workflow_base.html' %}
+
+{% block content_block %}
+    <ul class="issues_ls">
+        {% for issue in issues %}
+            <li>
+                <a href="{% url 'issue' issue.id %}">{{ issue.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

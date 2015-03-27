@@ -1,0 +1,19 @@
+{% extends 'workflow_base.html' %}
+{% block content_block %}
+    <article>
+        <hgroup>
+            <h1>{{ revision.article.title }}</h1>
+
+            <h2>{{ revision.date }}</h2>
+
+            <h2>{{ revision.editor }}</h2>
+        </hgroup>
+        <section class='revision_body'>
+            {{ body | safe }}
+        </section>
+    </article>
+
+    <div class="revision_block">
+        {% include 'articles/revision_list_partial.html' with article=revision.article %}
+    </div>
+{% endblock %}
