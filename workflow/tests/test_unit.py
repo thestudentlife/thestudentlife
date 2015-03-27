@@ -35,7 +35,7 @@ class WorkflowModels(TestCase):
         profile_kent = Profile(user=kent, position='photographer')
         self.assertEqual("Kent Shikama", profile_kent.display_name())
 
-        # def test_photo_upload(self):
+    # def test_photo_upload(self):
 
     #        client = Client()
     #        response = client.post('/workflow/login/', {'username': 'zxiong', 'password': 'tsl'}, follow=True)

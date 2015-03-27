@@ -33,14 +33,14 @@ class FunctionalTest(LiveServerTestCase):
         due_date = self.selenium.find_element_by_id("id_due_date")
         title.send_keys('Take photo of Oldenborg')
         content.send_keys('Go into Oldenborg during lunch, and take a picture of their apples')
-        Select(section).select_by_visible_text("news")
+        Select(section).select_by_visible_text("News")
         Select(type).select_by_visible_text("Photo Assignment")
         Select(receiver).select_by_visible_text("kshikama")
         due_date.clear()
         due_date.send_keys("03/11/2011")
         submit = self.selenium.find_element_by_id("submit_assignment")
         submit.click()
-        title = self.selenium.find_element_by_css_selector('a[href="/workflow/assignments/2/"]')
+        title = self.selenium.find_element_by_css_selector('a[href="/workflow/assignments/3/"]')
         assert "Take photo of Oldenborg" in title.text
 
     def create_article_and_upload_photos(self):
