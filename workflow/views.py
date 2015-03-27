@@ -1,14 +1,11 @@
 from django.contrib.auth import authenticate, login as do_login, logout as do_logout
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import Group
-from django.forms import inlineformset_factory, ModelForm
-from django.template import RequestContext
 from django.template.loader import render_to_string
-from django.shortcuts import render, redirect, render_to_response
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, Photo, FrontArticle, CarouselArticle, \
-    Album
+from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, FrontArticle, CarouselArticle
 from workflow.models import Assignment, RegisterForm, LoginForm, Revision, ProfileForm
 import os, subprocess
 from workflow.static import getText
@@ -138,45 +135,6 @@ def revision(request, pk):
     os.remove('file_1')
     os.remove('file_2')
     return render(request, 'articles/revision.html', {'revision': revision, 'body': text})
-
-# photos
-@group_required('silver')
-def photos(request):
-    return HttpResponse('These are the photos.')
-
-@group_required('bronze')
-def photo(request, photo_id):
-    return HttpResponse('This is photo ' + str(photo_id))
-
-class PhotoForm(ModelForm):
-    class Meta:
-        model = Photo
-        fields = ['image', 'caption']
-
-@group_required('silver')
-def update_album(request, album_id):
-    album = Album.objects.get(pk=album_id)
-    PhotoInlineFormSet = inlineformset_factory(Album, Photo, form=PhotoForm)
-    if request.method == "POST":
-        formset = PhotoInlineFormSet(request.POST, request.FILES, instance=album)
-        if formset.is_valid():
-            instances = formset.save(commit=False)
-            for instance in instances:
-                instance.credit = request.user.profile
-                instance.save()
-            for obj in formset.deleted_objects:
-                obj.delete()
-            formset.save_m2m()
-            return HttpResponse("Success!")
-    else:
-        formset = PhotoInlineFormSet(instance=album)
-    return render_to_response("articles/update_album.html", RequestContext(request, {
-        "formset": formset
-    }))
-
-@group_required('bronze')
-def edit_photo(request, photo_id):
-    return HttpResponse('You are going to edit photo ' + str(photo_id))
 
 # assignments
 @group_required('bronze')

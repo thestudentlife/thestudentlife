@@ -36,10 +36,11 @@ urlpatterns = patterns('',
                        url(r'^articles/revision/(?P<pk>\d+)/$', views.revision, name="revision"),
 
                        #album
-                       url(r'^album/(?P<album_id>\d+)$', views.update_album, name="update_album"),
+                       url(r'^albums$', photo_views.albums, name="albums"),
+                       url(r'^album/(?P<album_id>\d+)/edit/$', photo_views.edit_album, name="edit_album"),
 
                        #photos
-                       url(r'^photos/$', views.photos, name="photos"),
+                       url(r'^photos/$', photo_views.photos, name="photos"),
                        #    url(r'^photos/(?P<photo_id>[0-9]+)/$',views.photo,name="photo"),
                        #    url(r'^photos/new/',PhotoCreateView.as_view(),name="new_photo"),
                        #    url(r'^photos/(?P<photo_id>[0-9]+)/edit/',views.edit_photo,name="edit_photo"),
