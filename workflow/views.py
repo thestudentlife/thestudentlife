@@ -1,7 +1,6 @@
-from django.contrib.auth import authenticate, login as do_login
+from django.contrib.auth import authenticate, login as do_login, logout as do_logout
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import Group
-from django.core.context_processors import csrf
 from django.forms import inlineformset_factory, ModelForm
 from django.template import RequestContext
 from django.template.loader import render_to_string
@@ -10,11 +9,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, Photo, FrontArticle, CarouselArticle, \
     Album
-from workflow.models import Assignment, RegisterForm, LoginForm, WArticle, Revision, ProfileForm
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
-from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
-from django.core.urlresolvers import reverse_lazy
+from workflow.models import Assignment, RegisterForm, LoginForm, Revision, ProfileForm
 import os, subprocess
 from workflow.static import getText
 
@@ -71,6 +66,10 @@ def login(request):
         return render(request, 'login.html', {
             'form': loginForm
         })
+
+def logout(request):
+    do_logout(request)
+    return redirect(reverse('home'))
 
 def whome(request):
     if request.user.is_anonymous():
