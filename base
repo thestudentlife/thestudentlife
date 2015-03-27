@@ -1,3 +1,22 @@
-            <p>b</p>
+            .
+..
+.git
+.gitignore
+.idea
+README.md
+__pycache__
+base
+db.sqlite3
+mainsite
+manage.py
+merge.sh
+requirements.txt
+reset_database.sh
+v1
+v2
+v3
+website
+workflow
+goodbye
 
         
