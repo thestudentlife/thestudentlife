@@ -15,7 +15,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Articles <span class="sr-only">(current)</span></a></li>
+                <!-- TODO: Make issue the current issue -->
+                <li class="active"><a href="{% url 'issue' 1 %}">Articles <span class="sr-only">(current)</span></a></li>
                 <li><a href="{% url 'front' %}">Front Page</a></li>
                 <li><a href="#">Photos</a></li>
             </ul>
