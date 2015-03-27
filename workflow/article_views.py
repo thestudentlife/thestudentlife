@@ -1,14 +1,13 @@
 from django.core.urlresolvers import reverse_lazy
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, DeleteView
 from django.views.generic.detail import DetailView
-from django.views.generic.list import ListView
-from mainsite.models import Article, Issue,ArticleForm
+from mainsite.models import Article, Issue,ArticleForm, Album
 from workflow.models import WArticle, Revision
 from workflow.views import group_required
-from django.utils import timezone,dateparse
+from django.utils import timezone
 from django.shortcuts import render,redirect
 from django.core.urlresolvers import reverse
-import subprocess,os
+import subprocess
 
 class ArticleDetailView(DetailView):
     model = Article
@@ -25,6 +24,8 @@ class ArticleCreateView(CreateView):
         article.issue = Issue.objects.latest('created_date')
         article.save()
         article.authors.add(self.request.user.profile)
+        album = Album(article=article)
+        album.save()
         workflowArticle = WArticle(article=article, status='')
         workflowArticle.save()
         return super(ArticleCreateView, self).form_valid(form)
