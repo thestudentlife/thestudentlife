@@ -1,3 +1,4 @@
+{% load navigation_extras %}
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -15,13 +16,12 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <!-- TODO: Make issue the current issue -->
-                <li class="active"><a href="{% url 'issue' 1 %}">Articles <span class="sr-only">(current)</span></a></li>
-                <li><a href="{% url 'front' %}">Front Page</a></li>
-                <li><a href="#">Photos</a></li>
+                <li class="{% active_nav request 'latest_issue' %}"><a href="{% url 'latest_issue' %}">Articles <span class="sr-only">(current)</span></a></li>
+                <li class="{% active_nav request 'front' %}"><a href="{% url 'front' %}">Front Page</a></li>
+                <li class="{% active_nav request 'albums' %}"><a href="{% url 'albums' %}">Photos</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{% url 'assignments' %}">Assignments</a></li>
+                <li class="{% active_nav request 'assignments' %}"><a href="{% url 'assignments' %}">Assignments</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings
                         <span class="caret"></span></a>

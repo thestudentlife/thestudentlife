@@ -4,7 +4,7 @@ from django.contrib.auth.models import Group, User
 
 from django.db import models, migrations
 from mainsite.models import Issue, Section, Article, FrontArticle, Album
-from workflow.models import Profile, Assignment
+from workflow.models import Profile, Assignment, WArticle
 
 class Migration(migrations.Migration):
 
@@ -73,18 +73,32 @@ class Migration(migrations.Migration):
 
     @staticmethod
     def createArticles(issue, kent, zq, news, sports, opinions):
-        zq.profile.article_set.create(title="Latina configures git!",
+        article1 = zq.profile.article_set.create(title="Latina configures git!",
                                       content="She got a new copy of our repository! Yeah~",
                                       section=news,
                                       issue=issue)
-        kent.profile.article_set.create(title="This article is related to sports",
+        album1 = Album(article=article1)
+        album1.save()
+        workflowArticle1 = WArticle(article=article1, status='')
+        workflowArticle1.save()
+
+        article2 = kent.profile.article_set.create(title="This article is related to sports",
                                         content="Nothing much",
                                         section=sports,
                                         issue=issue)
-        kent.profile.article_set.create(title="This article is related to opinion",
+        album2 = Album(article=article2)
+        album2.save()
+        workflowArticle2 = WArticle(article=article2, status='')
+        workflowArticle2.save()
+
+        article3 = kent.profile.article_set.create(title="This article is related to opinion",
                                         content="I think this section is important",
                                         section=opinions,
                                         issue=issue)
+        album3 = Album(article=article3)
+        album3.save()
+        workflowArticle3 = WArticle(article=article3, status='')
+        workflowArticle3.save()
 
     @staticmethod
     def createFrontArticle():
