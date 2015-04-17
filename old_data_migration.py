@@ -1,6 +1,10 @@
 import psycopg2
+import psycopg2.extensions
 from workflow.models import Profile
 from mainsite.models import Article, Section, Issue
+
+psycopg2.extensions.register_type(psycopg2.extensions.UNICODE)
+psycopg2.extensions.register_type(psycopg2.extensions.UNICODEARRAY)
 
 conn = psycopg2.connect("dbname=postgres user=postgres password=794613852")
 
@@ -8,11 +12,19 @@ articles_authors = conn.cursor()
 articles = conn.cursor()
 authors = conn.cursor()
 sections = conn.cursor()
+issues = conn.cursor()
+
+
+def recode(str):
+    str = str.encode('ascii','ignore')
+    return str.decode('ascii','ignore')
+
 
 #save the issues
-issues = sections.execute("SELECT * FROM issues").fetchall()
+issues.execute("SELECT * FROM issues")
+issues = issues.fetchall()
 for issue in issues:
-    name = issue[1]
+    name = recode(issue[1])
     legacy_id = issue[0]
     created_date = issue[2]
     new_issue = Issue(name=name,legacy_id=legacy_id,created_date=created_date)
@@ -20,9 +32,10 @@ for issue in issues:
     print("Save issue: "+ name)
 
 #save the sections
-sections = sections.execute("SELECT * FROM sections").fetchall()
+sections.execute("SELECT * FROM sections")
+sections = sections.fetchall()
 for section in sections:
-    name = section[1]
+    name = recode(section[1])
     legacy_id = section[0]
     priority = section[2]
     new_section = Section(name=name,legacy_id=legacy_id,priority=priority)
@@ -30,15 +43,16 @@ for section in sections:
     print("Save section: "+ name)
 
 #save the authors
-authors = authors.execute("SELECT * FROM authors").fetchall()
+authors.execute("SELECT * FROM authors")
+authors = authors.fetchall()
 for author in authors:
-    display_name = author[2]
+    display_name = recode(author[2])
     legacy_id = author[0];
     position = 'author'
     new_author = Profile(display_name=display_name, position=position,legacy_id=legacy_id)
     new_author.save()
     print("Save author: "+ display_name)
-
+"""
 #save all the articles
 articles_authors.execute("SELECT * FROM articles_authors")
 pair = articles_authors.fetchone();
@@ -80,7 +94,7 @@ while pair is not None:
 
 
 
-
+"""
 
 
 

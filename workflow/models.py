@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
-from django.utils import timezone
+import datetime
 from django.forms import ModelForm, EmailInput, TextInput, Textarea, PasswordInput, CharField, DateField
 from django.template.defaultfilters import slugify
 from django.core.urlresolvers import reverse, reverse_lazy
@@ -27,7 +27,7 @@ class Profile(models.Model):
         return slugify(self.get_profile().display_name())
 
     def __str__(self):
-        return self.user.username
+        return self.display_name
 
     def is_editor(self):
         return "editor" in self.position
@@ -49,7 +49,7 @@ class Profile(models.Model):
             return 'none'
 
 class WArticle(models.Model):
-    date = models.DateTimeField(default=timezone.now)
+    date = models.DateTimeField(default=datetime.datetime.now)
     article = models.OneToOneField('mainsite.Article')
     status = models.TextField()
 
@@ -60,7 +60,7 @@ class WArticle(models.Model):
         return reverse('warticle', kwargs={'issue_id': self.article.issue.id, 'pk': self.article.id})
 
 class Revision(models.Model):
-    date = models.DateTimeField(default=timezone.now)
+    date = models.DateTimeField(default=datetime.datetime.now)
     article = models.ForeignKey('mainsite.Article')
     editor = models.ForeignKey(Profile)
     body = models.TextField()
@@ -69,7 +69,7 @@ class Revision(models.Model):
         return str(self.date)
 
 class Review(models.Model):
-    date = models.DateTimeField(default=timezone.now)
+    date = models.DateTimeField(default=datetime.datetime.now)
     article = models.ForeignKey('mainsite.Article')
     reviewer = models.CharField(max_length=50)
     comment = models.TextField(blank=True)
@@ -85,8 +85,8 @@ class Assignment(models.Model):
     type = models.CharField(choices=TYPES_CHOICES, max_length=50, default='photo_assignment')
     content = models.TextField(blank=True)
     section = models.ForeignKey('mainsite.Section')
-    created_date = models.DateTimeField(default=timezone.now)
-    due_date = models.DateTimeField(default=timezone.now)
+    created_date = models.DateTimeField(default=datetime.datetime.now)
+    due_date = models.DateTimeField(default=datetime.datetime.now)
     response_article = models.ForeignKey('mainsite.Article', related_name="assignment", null=True)
     response_photo = models.ForeignKey('mainsite.Photo', related_name="assignment", null=True)
 
