@@ -1,16 +1,15 @@
 <article>
     <hgroup>
-        <h1 class="article_title">
+        <h3 class="article_title">
             <a href="{% url 'warticle' article.issue.id article.id %}">{{ article.title }}</a>
-        </h1>
+        </h3>
 
-        <h2 class="article_authors">
+        <p>
             {% for author in article.authors.all %}
-                <a href="{{ article.author.get_absolute_url }}">{{ author.user.username }}</a>
-            {% endfor % %}
-        </h2>
-
-        <h2 class="article_updated_date">{{ article.updated_date }}</h2>
+                Author: <a href="{{ article.author.get_absolute_url }}">{{ author.user.username }}</a>
+            {% endfor % %},
+            Last updated: {{ article.updated_date }}
+        </p>
     </hgroup>
     <p class="article_content">
         {{ article.content|truncatechars:100 |safe }}

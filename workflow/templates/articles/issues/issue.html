@@ -1,16 +1,31 @@
 {% extends 'workflow_base.html' %}
 
+{% load static %}
+{% load widget_tweaks %}
 {% block content_block %}
     <header>
-        <h1 class="issue_title">{{ issue.name }}</h1>
+        <h1 id="issue_title">{{ issue.name }}</h1>
     </header>
-    {% for section in sections %}
-        <h2 class='section_title'>{{ section.name }}</h2>
-        {% for article in articles %}
-            {% if article.section == section %}
-                {% include 'articles/workflow_short_article_partial.html' %}
-            {% endif %}
+    <br />
+    <div class="horizontal-center">
+    <ul class="nav nav-pills">
+        {% for section in sections %}
+            <li class="section-tab" id="{{ section.name }}"><a class="sizeH3" href="#">{{ section.name }}</a></li>
         {% endfor %}
+    </ul>
+    </div>
+    {% for section in sections %}
+        <div class="articles" id="{{ section.name }}-articles">
+            {% for article in articles %}
+                {% if article.section == section %}
+                    {% include 'articles/workflow_short_article_partial.html' %}
+                {% endif %}
+            {% endfor %}
+        </div>
     {% endfor %}
+{% endblock %}
+
+{% block additional_scripts_block %}
+    <script type="text/javascript" src="{% static 'issue_tab.js' %}"></script>
 {% endblock %}
 
