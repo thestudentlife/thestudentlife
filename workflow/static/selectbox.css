@@ -1,20 +1,20 @@
-SELECT, INPUT[type="text"] {
-    width: 300px;
+select, input[type="text"] {
+    width: 40%;
     height: 500px;
-    box-sizing: border-box;
+    //box-sizing: border-box;
 }
 
-SECTION {
+section {
     padding: 8px;
     overflow: auto;
 }
 
-SECTION > DIV {
-    float: left;
-    padding: 4px;
+.selectBoxGroup {
+    margin-left: 6%;
 }
 
-SECTION > DIV + DIV {
-    width: 40px;
-    text-align: center;
+.widthCenter50 {
+    width: 50%;
+    margin-left:25%;
+    margin-top: 5%;
 }
