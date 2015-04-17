@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils import timezone
+import datetime
 from django.forms import ModelForm, Textarea, TextInput,HiddenInput
 from django.template.defaultfilters import slugify
 from django.views.generic import CreateView
@@ -11,7 +11,8 @@ from workflow.models import Profile, Assignment, WArticle, Revision
 
 class Section(models.Model):
     name = models.CharField(max_length=50)
-
+    priority = models.IntegerField(null=True)
+    legacy_id = models.PositiveIntegerField(null=True)
     def __str__(self):
         return self.name
 
@@ -29,8 +30,8 @@ class Subsection(models.Model):
 
 class Issue(models.Model):
     name = models.CharField(max_length=200)
-    created_date = models.DateTimeField(default=timezone.now)
-
+    created_date = models.DateTimeField(default=datetime.datetime.now)
+    legacy_id = models.IntegerField(null=True)
     def __str__(self):
         return self.name
 
@@ -44,10 +45,11 @@ class Article(models.Model):
     issue = models.ForeignKey(Issue)
     authors = models.ManyToManyField(Profile)
     subsections = models.ManyToManyField(Subsection, null=True)
-    created_date = models.DateTimeField(default=timezone.now)
+    created_date = models.DateTimeField(default=datetime.datetime.now)
     published = models.BooleanField(default=False)
     published_date = models.DateTimeField(null=True)
-    updated_date = models.DateTimeField(default=timezone.now)
+    updated_date = models.DateTimeField(default=datetime.datetime.now)
+    legacy_id = models.PositiveIntegerField(null=True)
 
     def __str__(self):
         return self.title
@@ -80,7 +82,7 @@ class Album(models.Model):
         return self.article.title
 
 class Photo(models.Model):
-    date = models.DateTimeField(default=timezone.now)
+    date = models.DateTimeField(default=datetime.datetime.now)
     image = models.ImageField(upload_to='photo/')
     caption = models.TextField(max_length=500, blank=True)
     credit = models.ForeignKey(Profile)
