@@ -6,7 +6,7 @@ from django.template.defaultfilters import slugify
 from django.core.urlresolvers import reverse, reverse_lazy
 
 class Profile(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User,null=True)
     POSITIONS_CHOICES = (
         ('chief_editor', 'Editor-in-Chief'),
         ('managing_editor', 'Managing Editor'),
@@ -20,12 +20,11 @@ class Profile(models.Model):
         ('web_developer', 'Web Developer'),
     )
     position = models.CharField(choices=POSITIONS_CHOICES, max_length=50, default='Editor')
+    display_name = models.CharField(blank=True,max_length=50)
+    legacy_id  =  models.PositiveIntegerField(null=True)
 
     def slug(self):
         return slugify(self.get_profile().display_name())
-
-    def display_name(self):
-        return self.user.first_name + " " + self.user.last_name
 
     def __str__(self):
         return self.user.username

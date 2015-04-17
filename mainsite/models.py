@@ -11,7 +11,8 @@ from workflow.models import Profile, Assignment, WArticle, Revision
 
 class Section(models.Model):
     name = models.CharField(max_length=50)
-
+    priority = models.IntegerField()
+    legacy_id = models.PositiveIntegerField(null=True)
     def __str__(self):
         return self.name
 
@@ -30,7 +31,7 @@ class Subsection(models.Model):
 class Issue(models.Model):
     name = models.CharField(max_length=200)
     created_date = models.DateTimeField(default=timezone.now)
-
+    legacy_id = models.IntegerField(null=True)
     def __str__(self):
         return self.name
 
@@ -48,6 +49,7 @@ class Article(models.Model):
     published = models.BooleanField(default=False)
     published_date = models.DateTimeField(null=True)
     updated_date = models.DateTimeField(default=timezone.now)
+    legacy_id = models.PositiveIntegerField(null=True)
 
     def __str__(self):
         return self.title
