@@ -40,3 +40,13 @@ footer {
     margin:auto;
     width: 30%;
 }
+
+.navbar #tslLogo {
+    width: 30px;
+    display: inline;
+    margin-right: 10px;
+}
+
+.navbar {
+    margin-bottom: 0px;
+}

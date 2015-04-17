@@ -1,0 +1,19 @@
+select, input[type="text"] {
+    width: 40%;
+    height: 500px;
+}
+
+section {
+    padding: 8px;
+    overflow: auto;
+}
+
+.selectBoxGroup {
+    margin-left: 6%;
+}
+
+.widthCenter50 {
+    width: 50%;
+    margin-left:25%;
+    margin-top: 5%;
+}
