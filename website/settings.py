@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'pysolr',
     'haystack',
+    'widget_tweaks',
     'mainsite',
     'workflow',
 )
