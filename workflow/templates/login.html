@@ -1,10 +1,24 @@
-{% extends 'base.html' %}
+{% extends 'workflow_base.html' %}
 
-{% block body_block %}
-    <form method="POST" action="">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input id="login" type="submit" value="Submit"/>
-    </form>
-    <p>Don't have an TSL account? Take 30 seconds to <a href="{% url 'register' %}">register!</a></p>
+{% load static %}
+{% block title_block %}
+    <title>TSL Workflow Login</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'workflow-style.css' %}">
+{% endblock %}
+
+{% load widget_tweaks %}
+
+{% block content_block %}
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+        <img id="tslLogo" src="{% static 'TSLlogo-02-01.svg' %}"/>
+        <form method="POST" action="">
+            {% csrf_token %}
+            {% for field in form %}
+                {% render_field field class+="form-control margin10" placeholder=field.label %}
+            {% endfor %}
+            <input class="btn btn-default btn-block btn-primary margin10" id="login" type="submit"
+                   value="Login"/>
+        </form>
+        <p class="margin10">Don't have an TSL account? Take 30 seconds to <a href="{% url 'register' %}">register!</a></p>
+    </div>
 {% endblock %}

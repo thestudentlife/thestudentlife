@@ -1,0 +1,42 @@
+.margin10 {
+    margin:10px;
+}
+
+.padding10 {
+    padding: 10px;
+}
+
+.horizontal-center {
+    display: inline-block;
+    text-align: center;
+}
+
+.vertical-center {
+    min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.vertical-align {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+footer {
+    text-align: center;
+}
+#info-menu a{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#tslLogo {
+    display:block;
+    margin:auto;
+    width: 30%;
+}
