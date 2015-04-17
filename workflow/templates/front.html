@@ -1,7 +1,8 @@
 {% extends 'workflow_base.html' %}
+
 {% block title_block %}
     {% load staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'selectbox.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'selectbox.css' %}" />
 {% endblock %}
 {% block content_block %}
     <form action="" method="post">
@@ -51,5 +52,8 @@
         </section>
         <input type="submit" value="Confirm">
     </form>
-    <script src="{% static 'selectbox.js' %}"></script>
+{% endblock %}
+
+{% block additional_scripts_block %}
+    <script type="text/javascript" src="{% static 'selectbox.js' %}"></script>
 {% endblock %}
