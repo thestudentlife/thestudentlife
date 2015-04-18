@@ -24,31 +24,33 @@
 {% elif 'plastic' in perms.user.profile.get_highest_group %}
     {% include 'navigation/plastic_nav.html' %}
 {% endif %}
-<div class="vertical-center">
+{% block vertical_center_start %}
+{% endblock %}
+<div class="container">
     <div class="container">
-        <div class="container">
-            {% block content_block %}
+        {% block content_block %}
 
-            {% endblock %}
-        </div>
-        <div class="container">
-            <hr>
-            <footer class="footer">
-                <div id="info-menu">
-                    <a>About</a>
-                    <a>Contact</a>
-                    <a>Advertise</a>
-                    <a>Subscribe</a>
-                    <a>Print Issues</a>
-                    <span class="stretch"></span>
-                </div>
-                &copy; 2015 The Student Life
-                <br/>
-                Created by Kent Shikama '18, Latina Vidolova '15, Ziqi Xiong '17.
-            </footer>
-        </div>
+        {% endblock %}
+    </div>
+    <div class="container">
+        <hr>
+        <footer class="footer">
+            <div id="info-menu">
+                <a>About</a>
+                <a>Contact</a>
+                <a>Advertise</a>
+                <a>Subscribe</a>
+                <a>Print Issues</a>
+                <span class="stretch"></span>
+            </div>
+            &copy; 2015 The Student Life
+            <br/>
+            Created by Kent Shikama '18, Latina Vidolova '15, Ziqi Xiong '17.
+        </footer>
     </div>
 </div>
+{% block vertical_center_end %}
+{% endblock %}
 <script type="text/javascript" src="{% static 'jquery-2.1.3.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'bootstrap.min.js' %}"></script>
 {% block additional_scripts_block %}
