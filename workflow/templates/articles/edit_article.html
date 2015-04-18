@@ -7,7 +7,6 @@
         <li><a href="{% url 'warticle' article.issue.pk article.pk %}">{{ article.title }}</a></li>
         <li class="active">Edit</li>
     </ol>
-
 {% endblock %}
 
 {% block content_block %}
@@ -19,11 +18,13 @@
             {{ original_content }}
         </textarea>
         <input type="hidden" name="original_second" value="{{ original_second }}">
-        <input type="submit" value="Submit"/>
+
+        <div class="widthCenter50">
+            <input class="btn btn-default btn-primary btn-block" type="submit" value="Edit Article"/>
+        </div>
     </form>
     <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
     <script>
-
         CKEDITOR.replace(id_content, {
             customConfig: '{% static 'ckeditor_config.js' %}'
         })

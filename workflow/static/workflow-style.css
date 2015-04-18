@@ -63,3 +63,9 @@ footer {
     background-color: transparent;
     font-size: 1.2em;
 }
+
+.widthCenter50 {
+    width: 50%;
+    margin-left:25%;
+    margin-top: 5%;
+}
