@@ -1,3 +1,7 @@
+p {
+    font-size: 1.2em;
+}
+
 .margin10 {
     margin:10px;
 }
@@ -49,4 +53,12 @@ footer {
 
 .navbar {
     margin-bottom: 0px;
+}
+
+#issue_title {
+    text-align: center;
+}
+
+.sizeH3 {
+    font-size: 35px;
 }
