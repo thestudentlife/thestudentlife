@@ -6,23 +6,23 @@
     <header>
         <h1 id="issue_title">{{ issue.name }}</h1>
     </header>
-    <br />
+    <br/>
     <div class="horizontal-center">
-    <ul class="nav nav-pills">
-        {% for section in sections %}
-            <li class="section-tab" id="{{ section.name }}"><a class="sizeH3" href="#">{{ section.name }}</a></li>
-        {% endfor %}
-    </ul>
-    </div>
-    {% for section in sections %}
-        <div class="articles" id="{{ section.name }}-articles">
-            {% for article in articles %}
-                {% if article.section == section %}
-                    {% include 'articles/workflow_short_article_partial.html' %}
-                {% endif %}
+        <ul class="nav nav-pills">
+            {% for section in sections %}
+                <li class="section-tab" id="{{ section.name }}"><a class="sizeH3" href="#">{{ section.name }}</a></li>
             {% endfor %}
-        </div>
-    {% endfor %}
+        </ul>
+        {% for section in sections %}
+            <div class="articles" id="{{ section.name }}-articles">
+                {% for article in articles %}
+                    {% if article.section == section %}
+                        {% include 'articles/workflow_short_article_partial.html' %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
 
 {% block additional_scripts_block %}

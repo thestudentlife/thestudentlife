@@ -5,7 +5,8 @@ $(document).ready(function() {
 
 $('.section-tab').click(function() {
     var sectionName = $(this).attr('id');
-    $(".articles").fadeOut();
     var idName = "#" + sectionName + "-articles";
-    $(idName).fadeIn();
+    $(".articles").not(idName).fadeOut(0, function() {
+        $(idName).fadeIn();
+    });
 });
