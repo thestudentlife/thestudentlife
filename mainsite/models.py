@@ -16,6 +16,9 @@ class Section(models.Model):
     def __str__(self):
         return self.name
 
+    def slug(self):
+        return slugify(self.name)
+
     def get_absolute_url(self):
         return reverse('section', kwargs={'section_name': self.name})
 

@@ -12,12 +12,12 @@
     <div class="horizontal-center">
         <ul id="sectionNavigation" class="nav nav-pills">
             {% for section in sections %}
-                <li class="section-tab" id="{{ section.name }}"><a class="sizeH3" href="#">{{ section.name }}</a></li>
+                <li class="section-tab" id="{{ section.slug }}"><a class="sizeH3" href="#">{{ section.name }}</a></li>
             {% endfor %}
         </ul>
     </div>
     {% for section in sections %}
-        <div class="articles" id="{{ section.name }}-articles">
+        <div class="articles" id="{{ section.slug }}-articles">
             {% for article in articles %}
                 {% if article.section == section %}
                     {% include 'articles/workflow_short_article_partial.html' %}

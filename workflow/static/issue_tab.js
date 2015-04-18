@@ -8,7 +8,7 @@ $('.section-tab').click(function() {
     var sectionName = $(this).attr('id');
     var idName = "#" + sectionName + "-articles";
     $('.section-tab').removeClass("active");
-    $(':contains(' + sectionName + ')').addClass("active");
+    $('#' + sectionName).addClass("active");
     $(".articles").not(idName).fadeOut(0, function() {
         $(idName).fadeIn();
     });
