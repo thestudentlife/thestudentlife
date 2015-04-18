@@ -20,8 +20,12 @@ p {
     min-height: 100vh; /* These two lines are counted as one :-)       */
 
     display: -webkit-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
