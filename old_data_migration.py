@@ -1,10 +1,6 @@
 import psycopg2
-import psycopg2.extensions
 from workflow.models import Profile
 from mainsite.models import Article, Section, Issue
-
-psycopg2.extensions.register_type(psycopg2.extensions.UNICODE)
-psycopg2.extensions.register_type(psycopg2.extensions.UNICODEARRAY)
 
 conn = psycopg2.connect("dbname=postgres user=postgres password=794613852")
 
@@ -15,9 +11,13 @@ sections = conn.cursor()
 issues = conn.cursor()
 
 
-def recode(str):
-    str = str.encode('ascii','ignore')
-    return str.decode('ascii','ignore')
+def recode(string):
+    if string is None:
+        return ''
+    if string is not str:
+        string = str(string)
+    string = string.encode('ascii','ignore')
+    return string.decode('ascii','ignore')
 
 
 #save the issues
@@ -52,27 +52,39 @@ for author in authors:
     new_author = Profile(display_name=display_name, position=position,legacy_id=legacy_id)
     new_author.save()
     print("Save author: "+ display_name)
-"""
+
 #save all the articles
 articles_authors.execute("SELECT * FROM articles_authors")
-pair = articles_authors.fetchone();
-while pair is not None:
+pair = articles_authors.fetchone()
+while True:
+    pair = articles_authors.fetchone()
+    if pair is None:
+        break
     articleID = pair[0]
     authorID = pair[1]
     author = Profile.objects.get(legacy_id=authorID)
     if Article.objects.filter(legacy_id=articleID).exists():
         Article.objects.get(legacy_id=articleID).authors.add(author);
-        print("Add an author to article "+articleID)
+        print("Add an author to article "+str(articleID))
     else:
-        article = articles.execute("SELECT * FROM articles WHERE id = %s", (articleID,)).fetchone()
+        articles.execute("SELECT * FROM articles WHERE id = %s", (articleID,))
+        article = articles.fetchone()
         issueID = article[5]
         sectionID = article[2]
-        section = Section.objects.get(legacy_id=sectionID)
+        section = Section.objects.filter(legacy_id=sectionID)[0]
+        if section is None:
+            continue
         legacy_id = article[0]
         published = article[7]
-        title = article[9]
-        content = article[6]
-        issue = Issue.objects.get(legacy_id=issueID)
+        if published is None or published is False:
+            continue
+        title = recode(article[9])
+        if title is None:
+            continue
+        content = recode(article[6])
+        if content is '':
+            continue
+        issue = Issue.objects.filter(legacy_id=issueID)[0]
         created_date = article[3]
         updated_date = article[4]
         published_date = article[8]
@@ -88,13 +100,10 @@ while pair is not None:
             legacy_id=legacy_id
         )
         new_article.save()
-        print("Add article: "+title)
+        print("Add article: "+legacy_id+" "+title)
         new_article.authors.add(author)
 
 
-
-
-"""
 
 
 
