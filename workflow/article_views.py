@@ -39,7 +39,7 @@ def article_edit(request,issue_id,pk):
         original_second = original_article.updated_date.second
         form = ArticleForm(instance=original_article)
         return render(request,'articles/edit_article.html',
-                      {'form':form,'original_content':original_content,'original_second':original_second})
+                      {'form':form, 'article': original_article, 'original_content':original_content,'original_second':original_second})
     else:
         base_content = request.POST['original_content']
         base_second = request.POST['original_second']
@@ -70,7 +70,7 @@ def article_edit(request,issue_id,pk):
             revision.save()
             return redirect(reverse('warticle',args=[issue_id,pk]))
         else:
-            return render(request,'articles/edit_article.html',{'form':form})
+            return render(request,'articles/edit_article.html',{'form':form, 'article': original_article})
 
 
 

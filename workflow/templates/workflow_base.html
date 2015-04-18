@@ -24,6 +24,8 @@
 {% elif 'plastic' in perms.user.profile.get_highest_group %}
     {% include 'navigation/plastic_nav.html' %}
 {% endif %}
+{% block breadcrumb %}
+{% endblock %}
 {% block vertical_center_start %}
 {% endblock %}
 <div class="container">

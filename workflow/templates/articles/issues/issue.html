@@ -2,6 +2,12 @@
 
 {% load static %}
 {% load widget_tweaks %}
+{% block breadcrumb %}
+    <ol class="breadcrumb breadcrumbAdjust">
+        <li><a href="{% url 'issues' %}">Issues</a></li>
+        <li class="active">Issue {{ issue.name }}</li>
+    </ol>
+{% endblock %}
 {% block content_block %}
     <header>
         <h1 id="issue_title">{{ issue.name }}</h1>

@@ -62,3 +62,8 @@ footer {
 .sizeH3 {
     font-size: 35px;
 }
+
+.breadcrumbAdjust {
+    background-color: transparent;
+    font-size: 1.2em;
+}
