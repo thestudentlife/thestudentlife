@@ -67,3 +67,4 @@ migrations/
 workflow/migrations/data_migration_initial.py
 website/static/
 ve/*
+.vagrant
