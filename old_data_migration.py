@@ -100,7 +100,7 @@ while True:
             legacy_id=legacy_id
         )
         new_article.save()
-        print("Add article: "+legacy_id+" "+title)
+        print("Add article: "+str(legacy_id)+" "+title)
         new_article.authors.add(author)
 
 
