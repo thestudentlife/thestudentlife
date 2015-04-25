@@ -59,16 +59,11 @@ target/
 .idea
 
 media/
-
 v1
-
 v2
-
 base
-
 workflow/static/ckeditor/*
-
 migrations/
-reset_database.sh
 workflow/migrations/data_migration_initial.py
 website/static/
+ve/*
