@@ -21,7 +21,7 @@ class Profile(models.Model):
     )
     position = models.CharField(choices=POSITIONS_CHOICES, max_length=50, default='Editor')
     display_name = models.CharField(blank=True,max_length=50)
-    legacy_id  =  models.PositiveIntegerField(null=True)
+    legacy_id = models.PositiveIntegerField(null=True)
 
     def slug(self):
         return slugify(self.get_profile().display_name())
