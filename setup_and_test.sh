@@ -18,10 +18,14 @@ fi
 
 rm -rf db.sqlite3;
 touch db.sqlite3;
+cd workflow && mkdir migrations;
+cd ..;
 rm -rf workflow/migrations/*;
 touch workflow/migrations/__init__.py;
 rm -rf mainsite/migrations/*;
+cd mainsite && mkdir migrations;
 touch mainsite/migrations/__init__.py;
+cd ..;
 python3 manage.py makemigrations;
 cp website/data_migration_initial.py workflow/migrations/data_migration_initial.py;
 python3 manage.py migrate;
