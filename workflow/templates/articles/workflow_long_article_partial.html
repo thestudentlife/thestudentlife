@@ -5,7 +5,7 @@
         Section: <a href="{% url 'section' article.section.name %}">{{ article.section }}</a>,
         Authors:
         {% for author in article.authors.all %}
-            <a href="{{ article.author.get_absolute_url }}">{{ author.user.username }}</a>
+            <a href="{{ article.author.get_absolute_url }}">{{ author.display_name }}</a>
         {% endfor % %},
         Last updated: {{ article.updated_date }}
     </p>

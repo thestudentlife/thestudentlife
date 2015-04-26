@@ -6,7 +6,7 @@
 
         <p>
             {% for author in article.authors.all %}
-                Author: <a href="{{ article.author.get_absolute_url }}">{{ author.user.username }}</a>
+                Author: <a href="{{ article.author.get_absolute_url }}">{{ author.display_name }}</a>
             {% endfor % %},
             Last updated: {{ article.updated_date }}
         </p>
