@@ -8,6 +8,7 @@ from workflow.models import Profile, Assignment, WArticle
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.views.generic import CreateView, UpdateView
 from workflow.models import Profile, Assignment, WArticle, Revision
+from ajax_select import make_ajax_field
 
 class Section(models.Model):
     name = models.CharField(max_length=50)
@@ -111,6 +112,7 @@ class ArticleForm(ModelForm):
     class Meta:
         model = Article
         fields = ['title', 'content', 'section', 'issue', 'authors']
+    authors = make_ajax_field(Article, 'authors', 'profile', help_text=None)
 
 
 
