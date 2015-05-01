@@ -1,9 +1,0 @@
-Downloading/unpacking django-autocomplete-light
-  Running setup.py (path:C:\Users\ZX012_~1\AppData\Local\Temp\pip_build_zx012_000\django-autocomplete-light\setup.py) egg_info for package django-autocomplete-light
-    
-Requirement already satisfied (use --upgrade to upgrade): six>=1.4 in c:\users\zx012_000\python\lib\site-packages (from django-autocomplete-light)
-Installing collected packages: django-autocomplete-light
-  Running setup.py install for django-autocomplete-light
-    
-Successfully installed django-autocomplete-light
-Cleaning up...
