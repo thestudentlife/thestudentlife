@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'pysolr',
     'haystack',
     'widget_tweaks',
+    'autocomplete_light',
     'mainsite',
     'workflow',
 )

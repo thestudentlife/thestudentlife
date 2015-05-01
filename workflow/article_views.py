@@ -68,6 +68,7 @@ def article_edit(request,issue_id,pk):
             revision = Revision(article=original_article,
                                     editor=request.user.profile, body=original_article.content)
             revision.save()
+            form.save_m2m()
             return redirect(reverse('warticle',args=[issue_id,pk]))
         else:
             return render(request,'articles/edit_article.html',{'form':form, 'article': original_article})
