@@ -112,10 +112,6 @@ class ArticleForm(ModelForm):
     class Meta:
         model = Article
         fields = ['title', 'content', 'section', 'issue', 'authors']
-    authors = make_ajax_field(Article, 'authors', 'profile', help_text=None)
-
-
-
 
 
 
