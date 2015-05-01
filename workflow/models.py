@@ -141,9 +141,3 @@ class ProfileForm(ModelForm):
         model = Profile
         fields = ['position']
 
-
-
-
-
-
-

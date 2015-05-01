@@ -1,3 +1,4 @@
+import autocomplete_light
 from django.db import models
 from django.contrib.auth.models import User
 import datetime
@@ -8,7 +9,7 @@ from workflow.models import Profile, Assignment, WArticle
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.views.generic import CreateView, UpdateView
 from workflow.models import Profile, Assignment, WArticle, Revision
-from ajax_select import make_ajax_field
+autocomplete_light.autodiscover()
 
 class Section(models.Model):
     name = models.CharField(max_length=50)
@@ -108,14 +109,11 @@ class AssignmentForm(ModelForm):
             })
         }
 
-class ArticleForm(ModelForm):
+class ArticleForm(autocomplete_light.ModelForm):
     class Meta:
         model = Article
-        fields = ['title', 'content', 'section', 'issue', 'authors']
-
-
-
-
+        fields = ['title', 'content', 'section', 'issue','authors']
+        autocomplete_fields = ('authors')
 
 
 
