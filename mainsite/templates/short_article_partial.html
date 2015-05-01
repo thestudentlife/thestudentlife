@@ -14,7 +14,7 @@
             {% endfor % %}
         </h2>
 
-        <h2 class="article_updated_date">{{ article.updated_date }}</h2>
+        <h2 class="article_updated_date">{{ article.published_date }}</h2>
     </hgroup>
     <p class="article_content">
         {{ article.content|truncatechars:100 |safe }}
