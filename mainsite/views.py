@@ -1,12 +1,24 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from mainsite.models import Section, Article, Profile
+from mainsite.models import Section, Article, Profile,FrontArticle
 
 def home(request):
-    return render(request, 'index.html')
+    sections = Section.objects.all()
+    articles = {}
+    for section in sections:
+        articles[section.name]=[]
+    front_articles = FrontArticle.objects.all()
+    for front_article in front_articles:
+        articles[front_article.article.section.name].append(front_article.article)
+    return render(request, 'index.html',{'sections':sections,'articles':articles})
 
 def section(request, section_name):
-    articles = Section.objects.get(name=section_name).articles.all();
+    sections = Section.objects.all()
+    sec = 0
+    for section in sections:
+        if section.slug() == section_name:
+            sec = section;
+    articles = sec.articles.order_by('-published_date')[:10];
     return render(request, 'section.html', {"articles": articles});
 
 def article(request, section_name, article_id, article_name='default'):

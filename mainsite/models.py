@@ -21,7 +21,7 @@ class Section(models.Model):
         return slugify(self.name)
 
     def get_absolute_url(self):
-        return reverse('section', kwargs={'section_name': self.name})
+        return reverse('section', kwargs={'section_name': self.slug()})
 
 class Subsection(models.Model):
     name = models.CharField(max_length=50)
