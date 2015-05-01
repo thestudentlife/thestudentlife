@@ -40,7 +40,6 @@ INSTALLED_APPS = (
     'django_extensions',
     'pysolr',
     'haystack',
-    'ajax_select',
     'widget_tweaks',
     'mainsite',
     'workflow',
@@ -139,7 +138,3 @@ SELENIUM_DISPLAY = getattr(settings, 'SELENIUM_DISPLAY', ':0')
 # Set the drivers that you want to run your tests against
 SELENIUM_DRIVER = getattr(settings, 'SELENIUM_DRIVER', 'Firefox')
 SELENIUM_DRIVER_OPTS = getattr(settings, 'SELENIUM_DRIVER_OPTS', dict())
-
-AJAX_LOOKUP_CHANNELS = {
-    'profile' : ('workflow.lookups','ProfileLookup')
-}

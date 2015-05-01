@@ -7,11 +7,9 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
                        url(r'^search/', include('haystack.urls')),
-                       url(r'^lookups/', include(ajax_select_urls)),
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^workflow/', include('workflow.urls')),
                        url(r'^', include('mainsite.urls')),
-
 )
 
 if settings.DEBUG:
