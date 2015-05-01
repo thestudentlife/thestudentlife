@@ -110,11 +110,10 @@ class AssignmentForm(ModelForm):
         }
 
 class ArticleForm(autocomplete_light.ModelForm):
-    authors = autocomplete_light.ModelMultipleChoiceField('ProfileAutocomplete')
     class Meta:
         model = Article
         fields = ['title', 'content', 'section', 'issue','authors']
-
+        autocomplete_fields = ('authors')
 
 
 
