@@ -72,4 +72,22 @@ footer {
     width: 50%;
     margin-left:25%;
     margin-top: 5%;
+.long_article_title {
+    display: inline;
+}
+
+.long_article_title_div {
+    margin-bottom: 20px;
+    margin-left: -3px;
+}
+.confirm_delete_info {
+    margin-top: 40px;
+}
+
+.delete_button_transparent {
+    color: #bbbbbb;
+}
+
+.delete_button_transparent:hover {
+    color: red;
 }
