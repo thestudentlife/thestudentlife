@@ -10,7 +10,7 @@
 {% endblock %}
 {% block content_block %}
     <div class="horizontal-center">
-        <ul id="sectionNavigation" class="nav nav-pills">
+        <ul id="sectionNavigation" class="nav nav-tabs">
             {% for section in sections %}
                 <li class="section-tab" id="{{ section.slug }}"><a class="sizeH3" href="#">{{ section.name }}</a></li>
             {% endfor %}
