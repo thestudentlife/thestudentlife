@@ -1,14 +1,20 @@
 {% load url from future %}
 <article>
-    <h1 class="article_title">{{ article.title }}</h1>
+    <div class="long_article_title_div">
+        <h1 class="long_article_title">{{ article.title }}</h1><span class="padding-h5"></span><a class="delete_button_transparent" href="{% url 'delete_article' article.issue.id article.id %}"><i class="fa fa-4x fa-ban"></i></a>
+    </div>
     <p>
         Section: <a href="{% url 'section' article.section.name %}">{{ article.section }}</a>,
         Authors:
         {% for author in article.authors.all %}
             <a href="{{ author.get_absolute_url }}">{{ author.display_name }}</a>
-        {% endfor % %},
+        {% endfor %},
         Last updated: {{ article.updated_date }}
     </p>
+    <div id="edit_button_wrap" style="text-align: center">
+        <a class="btn btn-default btn-primary btn-50"
+           href="{% url 'edit_article' article.issue.id article.id %}">Edit</a>
+    </div>
     <ul class="photo_ls">
         {% if article.has_photo %}
             {% for photo in article.album.photos %}
@@ -19,10 +25,4 @@
     <section class="article_content">
         {{ article.content | safe }}
     </section>
-    <div class="button_groups" style="text-align: center">
-        <a class="btn btn-default edit_button"
-           href="{% url 'edit_article' article.issue.id article.id %}">Edit</a>
-        <a class="btn btn-default delete_button"
-           href="{% url 'delete_article' article.issue.id article.id %}">Delete</a>
-    </div>
 </article>

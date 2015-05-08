@@ -2,13 +2,12 @@ import autocomplete_light
 from django.db import models
 from django.contrib.auth.models import User
 import datetime
-from django.forms import ModelForm, Textarea, TextInput,HiddenInput
+from django.forms import ModelForm, TextInput
 from django.template.defaultfilters import slugify
-from django.views.generic import CreateView
 from workflow.models import Profile, Assignment, WArticle
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.views.generic import CreateView, UpdateView
 from workflow.models import Profile, Assignment, WArticle, Revision
+import re
 autocomplete_light.autodiscover()
 
 class Section(models.Model):
@@ -58,6 +57,9 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+    def strip_content_of_images(self):
+        return re.sub("<img[^>]*>","", self.content);
 
     def has_photo(self):
         return self.album.photo_set is not None

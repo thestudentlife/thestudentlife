@@ -73,3 +73,43 @@ footer {
     margin-left:25%;
     margin-top: 5%;
 }
+
+#edit_button_wrap {
+    display: block;
+}
+
+.btn-50 {
+    display: block;
+    width: 50%;
+}
+
+.btn-40-side-by-side {
+    display: inline-block;
+    width: 30%;
+    margin-right: 20px;
+}
+
+.long_article_title {
+    display: inline;
+}
+
+.long_article_title_div {
+    margin-bottom: 20px;
+    margin-left: -3px;
+}
+
+.padding-h5 {
+    padding-left: 20px;
+}
+
+.confirm_delete_info {
+    margin-top: 40px;
+}
+
+.delete_button_transparent {
+    color: #bbbbbb;
+}
+
+.delete_button_transparent:hover {
+    color: red;
+}
