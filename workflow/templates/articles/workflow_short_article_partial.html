@@ -12,6 +12,6 @@
         </p>
     </hgroup>
     <p class="article_content">
-        {{ article.content|truncatechars:100 |safe }}
+        {{ article.content.strip_content_of_images | truncatechars:100 | safe }}
     </p>
 </article>
