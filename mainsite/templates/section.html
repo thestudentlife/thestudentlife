@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
+     {% load staticfiles %}
     <div class="articles_block">
-        <ul class="article_ls"></ul>
+        <ul class="article_ls">
         {% for article in articles %}
             <li class="article_item">
                 {% include 'short_article_partial.html' %}
@@ -10,4 +11,8 @@
         {% endfor %}
         </ul>
     </div>
+{% endblock %}
+
+{% block script_block %}
+    <script src="{% static 'section_scroll.js' %}"></script>
 {% endblock %}
