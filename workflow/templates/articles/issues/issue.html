@@ -9,6 +9,10 @@
     </ol>
 {% endblock %}
 {% block content_block %}
+    <div id="edit_button_wrap" style="text-align: center">
+        <a class="btn btn-default btn-primary btn-50"
+           href="{% url 'new_article' issue.id %}">Create Article</a>
+    </div>
     <div class="horizontal-center">
         <ul id="sectionNavigation" class="nav nav-tabs">
             {% for section in sections %}
