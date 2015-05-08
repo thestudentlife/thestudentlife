@@ -27,7 +27,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Change Account Info</a></li>
+                        <li><a href="{% url 'setting' request.user.id %}">Change Account Info</a></li>
                         <li><a href="#">Help</a></li>
                         <li class="divider"></li>
                         <li><a href="{% url 'logout' %}">Log out</a></li>

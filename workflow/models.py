@@ -19,7 +19,7 @@ class Profile(models.Model):
         ('graphic_designer', 'Graphic Designer'),
         ('web_developer', 'Web Developer'),
     )
-    position = models.CharField(choices=POSITIONS_CHOICES, max_length=50, default='Editor')
+    position = models.CharField(choices=POSITIONS_CHOICES, max_length=50, default='author')
     display_name = models.CharField(blank=True,max_length=50)
     legacy_id = models.PositiveIntegerField(null=True)
 

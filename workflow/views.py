@@ -1,12 +1,12 @@
 from django.contrib.auth import authenticate, login as do_login, logout as do_logout
 from django.contrib.auth.decorators import user_passes_test
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from django.template.loader import render_to_string
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, FrontArticle, CarouselArticle
-from workflow.models import Assignment, RegisterForm, LoginForm, Revision, ProfileForm
+from workflow.models import Assignment, RegisterForm, LoginForm, Revision
 import os, subprocess
 from workflow.static import getText
 
@@ -24,9 +24,13 @@ def register(request):
         registerForm = RegisterForm(request.POST)
         if registerForm.is_valid():
 
-            user = registerForm.save()
-            profile = Profile(user=user,position=request.POST['position'])
+            user = registerForm.save(commit=False)
+            profile = Profile(user=user)
             profile.save()
+            user.set_password(request.POST['password'])
+            user.save()
+            plastic = Group.objects.get(name='plastic')
+            user.groups.add(plastic)
             return redirect(reverse('whome'))
 
         else:
@@ -35,11 +39,27 @@ def register(request):
             })
     else:
         registerForm = RegisterForm()
-        profileForm = ProfileForm()
         return render(request, 'register.html', {
             'form': registerForm,
-            'profile_form':profileForm
         })
+
+def setting(request,user_id):
+    user = User.objects.get(pk=user_id)
+    if request.method=='GET':
+        form = RegisterForm(instance=user)
+        return render(request,'setting.html',{'form':form})
+    else:
+        form = RegisterForm(request.POST,instance=user)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(request.POST['password'])
+            user.save()
+            return redirect(reverse('whome'))
+        else:
+            return render(request,'setting.html',{'form':form})
+
+
+
 
 def login(request):
     if request.method == "POST":
@@ -77,6 +97,9 @@ def whome(request):
     else:
         id = request.user.id
         return redirect(reverse('filter_by_receiver', args=[id]))
+
+
+#@group_required('gold')
 
 @group_required('silver')
 def front(request):
