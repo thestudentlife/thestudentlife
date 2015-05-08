@@ -4,7 +4,7 @@
         <h1 class="long_article_title">{{ article.title }}</h1><span class="padding-h5"></span><a class="delete_button_transparent" href="{% url 'delete_article' article.issue.id article.id %}"><i class="fa fa-4x fa-ban"></i></a>
     </div>
     <p>
-        Section: <a href="{% url 'section' article.section.name %}">{{ article.section }}</a>,
+        Section: <a href="{% url 'section' article.section.slug %}">{{ article.section }}</a>,
         Authors:
         {% for author in article.authors.all %}
             <a href="{{ author.get_absolute_url }}">{{ author.display_name }}</a>
