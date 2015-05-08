@@ -15,13 +15,13 @@ class ArticleDetailView(DetailView):
 
 class ArticleCreateView(CreateView):
     model = Article
-    fields = ['title', 'content', 'section','issue']
+    fields = ['title', 'content', 'section']
     template_name = 'articles/new_article.html'
-    success_url = reverse_lazy('whome')
+    success_url = reverse_lazy('whome') #TODO: Change to appropriate issue id
 
     def form_valid(self, form):
         article = form.save(commit=False)
-        article.issue = Issue.objects.latest('created_date')
+        article.issue = Issue.objects.get(pk=self.kwargs['issue_id']);
         article.save()
         article.authors.add(self.request.user.profile)
         album = Album(article=article)
