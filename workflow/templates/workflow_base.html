@@ -19,7 +19,9 @@
 
 <body>
 {% load url from future %}
-{% if 'silver' in user.profile.get_highest_group or 'gold' in user.profile.get_highest_group %}
+{% if  'gold' in user.profile.get_highest_group  %}
+     {% include 'navigation/gold_nav.html' %}
+{% elif 'silver' in user.profile.get_highest_group %}
     {% include 'navigation/silver_nav.html' %}
 {% elif 'bronze' in perms.user.profile.get_highest_group %}
     {% include 'navigation/bronze_nav.html' %}

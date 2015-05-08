@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, FrontArticle, CarouselArticle
-from workflow.models import Assignment, RegisterForm, LoginForm, Revision
+from workflow.models import Assignment, RegisterForm, LoginForm, Revision, ProfileForm, RegisterForm2
 import os, subprocess
 from workflow.static import getText
 
@@ -25,7 +25,8 @@ def register(request):
         if registerForm.is_valid():
 
             user = registerForm.save(commit=False)
-            profile = Profile(user=user)
+            display_name = user.first_name+" "+user.last_name
+            profile = Profile(user=user,display_name=display_name)
             profile.save()
             user.set_password(request.POST['password'])
             user.save()
@@ -99,7 +100,33 @@ def whome(request):
         return redirect(reverse('filter_by_receiver', args=[id]))
 
 
-#@group_required('gold')
+@group_required('gold')
+def manage(request):
+    users = User.objects.all()
+    return render(request,'manage.html',{'users':users})
+
+@group_required('gold')
+def manage_one(request,user_id):
+    user = User.objects.get(pk=user_id)
+    if request.method=='GET':
+        form = RegisterForm2(instance=user)
+        second_form = ProfileForm(instance=user.profile)
+        return render(request,'setting.html',{'form':form,'second_form':second_form})
+    else:
+        form = RegisterForm2(request.POST,instance=user)
+        if form.is_valid():
+            user = form.save(commit=False)
+        else:
+            return render(request,'setting.html',{'form':form})
+        second_form = ProfileForm(request.POST,instance=user.profile)
+        if second_form.is_valid():
+            second_form.save()
+        else:
+            return render(request,'setting.html',{'form':form})
+        for group in user.profile.ideal_group_names():
+            group = Group.objects.get(name=group)
+            user.groups.add(group)
+        return redirect(reverse('manage'))
 
 @group_required('silver')
 def front(request):
