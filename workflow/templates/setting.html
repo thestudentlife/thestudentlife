@@ -1,5 +1,9 @@
 {% extends 'workflow_base.html' %}
 
+{% block title_block %}
+    <title>Settings</title>
+{% endblock %}
+
 {% block content_block %}
 <form method="POST" action="">
     {% csrf_token %}

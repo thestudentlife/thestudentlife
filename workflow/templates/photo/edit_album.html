@@ -1,12 +1,13 @@
 {% extends "workflow_base.html" %}
 
-{% block content_block %}
+{% block title_block %}
+    <title>Edit Album</title>
+{% endblock %}
 
-<body>
+{% block content_block %}
 <form method="post" enctype="multipart/form-data" action="">
     {% csrf_token %}
     {{ formset.as_p }}
     <input type="submit" value="Submit"/>
 </form>
-
 {% endblock %}

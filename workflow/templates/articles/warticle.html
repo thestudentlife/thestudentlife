@@ -1,5 +1,9 @@
 {% extends 'workflow_base.html' %}
 
+{% block title_block %}
+    <title>{{ article.title }}</title>
+{% endblock %}
+
 {% block breadcrumb %}
     <ol class="breadcrumb breadcrumbAdjust">
         <li><a href="{% url 'issues' %}">Issues</a></li>

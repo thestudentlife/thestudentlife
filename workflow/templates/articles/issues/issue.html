@@ -1,5 +1,9 @@
 {% extends 'workflow_base.html' %}
 
+{% block title_block %}
+    <title>Issue {{ issue.name }}</title>
+{% endblock %}
+
 {% load static %}
 {% load widget_tweaks %}
 {% block breadcrumb %}
