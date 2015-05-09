@@ -1,8 +1,11 @@
 {% extends 'workflow_base.html' %}
+{% load static %}
 
 {% block title_block %}
     <title>Edit {{ article.title }}</title>
 {% endblock %}
+
+{% load widget_tweaks %}
 
 {% block breadcrumb %}
     <ol class="breadcrumb breadcrumbAdjust">
@@ -17,12 +20,21 @@
     {% load staticfiles %}
     <form method="POST" action="">
         {% csrf_token %}
-        {{ form.as_p }}
+        {% for field in form %}
+            {% if field|widget_type == "select" %}
+                {% render_field field class+="combobox margin-vertical-10" placeholder=field.label %}
+            {% elif field|widget_type == "textarea" %}
+                {% render_field field class+="" placeholder=field.label %}
+            {% elif field|widget_type == "multiplechoicewidget" %}
+                {% render_field field class+="form-control margin-vertical-10 multiple-choice-style" placeholder=field.label %}
+            {% else %}
+                {% render_field field class+="form-control margin-vertical-10 margin-bottom-20 edit-title" placeholder=field.label %}
+            {% endif %}
+        {% endfor %}
         <textarea name='original_content' style="display:none">
             {{ original_content }}
         </textarea>
         <input type="hidden" name="original_second" value="{{ original_second }}">
-
         <div class="widthCenter50">
             <input class="btn btn-default btn-primary btn-block" type="submit" value="Edit Article"/>
         </div>
@@ -30,11 +42,17 @@
     <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
     <script>
         CKEDITOR.replace(id_content, {
-            customConfig: '{% static 'ckeditor_config.js' %}'
+            customConfig: '{% static 'ckeditor_config.js' %}',
+            filebrowserBrowseUrl: ''
         })
     </script>
 {% endblock %}
 
 {% block additional_scripts_block %}
     {% include 'autocomplete_light/static.html' %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.combobox').combobox();
+        });
+    </script>
 {% endblock %}
