@@ -1,6 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'workflow_base.html' %}
 
-{% block body_block %}
+{% block title_block %}
+    <title>Register</title>
+{% endblock %}
+
+{% block content_block %}
 <form method="POST" action="">
     {% csrf_token %}
     {{ form.as_p }}
