@@ -91,9 +91,57 @@ class Album(models.Model):
 class Photo(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now)
     image = models.ImageField(upload_to='photo/')
+    thumbnail = models.ImageField(upload_to='thumbs/',blank=True,null=True)
     caption = models.TextField(max_length=500, blank=True)
     credit = models.ForeignKey(Profile)
     album = models.ForeignKey(Album, null=True)
+
+    # Adapted from http://snipt.net/danfreak/generate-thumbnails-in-django-with-pil/
+    def create_thumbnail(self):
+
+        if not self.image:
+            return
+
+        from io import BytesIO
+        from PIL import Image
+        from django.core.files.uploadedfile import SimpleUploadedFile
+        import os
+
+        THUMBNAIL_SIZE = (200,200)
+
+        DJANGO_TYPE = self.image.file.content_type
+        if DJANGO_TYPE == 'image/jpeg':
+            PIL_TYPE = 'jpeg'
+            FILE_EXTENSION = 'jpg'
+        elif DJANGO_TYPE == 'image/png':
+            PIL_TYPE = 'png'
+            FILE_EXTENSION = 'png'
+
+        # Open original photo which we want to thumbnail using PIL's Image
+        r = BytesIO(self.image.read())
+        fullsize_image = Image.open(r)
+        image = fullsize_image.copy()
+
+        # We use our PIL Image object to create the thumbnail, which already
+        # has a thumbnail() convenience method that contrains proportions.
+        # Additionally, we use Image.ANTIALIAS to make the image look better.
+        # Without antialiasing the image pattern artifacts may result.
+        image.thumbnail(THUMBNAIL_SIZE, Image.ANTIALIAS)
+
+        # Save the thumbnail
+        temp_handle = BytesIO()
+        image.save(temp_handle, PIL_TYPE)
+        temp_handle.seek(0)
+
+        # Save image to a SimpleUploadedFile which can be saved into ImageField
+        suf = SimpleUploadedFile(os.path.split(self.image.name)[-1], temp_handle.read(), content_type=DJANGO_TYPE)
+        # Save SimpleUploadedFile into image field
+        self.thumbnail.save('{}_thumbnail.{}'.format(os.path.splitext(suf.name)[0], FILE_EXTENSION), suf, save=False)
+
+
+    def save(self):
+        self.create_thumbnail()
+        super(Photo, self).save()
 
     def __str__(self):
         return self.image.url
