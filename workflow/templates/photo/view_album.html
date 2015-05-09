@@ -1,0 +1,31 @@
+{% extends 'workflow_base.html' %}
+
+{% block title_block %}
+    {% load staticfiles %}
+    <title>Photos for {{ album.article.title }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'fotorama.css' %}"/>
+{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb breadcrumbAdjust">
+        <li><a href="{% url 'albums' %}">All Albums</a></li>
+        <li><a href="{% url 'issue_albums' issue.id %}">Albums of Issue {{ issue.name }}</a></li>
+        <li class="active">Photos for {{ album.article.title }}</li>
+    </ol>
+{% endblock %}
+
+{% block content_block %}
+    <div id="edit_button_wrap" style="text-align: center">
+        <a class="btn btn-default btn-primary btn-50"
+           href="{% url 'edit_album' issue.id album.pk %}">Upload/Edit</a>
+    </div>
+    <div class="fotorama" data-nav="thumbs" data-maxheight="500px">
+    {% for photo in album.photo_set.all %}
+        <a href="{{ photo }}"><img class="pics" src="{{ photo.thumbnail.url }}" /></a>
+    {% endfor %}
+    </div>
+{% endblock %}
+
+{% block additional_scripts_block %}
+    <script type="text/javascript" src="{% static 'fotorama.js' %}"></script>
+{% endblock %}

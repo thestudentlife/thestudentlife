@@ -25,8 +25,15 @@ def edit_photo(request, photo_id):
 
 @group_required('bronze')
 def albums(request):
+    issues = Issue.objects.order_by('-created_date')
+    return render(request, 'photo/albums.html', {'issues': issues})
     albums = Album.objects.all()
     return render(request, 'photo/albums.html', {'albums': albums})
+@group_required('silver')
+def view_album(request, issue_id, album_id):
+    issue = Issue.objects.get(pk=issue_id)
+    album = Album.objects.get(pk=album_id)
+    return render(request, 'photo/view_album.html', {'album': album, 'issue': issue})
 
 @group_required('silver')
 def edit_album(request, album_id):
