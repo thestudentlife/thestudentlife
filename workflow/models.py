@@ -72,6 +72,11 @@ class Revision(models.Model):
     def __str__(self):
         return str(self.date)
 
+class Comment(models.Model):
+    article = models.ForeignKey('mainsite.Article')
+    author = models.ForeignKey(User)
+    created_date = models.DateTimeField(default=datetime.datetime.now)
+
 class Review(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now)
     article = models.ForeignKey('mainsite.Article')
