@@ -1,0 +1,11 @@
+{% extends 'workflow_base.html' %}
+
+{% block content_block %}
+
+    <ul id="user_list">
+        {% for user in users %}
+            <li class="user_item"><a href="{% url 'manage_one' user.id %}">{{ user.username }}</a>({{user.profile.display_name}})</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

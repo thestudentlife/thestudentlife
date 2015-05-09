@@ -14,6 +14,9 @@ urlpatterns = patterns('',
                        url(r'^register/$', views.register, name="register"),
                        url(r'^login/$', views.login, name="login"),
                        url(r'^logout/$', views.logout, name="logout"),
+                       url(r'^settings/(?P<user_id>[0-9]+)/$',views.setting,name="setting"),
+                       url(r'^manage/$',views.manage,name='manage'),
+                       url(r'^manage/(?P<user_id>[0-9]+)/$',views.manage_one,name='manage_one'),
 
                        #issues
                        url(r'^articles/issues/$', issue_views.issues, name="issues"),

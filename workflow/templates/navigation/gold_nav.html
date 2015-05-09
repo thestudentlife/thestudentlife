@@ -1,3 +1,5 @@
+{% load navigation_extras %}
+{% load staticfiles %}
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -9,16 +11,19 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">TSL Workflow</a>
+            <a class="navbar-brand" href="{% url 'home' %}"><img id="tslLogo" src="{% static 'TSLlogo-02-01.svg' %}"/>TSL Workflow</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="#">Photos</a></li>
+                <li class="{% active_nav request 'latest_issue' %}"><a href="{% url 'latest_issue' %}">Articles <span class="sr-only">(current)</span></a></li>
+                <li class="{% active_nav request 'front' %}"><a href="{% url 'front' %}">Front Page</a></li>
+                <li class="{% active_nav request 'albums' %}"><a href="{% url 'albums' %}">Photos</a></li>
+                <li class="{% active_nav request 'manage' %}"><a href="{% url 'manage' %}">Manage Accounts</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{% url 'filter_by_receiver' user.id %}">Assignments</a></li>
+                <li class="{% active_nav request 'assignments' %}"><a href="{% url 'assignments' %}">Assignments</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings
                         <span class="caret"></span></a>
@@ -26,7 +31,7 @@
                         <li><a href="{% url 'setting' request.user.id %}">Change Account Info</a></li>
                         <li><a href="#">Help</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">Log out</a></li>
+                        <li><a href="{% url 'logout' %}">Log out</a></li>
                     </ul>
                 </li>
             </ul>

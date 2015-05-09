@@ -9,17 +9,13 @@ class Profile(models.Model):
     user = models.OneToOneField(User,null=True)
     POSITIONS_CHOICES = (
         ('chief_editor', 'Editor-in-Chief'),
-        ('managing_editor', 'Managing Editor'),
-        ('design_editor', 'Design Editor'),
-        ('copy_editor', 'Copy Editor'),
-        ('section_editor', 'Section Editor'),
-        ('manager', 'Manager'),
+        ('editor', 'Section Editor'),
         ('photographer', 'Photographer'),
         ('author', 'Author'),
         ('graphic_designer', 'Graphic Designer'),
         ('web_developer', 'Web Developer'),
     )
-    position = models.CharField(choices=POSITIONS_CHOICES, max_length=50, default='Editor')
+    position = models.CharField(choices=POSITIONS_CHOICES, max_length=50, default='author')
     display_name = models.CharField(blank=True,max_length=50)
     legacy_id = models.PositiveIntegerField(null=True)
 
@@ -31,6 +27,14 @@ class Profile(models.Model):
 
     def is_editor(self):
         return "editor" in self.position
+
+    def ideal_group_names(self):
+        if self.position == 'chief_editor' or self.postion == 'web_developer':
+            return ['gold','silver','bronze']
+        elif self.position == 'editor':
+            return ['silver','bronze']
+        else:
+            return ['bronze']
 
     def get_absolute_url(self):
         return reverse('person', kwargs={'person_id': self.id})
@@ -67,6 +71,11 @@ class Revision(models.Model):
 
     def __str__(self):
         return str(self.date)
+
+class Comment(models.Model):
+    article = models.ForeignKey('mainsite.Article')
+    author = models.ForeignKey(User)
+    created_date = models.DateTimeField(default=datetime.datetime.now)
 
 class Review(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now)
@@ -132,6 +141,22 @@ class RegisterForm(ModelForm):
                 'required': True
             }),
             'password': PasswordInput(attrs={
+                'required': True
+            }),
+        }
+
+class RegisterForm2(ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email']
+        widgets = {
+            'email': EmailInput(attrs={
+                'required': True
+            }),
+            'first_name': TextInput(attrs={
+                'required': True
+            }),
+            'last_name': TextInput(attrs={
                 'required': True
             }),
         }
