@@ -2,7 +2,7 @@ from django.forms import inlineformset_factory, ModelForm
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, render
 from django.template import RequestContext
-from mainsite.models import Album, Photo
+from mainsite.models import Album, Photo, Issue
 from workflow.views import group_required
 
 # photos
@@ -27,8 +27,17 @@ def edit_photo(request, photo_id):
 def albums(request):
     issues = Issue.objects.order_by('-created_date')
     return render(request, 'photo/albums.html', {'issues': issues})
+
+@group_required('bronze')
+def issue_albums(request, issue_id):
+    issue = Issue.objects.get(pk=issue_id)
     albums = Album.objects.all()
-    return render(request, 'photo/albums.html', {'albums': albums})
+    filtered_albums = []
+    for album in albums:
+        if (issue_id == str(album.article.issue.pk)):
+            filtered_albums.append(album)
+    return render(request, 'photo/issue_albums.html', {'albums': filtered_albums, 'issue': issue})
+
 @group_required('silver')
 def view_album(request, issue_id, album_id):
     issue = Issue.objects.get(pk=issue_id)
@@ -36,7 +45,7 @@ def view_album(request, issue_id, album_id):
     return render(request, 'photo/view_album.html', {'album': album, 'issue': issue})
 
 @group_required('silver')
-def edit_album(request, album_id):
+def edit_album(request, issue_id, album_id):
     album = Album.objects.get(pk=album_id)
     PhotoInlineFormSet = inlineformset_factory(Album, Photo, form=PhotoForm)
     if request.method == "POST":

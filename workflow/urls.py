@@ -39,8 +39,9 @@ urlpatterns = patterns('',
 
                        #album
                        url(r'^albums$', photo_views.albums, name="albums"),
-                       url(r'^album/(?P<album_id>\d+)/edit/$', photo_views.edit_album, name="edit_album"),
+                       url(r'^album/(?P<issue_id>\d+)$', photo_views.issue_albums, name="issue_albums"),
                        url(r'^album/(?P<issue_id>\d+)/(?P<album_id>\d+)/$', photo_views.view_album, name="view_album"),
+                       url(r'^album/(?P<issue_id>\d+)/(?P<album_id>\d+)/edit/$', photo_views.edit_album, name="edit_album"),
 
                        #photos
                        url(r'^photos/$', photo_views.photos, name="photos"),

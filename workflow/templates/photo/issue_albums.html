@@ -1,0 +1,18 @@
+{% extends 'workflow_base.html' %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb breadcrumbAdjust">
+        <li><a href="{% url 'albums' %}">All Albums</a></li>
+        <li class="active">Albums of Issue {{ issue.name }}</li>
+    </ol>
+{% endblock %}
+
+{% block content_block %}
+    <ul class="list-group">
+        {% for album in albums %}
+            <li class="list-group-item">
+                <a href="{% url 'view_album' issue.id album.pk %}">{{ album.article.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
