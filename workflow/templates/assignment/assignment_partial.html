@@ -1,7 +1,7 @@
 <article>
         <br />
         <div class="long_article_title_div">
-            <h1 class="long_article_title"><a href="{{ assignment.get_absolute_url }}">{{ assignment.title }}</a></h1>
+            <h2 class="long_article_title"><a href="{{ assignment.get_absolute_url }}">{{ assignment.title }}</a></h2>
         </div>
         <p>
         Category: <a href="{% url 'filter_by_section' assignment.section.pk %}">{{ assignment.section.name }}</a>

@@ -2,14 +2,14 @@
 
 {% block title_block %}
     {% load staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'selectbox.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'selectbox.css' %}" />
 {% endblock %}
 {% block content_block %}
     <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
         <form action="" method="post">
             {% csrf_token %}
 
-            <h3 for="frontArticles">Front Articles</h3>
+            <h3 class="padding10 text-center" for="frontArticles">Front Articles</h3>
 
             <div id="frontArticles" class="form-group selectBoxGroup">
                 <span>
@@ -32,7 +32,7 @@
                 </span>
             </div>
 
-            <h3 for="carouselArticles">Carousel Articles</h3>
+            <h3 class="padding10 text-center" for="carouselArticles">Carousel Articles</h3>
 
             <div id="carouselArticles" class="form-group selectBoxGroup">
                 <span>
