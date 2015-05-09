@@ -29,7 +29,7 @@ class Profile(models.Model):
         return "editor" in self.position
 
     def ideal_group_names(self):
-        if self.position == 'chief_editor' or self.postion == 'web_developer':
+        if self.position == 'chief_editor' or self.position == 'web_developer':
             return ['gold','silver','bronze']
         elif self.position == 'editor':
             return ['silver','bronze']
