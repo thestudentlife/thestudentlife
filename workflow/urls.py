@@ -18,6 +18,9 @@ urlpatterns = patterns('',
                        url(r'^manage/$',views.manage,name='manage'),
                        url(r'^manage/(?P<user_id>[0-9]+)/$',views.manage_one,name='manage_one'),
 
+                       #front
+                       url(r'^front/$', views.front, name="front"),
+
                        #issues
                        url(r'^articles/issues/$', issue_views.issues, name="issues"),
                        url(r'^articles/issue/(?P<issue_id>[0-9]+)/$', issue_views.issue, name="issue"),
@@ -26,7 +29,6 @@ urlpatterns = patterns('',
                            name="new_issue"),
                        url(r'^articles/issue/(?P<pk>[0-9]+)/edit/$', group_required('silver')(IssueEditView.as_view()),
                            name="edit_issue"),
-                       url(r'articles/front/$', views.front, name="front"),
 
                        #articles
                        url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<pk>[0-9]+)/$',

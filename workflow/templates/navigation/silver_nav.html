@@ -17,9 +17,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="{% active_nav request 'latest_issue' %}"><a href="{% url 'latest_issue' %}">Articles <span class="sr-only">(current)</span></a></li>
+                <li class="{% active_nav request 'articles' %}"><a href="{% url 'latest_issue' %}">Articles</a></li>
                 <li class="{% active_nav request 'front' %}"><a href="{% url 'front' %}">Front Page</a></li>
-                <li class="{% active_nav request 'albums' %}"><a href="{% url 'albums' %}">Photos</a></li>
+                <li class="{% active_nav request 'album' %}"><a href="{% url 'albums' %}">Photos</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="{% active_nav request 'assignments' %}"><a href="{% url 'assignments' %}">Assignments</a></li>
