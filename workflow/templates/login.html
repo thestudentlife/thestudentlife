@@ -1,6 +1,6 @@
 {% extends 'workflow_base.html' %}
-
 {% load static %}
+
 {% block title_block %}
     <title>TSL Workflow Login</title>
 {% endblock %}
@@ -13,7 +13,7 @@
 
 {% block content_block %}
     <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
-        <img id="tslLogo" src="{% static 'TSLlogo-02-01.svg' %}"/>
+        <a href="{% url 'home' %}"><img id="tslLogo" src="{% static 'TSLlogo-02-01.svg' %}"/></a>
         <form method="POST" action="">
             {% csrf_token %}
             {% for field in form %}
