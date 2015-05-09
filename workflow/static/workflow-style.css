@@ -66,6 +66,7 @@ footer {
 .breadcrumbAdjust {
     background-color: transparent;
     font-size: 1.2em;
+    display: inline-block;
 }
 
 .widthCenter50 {
@@ -74,12 +75,14 @@ footer {
     margin-top: 5%;
 }
 
-#edit_button_wrap {
-    display: block;
+.btn-right {
+    display: inline-block;
+    float: right;
+    margin: 8px 15px;
 }
 
 .btn-50 {
-    display: block;
+    display: inline-block;
     width: 50%;
 }
 

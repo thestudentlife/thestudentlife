@@ -12,10 +12,7 @@
         Last updated: {{ article.updated_date }}
     <a href="{% url 'article_xml' article.id %}">XML</a>
     </p>
-    <div id="edit_button_wrap" style="text-align: center">
-        <a class="btn btn-default btn-primary btn-50"
-           href="{% url 'edit_article' article.issue.id article.id %}">Edit</a>
-    </div>
+    <a class="btn btn-default btn-primary btn-50" href="{% url 'edit_article' article.issue.id article.id %}">Edit</a>
 
     <ul class="photo_ls">
         {% if article.has_photo %}
