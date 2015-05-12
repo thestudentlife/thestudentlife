@@ -20,6 +20,7 @@ urlpatterns = patterns('',
 
                        #front
                        url(r'^front/$', views.front, name="front"),
+                       url(r'^pub/(?P<article_id>[0-9]+)/',views.publish,name="publish"),
 
                        #issues
                        url(r'^articles/issues/$', issue_views.issues, name="issues"),

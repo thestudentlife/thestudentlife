@@ -20,3 +20,34 @@
         {% include 'articles/revision_list_partial.html' %}
     </div>
 {% endblock %}
+
+{% block additional_scripts_block %}
+    <script>
+        pub_but = '<a class="btn btn-default btn-success btn-30" href="javascript:void(0)" ' +
+        'id="pub_but" onclick="pub();">Publish</a>'
+        unpub_but = '<a class="btn btn-default btn-warning btn-30" href="javascript:void(0)" ' +
+        'id="unpub_but" onclick="unpub();">Unpublish</a>'
+        function pub(){
+            $.ajax({
+                url:'/workflow/pub/{{ article.id }}',
+                success: function(){
+                    $('#pub_but').replaceWith(unpub_but);
+                },
+                error: function(xhr,message,exception){
+                    alert('error occurs: '+ exception);
+                }
+            })
+        }
+      function unpub(){
+            $.ajax({
+                url:'/workflow/pub/{{ article.id }}',
+                success: function(){
+                    $('#unpub_but').replaceWith(pub_but);
+                },
+                error: function(xhr,message,exception){
+                    alert('error occurs: '+ exception);
+                }
+            })
+        }
+    </script>
+{% endblock %}

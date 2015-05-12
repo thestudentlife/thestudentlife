@@ -250,6 +250,16 @@ def filter_by_type(request, type_name):
     assignments = Assignment.objects.filter(type=type_name)
     return render(request, 'assignment/assignments.html', {'assignments': assignments})
 
+@group_required('silver')
+def publish(request,article_id):
+    article = Article.objects.get(id=article_id)
+    print(article.published)
+    article.published = not article.published
+    article.save()
+    print(article.published)
+    return HttpResponse('success')
+
+
 def isMember(user, group_name):
     groups = user.groups.all()
     group = Group.objects.get(name=group_name)
