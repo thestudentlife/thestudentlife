@@ -58,7 +58,7 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
-    def strip_content_of_images(self):
+    def content_with_no_images(self):
         return re.sub("<img[^>]*>","", self.content);
 
     def has_photo(self):
