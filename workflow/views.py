@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, FrontArticle, CarouselArticle
-from workflow.models import Assignment, RegisterForm, LoginForm, Revision, ProfileForm, RegisterForm2
+from workflow.models import Assignment, RegisterForm, LoginForm, Revision, ProfileForm, RegisterForm2, Comment
 import os, subprocess
 from workflow.static import getText
 
@@ -249,6 +249,16 @@ def filter_by_section(request, section_id):
 def filter_by_type(request, type_name):
     assignments = Assignment.objects.filter(type=type_name)
     return render(request, 'assignment/assignments.html', {'assignments': assignments})
+
+@group_required('bronze')
+def comment(request,article_id,user_id):
+    user = User.objects.get(user_id)
+    article = Article.objects.get(article_id)
+    body = request.POST['body']
+    comment = Comment(article=article,author=user,body=body)
+    comment.save()
+    return HttpResponse('success')
+
 
 @group_required('silver')
 def publish(request,article_id):
