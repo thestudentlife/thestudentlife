@@ -74,5 +74,28 @@
             });
         })(window);
 
+
+        function wrap(comment_content){
+            return "<ls class='comments_block'>" +
+                    "<p>{{ comment.author.profile.displayname }} |" +
+                    "<small>{{ comment.created_date }}</small>" +
+                    "</p>" +
+                    "<p>{{ comment.body }}</p></ls>";
+        }
+
+    function new_comment(){
+        comment_content = $('#new_content').val();
+        $.ajax({
+            url: '/workflow/comment/{{ article.id }}/{{ request.user.id }}',
+            method: 'POST',
+            data: {body:comment_content},
+            success:function(){
+                $('.comments_ls').append(wrap(comment_content));
+            }
+            error: function (xhr, message, exception) {
+                           alert('error occurs: ' + exception);
+                       }
+        })
+    }
     </script>
 {% endblock %}
