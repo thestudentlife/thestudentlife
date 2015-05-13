@@ -7,7 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, FrontArticle, CarouselArticle
 from workflow.models import Assignment, RegisterForm, LoginForm, Revision, ProfileForm, RegisterForm2, Comment
-import os, subprocess
+import os, subprocess,json
 from workflow.static import getText
 
 def group_required(*group_names):
@@ -252,12 +252,17 @@ def filter_by_type(request, type_name):
 
 @group_required('bronze')
 def comment(request,article_id,user_id):
-    user = User.objects.get(user_id)
-    article = Article.objects.get(article_id)
-    body = request.POST['body']
+    user = User.objects.get(id=user_id)
+    article = Article.objects.get(id=article_id)
+    body = request.GET['body']
     comment = Comment(article=article,author=user,body=body)
     comment.save()
-    return HttpResponse('success')
+    obj = dict()
+    obj['author'] = [comment.author.profile.position,comment.author.profile.display_name]
+    fmt = '%Y-%m-%d %H:%M'
+    obj['created_date'] = comment.created_date.strftime(fmt)
+    obj['body'] = comment.body
+    return HttpResponse(json.dumps(obj),content_type='application/json')
 
 
 @group_required('silver')

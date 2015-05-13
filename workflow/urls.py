@@ -44,8 +44,7 @@ urlpatterns = patterns('',
                        url(r'^articles/revision/(?P<pk>\d+)/$', views.revision, name="revision"),
                        url(r'^comment/(?P<article_id>\d+)/(?P<user_id>\d+)/$', views.comment,name="comment"),
 
-                      
-                       url(r'^albums$', photo_views.albums, name="albums"),
+                       url(r'^albums$', photo_views.albums,name='albums'),
                        url(r'^album/(?P<issue_id>\d+)$', photo_views.issue_albums, name="issue_albums"),
                        url(r'^album/(?P<issue_id>\d+)/(?P<album_id>\d+)/$', photo_views.view_album, name="view_album"),
                        url(r'^album/(?P<issue_id>\d+)/(?P<album_id>\d+)/edit/$', photo_views.edit_album, name="edit_album"),
