@@ -1,5 +1,9 @@
 {% extends 'workflow_base.html' %}
 
+{% block title_block %}
+    <title>Create Issue</title>
+{% endblock %}
+
 {% block content_block %}
     <form action="" method="post">{% csrf_token %}
         {{ form.as_p }}

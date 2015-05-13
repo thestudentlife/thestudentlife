@@ -33,7 +33,7 @@ class WorkflowModels(TestCase):
         kent.last_name = "Shikama"
 
         profile_kent = Profile(user=kent, position='photographer')
-        self.assertEqual("Kent Shikama", profile_kent.display_name())
+        self.assertEqual("Kent Shikama", profile_kent.user.get_full_name())
 
     # def test_photo_upload(self):
 

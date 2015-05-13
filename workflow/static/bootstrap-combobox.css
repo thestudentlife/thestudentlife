@@ -12,6 +12,13 @@
     }
 }
 
+.combobox-container .input-group {
+    display: inline;
+}
+.combobox-container .input-group-addon  {
+    display: inline;
+}
+
 .combobox-selected .caret {
     display: none;
 }

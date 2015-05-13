@@ -40,6 +40,8 @@ INSTALLED_APPS = (
     'django_extensions',
     'pysolr',
     'haystack',
+    'widget_tweaks',
+    'autocomplete_light',
     'mainsite',
     'workflow',
 )
@@ -84,7 +86,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -94,6 +96,7 @@ STATIC_URL = '/static/'
 
 ENV_PATH = os.path.abspath(os.path.dirname(__file__))
 MEDIA_ROOT = os.path.join(ENV_PATH, 'media/')
+MEDIA_URL = "/media/"
 
 PROJECT_PATH = os.path.join(ENV_PATH, os.pardir)
 
@@ -137,4 +140,3 @@ SELENIUM_DISPLAY = getattr(settings, 'SELENIUM_DISPLAY', ':0')
 # Set the drivers that you want to run your tests against
 SELENIUM_DRIVER = getattr(settings, 'SELENIUM_DRIVER', 'Firefox')
 SELENIUM_DRIVER_OPTS = getattr(settings, 'SELENIUM_DRIVER_OPTS', dict())
-

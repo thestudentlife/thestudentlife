@@ -1,10 +1,30 @@
-{% extends 'base.html' %}
+{% extends 'workflow_base.html' %}
+{% load static %}
 
-{% block body_block %}
-<form method="POST" action="">
-    {% csrf_token %}
-    {{ form.as_p }}
-    {{ profile_form.as_p }}
-    <input type="submit" value="Submit" />
-</form>
+{% block title_block %}
+    <title>Register</title>
+{% endblock %}
+
+{% load widget_tweaks %}
+
+{% block vertical_center_start %}
+    <div class="vertical-center">
+{% endblock %}
+
+{% block content_block %}
+<div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+    <a href="{% url 'home' %}"><img id="tslLogo" src="{% static 'TSLlogo-02-01.svg' %}"/></a>
+    <form method="POST" action="">
+        {% csrf_token %}
+        {% for field in form %}
+            {% render_field field class+="form-control margin10" placeholder=field.label %}
+        {% endfor %}
+        <input class="btn btn-default btn-block btn-primary margin10" id="register" type="submit"
+               value="Register"/>
+    </form>
+</div>
+{% endblock %}
+
+{% block vertical_center_end %}
+    </div>
 {% endblock %}

@@ -1,21 +1,19 @@
 <article>
-    <hgroup>
-        <h1 class="assignment_title">
-            <a href="{{ assignment.get_absolute_url }}">{{ assignment.title }}</a>
-        </h1>
-
-        <h2 class="assignment_category">
-            <a href="{% url 'filter_by_section' assignment.section.pk %}">{{ assignment.section.name }}</a>
-        </h2>
+        <br />
+        <div class="long_article_title_div">
+            <h2 class="long_article_title"><a href="{{ assignment.get_absolute_url }}">{{ assignment.title }}</a></h2>
+        </div>
+        <p>
+        Category: <a href="{% url 'filter_by_section' assignment.section.pk %}">{{ assignment.section.name }}</a>
+,
         {% if assignment.receiver %}
-            <h2 class="assignment_receiver">Received by
-                <a href="{% url 'filter_by_receiver' assignment.receiver.id %}">{{ assignment.receiver.user.username }}</a>
-            </h2>
+            Received by <a href="{% url 'filter_by_receiver' assignment.receiver.id %}">{{ assignment.receiver.user.username }}</a>,
         {% endif %}
-        <h2 class="assignment_due">{{ assignment.due_date }}</h2>
 
-        <h2 class="assignment_progress">{{ assignment.progress }}</h2>
-    </hgroup>
+        Assignment Due: {{ assignment.due_date }},
+
+        {{ assignment.progress }}
+        </p>
     <p class="assignment_content">
         {{ assignment.content }}
     </p>

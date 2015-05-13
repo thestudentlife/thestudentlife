@@ -1,13 +1,28 @@
 {% extends 'workflow_base.html' %}
+
+{% block title_block %}
+    <title>Revision for {{ revision.article.title }}</title>
+{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb breadcrumbAdjust">
+        <li><a href="{% url 'issues' %}">Issues</a></li>
+        <li><a href="{% url 'issue' revision.article.issue.pk %}">Issue {{ revision.article.issue.name }}</a></li>
+        <li class="active"><a href="{% url 'warticle' revision.article.issue.id revision.article.id %}">{{ revision.article.title }}</a>
+</li>
+        <li class="active">Revision ID #{{ revision.pk }}</li>
+    </ol>
+{% endblock %}
+
 {% block content_block %}
     <article>
-        <hgroup>
-            <h1>{{ revision.article.title }}</h1>
-
-            <h2>{{ revision.date }}</h2>
-
-            <h2>{{ revision.editor }}</h2>
-        </hgroup>
+        <div class="long_article_title_div">
+            <h2 class="long_article_title">{{ revision.article.title }} (Revision ID #{{ revision.pk }})</h2>
+        </div>
+        <p>
+            Revision editor: {{ revision.editor }},
+            Revision date: {{ revision.date }}
+        </p>
         <section class='revision_body'>
             {{ body | safe }}
         </section>
