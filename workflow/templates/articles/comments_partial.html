@@ -1,9 +1,10 @@
 <div class="comments_block">
+    <hr>
     <ul class="comments_ls">
-        {% for comment in article.comments %}
-            {% include 'comment_partial.html' %}
+        {% for comment in article.comment_set.all %}
+            {% include 'articles/comment_partial.html' %}
         {% endfor %}
     </ul>
     <textarea id="new_comment" rows="4" cols="50" placeholder="Leave you comment here"></textarea>
-    <a class="btn btn-default btn-success btn-40" id="new_comment_btn" href="javascript:void(0)" onclick="new_comment();">Post</a>
+    <a class="btn btn-default btn-success btn-40" id="new_comment_btn" href="javascript:void(0)">Post</a>
 </div>
