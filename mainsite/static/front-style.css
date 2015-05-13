@@ -52,29 +52,54 @@ body{
 #header {
 	display: inline-block;
 	height:auto;
-	padding-right: 5%;
-	padding-left: 5%;
-	background-color:lightblue;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 40px;
+    padding-right: 5%;
+    padding-left: 5%;
 }
 
 #header h2 {
 	display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 40px;
 }
 
 #banner{
 	display: inline-block;
 	padding-right: 5px;
+    height: 40px;
 }
 #banner img{
 	width:40px;
 	height: auto;
+    padding-top: 10%;
 }
 #main-menu{
+    height: 40px;
 	display: inline-block;
-	background-color: seagreen;
+    list-style-type: none;
 }
-#main-menu a{
-	padding-right: 20px;
+
+#main-menu li{
+    float: left;
+}
+#main-menu li a{
+    display: block;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+#main-menu li a:link, a:visited {
+    color: #000000;
+    background-color: rgba(0, 0, 0, 0.04);
+    text-align: center;
+    text-decoration: none;
+}
+
+#main-menu li a:hover, a:active {
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 #info-menu, #sub-menu {
