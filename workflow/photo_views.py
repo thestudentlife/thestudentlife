@@ -47,6 +47,7 @@ def view_album(request, issue_id, album_id):
 @group_required('silver')
 def edit_album(request, issue_id, album_id):
     album = Album.objects.get(pk=album_id)
+    issue = Issue.objects.get(pk=issue_id)
     PhotoInlineFormSet = inlineformset_factory(Album, Photo, form=PhotoForm)
     if request.method == "POST":
         formset = PhotoInlineFormSet(request.POST, request.FILES, instance=album)
@@ -58,7 +59,7 @@ def edit_album(request, issue_id, album_id):
             for obj in formset.deleted_objects:
                 obj.delete()
             formset.save_m2m()
-            return HttpResponse("Success!")
+            return render(request, 'photo/view_album.html', {'album': album, 'issue': issue})
     else:
         formset = PhotoInlineFormSet(instance=album)
     return render_to_response("photo/edit_album.html", RequestContext(request, {

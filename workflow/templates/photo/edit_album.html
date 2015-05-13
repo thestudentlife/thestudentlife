@@ -1,4 +1,5 @@
 {% extends "workflow_base.html" %}
+{% load widget_tweaks %}
 
 {% block title_block %}
     <title>Edit Album</title>
@@ -7,7 +8,18 @@
 {% block content_block %}
 <form method="post" enctype="multipart/form-data" action="">
     {% csrf_token %}
-    {{ formset.as_p }}
-    <input type="submit" value="Submit"/>
+    {{ formset.management_form }}
+    {% for form in formset %}
+        {% for field in form %}
+            {% if field|widget_type == "textarea" %}
+                {% render_field field class+="form-control margin10 album-caption" placeholder=field.label %}
+            {% elif field|widget_type == "checkboxinput" %}
+                {% render_field field class+="album-checkboxinput" placeholder=field.label %}
+            {% else %}
+                {% render_field field class+="form-control margin10" placeholder=field.label %}
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+    <input class="btn btn-default btn-primary btn-50" type="submit" value="Edit Album"/>
 </form>
 {% endblock %}

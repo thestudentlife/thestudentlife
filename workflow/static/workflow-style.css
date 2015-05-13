@@ -57,6 +57,14 @@ p {
     margin-bottom: 0px;
 }
 
+.form-control.album-caption {
+    height: 50px;
+}
+
+.album-checkboxinput {
+    display: none;
+}
+
 footer {
     text-align: center;
 }
