@@ -1,6 +1,12 @@
 {% extends 'workflow_base.html' %}
 
+{% block title_block %}
+    <title>New Article</title>
+{% endblock %}
+
 {% block content_block %}
+    {% load staticfiles %}
+    <div class="margin10"></div>
     <form method="POST" action="">
         {% csrf_token %}
         {{ form.as_p }}

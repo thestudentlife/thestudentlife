@@ -1,0 +1,32 @@
+{% extends 'workflow_base.html' %}
+{% load static %}
+
+{% block title_block %}
+    <title>Settings</title>
+{% endblock %}
+
+{% load widget_tweaks %}
+
+{% block content_block %}
+<div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+    <form method="POST" action="">
+        {% csrf_token %}
+        {% for field in form %}
+            {% render_field field class+="form-control margin10" placeholder=field.label %}
+        {% endfor %}
+        {% for field in second_form %}
+            {% render_field field class+="margin10" placeholder=field.label %}
+        {% endfor %}
+        <input class="btn btn-default btn-block btn-primary margin10" id="update" type="submit"
+               value="Update Account"/>
+    </form>
+</div>
+{% endblock %}
+
+{% block additional_scripts_block %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('select').combobox();
+        });
+    </script>
+{% endblock %}

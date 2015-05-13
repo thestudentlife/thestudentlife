@@ -1,55 +1,69 @@
 {% extends 'workflow_base.html' %}
+
 {% block title_block %}
     {% load staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'selectbox.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'selectbox.css' %}" />
+    <title>Front Page Article Selection</title>
 {% endblock %}
-{% block content_block %}
-    <form action="" method="post">
-        {% csrf_token %}
-        <section class="container">
-            <div>
-                <label>Front Articles</label>
-                <select id="leftValues" multiple>
-                    {% for article in latest_articles_for_front %}
-                        <option value="{{ article.id }}">{{ article.title }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div>
-                <input type="button" id="btnLeft" value="&lt;&lt;"/>
-                <input type="button" id="btnRight" value="&gt;&gt;"/>
-            </div>
-            <div>
-                <select name="front_selected[]" id="rightValues" multiple>
-                    {% for front in fronts %}
-                        <option selected value="{{ front.article.id }}">{{ front.article.title }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-        </section>
-        <section class="container">
-            <div>
 
-                <label>Carousel Articles</label>
-                <select id="leftValues2" multiple>
-                    {% for article in latest_articles_for_carousel %}
-                        <option value="{{ article.id }}">{{ article.title }}</option>
-                    {% endfor %}
-                </select>
+{% block content_block %}
+    <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
+        <form action="" method="post">
+            {% csrf_token %}
+
+            <h3 class="padding10 text-center" for="frontArticles">Front Articles</h3>
+
+            <div id="frontArticles" class="form-group selectBoxGroup">
+                <span>
+                    <select id="leftValues" multiple>
+                        {% for article in latest_articles_for_front %}
+                            <option value="{{ article.id }}">{{ article.title }}</option>
+                        {% endfor %}
+                    </select>
+                </span>
+                <span>
+                    <input class="btn btn-default" type="button" id="btnLeft" value="&lt;&lt;"/>
+                    <input class="btn btn-default" type="button" id="btnRight" value="&gt;&gt;"/>
+                </span>
+                <span>
+                    <select name="front_selected[]" id="rightValues" multiple>
+                        {% for front in fronts %}
+                            <option selected value="{{ front.article.id }}">{{ front.article.title }}</option>
+                        {% endfor %}
+                    </select>
+                </span>
             </div>
-            <div>
-                <input type="button" id="btnLeft2" value="&lt;&lt;"/>
-                <input type="button" id="btnRight2" value="&gt;&gt;"/>
+
+            <h3 class="padding10 text-center" for="carouselArticles">Carousel Articles</h3>
+
+            <div id="carouselArticles" class="form-group selectBoxGroup">
+                <span>
+                    <select id="leftValues2" multiple>
+                        {% for article in latest_articles_for_carousel %}
+                            <option value="{{ article.id }}">{{ article.title }}</option>
+                        {% endfor %}
+                    </select>
+                </span>
+                <span>
+                    <input class="btn btn-default" type="button" id="btnLeft2" value="&lt;&lt;"/>
+                    <input class="btn btn-default" type="button" id="btnRight2" value="&gt;&gt;"/>
+                </span>
+                <span>
+                    <select name="carousel_selected[]" id="rightValues2" multiple>
+                        {% for carousel in carousels %}
+                            <option selected value="{{ carousel.article.id }}">{{ carousel.article.title }}</option>
+                        {% endfor %}
+                    </select>
+                </span>
             </div>
-            <div>
-                <select name="carousel_selected[]" id="rightValues2" multiple>
-                    {% for carousel in carousels %}
-                        <option selected value="{{ carousel.article.id }}">{{ carousel.article.title }}</option>
-                    {% endfor %}
-                </select>
+            <p style="text-align: center">Note the items on the right are currently showing.</p>
+            <div class="widthCenter50">
+                <input class="btn btn-default btn-block btn-primary" type="submit" value="Confirm">
             </div>
-        </section>
-        <input type="submit" value="Confirm">
-    </form>
-    <script src="{% static 'selectbox.js' %}"></script>
+        </form>
+    </div>
+{% endblock %}
+
+{% block additional_scripts_block %}
+    <script type="text/javascript" src="{% static 'selectbox.js' %}"></script>
 {% endblock %}

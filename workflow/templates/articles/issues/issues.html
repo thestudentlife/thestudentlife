@@ -1,9 +1,14 @@
 {% extends 'workflow_base.html' %}
 
+{% block title_block %}
+    <title>Issues</title>
+{% endblock %}
+
 {% block content_block %}
-    <ul class="issues_ls">
+    <div class="padding10"></div>
+    <ul class="list-group">
         {% for issue in issues %}
-            <li>
+            <li class="list-group-item">
                 <a href="{% url 'issue' issue.id %}">{{ issue.name }}</a>
             </li>
         {% endfor %}

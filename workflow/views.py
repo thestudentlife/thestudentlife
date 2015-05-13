@@ -1,12 +1,12 @@
 from django.contrib.auth import authenticate, login as do_login, logout as do_logout
 from django.contrib.auth.decorators import user_passes_test
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from django.template.loader import render_to_string
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, FrontArticle, CarouselArticle
-from workflow.models import Assignment, RegisterForm, LoginForm, Revision, ProfileForm
+from workflow.models import Assignment, RegisterForm, LoginForm, Revision, ProfileForm, RegisterForm2, Comment
 import os, subprocess
 from workflow.static import getText
 
@@ -24,9 +24,14 @@ def register(request):
         registerForm = RegisterForm(request.POST)
         if registerForm.is_valid():
 
-            user = registerForm.save()
-            profile = Profile(user=user,position=request.POST['position'])
+            user = registerForm.save(commit=False)
+            display_name = user.first_name+" "+user.last_name
+            profile = Profile(user=user,display_name=display_name)
             profile.save()
+            user.set_password(request.POST['password'])
+            user.save()
+            plastic = Group.objects.get(name='plastic')
+            user.groups.add(plastic)
             return redirect(reverse('whome'))
 
         else:
@@ -35,11 +40,27 @@ def register(request):
             })
     else:
         registerForm = RegisterForm()
-        profileForm = ProfileForm()
         return render(request, 'register.html', {
             'form': registerForm,
-            'profile_form':profileForm
         })
+
+def setting(request,user_id):
+    user = User.objects.get(pk=user_id)
+    if request.method=='GET':
+        form = RegisterForm(instance=user)
+        return render(request,'setting.html',{'form':form})
+    else:
+        form = RegisterForm(request.POST,instance=user)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(request.POST['password'])
+            user.save()
+            return redirect(reverse('whome'))
+        else:
+            return render(request,'setting.html',{'form':form})
+
+
+
 
 def login(request):
     if request.method == "POST":
@@ -77,6 +98,35 @@ def whome(request):
     else:
         id = request.user.id
         return redirect(reverse('filter_by_receiver', args=[id]))
+
+
+@group_required('gold')
+def manage(request):
+    users = User.objects.all()
+    return render(request,'manage.html',{'users':users})
+
+@group_required('gold')
+def manage_one(request,user_id):
+    user = User.objects.get(pk=user_id)
+    if request.method=='GET':
+        form = RegisterForm2(instance=user)
+        second_form = ProfileForm(instance=user.profile)
+        return render(request,'setting.html',{'form':form,'second_form':second_form})
+    else:
+        form = RegisterForm2(request.POST,instance=user)
+        if form.is_valid():
+            user = form.save(commit=False)
+        else:
+            return render(request,'setting.html',{'form':form})
+        second_form = ProfileForm(request.POST,instance=user.profile)
+        if second_form.is_valid():
+            second_form.save()
+        else:
+            return render(request,'setting.html',{'form':form})
+        for group in user.profile.ideal_group_names():
+            group = Group.objects.get(name=group)
+            user.groups.add(group)
+        return redirect(reverse('manage'))
 
 @group_required('silver')
 def front(request):
@@ -190,8 +240,8 @@ def filter_by_receiver(request, profile_id):
                   {'assignments': assignments})
 
 @group_required('bronze')
-def filter_by_section(request, pk_id):
-    section = Section.objects.get(pk=pk_id)
+def filter_by_section(request, section_id):
+    section = Section.objects.get(pk=section_id)
     assignments = Assignment.objects.filter(section=section)
     return render(request, 'assignment/assignments.html', {'assignments': assignments})
 
@@ -199,6 +249,24 @@ def filter_by_section(request, pk_id):
 def filter_by_type(request, type_name):
     assignments = Assignment.objects.filter(type=type_name)
     return render(request, 'assignment/assignments.html', {'assignments': assignments})
+
+@group_required('bronze')
+def comment(request,article_id,user_id):
+    user = User.objects.get(user_id)
+    article = Article.objects.get(article_id)
+    body = request.POST['body']
+    comment = Comment(article=article,author=user,body=body)
+    comment.save()
+    return HttpResponse('success')
+
+
+@group_required('silver')
+def publish(request,article_id):
+    article = Article.objects.get(id=article_id)
+    article.published = not article.published
+    article.save()
+    return HttpResponse('success')
+
 
 def isMember(user, group_name):
     groups = user.groups.all()

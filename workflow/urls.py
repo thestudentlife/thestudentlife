@@ -14,6 +14,13 @@ urlpatterns = patterns('',
                        url(r'^register/$', views.register, name="register"),
                        url(r'^login/$', views.login, name="login"),
                        url(r'^logout/$', views.logout, name="logout"),
+                       url(r'^settings/(?P<user_id>[0-9]+)/$',views.setting,name="setting"),
+                       url(r'^manage/$',views.manage,name='manage'),
+                       url(r'^manage/(?P<user_id>[0-9]+)/$',views.manage_one,name='manage_one'),
+
+                       #front
+                       url(r'^front/$', views.front, name="front"),
+                       url(r'^pub/(?P<article_id>[0-9]+)/',views.publish,name="publish"),
 
                        #issues
                        url(r'^articles/issues/$', issue_views.issues, name="issues"),
@@ -23,7 +30,6 @@ urlpatterns = patterns('',
                            name="new_issue"),
                        url(r'^articles/issue/(?P<pk>[0-9]+)/edit/$', group_required('silver')(IssueEditView.as_view()),
                            name="edit_issue"),
-                       url(r'articles/front/$', views.front, name="front"),
 
                        #articles
                        url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<pk>[0-9]+)/$',
@@ -36,10 +42,14 @@ urlpatterns = patterns('',
                            group_required('silver')(ArticleDeleteView.as_view()), name='delete_article'),
                        url(r'^articles/xml/(?P<article_id>\d+)', views.article_xml, name="article_xml"),
                        url(r'^articles/revision/(?P<pk>\d+)/$', views.revision, name="revision"),
+                       url(r'^comment/(?P<article_id>\d+)/(?P<user_id>\d+)/$'), views.comment,name="comment"),
 
-                       #album
+                      
                        url(r'^albums$', photo_views.albums, name="albums"),
-                       url(r'^album/(?P<album_id>\d+)/edit/$', photo_views.edit_album, name="edit_album"),
+                       url(r'^album/(?P<issue_id>\d+)$', photo_views.issue_albums, name="issue_albums"),
+                       url(r'^album/(?P<issue_id>\d+)/(?P<album_id>\d+)/$', photo_views.view_album, name="view_album"),
+                       url(r'^album/(?P<issue_id>\d+)/(?P<album_id>\d+)/edit/$', photo_views.edit_album, name="edit_album"),
+                       url(r'^album/(?P<issue_id>\d+)/(?P<album_id>\d+)/select/$', photo_views.select_photos, name="select_photos"),
 
                        #photos
                        url(r'^photos/$', photo_views.photos, name="photos"),

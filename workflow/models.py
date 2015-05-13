@@ -1,37 +1,40 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
-from django.utils import timezone
+import datetime
 from django.forms import ModelForm, EmailInput, TextInput, Textarea, PasswordInput, CharField, DateField
 from django.template.defaultfilters import slugify
 from django.core.urlresolvers import reverse, reverse_lazy
 
 class Profile(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User,null=True)
     POSITIONS_CHOICES = (
         ('chief_editor', 'Editor-in-Chief'),
-        ('managing_editor', 'Managing Editor'),
-        ('design_editor', 'Design Editor'),
-        ('copy_editor', 'Copy Editor'),
-        ('section_editor', 'Section Editor'),
-        ('manager', 'Manager'),
+        ('editor', 'Section Editor'),
         ('photographer', 'Photographer'),
         ('author', 'Author'),
         ('graphic_designer', 'Graphic Designer'),
         ('web_developer', 'Web Developer'),
     )
-    position = models.CharField(choices=POSITIONS_CHOICES, max_length=50, default='Editor')
+    position = models.CharField(choices=POSITIONS_CHOICES, max_length=50, default='author')
+    display_name = models.CharField(blank=True,max_length=50)
+    legacy_id = models.PositiveIntegerField(null=True)
 
     def slug(self):
         return slugify(self.get_profile().display_name())
 
-    def display_name(self):
-        return self.user.first_name + " " + self.user.last_name
-
     def __str__(self):
-        return self.user.username
+        return self.display_name
 
     def is_editor(self):
         return "editor" in self.position
+
+    def ideal_group_names(self):
+        if self.position == 'chief_editor' or self.position == 'web_developer':
+            return ['gold','silver','bronze']
+        elif self.position == 'editor':
+            return ['silver','bronze']
+        else:
+            return ['bronze']
 
     def get_absolute_url(self):
         return reverse('person', kwargs={'person_id': self.id})
@@ -50,7 +53,7 @@ class Profile(models.Model):
             return 'none'
 
 class WArticle(models.Model):
-    date = models.DateTimeField(default=timezone.now)
+    date = models.DateTimeField(default=datetime.datetime.now)
     article = models.OneToOneField('mainsite.Article')
     status = models.TextField()
 
@@ -61,7 +64,7 @@ class WArticle(models.Model):
         return reverse('warticle', kwargs={'issue_id': self.article.issue.id, 'pk': self.article.id})
 
 class Revision(models.Model):
-    date = models.DateTimeField(default=timezone.now)
+    date = models.DateTimeField(default=datetime.datetime.now)
     article = models.ForeignKey('mainsite.Article')
     editor = models.ForeignKey(Profile)
     body = models.TextField()
@@ -69,8 +72,14 @@ class Revision(models.Model):
     def __str__(self):
         return str(self.date)
 
+class Comment(models.Model):
+    article = models.ForeignKey('mainsite.Article')
+    body = models.TextField()
+    author = models.ForeignKey(User)
+    created_date = models.DateTimeField(default=datetime.datetime.now)
+
 class Review(models.Model):
-    date = models.DateTimeField(default=timezone.now)
+    date = models.DateTimeField(default=datetime.datetime.now)
     article = models.ForeignKey('mainsite.Article')
     reviewer = models.CharField(max_length=50)
     comment = models.TextField(blank=True)
@@ -86,8 +95,8 @@ class Assignment(models.Model):
     type = models.CharField(choices=TYPES_CHOICES, max_length=50, default='photo_assignment')
     content = models.TextField(blank=True)
     section = models.ForeignKey('mainsite.Section')
-    created_date = models.DateTimeField(default=timezone.now)
-    due_date = models.DateTimeField(default=timezone.now)
+    created_date = models.DateTimeField(default=datetime.datetime.now)
+    due_date = models.DateTimeField(default=datetime.datetime.now)
     response_article = models.ForeignKey('mainsite.Article', related_name="assignment", null=True)
     response_photo = models.ForeignKey('mainsite.Photo', related_name="assignment", null=True)
 
@@ -137,14 +146,24 @@ class RegisterForm(ModelForm):
             }),
         }
 
+class RegisterForm2(ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email']
+        widgets = {
+            'email': EmailInput(attrs={
+                'required': True
+            }),
+            'first_name': TextInput(attrs={
+                'required': True
+            }),
+            'last_name': TextInput(attrs={
+                'required': True
+            }),
+        }
+
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
         fields = ['position']
-
-
-
-
-
-
 

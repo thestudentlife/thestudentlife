@@ -1,16 +1,38 @@
 {% extends 'workflow_base.html' %}
 
+{% block title_block %}
+    <title>Issue {{ issue.name }}</title>
+{% endblock %}
+
+{% load static %}
+{% load widget_tweaks %}
+{% block breadcrumb %}
+    <ol class="breadcrumb breadcrumbAdjust">
+        <li><a href="{% url 'issues' %}">Issues</a></li>
+        <li class="active">Issue {{ issue.name }}</li>
+    </ol>
+    <a class="btn btn-default btn-primary btn-right" href="{% url 'new_article' issue.id %}">Create New Article</a>
+{% endblock %}
 {% block content_block %}
-    <header>
-        <h1 class="issue_title">{{ issue.name }}</h1>
-    </header>
+    <div class="horizontal-center">
+        <ul id="sectionNavigation" class="nav nav-tabs">
+            {% for section in sections %}
+                <li class="section-tab" id="{{ section.slug }}"><a class="sizeH3" href="#">{{ section.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
     {% for section in sections %}
-        <h2 class='section_title'>{{ section.name }}</h2>
-        {% for article in articles %}
-            {% if article.section == section %}
-                {% include 'articles/workflow_short_article_partial.html' %}
-            {% endif %}
-        {% endfor %}
+        <div class="articles" id="{{ section.slug }}-articles">
+            {% for article in articles %}
+                {% if article.section == section %}
+                    {% include 'articles/workflow_short_article_partial.html' %}
+                {% endif %}
+            {% endfor %}
+        </div>
     {% endfor %}
+{% endblock %}
+
+{% block additional_scripts_block %}
+    <script type="text/javascript" src="{% static 'issue_tab.js' %}"></script>
 {% endblock %}
 

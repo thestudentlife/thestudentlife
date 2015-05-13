@@ -15,13 +15,13 @@ class ArticleDetailView(DetailView):
 
 class ArticleCreateView(CreateView):
     model = Article
-    fields = ['title', 'content', 'section','issue']
+    fields = ['title', 'content', 'section']
     template_name = 'articles/new_article.html'
-    success_url = reverse_lazy('whome')
+    success_url = reverse_lazy('whome') #TODO: Change to appropriate issue id
 
     def form_valid(self, form):
         article = form.save(commit=False)
-        article.issue = Issue.objects.latest('created_date')
+        article.issue = Issue.objects.get(pk=self.kwargs['issue_id']);
         article.save()
         article.authors.add(self.request.user.profile)
         album = Album(article=article)
@@ -39,7 +39,7 @@ def article_edit(request,issue_id,pk):
         original_second = original_article.updated_date.second
         form = ArticleForm(instance=original_article)
         return render(request,'articles/edit_article.html',
-                      {'form':form,'original_content':original_content,'original_second':original_second})
+                      {'form':form, 'article': original_article, 'original_content':original_content,'original_second':original_second})
     else:
         base_content = request.POST['original_content']
         base_second = request.POST['original_second']
@@ -61,16 +61,16 @@ def article_edit(request,issue_id,pk):
                 command=['bash','merge.sh']
                 p = subprocess.Popen(command, stdout=subprocess.PIPE,shell=True)
                 (output, err) = p.communicate()
-                print(output)
                 article.content = output
                 article.updated_date = timezone.now()
                 article.save()
             revision = Revision(article=original_article,
                                     editor=request.user.profile, body=original_article.content)
             revision.save()
+            form.save_m2m()
             return redirect(reverse('warticle',args=[issue_id,pk]))
         else:
-            return render(request,'articles/edit_article.html',{'form':form})
+            return render(request,'articles/edit_article.html',{'form':form, 'article': original_article})
 
 
 

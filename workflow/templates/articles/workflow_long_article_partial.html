@@ -1,29 +1,19 @@
+{% load url from future %}
 <article>
-    <hgroup>
-        <h1 class="article_title">
-            <a href="{% url 'warticle' article.issue.id article.id %}">{{ article.title }}</a>
-        </h1>
-
-        <h2 class="article_category">
-            <a href="{{ article.section.get_absolute_url }}">{{ article.section }}</a>
-        </h2>
-
-        <h2 class="article_authors">
-            {% for author in article.authors.all %}
-                <a href="{{ article.author.get_absolute_url }}">{{ author.user.username }}</a>
-            {% endfor % %}
-        </h2>
-
-        <h2 class="article_updated_date">{{ article.updated_date }}</h2>
-    </hgroup>
-    <div class="button_groups">
-        <a href="{% url 'edit_article' article.issue.id article.id %}">
-            <button class="edit_button">Edit</button>
-        </a>
-        <a href="{% url 'delete_article' article.issue.id article.id %}">
-            <button class="delete_button">Delete</button>
-        </a>
+    <div class="long_article_title_div">
+        <h1 class="long_article_title">{{ article.title }}</h1><span class="padding-h5"></span><a class="delete_button_transparent" href="{% url 'delete_article' article.issue.id article.id %}"><i class="fa fa-4x fa-ban"></i></a>
     </div>
+    <p>
+        Section: <a href="{% url 'section' article.section.slug %}">{{ article.section }}</a>,
+        Authors:
+        {% for author in article.authors.all %}
+            <a href="{{ author.get_absolute_url }}">{{ author.display_name }}</a>
+        {% endfor %},
+        Last updated: {{ article.updated_date }}
+        <a href="{% url 'article_xml' article.id %}"><i class="fa fa-download"></i> Download XML</a>
+    </p>
+    <a class="btn btn-default btn-primary btn-50" href="{% url 'edit_article' article.issue.id article.id %}">Edit</a>
+
     <ul class="photo_ls">
         {% if article.has_photo %}
             {% for photo in article.album.photos %}

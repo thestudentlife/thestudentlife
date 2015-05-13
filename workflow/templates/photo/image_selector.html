@@ -1,0 +1,19 @@
+{% for photo in album.photo_set.all %}
+    <a href="javascript:void(0);"  onclick="sendURL('{{ photo }}')"><img class="pics" src="{{ photo.thumbnail.url }}"/></a>
+{% endfor %}
+
+{% block additional_scripts_block %}
+<script type="text/javascript">
+    function sendURL(fileUrl) {
+        function getUrlParam(paramName) {
+            var reParam = new RegExp('(?:[\?&]|&)' + paramName + '=([^&]+)', 'i');
+            var match = window.location.search.match(reParam);
+
+            return ( match && match.length > 1 ) ? match[1] : null;
+        }
+        var funcNum = getUrlParam('CKEditorFuncNum');
+        window.opener.CKEDITOR.tools.callFunction(funcNum, fileUrl);
+        window.close();
+    }
+</script>
+{% endblock %}

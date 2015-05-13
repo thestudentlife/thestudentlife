@@ -6,9 +6,9 @@
           content="Weekly newspaper published by the Associated Students of Pomona College in Claremont.">
     <meta name="keywords" content="Claremont,newspaper,students,news,life">
     {% load staticfiles %}
-{#    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}"/>#}
-{#    <link rel="stylesheet" href="{% static 'bootstrap-combobox.css' %}"/>#}
-    <link rel="stylesheet" href="{% static 'selectbox.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-combobox.css' %}"/>
+    <link rel="shortcut icon" href="{% static 'favicon.ico'%}" />
     {% block title_block %}
 
     {% endblock %}
@@ -41,5 +41,7 @@
 </footer>
 <script type="text/javascript" src="{% static 'jquery-2.1.3.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'bootstrap.min.js' %}"></script>
+{% block script_block %}
+{% endblock %}
 </body>
 </html>
