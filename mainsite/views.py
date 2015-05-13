@@ -5,13 +5,8 @@ import json
 
 def home(request):
     sections = Section.objects.all()
-    articles = {}
-    for section in sections:
-        articles[section.name]=[]
-    front_articles = FrontArticle.objects.all()
-    for front_article in front_articles:
-        articles[front_article.article.section.name].append(front_article.article)
-    return render(request, 'index.html',{'sections':sections,'articles':articles})
+    features = FrontArticle.objects.all()
+    return render(request, 'index.html',{'sections':sections,'features':features})
 
 def section(request, section_name):
     sections = Section.objects.all()

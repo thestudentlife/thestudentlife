@@ -9,9 +9,45 @@
 body{
     background: #FCFCFC;
     font-family: 'Libre Baskerville', serif;
-//    font-size: 34px;
-    letter-spacing:-1px;
+    letter-spacing:0px;
 }
+
+footer {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#tslLogo {
+    display: inline-block;
+    margin: 0px 10px 0px 0px;
+    width: 10%;
+}
+
+.tsl.navbar-brand {
+    padding-top: 20px;
+    width: 350px;
+}
+
+#tslLogoText {
+    margin-top: 10px;
+}
+
+#tslNavbar {
+    font-family: 'Libre Baskerville', serif;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background-color: #FCFCFC;
+    border-width: 0px;
+    border-radius: 0px;
+    border-bottom: 1px solid #EEEEEE;
+    -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
+}
+
+#tslDropDown {
+
+}
+
 /* 12-column responsive grid */
 
 .row {
@@ -92,8 +128,6 @@ body{
 }
 
 #main-menu li a:link, a:visited {
-    color: #000000;
-    background-color: rgba(0, 0, 0, 0.04);
     text-align: center;
     text-decoration: none;
 }
@@ -166,13 +200,11 @@ body{
 .slider {
 	position: relative;
 	height: 450px;
-	background: pink;
 	margin: 0 auto;
 
 }
 
 .slide {
-	background: seagreen;
 	background-size: cover;
 	display: none;
 	position: absolute;
@@ -194,29 +226,35 @@ body{
 	padding: 5px;
 }
 
+.featureSlideBox {
+    margin-top: 20px;
+    padding: 10px;
+    padding-bottom: 5px;
+    background-color: rgba(255,255,255,0.5);
+}
+
+.featureSlideBox p {
+    font-size: 1.3em;
+    color: #333333;
+}
 
 /*links*/
 
 .slider-nav a:link {
   text-decoration: none;
-  color: red;
   background-color: #ffffff;
 }
 
 .slider-nav a:hover {
   text-decoration: none;
-  background-color: #FF704D;
 }
 
 .slider-nav a:active {
   text-decoration: none;
-  background-color: #FF704D;
 }
 
 .slider-nav a:visited {
   text-decoration: none;
-  color: red;
-  background-color: #B2FF99;
 }
 
 .arrow-prev {
