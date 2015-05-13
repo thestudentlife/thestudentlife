@@ -28,6 +28,11 @@ touch mainsite/migrations/__init__.py;
 cd ..;
 python3 manage.py makemigrations;
 cp website/data_migration_initial.py workflow/migrations/data_migration_initial.py;
+mkdir media/
+mkdir website/media/photo/;
+mkdir website/media/thumbs/;
+rm -rf website/media/photo/*;
+rm -rf website/media/thumbs/*;
 python3 manage.py migrate;
 python3 manage.py collectstatic --noinput;
 python3 manage.py test;
