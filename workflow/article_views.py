@@ -61,7 +61,6 @@ def article_edit(request,issue_id,pk):
                 command=['bash','merge.sh']
                 p = subprocess.Popen(command, stdout=subprocess.PIPE,shell=True)
                 (output, err) = p.communicate()
-                print(output)
                 article.content = output
                 article.updated_date = timezone.now()
                 article.save()

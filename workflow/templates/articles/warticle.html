@@ -1,4 +1,5 @@
 {% extends 'workflow_base.html' %}
+{% load static %}
 
 {% block title_block %}
     <title>{{ article.title }}</title>
@@ -10,6 +11,12 @@
         <li><a href="{% url 'issue' article.issue.pk %}">Issue {{ article.issue.name }}</a></li>
         <li class="active">{{ article.title }}</li>
     </ol>
+    {% if article.published %}
+        <a class="btn btn-default btn-warning btn-right" href="javascript:void(0)" id='unpub_but' onclick="unpub();">Unpublish</a>
+    {% else %}
+        <a class="btn btn-default btn-success btn-right" href="javascript:void(0)" id='pub_but'
+           onclick="pub();">Publish</a>
+    {% endif %}
 {% endblock %}
 
 {% block content_block %}
@@ -25,33 +32,47 @@
 {% endblock %}
 
 {% block additional_scripts_block %}
+    <script src="{% static 'history.js' %}"></script>
+    <script src="{% static 'history.adapter.jquery.js' %}"></script>
     <script>
-        pub_but = '<a class="btn btn-default btn-success btn-30" href="javascript:void(0)" ' +
+        pub_but = '<a class="btn btn-default btn-success btn-right" href="javascript:void(0)" ' +
         'id="pub_but" onclick="pub();">Publish</a>'
-        unpub_but = '<a class="btn btn-default btn-warning btn-30" href="javascript:void(0)" ' +
+        unpub_but = '<a class="btn btn-default btn-warning btn-right" href="javascript:void(0)" ' +
         'id="unpub_but" onclick="unpub();">Unpublish</a>'
-        function pub(){
+        function pub() {
             $.ajax({
-                url:'/workflow/pub/{{ article.id }}',
-                success: function(){
+                       url: '/workflow/pub/{{ article.id }}',
+                       success: function () {
+                           $('#pub_but').replaceWith(unpub_but);
+                           History.replaceState({pub: true}, "", "?pub=true");
+                       },
+                       error: function (xhr, message, exception) {
+                           alert('error occurs: ' + exception);
+                       }
+                   })
+        }
+        function unpub() {
+            $.ajax({
+                       url: '/workflow/pub/{{ article.id }}',
+                       success: function () {
+                           $('#unpub_but').replaceWith(pub_but);
+                           History.replaceState({pub: false}, "", "?pub=false");
+                       },
+                       error: function (xhr, message, exception) {
+                           alert('error occurs: ' + exception);
+                       }
+                   })
+        }
+        (function(window,undefined){
+            History.Adapter.bind(window,'statechange',function(){
+                var state = History.getState();
+                if(state.data['pub']) {
                     $('#pub_but').replaceWith(unpub_but);
-                },
-                error: function(xhr,message,exception){
-                    alert('error occurs: '+ exception);
-                }
-            })
-        }
-      function unpub(){
-            $.ajax({
-                url:'/workflow/pub/{{ article.id }}',
-                success: function(){
+                } else {
                     $('#unpub_but').replaceWith(pub_but);
-                },
-                error: function(xhr,message,exception){
-                    alert('error occurs: '+ exception);
                 }
-            })
-        }
+            });
+        })(window);
 
     </script>
 {% endblock %}

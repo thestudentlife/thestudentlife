@@ -10,12 +10,7 @@
             <a href="{{ author.get_absolute_url }}">{{ author.display_name }}</a>
         {% endfor %},
         Last updated: {{ article.updated_date }}
-    <a href="{% url 'article_xml' article.id %}">XML</a>
-    {% if article.published %}
-         <a class="btn btn-default btn-warning btn-30" href="javascript:void(0)" id='unpub_but' onclick="unpub();">Unpublish</a>
-    {% else %}
-       <a class="btn btn-default btn-success btn-30" href="javascript:void(0)" id='pub_but' onclick="pub();">Publish</a>
-    {% endif %}
+        <a href="{% url 'article_xml' article.id %}"><i class="fa fa-download"></i> Download XML</a>
     </p>
     <a class="btn btn-default btn-primary btn-50" href="{% url 'edit_article' article.issue.id article.id %}">Edit</a>
 

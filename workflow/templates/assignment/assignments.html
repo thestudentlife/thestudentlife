@@ -4,6 +4,10 @@
     <title>Assignments</title>
 {% endblock %}
 
+{% block breadcrumb %}
+    <a class="btn btn-default btn-primary btn-right" href="{% url 'new_assignment' %}">Create New Assignment</a>
+{% endblock %}
+
 {% block content_block %}
     <div class="assignment_block">
         <ul class="assignment_ls">

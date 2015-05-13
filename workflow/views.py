@@ -253,10 +253,8 @@ def filter_by_type(request, type_name):
 @group_required('silver')
 def publish(request,article_id):
     article = Article.objects.get(id=article_id)
-    print(article.published)
     article.published = not article.published
     article.save()
-    print(article.published)
     return HttpResponse('success')
 
 

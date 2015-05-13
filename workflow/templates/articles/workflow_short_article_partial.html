@@ -6,12 +6,13 @@
 
         <p>
             {% for author in article.authors.all %}
-                Author: <a href="{{ article.author.get_absolute_url }}">{{ author.display_name }}</a>
+                Author: <a href="{{ author.get_absolute_url }}">{{ author.display_name }}</a>
             {% endfor % %},
             Last updated: {{ article.updated_date }}
+            <a href="{% url 'article_xml' article.id %}"><i class="fa fa-download"></i> Download XML</a>
         </p>
     </hgroup>
     <p class="article_content">
-        {{ article.content.strip_content_of_images | truncatechars:100 | safe }}
+        {{ article.content_with_no_images | truncatechars:100 | safe }}
     </p>
 </article>
