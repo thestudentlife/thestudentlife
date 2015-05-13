@@ -74,6 +74,7 @@ class Revision(models.Model):
 
 class Comment(models.Model):
     article = models.ForeignKey('mainsite.Article')
+    body = models.TextField()
     author = models.ForeignKey(User)
     created_date = models.DateTimeField(default=datetime.datetime.now)
 
