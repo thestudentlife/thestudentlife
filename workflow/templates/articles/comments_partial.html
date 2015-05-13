@@ -1,10 +1,11 @@
 <div class="comments_block">
     <hr>
-    <ul class="comments_ls">
-        {% for comment in article.comment_set.all %}
-            {% include 'articles/comment_partial.html' %}
-        {% endfor %}
-    </ul>
-    <textarea id="new_comment" rows="4" cols="50" placeholder="Leave you comment here"></textarea>
-    <a class="btn btn-default btn-success btn-40" id="new_comment_btn" href="javascript:void(0)">Post</a>
+    <div id="comments_ls">
+    {% for comment in article.comment_set.all %}
+        {% include 'articles/comment_partial.html' %}
+    {% endfor %}
+    </div>
+    <textarea class="textAreaFull" id="new_comment" placeholder="Leave you comment here"></textarea>
+    <a class="btn btn-default btn-success btn-block btn-50" id="new_comment_btn" href="javascript:void(0)">Post Comment</a>
+    <div class="padding10"></div>
 </div>

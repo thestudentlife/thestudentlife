@@ -1,9 +1,4 @@
-<ls class="comment-block">
-    <p>
-        [{{comment.author.profile.position}}] {{ comment.author.profile.display_name }} |
-        <small>{{ comment.created_date }}</small>
-    </p>
-    <p>
-        {{ comment.body }}
-    </p>
+<ls class='comments_block'>
+    <p class='commentBody'> {{ comment.body }} </p>
+    <p class='commentHeader'> {{ comment.author.profile.display_name }} | {{ comment.created_date }}</p>
 </ls>
