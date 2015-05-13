@@ -42,7 +42,7 @@ urlpatterns = patterns('',
                            group_required('silver')(ArticleDeleteView.as_view()), name='delete_article'),
                        url(r'^articles/xml/(?P<article_id>\d+)', views.article_xml, name="article_xml"),
                        url(r'^articles/revision/(?P<pk>\d+)/$', views.revision, name="revision"),
-                       url(r'^comment/(?P<article_id>\d+)/(?P<user_id>\d+)/$'), views.comment,name="comment"),
+                       url(r'^comment/(?P<article_id>\d+)/(?P<user_id>\d+)/$', views.comment,name="comment"),
 
                       
                        url(r'^albums$', photo_views.albums, name="albums"),
