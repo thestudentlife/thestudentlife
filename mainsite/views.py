@@ -8,21 +8,21 @@ def home(request):
     features = FrontArticle.objects.all()
     return render(request, 'index.html',{'sections':sections,'features':features})
 
-def section(request, section_name):
+def section(request, section_slug):
     sections = Section.objects.all()
-    sec = 0
+    this_section = 0
     for section in sections:
-        if section.slug() == section_name:
-            sec = section;
+        if section.slug() == section_slug:
+            this_section = section;
     if(request.is_ajax()):
         count = int(request.GET['count'])
-        articles = sec.articles.order_by('-published_date')[count:count+10]
+        articles = this_section.articles.order_by('-published_date')[count:count+10]
         articles_in_json = []
         for article in articles:
             articles_in_json.append(article_ajax_object(article))
         return HttpResponse(json.dumps(articles_in_json),content_type='application/json')
-    articles = sec.articles.order_by('-published_date')[:10]
-    return render(request, 'section.html', {"articles": articles});
+    articles = this_section.articles.order_by('-published_date')[:10]
+    return render(request, 'section.html', {"section": this_section, "sections": sections, "articles": articles});
 
 def article(request, section_name, article_id, article_name='default'):
     article = Article.objects.get(pk=article_id)

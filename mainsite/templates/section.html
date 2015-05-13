@@ -1,7 +1,18 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    <link href='http://fonts.googleapis.com/css?family=Libre+Baskerville' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet'
+          type='text/css'>
+    <link rel='stylesheet' href='{% static 'front-style.css' %}'/>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src='{% static 'front-script.js' %}'></script>
+    <title>{{ section.name }}</title>
+{% endblock %}
 
 {% block body_block %}
-     {% load staticfiles %}
+    {% include 'navigation.html' %}
     <div class="articles_block">
         <ul class="article_ls">
         {% for article in articles %}
