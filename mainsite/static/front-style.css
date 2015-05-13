@@ -86,24 +86,18 @@ footer {
 
 /*header*/
 #header {
-	display: inline-block;
+	display: table-cell;
 	height:auto;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 40px;
     padding-right: 5%;
     padding-left: 5%;
 }
 
 #header h2 {
-	display: inline-block;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 40px;
+    display: inline-block;
 }
 
 #banner{
-	display: inline-block;
+    display: inline-block;
 	padding-right: 5px;
     height: 40px;
 }
@@ -122,7 +116,6 @@ footer {
     float: left;
 }
 #main-menu li a{
-    display: block;
     padding-right: 10px;
     padding-left: 10px;
 }
@@ -172,24 +165,18 @@ footer {
 .article-preview{
 	margin-top: 1px;
 	margin-bottom: 1px;
-	height: 250px;
+	height: auto;
 	font-family: Lora;
 }
 
 .frame {
-//  width: 100%;
-  height: 70%;
-  overflow: hidden;
-  position: relative;
+    height: 48.0769230769%;
+    overflow: hidden;
+    position: relative;
 }
 
 .frame img {
   width: 100%;
-}
-
-.side-menu{
-	background:lightblue;
-	height: 500px;
 }
 
 /* Carousel */
@@ -221,7 +208,7 @@ footer {
 
 
 .slider-nav {
-	background: lightyellow;
+	background: rgba(0,0,0,0.10);
 	text-align: center;
 	padding: 5px;
 }
@@ -238,11 +225,15 @@ footer {
     color: #333333;
 }
 
+/*sidebar*/
+.side-menu{
+	height: 500px;
+}
+
 /*links*/
 
 .slider-nav a:link {
   text-decoration: none;
-  background-color: #ffffff;
 }
 
 .slider-nav a:hover {
@@ -260,11 +251,15 @@ footer {
 .arrow-prev {
   display: inline-block;
   vertical-align: top;
+    font-size: 1.5em;
+        margin-right: 15px;
 }
 
 .arrow-next {
   display: inline-block;
   vertical-align: top;
+    margin-left: 15px;
+        font-size: 1.5em;
 }
 
 div p a:link {

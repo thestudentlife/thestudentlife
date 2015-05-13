@@ -24,7 +24,8 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="tsl navbar-brand" href="{% url 'home' %}"><img id="tslLogo"
-                                                                     src="{% static 'TSLlogo-02-01.svg' %}"/><span id="tslLogoText">THE STUDENT LIFE</span></a>
+                                                                         src="{% static 'TSLlogo-02-01.svg' %}"/><span
+                        id="tslLogoText">THE STUDENT LIFE</span></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -60,7 +61,8 @@
                 <div class="slide active-slide" id="feature{{ forloop.counter }}">
                     <div class="featureSlideBox">
                         <h4>{{ feature.article.title }}</h4>
-                        <p>{{ feature.article.content_with_no_images | truncatechars:200 | safe}}</p>
+
+                        <p>{{ feature.article.content_with_no_images | truncatechars:200 | safe }}</p>
                     </div>
                 </div>
             {% endfor %}
@@ -72,53 +74,41 @@
     </div>
     <div class="article-previews">
         <div class="col-9">
+        <div class="row">
+            <div class="col-12 section-header">NEWS</div>
             <div class="row">
-                <div class="col-12 section-header">NEWS</div>
-                <div class="row">
-                    <div class="col-6 article-preview">
-                        <div class="frame">
-                            <img src="http://stuffpoint.com/parrots/image/240658-parrots-white-parrot.jpg"/>
-                        </div>
-                        <h4>Title</h4>
-
-                        <p>Duis maximus libero a tincidunt egestas. Aliquam lobortis fermentum justo eget maximus. Sed
-                            posuere ligula vel maximus volutpat. Aenean volutpat ullamcorper dapibus. Cras viverra sed
-                            erat in lobortis.</p>
+                <div class="col-6 article-preview">
+                    <div class="frame">
+                        <img src="http://tsl.pomona.edu/uploads/article_images/1204two_columns.jpg?1431115082" />
                     </div>
-                    <div class="col-6 article-preview">
-                        <div class="frame">
-                            <img src="http://stuffpoint.com/parrots/image/240658-parrots-white-parrot.jpg"/>
-                        </div>
-                        <h4>Title</h4>
-
-                        <p>Duis maximus libero a tincidunt egestas. Aliquam lobortis fermentum justo eget maximus. Sed
-                            posuere ligula vel maximus volutpat. Aenean volutpat ullamcorper dapibus. Cras viverra sed
-                            erat in lobortis.</p>
-                    </div>
+                    <h4>Dean of CMC's Robert Day School Selected as 17th President of Ursinus College</h4>
+                    <p>Brock Blomberg, Dean of Claremont McKenna College’s Robert Day School of Economics and Finance, will be leaving the college to become the 17th president of Ursinus College, a 146-year old liberal arts college located 30 miles northwest of Philadelphia. He will begin July 1.Ursinus, which has a...</p>
                 </div>
-                <div class="row">
-                    <div class="col-6 article-preview">
-                        <div class="frame">
-                            <img src="http://stuffpoint.com/parrots/image/240658-parrots-white-parrot.jpg"/>
-                        </div>
-                        <h4>Title</h4>
-
-                        <p>Duis maximus libero a tincidunt egestas. Aliquam lobortis fermentum justo eget maximus. Sed
-                            posuere ligula vel maximus volutpat. Aenean volutpat ullamcorper dapibus. Cras viverra sed
-                            erat in lobortis.</p>
+                <div class="col-6 article-preview">
+                    <div class="frame">
+                        <img src="http://tsl.pomona.edu/uploads/article_images/1194two_columns.jpg?1430456128" />
                     </div>
-                    <div class="col-6 article-preview">
-                        <div class="frame">
-                            <img src="http://stuffpoint.com/parrots/image/240658-parrots-white-parrot.jpg"/>
-                        </div>
-                        <h4>Title</h4>
-
-                        <p>Duis maximus libero a tincidunt egestas. Aliquam lobortis fermentum justo eget maximus. Sed
-                            posuere ligula vel maximus volutpat. Aenean volutpat ullamcorper dapibus. Cras viverra sed
-                            erat in lobortis.</p>
-                    </div>
+                    <h4>Scripps Accommodates Sweet Briar After Women's College Announces Closure</h4>
+                    <p>When Sweet Briar College President James F. Jones announced March 3 that the women's college would close in late August, the students, faculty and staff gathered in Babcock Auditorium fell utterly silent. After the emergency announcement about the college's complex financial circumstances,...</p>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-6 article-preview">
+                    <div class="frame">
+                        <img src="http://stuffpoint.com/parrots/image/240658-parrots-white-parrot.jpg" />
+                    </div>
+                    <h4>Title</h4>
+                    <p>Duis maximus libero a tincidunt egestas. Aliquam lobortis fermentum justo eget maximus. Sed posuere ligula vel maximus volutpat. Aenean volutpat ullamcorper dapibus. Cras viverra sed erat in lobortis.</p>
+                </div>
+                <div class="col-6 article-preview">
+                    <div class="frame">
+                        <img src="http://stuffpoint.com/parrots/image/240658-parrots-white-parrot.jpg" />
+                    </div>
+                    <h4>Title</h4>
+                    <p>Duis maximus libero a tincidunt egestas. Aliquam lobortis fermentum justo eget maximus. Sed posuere ligula vel maximus volutpat. Aenean volutpat ullamcorper dapibus. Cras viverra sed erat in lobortis.</p>
+                </div>
+            </div>
+        </div>
             <div class="row">
                 <div class="section-header">LIFE & STYLE</div>
                 <div class="row">
@@ -262,6 +252,13 @@
             </div>
         </div>
         <div class="col-3 side-menu">
+            <div class="row">
+                <div class="section-header">Most Popular</div>
+            </div>
+            <div class="row">Title-author</div>
+            <div class="row">Title-author</div>
+            <div class="row">Title-author</div>
+            <div class="row">Title-author</div>
         </div>
     </div>
 {% endblock %}
