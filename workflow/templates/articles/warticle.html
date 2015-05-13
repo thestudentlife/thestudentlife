@@ -75,27 +75,28 @@
         })(window);
 
 
-        function wrap(comment_content){
+        function wrap(obj){
+            console.log(obj);
             return "<ls class='comments_block'>" +
-                    "<p>{{ comment.author.profile.displayname }} |" +
-                    "<small>{{ comment.created_date }}</small>" +
+                    "<p>["+obj.author[0]+"] "+obj.author[1]+" | " +
+                    "<small>"+obj.created_date+"</small>" +
                     "</p>" +
-                    "<p>{{ comment.body }}</p></ls>";
+                    "<p>"+obj.body+"</p></ls>";
         }
 
-    function new_comment(){
-        comment_content = $('#new_content').val();
+    $('#new_comment_btn').click(function(){
+        comment_content = $('#new_comment').val();
         $.ajax({
-            url: '/workflow/comment/{{ article.id }}/{{ request.user.id }}',
-            method: 'POST',
+            url: '/workflow/comment/{{ article.id }}/{{ request.user.id }}/',
             data: {body:comment_content},
-            success:function(){
-                $('.comments_ls').append(wrap(comment_content));
-            }
+            success:function(obj){
+                $('.comments_ls').append(wrap(obj));
+                 History.replaceState({comment: true,obj:obj}, "", "?comment=true");
+            },
             error: function (xhr, message, exception) {
                            alert('error occurs: ' + exception);
                        }
         })
-    }
+    });
     </script>
 {% endblock %}
