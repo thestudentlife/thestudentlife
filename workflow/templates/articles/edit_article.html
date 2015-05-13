@@ -10,8 +10,8 @@
 {% block breadcrumb %}
     <ol class="breadcrumb breadcrumbAdjust">
         <li><a href="{% url 'issues' %}">Issues</a></li>
-        <li><a href="{% url 'issue' article.issue.pk %}">Issue {{ article.issue.name }}</a></li>
-        <li><a href="{% url 'warticle' article.issue.pk article.pk %}">{{ article.title }}</a></li>
+        <li><a href="{% url 'issue' article.issue.id %}">Issue {{ article.issue.name }}</a></li>
+        <li><a href="{% url 'warticle' article.issue.id article.pk %}">{{ article.title }}</a></li>
         <li class="active">Edit</li>
     </ol>
 {% endblock %}
@@ -43,7 +43,7 @@
     <script>
         CKEDITOR.replace(id_content, {
             customConfig: '{% static 'ckeditor_config.js' %}',
-            filebrowserBrowseUrl: ''
+            filebrowserBrowseUrl: '{% url 'select_photos' article.issue.id article.album.id %}'
         })
     </script>
 {% endblock %}

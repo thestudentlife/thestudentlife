@@ -64,3 +64,9 @@ def edit_album(request, issue_id, album_id):
     return render_to_response("photo/edit_album.html", RequestContext(request, {
         "formset": formset
     }))
+
+@group_required('silver')
+def select_photos(request, issue_id, album_id):
+    issue = Issue.objects.get(pk=issue_id)
+    album = Album.objects.get(pk=album_id)
+    return render(request, 'photo/image_selector.html', {'album': album, 'issue': issue})
