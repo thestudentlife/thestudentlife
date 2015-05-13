@@ -92,7 +92,7 @@ class Photo(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now)
     image = models.ImageField(upload_to='photo/')
     thumbnail = models.ImageField(upload_to='thumbs/',blank=True,null=True)
-    caption = models.TextField(max_length=500, blank=True)
+    caption = models.TextField(max_length=100, blank=True)
     credit = models.ForeignKey(Profile)
     album = models.ForeignKey(Album, null=True)
 

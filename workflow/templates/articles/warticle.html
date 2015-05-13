@@ -63,10 +63,10 @@
                        }
                    })
         }
-        (function(window,undefined){
-            History.Adapter.bind(window,'statechange',function(){
+        (function (window, undefined) {
+            History.Adapter.bind(window, 'statechange', function () {
                 var state = History.getState();
-                if(state.data['pub']) {
+                if (state.data['pub']) {
                     $('#pub_but').replaceWith(unpub_but);
                 } else {
                     $('#unpub_but').replaceWith(pub_but);
@@ -75,28 +75,28 @@
         })(window);
 
 
-        function wrap(obj){
+        function wrap(obj) {
             console.log(obj);
             return "<ls class='comments_block'>" +
-                    "<p>["+obj.author[0]+"] "+obj.author[1]+" | " +
-                    "<small>"+obj.created_date+"</small>" +
-                    "</p>" +
-                    "<p>"+obj.body+"</p></ls>";
+                    "<p class='commentBody'>" + obj.body + "</p>" +
+                    "<p class='commentHeader'>" + obj.author[1] + " | " + obj.created_date +
+                    "</p></ls>";
         }
 
-    $('#new_comment_btn').click(function(){
-        comment_content = $('#new_comment').val();
-        $.ajax({
-            url: '/workflow/comment/{{ article.id }}/{{ request.user.id }}/',
-            data: {body:comment_content},
-            success:function(obj){
-                $('.comments_ls').append(wrap(obj));
-                 History.replaceState({comment: true,obj:obj}, "", "?comment=true");
-            },
-            error: function (xhr, message, exception) {
+        $('#new_comment_btn').click(function () {
+            comment_content = $('#new_comment').val();
+            $('#new_comment').val('');
+            $.ajax({
+                       url: '/workflow/comment/{{ article.id }}/{{ request.user.id }}/',
+                       data: {body: comment_content},
+                       success: function (obj) {
+                           $('#comments_ls').append(wrap(obj));
+                           History.replaceState({comment: true, obj: obj}, "", "?comment=true");
+                       },
+                       error: function (xhr, message, exception) {
                            alert('error occurs: ' + exception);
                        }
-        })
-    });
+                   })
+        });
     </script>
 {% endblock %}

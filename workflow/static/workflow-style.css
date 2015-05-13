@@ -43,6 +43,28 @@ p {
     float: none;
 }
 
+.textAreaFull {
+    width: 100%;
+}
+
+.commentHeader {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+}
+
+.commentBody {
+   font-size: 1.2em;
+    margin-bottom: 0px;
+}
+
+.form-control.album-caption {
+    height: 50px;
+}
+
+.album-checkboxinput {
+    display: none;
+}
+
 footer {
     text-align: center;
 }
