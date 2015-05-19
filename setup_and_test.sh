@@ -11,7 +11,7 @@ touch mainsite/migrations/__init__.py;
 cd ..;
 python manage.py makemigrations;
 cp website/data_migration_initial.py workflow/migrations/data_migration_initial.py;
-mkdir media/
+mkdir website/media/;
 mkdir website/media/photo/;
 mkdir website/media/thumbs/;
 rm -rf website/media/photo/*;
