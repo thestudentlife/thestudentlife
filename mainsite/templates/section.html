@@ -9,11 +9,9 @@
     <div class="tsl-container">
         <div class="article-previews col-xs-12 col-sm-12 col-md-8 col-lg-8">
             {% for article in articles %}
-                {% if article.published %}
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 article-preview">
-                        {% include 'short_article_partial.html' %}
-                    </div>
-                {% endif %}
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 article-preview">
+                    {% include 'short_article_partial.html' %}
+                </div>
             {% endfor %}
         </div>
         <div class="side-menu col-md-4 col-lg-4">

@@ -5,13 +5,20 @@
 {% endblock %}
 
 {% block body_block %}
-    <div class="articles_block">
-        <ul class="article_ls"></ul>
-        {% for article in articles %}
-            <li class="article_item">
-                {% include 'short_article_partial.html' %}
-            </li>
-        {% endfor %}
-        </ul>
+    <div class="tsl-container">
+        <div class="article-previews col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            {% for article in articles %}
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 article-preview">
+                    {% include 'short_article_partial.html' %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="side-menu col-md-4 col-lg-4">
+            <div class="section-header">Most Popular</div>
+            <div class="">Dean of CMC's Robert Day School Selected as 17th President of Ursinus College</div>
+            <div class="">Title-author</div>
+            <div class="">Title-author</div>
+            <div class="">Title-author</div>
+        </div>
     </div>
 {% endblock %}

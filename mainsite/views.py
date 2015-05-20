@@ -6,7 +6,7 @@ import json
 def home(request):
     sections = Section.objects.all()
     features = FrontArticle.objects.all()
-    return render(request, 'index.html',{'sections':sections,'features':features})
+    return render(request, 'index.html', {'sections':sections,'features':features})
 
 def section(request, section_slug):
     sections = Section.objects.all()
@@ -19,23 +19,26 @@ def section(request, section_slug):
         articles = this_section.articles.order_by('-published_date')[count:count+10]
         articles_in_json = []
         for article in articles:
-            articles_in_json.append(article_ajax_object(article))
+            if article.published:
+                articles_in_json.append(article_ajax_object(article))
         return HttpResponse(json.dumps(articles_in_json),content_type='application/json')
-    articles = this_section.articles.order_by('-published_date')[:10]
+    articles = this_section.articles.filter(published=True).order_by('-published_date')[:10]
     return render(request, 'section.html', {"section": this_section, "sections": sections, "articles": articles});
 
 def article(request, section_name, article_id, article_name='default'):
+    sections = Section.objects.all()
     article = Article.objects.get(pk=article_id)
-    return render(request, 'article.html', {"article": article})
+    return render(request, 'article.html', {"sections": sections, "article": article})
 
 def person(request, person_id, person_name='ZQ'):
+    sections = Section.objects.all()
     person = Profile.objects.get(pk=person_id)
     if person.position == "author":
-        articles = person.article_set.all()
-        return render(request, 'author.html', {"articles": articles})
+        articles = person.article_set.all().filter(published=True)
+        return render(request, 'author.html', {"sections": sections, "articles": articles})
     if person.position == "photographer" or person.position == "graphic_designer":
         photographs = person.photo_set.all()
-        return render(request, 'photographer.html', {"photographs": photographs})
+        return render(request, 'photographer.html', {"sections": sections, "photographs": photographs})
     return HttpResponse('His/Her profile is not public.')
 
 def staff(request):
