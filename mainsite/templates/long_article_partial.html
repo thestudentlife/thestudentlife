@@ -9,11 +9,6 @@
         | {{ article.published_date }}
     </p>
     <div class="margin10"></div>
-    {% if article.has_photo %}
-        {% for photo in article.album.photo_set.all %}
-            <img src="{{ photo.thumbnail.url }}"/>
-        {% endfor %}
-    {% endif %}
     <section class="article_content">
         {{ article.content|safe }}
     </section>
