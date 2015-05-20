@@ -14,7 +14,7 @@ def section(request, section_slug):
     for section in sections:
         if section.slug() == section_slug:
             this_section = section;
-    if(request.is_ajax()):
+    if request.is_ajax():
         count = int(request.GET['count'])
         articles = this_section.articles.order_by('-published_date')[count:count+10]
         articles_in_json = []
@@ -36,6 +36,7 @@ def person(request, person_id, person_name='ZQ'):
     if person.position == "photographer" or person.position == "graphic_designer":
         photographs = person.photo_set.all()
         return render(request, 'photographer.html', {"photographs": photographs})
+    return HttpResponse('His/Her profile is not public.')
 
 def staff(request):
     return HttpResponse('Staff page')
