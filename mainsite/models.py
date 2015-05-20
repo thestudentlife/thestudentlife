@@ -59,7 +59,7 @@ class Article(models.Model):
         return self.title
 
     def content_with_no_images(self):
-        return re.sub("<img[^>]*>","", self.content);
+        return re.sub("<img[^>]*>","", re.sub("<a[^>]*>","", self.content));
 
     def has_photo(self):
         return self.album.photo_set is not None

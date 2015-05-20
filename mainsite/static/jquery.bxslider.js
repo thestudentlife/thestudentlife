@@ -702,7 +702,7 @@
 
 				// append the caption
 				if (title != undefined && ('' + title).length) {
-                    $(this).append('<span class="bx-caption"><span><a href=\'' + link + '\'><h3 class="tsl-slider-title">' + title + '</h3>' + caption + '</a></span></span>');
+                    $(this).append('<a href="' + link + '"><div class="bx-caption"><span><h3 class="tsl-slider-title">' + title + '</h3>' + caption + '</span></div></a>');
                 }
 			});
 		}
