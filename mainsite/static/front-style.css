@@ -1,16 +1,18 @@
-@import url(http://fonts.googleapis.com/css?family=Inconsolata);
-@import url(http://fonts.googleapis.com/css?family=Merriweather:400,700,300,900);
-@import url(http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic);
-
 * {
     margin: 0;
     padding: 0;
 }
 
+.margin10 {
+    margin:10px;
+}
+
+.padding10 {
+    padding: 10px;
+}
+
 body {
-    background: #FCFCFC;
-    font-family: 'Libre Baskerville', serif;
-    letter-spacing: 0px;
+    background-color: #FDFDFD;
 }
 
 .tsl-container {
@@ -38,10 +40,9 @@ footer {
 }
 
 #tslNavbar {
-    font-family: 'Libre Baskerville', serif;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
-    background-color: #FCFCFC;
+    background-color: #FDFDFD;
     border-width: 0px;
     border-radius: 0px;
     border-bottom: 1px solid #EEEEEE;
@@ -79,7 +80,7 @@ footer {
 
 .dropdown-menu.tsl-dropdown-menu {
     min-width: 0;
-    background-color: #FCFCFC;
+    background-color: #FDFDFD;
     z-index: 9999;
 }
 
@@ -109,17 +110,6 @@ footer {
 }
 
 /*article previews: 4 from each section*/
-.section-header {
-    font-size: 16pt;
-}
-
-.article-preview {
-    margin-top: 1px;
-    margin-bottom: 1px;
-    height: auto;
-    font-family: Lora;
-}
-
 .frame {
     height: 48.0769230769%;
     overflow: hidden;
@@ -140,7 +130,6 @@ footer {
     position: relative;
     height: 450px;
     margin: 0 auto;
-
 }
 
 .slide {
@@ -169,11 +158,6 @@ footer {
     padding: 10px;
     padding-bottom: 5px;
     background-color: rgba(255, 255, 255, 0.5);
-}
-
-.featureSlideBox p {
-    font-size: 1.3em;
-    color: #333333;
 }
 
 /*sidebar*/
@@ -213,28 +197,4 @@ footer {
     vertical-align: top;
     margin-left: 15px;
     font-size: 1.5em;
-}
-
-div p a:link {
-    font-size: 20px;
-    text-decoration: none;
-    background-color: #ffffff;
-}
-
-div p a:visited {
-    text-decoration: none;
-}
-
-div p a:hover {
-    text-decoration: none;
-    background-color: #fffff0;
-}
-
-div p a:active {
-    text-decoration: underline;
-}
-
-p {
-    font-size: 9pt;
-    font-family: Lora;
 }
