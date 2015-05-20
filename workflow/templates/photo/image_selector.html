@@ -1,8 +1,34 @@
-{% for photo in album.photo_set.all %}
-    <a href="javascript:void(0);"  onclick="sendURL('{{ photo }}')"><img class="pics" src="{{ photo.thumbnail.url }}"/></a>
-{% endfor %}
+<html>
+<head>
+    <title>Select Images</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}"/>
+</head>
+<body>
+<div class="container">
 
-{% block additional_scripts_block %}
+    <div class="jumbotron">
+        <p>Please select an image below</p>
+
+        <div class="margin10"></div>
+        <div class="row">
+            {% for photo in album.photo_set.all %}
+                <div class="col-xs-6 col-md-3 col-lg-3">
+                    <a href="javascript:void(0);">
+                        <div onclick="sendURL('{{ photo }}')" class="thumbnail">
+                            <img src="{{ photo.thumbnail.url }}"/>
+
+                            <div class="caption">
+                                <p>{{ photo.caption }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     function sendURL(fileUrl) {
         function getUrlParam(paramName) {
@@ -11,9 +37,11 @@
 
             return ( match && match.length > 1 ) ? match[1] : null;
         }
+
         var funcNum = getUrlParam('CKEditorFuncNum');
         window.opener.CKEDITOR.tools.callFunction(funcNum, fileUrl);
         window.close();
     }
 </script>
-{% endblock %}
+</body>
+</html>
