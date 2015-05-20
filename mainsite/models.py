@@ -142,7 +142,7 @@ class Photo(models.Model):
     def save(self):
         if self.thumbnail != None:
             self.thumbnail.delete()
-            self.create_thumbnail()
+        self.create_thumbnail()
         super(Photo, self).save()
 
     def __str__(self):
