@@ -11,33 +11,11 @@
     {% if flavour == "mobile" %}
         <div class="tsl-container">
             <div class="article-previews col-xs-12 col-sm-12 col-md-8 col-lg-8">
-                {% for feature in features %}
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 article-preview">
-                        <a href="{% url 'article' feature.article.section.slug feature.article.id %}">
-                            <h3>{{ feature.article.title }}</h3></a>
-
-                        <div class="frame">
-                            <img src="{{ feature.article.album.photo_set.all.0.thumbnail.url }}"/>
-                        </div>
-                        <div class="section-name">
-                            {{ feature.article.section }}
-                        </div>
-                        <p>{{ feature.article.content_with_no_images | truncatechars:150 | safe }}</p>
-                    </div>
+                {% for front in features %}
+                    {% include 'front_article_partial.html' %}
                 {% endfor %}
                 {% for front in fronts %}
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 article-preview">
-                        <a href="{% url 'article' front.article.section.slug front.article.id %}">
-                            <h4>{{ front.article.title }}</h4></a>
-
-                        <div class="frame">
-                            <img src="{{ front.article.album.photo_set.all.0.thumbnail.url }}"/>
-                        </div>
-                        <div class="section-name">
-                            {{ front.article.section }}
-                        </div>
-                        <p>{{ front.article.content_with_no_images | truncatechars:150 | safe }}</p>
-                    </div>
+                    {% include 'front_article_partial.html' %}
                 {% endfor %}
             </div>
             {% include 'side_menu_partial.html' %}
@@ -63,25 +41,7 @@
         <div class="tsl-container">
             <div class="article-previews col-xs-12 col-sm-12 col-md-8 col-lg-8">
                 {% for front in fronts %}
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 article-preview">
-                        <h3><a href="{% url 'article' front.article.section.slug front.article.id %}">
-                            {{ front.article.title }}</a></h3>
-                        {% if front.article.album.photo_set.all.count != 0 %}
-                            <div class="frame">
-                                <img src="{{ front.article.album.photo_set.all.0.thumbnail.url }}"/>
-                            </div>
-                        {% endif %}
-                        {% if front.article.section.slug == "news" %}
-                            <span class="label label-warning">News</span>
-                        {% elif front.article.section.slug == "life-and-style" %}
-                            <span class="label label-success">Life and Style</span>
-                        {% elif front.article.section.slug == "sports" %}
-                            <span class="label label-info">Life and Style</span>
-                        {% else %}
-                            <span class="label label-primary">Opinions</span>
-                        {% endif %}
-                        <p>{{ front.article.content_with_no_images | truncatechars:150 | safe }}</p>
-                    </div>
+                    {% include 'front_article_partial.html' %}
                 {% endfor %}
             </div>
             {% include 'side_menu_partial.html' %}

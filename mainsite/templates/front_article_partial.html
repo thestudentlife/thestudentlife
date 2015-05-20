@@ -1,0 +1,19 @@
+<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 article-preview">
+    <a href="{% url 'article' front.article.section.slug front.article.id %}">
+        <h3>{{ front.article.title }}</h3></a>
+    {% if front.article.album.photo_set.all.count != 0 %}
+        <div class="frame">
+            <img src="{{ front.article.album.photo_set.all.0.thumbnail.url }}"/>
+        </div>
+    {% endif %}
+    {% if front.article.section.slug == "news" %}
+        <span class="label label-warning">News</span>
+    {% elif front.article.section.slug == "life-and-style" %}
+        <span class="label label-success">Life and Style</span>
+    {% elif front.article.section.slug == "sports" %}
+        <span class="label label-info">Life and Style</span>
+    {% else %}
+        <span class="label label-primary">Opinions</span>
+    {% endif %}
+    <p>{{ front.article.content_with_no_images | truncatechars:150 | safe }}</p>
+</div>
