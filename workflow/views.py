@@ -5,6 +5,7 @@ from django.template.loader import render_to_string
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.utils import timezone
 from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, FrontArticle, CarouselArticle
 from workflow.models import Assignment, RegisterForm, LoginForm, Revision, ProfileForm, RegisterForm2, Comment
 import os, subprocess,json
@@ -269,6 +270,7 @@ def comment(request,article_id,user_id):
 def publish(request,article_id):
     article = Article.objects.get(id=article_id)
     article.published = not article.published
+    article.published_date = timezone.now()
     article.save()
     return HttpResponse('success')
 
