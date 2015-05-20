@@ -1,7 +1,8 @@
 <div class="side-menu col-md-4 col-lg-4">
-    <h1>Most Popular</h1>
-    <div class="">Dean of CMC's Robert Day School Selected as 17th President of Ursinus College</div>
-    <div class="">Title-author</div>
-    <div class="">Title-author</div>
-    <div class="">Title-author</div>
+    <h1>Most Recent</h1>
+    {% for article in recents %}
+        <a href="{% url 'article' article.section article.id %}">
+            <div>{{ article.title }}</div>
+        </a>
+    {% endfor %}
 </div>
