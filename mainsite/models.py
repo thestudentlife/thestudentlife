@@ -107,7 +107,7 @@ class Photo(models.Model):
         from django.core.files.uploadedfile import SimpleUploadedFile
         import os
 
-        THUMBNAIL_SIZE = (200,200)
+        THUMBNAIL_SIZE = (300,300)
 
         DJANGO_TYPE = self.image.file.content_type
         if DJANGO_TYPE == 'image/jpeg':
