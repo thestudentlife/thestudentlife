@@ -11,9 +11,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="tsl navbar-brand" href="{% url 'home' %}"><img id="tslLogo"
-                                                                     src="{% static 'TSLlogo-02-01.svg' %}"/><span
-                    id="tslLogoText">THE STUDENT LIFE</span></a>
+            {% if flavour == "mobile" %}
+                <a class="tsl navbar-brand mobile" href="{% url 'home' %}"><img id="tslLogo"
+                                                                         src="{% static 'TSLlogo-02-01.svg' %}"/><span
+                        id="tslLogoText">TSL</span></a>
+            {% else %}
+                <a class="tsl navbar-brand" href="{% url 'home' %}"><img id="tslLogo"
+                                                                         src="{% static 'TSLlogo-02-01.svg' %}"/><span
+                        id="tslLogoText">THE STUDENT LIFE</span></a>
+            {% endif %}
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->

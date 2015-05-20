@@ -19,6 +19,10 @@ body {
     padding: 0% 2% 0% 2%;
 }
 
+.tsl-disqus {
+    margin: 0px 50px;
+}
+
 footer {
     text-align: center;
     margin-bottom: 20px;
@@ -32,7 +36,12 @@ footer {
 
 .tsl.navbar-brand {
     padding-top: 20px;
-    width: 350px;
+    width: 400px;
+}
+
+.tsl.navbar-brand.mobile {
+    padding-top: 20px;
+    width: 200px;
 }
 
 #tslLogoText {
@@ -48,6 +57,7 @@ footer {
     border-bottom: 1px solid #EEEEEE;
     -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
     box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
+    margin-bottom: 0px;
 }
 
 /*header*/

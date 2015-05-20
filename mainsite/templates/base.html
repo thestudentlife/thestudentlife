@@ -5,6 +5,9 @@
     <meta name="description"
           content="Weekly newspaper published by the Associated Students of Pomona College in Claremont.">
     <meta name="keywords" content="Claremont,newspaper,students,news,life">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}"/>
     <link rel="shortcut icon" href="{% static 'favicon.ico'%}" />
@@ -13,9 +16,7 @@
           type='text/css'>
     <link rel='stylesheet' type='text/css' href='{% static 'front-style.css' %}'/>
     <link rel="stylesheet" type='text/css' href='{% static 'typography.css' %}' />
-    <script type="text/javascript" src='{% static 'front-script.js' %}'></script>
     {% block title_block %}
-
     {% endblock %}
 </head>
 

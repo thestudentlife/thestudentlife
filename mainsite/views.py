@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from mainsite.models import Section, Article, Profile,FrontArticle
+from mainsite.models import Section, Article, Profile,FrontArticle, CarouselArticle
 import json
 
 def home(request):
     sections = Section.objects.all()
-    features = FrontArticle.objects.all()
-    return render(request, 'index.html', {'sections':sections,'features':features})
+    features = CarouselArticle.objects.all()
+    fronts = FrontArticle.objects.all()
+    return render(request, 'index.html', {'sections':sections,'features':features,'fronts':fronts})
 
 def section(request, section_slug):
     sections = Section.objects.all()

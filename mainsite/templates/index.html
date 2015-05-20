@@ -2,110 +2,103 @@
 {% load staticfiles %}
 
 {% block title_block %}
+    <link rel='stylesheet' type='text/css' href='{% static 'font-awesome.min.css' %}'/>
+    <link rel='stylesheet' type='text/css' href='{% static 'jquery.bxslider.css' %}'/>
     <title>The Student Life</title>
 {% endblock %}
 
 {% block body_block %}
-    <div class="slider-container">
-        <div class="slider">
-            {% for feature in features %}
-                <div class="slide active-slide" id="feature{{ forloop.counter }}">
-                    <div class="featureSlideBox">
-                        <h4>{{ feature.article.title }}</h4>
+    {% if flavour == "mobile" %}
+        <div class="tsl-container">
+            <div class="article-previews col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                {% for feature in features %}
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 article-preview">
+                        <a href="{% url 'article' feature.article.section.slug feature.article.id %}">
+                            <h3>{{ feature.article.title }}</h3></a>
 
-                        <p>{{ feature.article.content_with_no_images | truncatechars:200 | safe }}</p>
+                        <div class="frame">
+                            <img src="{{ feature.article.album.photo_set.all.0.thumbnail.url }}"/>
+                        </div>
+                        <div class="section-name">
+                            {{ feature.article.section }}
+                        </div>
+                        <p>{{ feature.article.content_with_no_images | truncatechars:150 | safe }}</p>
                     </div>
-                </div>
+                {% endfor %}
+                {% for front in fronts %}
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 article-preview">
+                        <a href="{% url 'article' front.article.section.slug front.article.id %}">
+                            <h4>{{ front.article.title }}</h4></a>
+
+                        <div class="frame">
+                            <img src="{{ front.article.album.photo_set.all.0.thumbnail.url }}"/>
+                        </div>
+                        <div class="section-name">
+                            {{ front.article.section }}
+                        </div>
+                        <p>{{ front.article.content_with_no_images | truncatechars:150 | safe }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+            {% include 'side_menu_partial.html' %}
+        </div>
+    {% else %}
+        <ul class="bxslider">
+            {% for feature in features %}
+                <li>
+                    <img src="{{ feature.article.album.photo_set.all.0 }}"
+                         title="{{ feature.article.title }}" class="tsl-slider-image"
+                         onclick="javascript:location.href='{% url 'article' feature.article.section.slug feature.article.id %}';"
+                         link="{% url 'article' feature.article.section.slug feature.article.id %}"/>
+
+                    <div class="caption">{{ feature.article.content_with_no_images | truncatechars:150 | safe }}</div>
+                </li>
+            {% endfor %}
+        </ul>
+        <div id="bx-pager" class="tsl-pager">
+            {% for feature in features %}
+                <a data-slide-index="{{ forloop.counter0 }}" href=""><i class="fa fa-circle-o"></i></a>
             {% endfor %}
         </div>
-        <div class="slider-nav">
-            <a class="arrow-prev"><</a>
-            <a class="arrow-next">></a>
+        <div class="tsl-container">
+            <div class="article-previews col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                {% for front in fronts %}
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 article-preview">
+                        <h3><a href="{% url 'article' front.article.section.slug front.article.id %}">
+                            {{ front.article.title }}</a></h3>
+                        {% if front.article.album.photo_set.all.count != 0 %}
+                            <div class="frame">
+                                <img src="{{ front.article.album.photo_set.all.0.thumbnail.url }}"/>
+                            </div>
+                        {% endif %}
+                        {% if front.article.section.slug == "news" %}
+                            <span class="label label-warning">News</span>
+                        {% elif front.article.section.slug == "life-and-style" %}
+                            <span class="label label-success">Life and Style</span>
+                        {% elif front.article.section.slug == "sports" %}
+                            <span class="label label-info">Life and Style</span>
+                        {% else %}
+                            <span class="label label-primary">Opinions</span>
+                        {% endif %}
+                        <p>{{ front.article.content_with_no_images | truncatechars:150 | safe }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+            {% include 'side_menu_partial.html' %}
         </div>
-    </div>
-    <div class="tsl-container">
-        <div class="article-previews col-xs-12 col-sm-12 col-md-8 col-lg-8">
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 article-preview">
-                <div class="frame">
-                    <img src="{% static 'tslbanner.jpg' %}"/>
-                </div>
-                <div class="section-name">
-                    News
-                </div>
-                <h4>Dean of CMC's Robert Day School Selected as 17th President of Ursinus College</h4>
+    {% endif %}
+{% endblock %}
 
-                <p>Brock Blomberg, Dean of Claremont McKenna College’s Robert Day School of Economics and Finance, will
-                    be
-                    leaving the college to become the 17th pres leaving the college to become the 17th president of
-                    Ursinus
-                    College, a 146-year old liberal arts college
-                    leaving the college to become the 17th president of Ursinus College, a 146-year old liberal arts
-                    college
-                    leaving the college to become the 17th president of Ursinus College, a 146-year old liberal arts
-                    college
-                    leaving the college leaving the college to become the 17th president of Ursinus College, a 146-year
-                    old
-                    liberal arts college
-                    leaving the college to become the 17th president of Ursinus College, a 146-year old liberal arts
-                    college
-                    leaving the college to become the 17th president of Ursinus College, a 146-year old liberal arts
-                    college
-                    leaving the college to become the 17th president of Ursinus College, a 146-year old liberal arts
-                    college
-                    leaving the college to become the 17th president of Ursinus College, a 146-year old liberal arts
-                    college
-                    to become the 17th president of Ursinus College, a 146-year old liberal arts college
-                    leaving the college to become the 17th president of Ursinus College, a 146-year old liberal arts
-                    college
-                    ident of Ursinus College, a 146-year old liberal arts college
-                    located 30 miles northwest of Philadelphia. He will begin July 1.Ursinus, which has a...</p>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 article-preview">
-                <div class="frame">
-                    <img src="{% static 'tsllogo_email.png' %}"/>
-                </div>
-                <div class="section-name">
-                    News
-                </div>
-                <h4>Dean of CMC's Robert Day School Selected as 17th President of Ursinus College</h4>
-
-                <p>Brock Blomberg, Dean of Claremont McKenna College’s Robert Day School of Economics and Finance, will
-                    be
-                    leaving the college to become the 17th president of Ursinus College, a 146-year old liberal arts
-                    college
-                    located 30 miles northwest of Philadelphia. He will begin July 1.Ursinus, which has a...</p>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 article-preview">
-                <div class="frame">
-                    <img src="http://tsl.pomona.edu/uploads/article_images/1204two_columns.jpg?1431115082"/>
-                </div>
-                <div class="section-name">
-                    News
-                </div>
-                <h4>Dean of CMC's Robert Day School Selected as 17th President of Ursinus College</h4>
-
-                <p>Brock Blomberg, Dean of Claremont McKenna College’s Robert Day School of Economics and Finance, will
-                    be
-                    leaving the college to become the 17th president of Ursinus College, a 146-year old liberal arts
-                    college
-                    located 30 miles northwest of Philadelphia. He will begin July 1.Ursinus, which has a...</p>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 article-preview">
-                <div class="frame">
-                    <img src="http://tsl.pomona.edu/uploads/article_images/1204two_columns.jpg?1431115082"/>
-                </div>
-                <h4>Dean of CMC's Robert Day School Selected as 17th President of Ursinus College</h4>
-
-                <div class="section-name">
-                    News
-                </div>
-                <p>Brock Blomberg, Dean of Claremont McKenna College’s Robert Day School of Economics and Finance, will
-                    be
-                    leaving the college to become the 17th president of Ursinus College, a 146-year old liberal arts
-                    college
-                    located 30 miles northwest of Philadelphia. He will begin July 1.Ursinus, which has a...</p>
-            </div>
-        </div>
-        {% include 'side_menu_partial.html' %}
-    </div>
+{% block script_block %}
+    <script type="text/javascript" src="{% static 'jquery.bxslider.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.bxslider').bxSlider({
+                                        adaptiveHeight: true,
+                                        mode: 'fade',
+                                        captions: true,
+                                        pagerCustom: '#bx-pager'
+                                    });
+        });
+    </script>
 {% endblock %}
