@@ -8,6 +8,11 @@
     {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}"/>
     <link rel="shortcut icon" href="{% static 'favicon.ico'%}" />
+    <link href='http://fonts.googleapis.com/css?family=Libre+Baskerville' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet'
+          type='text/css'>
+    <link rel='stylesheet' href='{% static 'front-style.css' %}'/>
+    <script type="text/javascript" src='{% static 'front-script.js' %}'></script>
     {% block title_block %}
 
     {% endblock %}
@@ -16,6 +21,7 @@
 
 <body>
 {% load url from future %}
+{% include 'navigation.html' %}
 {% block body_block %}
 
 

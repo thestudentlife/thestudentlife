@@ -2,27 +2,27 @@
 {% load staticfiles %}
 
 {% block title_block %}
-    <link href='http://fonts.googleapis.com/css?family=Libre+Baskerville' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet'
-          type='text/css'>
-    <link rel='stylesheet' href='{% static 'front-style.css' %}'/>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script type="text/javascript" src='{% static 'front-script.js' %}'></script>
     <title>{{ section.name }}</title>
 {% endblock %}
 
 {% block body_block %}
-    {% include 'navigation.html' %}
-    <div class="articles_block">
-        <ul class="article_ls">
-        {% for article in articles %}
-            {% if article.published %}
-                <li class="article_item">
-                    {% include 'short_article_partial.html' %}
-                </li>
-            {% endif %}
-        {% endfor %}
-        </ul>
+    <div class="tsl-container">
+        <div class="article-previews col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            {% for article in articles %}
+                {% if article.published %}
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 article-preview">
+                        {% include 'short_article_partial.html' %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="side-menu col-md-4 col-lg-4">
+            <div class="section-header">Most Popular</div>
+            <div class="">Dean of CMC's Robert Day School Selected as 17th President of Ursinus College</div>
+            <div class="">Title-author</div>
+            <div class="">Title-author</div>
+            <div class="">Title-author</div>
+        </div>
     </div>
 {% endblock %}
 
