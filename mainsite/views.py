@@ -50,7 +50,8 @@ def person(request, person_id, person_name='ZQ'):
     return HttpResponse('His/Her profile is not public.')
 
 def about(request, info):
-    return render(request,"about.html",{'info':info+".html"})
+    sections = Section.objects.all()
+    return render(request,"about.html",{"sections": sections, 'info':info+".html"})
 
 def archives(request):
     return HttpResponse('Archives page')
