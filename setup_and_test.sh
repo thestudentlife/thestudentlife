@@ -27,7 +27,7 @@ cd mainsite && mkdir migrations;
 touch mainsite/migrations/__init__.py;
 cd ..;
 python3 manage.py makemigrations;
-cp website/data_migration_initial.py workflow/migrations/data_migration_initial.py;
+cp website/fixtures/data_migration_initial.py workflow/migrations/data_migration_initial.py;
 mkdir website/media/;
 mkdir website/media/photo/;
 mkdir website/media/thumbs/;
@@ -37,5 +37,5 @@ python3 manage.py migrate;
 python3 manage.py collectstatic --noinput;
 python3 manage.py test;
 python3 manage.py shell_plus << END
-exec(open('workflow/scripts/edit_article.py').read())
+exec(open('scripts/edit_article.py').read())
 END
