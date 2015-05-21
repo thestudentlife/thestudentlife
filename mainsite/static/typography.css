@@ -80,7 +80,7 @@ h1 {
         font-size: 3em;
         /* 3x body copy size = 48px */
         letter-spacing: normal;
-        line-height: 1.05;
+        line-height: 1.3;
         /* keep to a multiple of the 20px line height and something more appropriate for display headings */
         margin-top: 0.6875em;
         /* (22px / 48px) * 1.5 */
