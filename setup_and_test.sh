@@ -36,3 +36,6 @@ rm -rf website/media/thumbs/*;
 python3 manage.py migrate;
 python3 manage.py collectstatic --noinput;
 python3 manage.py test;
+python3 manage.py shell_plus << END
+exec(open('workflow/scripts/edit_article.py').read())
+END
