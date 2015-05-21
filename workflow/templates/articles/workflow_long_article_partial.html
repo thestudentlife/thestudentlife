@@ -12,15 +12,7 @@
         Last updated: {{ article.updated_date }}
         <a href="{% url 'article_xml' article.id %}"><i class="fa fa-download"></i> Download XML</a>
     </p>
-    <a class="btn btn-default btn-primary btn-50" href="{% url 'edit_article' article.issue.id article.id %}">Edit</a>
-
-    <ul class="photo_ls">
-        {% if article.has_photo %}
-            {% for photo in article.album.photos %}
-                <ls><img src="{{ photo.image.path }}"/></ls>
-            {% endfor %}
-        {% endif %}
-    </ul>
+    <a id="edit" class="btn btn-default btn-primary btn-50" href="{% url 'edit_article' article.issue.id article.id %}">Edit</a>
     <section class="article_content">
         {{ article.content | safe }}
     </section>
