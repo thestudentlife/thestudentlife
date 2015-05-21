@@ -110,6 +110,8 @@ class Migration(migrations.Migration):
                     legacy_id=legacy_id
                 )
                 new_article.save()
+                album = Album(article=new_article)
+                album.save()
                 print("Add article: "+str(legacy_id)+" "+title)
                 new_article.authors.add(author)
 
