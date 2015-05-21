@@ -7,7 +7,6 @@ def home(request):
     sections = Section.objects.all()
     features = CarouselArticle.objects.all()
     fronts = FrontArticle.objects.all()
-    populars = Article.objects.all().order_by('-clicks')[:5]
     return render(request, 'index.html', {'sections':sections,'features':features,'fronts':fronts,'recents':get_recent(5),
                                           'populars':get_popular(5)})
 
@@ -73,7 +72,7 @@ def article_ajax_object(article):
     return obj
 
 def get_recent(n):
-    return Article.objects.all().order_by('-published_date')[:n]
+    return Article.objects.all().filter(published=True).order_by('-published_date')[:n]
 
 def get_popular(n):
-    return Article.objects.all().order_by('-clicks')[:n]
+    return Article.objects.all().filter(published=True).order_by('-clicks')[:n]
