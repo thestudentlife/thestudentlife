@@ -15,7 +15,7 @@ $(window).scroll(function(){
                     count = count + 10;
                     for(a in articles) {
                         article = articles[a];
-                        $(process(article)).hide().appendTo('.article_ls').show('slow');
+                        $(process(article)).hide().appendTo('#article_ls').show('slow');
                     }
                 },
                 error: function(xhr,message,exception){
@@ -36,14 +36,22 @@ String.prototype.supplant = function (o) {
     );
 };
 
+function author_name(authors){
+    var str = '';
+    for (i in authors){
+        str = str+"<a href='"+authors[i].url+"'>"+authors[i].name+"</a>";
+    }
+    return str;
+}
+
 function process(article){
-        return "<article>" +
-            "<hgroup>" +
-            "<h1 class='article_title'><a href='{url}'>{title}</a>".supplant({url:article['url'],title:article['title']})+"</h1>" +
-            "<h2 class='article_category'><a href='{url}'>{section}</a>".supplant({url:article['section']['url'],section:article['section']['name']})+"</h2>" +
-            "<h2 class='article_updated_date'>"+article['published_date']+"</h2>" +
-            "</hgroup>" +
+        return "<span class='col-xs-12 col-sm-6 col-md-6 col-lg-6 article-preview'>" +
+            "<article>" +
+            "<h3 class='article_title'><a href='{url}'>{title}</a>".supplant({url:article['url'],title:article['title']})+"</h3>" +
+            "<p class='article_info'>" + author_name(article.authors)+
+            "|"+article['published_date']+"</p>"+
             "<p class='article_content'>{content}</p>".supplant({content:article['content']})+"" +
-            "</article>";
+            "</article>" +
+            "</span>" ;
 }
 
