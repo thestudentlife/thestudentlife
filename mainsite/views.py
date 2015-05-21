@@ -7,10 +7,9 @@ def home(request):
     sections = Section.objects.all()
     features = CarouselArticle.objects.all()
     fronts = FrontArticle.objects.all()
-    recents = Article.objects.all().order_by('-published_date')[:5]
     populars = Article.objects.all().order_by('-clicks')[:5]
-    return render(request, 'index.html', {'sections':sections,'features':features,'fronts':fronts,'recents':recents,
-                                          'populars':populars})
+    return render(request, 'index.html', {'sections':sections,'features':features,'fronts':fronts,'recents':get_recent(5),
+                                          'populars':get_popular(5)})
 
 def section(request, section_slug):
     sections = Section.objects.all()
@@ -27,19 +26,16 @@ def section(request, section_slug):
                 articles_in_json.append(article_ajax_object(article))
         return HttpResponse(json.dumps(articles_in_json),content_type='application/json')
     articles = this_section.articles.filter(published=True).order_by('-published_date')[:10]
-    recents = this_section.articles.order_by('-published_date')[:5]
-    populars = Article.objects.all().order_by('-clicks')[:5]
     return render(request, 'section.html', {"section": this_section, "sections": sections, "articles": articles,
-                                            'recents': recents,'populars':populars});
+                                            'recents': get_recent(5),'populars':get_popular(5)});
 
 def article(request, section_name, article_id, article_name='default'):
     sections = Section.objects.all()
     article = Article.objects.get(pk=article_id)
     article.click()
     article.save()
-    recents = Article.objects.all().order_by('-published_date')[:5]
-    populars = Article.objects.all().order_by('-clicks')[:5]
-    return render(request, 'article.html', {"sections": sections, "article": article, 'recents': recents,'populars':populars})
+    return render(request, 'article.html', {"sections": sections, "article": article, 'recents': get_recent(5),
+                                            'populars':get_popular(5)})
 
 def person(request, person_id, person_name='ZQ'):
     sections = Section.objects.all()
@@ -53,14 +49,8 @@ def person(request, person_id, person_name='ZQ'):
         return render(request, 'photographer.html', {"sections": sections, "photographs": photographs})
     return HttpResponse('His/Her profile is not public.')
 
-def staff(request):
-    return HttpResponse('Staff page')
-
-def subscriptions(request):
-    return HttpResponse('Subscriptions page')
-
-def about(request):
-    return HttpResponse('About page')
+def about(request, info):
+    return render(request,"about.html",{'info':info+".html"})
 
 def archives(request):
     return HttpResponse('Archives page')
@@ -80,3 +70,9 @@ def article_ajax_object(article):
         obj['authors'].append({'name':author.display_name,
                               'url':author.get_absolute_url()})
     return obj
+
+def get_recent(n):
+    return Article.objects.all().order_by('-published_date')[:n]
+
+def get_popular(n):
+    return Article.objects.all().order_by('-clicks')[:n]

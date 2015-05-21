@@ -17,7 +17,7 @@
                 <span>
                     <select id="leftValues" multiple>
                         {% for article in latest_articles_for_front %}
-                            <option value="{{ article.id }}">{{ article.title }}</option>
+                            <option value="{{ article.id }}">{{ article.section }} | {{ article.title }}</option>
                         {% endfor %}
                     </select>
                 </span>
@@ -28,7 +28,7 @@
                 <span>
                     <select name="front_selected[]" id="rightValues" multiple>
                         {% for front in fronts %}
-                            <option selected value="{{ front.article.id }}">{{ front.article.title }}</option>
+                            <option selected value="{{ front.article.id }}">{{ front.article.section }} | {{ front.article.title }}</option>
                         {% endfor %}
                     </select>
                 </span>
@@ -40,7 +40,7 @@
                 <span>
                     <select id="leftValues2" multiple>
                         {% for article in latest_articles_for_carousel %}
-                            <option value="{{ article.id }}">{{ article.title }}</option>
+                            <option value="{{ article.id }}">{{ article.section }} | {{ article.title }}</option>
                         {% endfor %}
                     </select>
                 </span>
@@ -51,14 +51,15 @@
                 <span>
                     <select name="carousel_selected[]" id="rightValues2" multiple>
                         {% for carousel in carousels %}
-                            <option selected value="{{ carousel.article.id }}">{{ carousel.article.title }}</option>
+                            <option selected value="{{ carousel.article.id }}">{{ carousel.article.section }} | {{ carousel.article.title }}</option>
                         {% endfor %}
                     </select>
                 </span>
             </div>
             <p style="text-align: center">Note the items on the right are currently showing.</p>
             <div class="widthCenter50">
-                <input class="btn btn-default btn-block btn-primary" type="submit" value="Confirm">
+                <input class="btn btn-default btn-block btn-primary" id="submit_button" value="Confirm">
+                <input type="submit" id="real_submit" hidden>
             </div>
         </form>
     </div>

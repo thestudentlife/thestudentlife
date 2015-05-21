@@ -1,4 +1,4 @@
-select, input[type="text"] {
+#rightValues, #rightValues2, #leftValues, #leftValues2 {
     width: 40%;
     height: 500px;
 }

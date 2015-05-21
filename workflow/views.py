@@ -124,6 +124,7 @@ def manage_one(request,user_id):
             second_form.save()
         else:
             return render(request,'setting.html',{'form':form})
+        user.groups.all().delete()
         for group in user.profile.ideal_group_names():
             group = Group.objects.get(name=group)
             user.groups.add(group)

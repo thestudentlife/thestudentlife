@@ -39,11 +39,10 @@
         <hr>
         <footer class="footer">
             <div id="info-menu">
-                <a>About</a>
-                <a>Contact</a>
-                <a>Advertise</a>
-                <a>Subscribe</a>
-                <a>Print Issues</a>
+                <a href="{%   url 'about' 'contact' %}">Contact</a>
+                <a href="{% url 'about' 'about_tsl' %}">About TSL</a>
+                <a href="{%   url 'about' 'subscriptions' %}">Subscribe</a>
+                <a href="{% url 'about' 'staff' %}">Staff</a>
                 <span class="stretch"></span>
             </div>
             &copy; 2015 The Student Life
