@@ -8,7 +8,9 @@ def home(request):
     features = CarouselArticle.objects.all()
     fronts = FrontArticle.objects.all()
     recents = Article.objects.all().order_by('-published_date')[:5]
-    return render(request, 'index.html', {'sections':sections,'features':features,'fronts':fronts,'recents':recents})
+    populars = Article.objects.all().order_by('-clicks')[:5]
+    return render(request, 'index.html', {'sections':sections,'features':features,'fronts':fronts,'recents':recents,
+                                          'populars':populars})
 
 def section(request, section_slug):
     sections = Section.objects.all()
@@ -26,13 +28,18 @@ def section(request, section_slug):
         return HttpResponse(json.dumps(articles_in_json),content_type='application/json')
     articles = this_section.articles.filter(published=True).order_by('-published_date')[:10]
     recents = this_section.articles.order_by('-published_date')[:5]
-    return render(request, 'section.html', {"section": this_section, "sections": sections, "articles": articles, 'recents': recents});
+    populars = Article.objects.all().order_by('-clicks')[:5]
+    return render(request, 'section.html', {"section": this_section, "sections": sections, "articles": articles,
+                                            'recents': recents,'populars':populars});
 
 def article(request, section_name, article_id, article_name='default'):
     sections = Section.objects.all()
     article = Article.objects.get(pk=article_id)
+    article.click()
+    article.save()
     recents = Article.objects.all().order_by('-published_date')[:5]
-    return render(request, 'article.html', {"sections": sections, "article": article, 'recents': recents})
+    populars = Article.objects.all().order_by('-clicks')[:5]
+    return render(request, 'article.html', {"sections": sections, "article": article, 'recents': recents,'populars':populars})
 
 def person(request, person_id, person_name='ZQ'):
     sections = Section.objects.all()

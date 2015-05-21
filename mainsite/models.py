@@ -48,6 +48,7 @@ class Article(models.Model):
     section = models.ForeignKey(Section, related_name='articles')
     issue = models.ForeignKey(Issue)
     authors = models.ManyToManyField(Profile)
+    clicks = models.IntegerField(default=0)
     subsections = models.ManyToManyField(Subsection, null=True)
     created_date = models.DateTimeField(default=datetime.datetime.now)
     published = models.BooleanField(default=False)
@@ -69,6 +70,9 @@ class Article(models.Model):
 
     def get_absolute_url(self):
         return reverse('article', kwargs={'article_id': self.id, 'section_name': self.section.slug()})
+
+    def click(self):
+        self.clicks += 1
 
 class FrontArticle(models.Model):
     article = models.OneToOneField(Article)
