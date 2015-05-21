@@ -10,15 +10,15 @@
 {% block body_block %}
     {% if flavour == "mobile" %}
         <div class="tsl-container">
-            <div class="article-previews col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            <section class="article-previews col-xs-12 col-sm-12 col-md-8 col-lg-8">
                 {% for front in features %}
                     {% include 'front_article_partial.html' %}
                 {% endfor %}
                 {% for front in fronts %}
                     {% include 'front_article_partial.html' %}
                 {% endfor %}
-            </div>
-            {% include 'side_menu_partial.html' %}
+            </section>
+            {% include 'side_menu.html' %}
         </div>
     {% else %}
         <ul class="bxslider">
@@ -39,12 +39,12 @@
             {% endfor %}
         </div>
         <div class="tsl-container">
-            <div class="article-previews col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            <section class="article-previews col-xs-12 col-sm-12 col-md-8 col-lg-8">
                 {% for front in fronts %}
                     {% include 'front_article_partial.html' %}
                 {% endfor %}
-            </div>
-            {% include 'side_menu_partial.html' %}
+            </section>
+            {% include 'side_menu.html' %}
         </div>
     {% endif %}
 {% endblock %}

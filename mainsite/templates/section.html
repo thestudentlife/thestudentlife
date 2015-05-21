@@ -7,14 +7,14 @@
 
 {% block body_block %}
     <div class="tsl-container">
-        <div id="article_ls" class="article-previews col-xs-12 col-sm-12 col-md-8 col-lg-8">
+        <section id="article_ls" class="article-previews col-xs-12 col-sm-12 col-md-8 col-lg-8">
             {% for article in articles %}
                 <span class="col-xs-12 col-sm-6 col-md-6 col-lg-6 article-preview">
                     {% include 'short_article_partial.html' %}
                 </span>
             {% endfor %}
-        </div>
-        {% include 'side_menu_partial.html' %}
+        </section>
+        {% include 'side_menu.html' %}
     </div>
 {% endblock %}
 

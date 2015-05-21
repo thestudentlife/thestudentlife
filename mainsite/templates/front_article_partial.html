@@ -1,4 +1,4 @@
-<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 article-preview">
+<article class="col-xs-12 col-sm-6 col-md-6 col-lg-6 article-preview">
     <h3><a href="{% url 'article' front.article.section.slug front.article.id %}">
         {{ front.article.title }}</a></h3>
     {% if front.article.album.photo_set.all.count != 0 %}
@@ -16,4 +16,4 @@
         <span class="label label-primary">Opinions</span>
     {% endif %}
     <p>{{ front.article.content_with_no_images | truncatechars:150 | safe }}</p>
-</div>
+</article>

@@ -50,7 +50,8 @@ def person(request, person_id, person_name='ZQ'):
 
 def about(request, info):
     sections = Section.objects.all()
-    return render(request,"about.html",{"sections": sections, 'info':info+".html"})
+    template = "about/" + info+".html";
+    return render(request, "about/about.html", {"sections": sections, 'info': template})
 
 def archives(request):
     return HttpResponse('Archives page')
