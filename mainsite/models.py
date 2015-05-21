@@ -42,6 +42,12 @@ class Issue(models.Model):
     def get_absolute_url(self):
         return reverse_lazy('issue', kwargs={'issue_id': self.id})
 
+class Copy(models.Model):
+    created_date = models.DateTimeField(default=datetime.datetime.now)
+    file = models.FileField(upload_to='archives/')
+    def __str__(self):
+        return self.file.name
+
 class Article(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
@@ -170,6 +176,8 @@ class ArticleForm(autocomplete_light.ModelForm):
         model = Article
         fields = ['title', 'content', 'section', 'issue','authors']
         autocomplete_fields = ('authors')
+
+
 
 
 
