@@ -41,3 +41,4 @@ cp website/fixtures/ramune_thumbnail.jpg website/media/thumbs/ramune_thumbnail.j
 python3 manage.py migrate;
 python3 manage.py loaddata website/fixtures/initial_data.json;
 python3 manage.py collectstatic --noinput;
+python3 manage.py runserver;
