@@ -11,10 +11,8 @@ Running Locally/Selenium Tests
 - Check out localhost:8000 on your favorite browser
 - Check out localhost:8000/workflow (Login: kshikama, Password: tsl)
 
-Note you must have Firefox to run the Selenium tests
 
-
-Basic Virtual Machine Configuration Instructions
+Virtual Machine Configuration Instructions (Outdated)
 --------------------------
 
 - Clone a copy of this repository
