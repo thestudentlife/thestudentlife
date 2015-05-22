@@ -1,0 +1,27 @@
+{% extends 'workflow_base.html' %}
+{% load static %}
+
+{% block title_block %}
+    <title>Archives</title>
+    <style>
+    #id_title {font-size: 1em;padding:0}
+    .db{color:#ff0000}
+    </style>
+{% endblock %}
+
+
+{% block content_block %}
+    <div class="padding10"></div>
+    <form enctype="multipart/form-data" action='' method="POST">
+    {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit">
+    </form>
+    <ul class="list-group">
+        {%  for copy in copies %}
+            <li><a href="{{ copy.file.url }}">{{ copy.title }}</a>
+                <a class='db' href="{% url 'copies' %}?delete={{ copy.id }}">delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

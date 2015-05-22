@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from mainsite.models import Section, Article, Profile,FrontArticle, CarouselArticle
+from mainsite.models import Section, Article, Profile,FrontArticle, CarouselArticle, Copy
 import json
 
 def home(request):
@@ -54,7 +54,9 @@ def about(request, info):
     return render(request, "about/about.html", {"sections": sections, 'info': template})
 
 def archives(request):
-    return HttpResponse('Archives page')
+    copies = Copy.objects.all()
+    return render(request,'archives.html',{'copies':copies})
+
 
 # Create json objects for an article
 def article_ajax_object(article):

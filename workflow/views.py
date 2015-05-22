@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.utils import timezone
-from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, FrontArticle, CarouselArticle
+from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, FrontArticle, CarouselArticle, Copy, CopyForm
 from workflow.models import Assignment, RegisterForm, LoginForm, Revision, ProfileForm, RegisterForm2, Comment
 import os, subprocess,json
 from workflow.static import getText
@@ -124,7 +124,8 @@ def manage_one(request,user_id):
             second_form.save()
         else:
             return render(request,'setting.html',{'form':form})
-        user.groups.all().delete()
+        for group in user.groups.all():
+            group.user_set.remove(user)
         for group in user.profile.ideal_group_names():
             group = Group.objects.get(name=group)
             user.groups.add(group)
@@ -228,7 +229,7 @@ def edit_assignment(request, assignment_id):
     else:
         form = AssignmentForm(request.POST, instance=assignment)
         if form.is_valid():
-            assignment = form.save()
+            form.save()
             return redirect(reverse("assignments"))
         return render(request, 'assignment/new_assignment.html', {
             'form': form
@@ -266,6 +267,21 @@ def comment(request,article_id,user_id):
     obj['body'] = comment.body
     return HttpResponse(json.dumps(obj),content_type='application/json')
 
+@group_required('silver')
+def copies(request):
+    if request.GET.get('delete'):
+        id = int(request.GET.get('delete'))
+        Copy.objects.get(id=id).delete()
+        return redirect(reverse('copies'))
+    copies = Copy.objects.order_by('-created_date')
+    if request.method=='POST':
+        file = CopyForm(request.POST,request.FILES)
+        if file.is_valid():
+            file.save()
+            return redirect(reverse('copies'))
+        return render(request,'copies.html',{'copies':copies,'form':file})
+    form = CopyForm()
+    return render(request,'copies.html',{'copies':copies,'form':form})
 
 @group_required('silver')
 def publish(request,article_id):

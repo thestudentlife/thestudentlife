@@ -68,4 +68,7 @@ urlpatterns = patterns('',
                        url(r'^assignments/section/(?P<section_id>[0-9]+)$', views.filter_by_section,
                            name="filter_by_section"),
                        url(r'^assignments/type/(?P<type_name>[a-z]+)$', views.filter_by_type, name="filter_by_type"),
+
+                       #archives
+                       url(r'^copies/$',views.copies,name='copies'),
 )
