@@ -3,10 +3,7 @@ from mainsite import views
 
 urlpatterns = patterns('',
                        url(r'^$', views.home, name='home'),
-                       url(r'^staff/$', views.staff, name='staff'),
-                       url(r'^subscriptions/$', views.subscriptions, name='subscriptions'),
-                       url(r'^about/$', views.about, name='about'),
-                       url(r'^archives/$', views.archives, name='archives'),
+                       url(r'^about/(?P<info>\w+)/$', views.about, name='about'),
                        url(r'^person/(?P<person_id>\d+)/$', views.person, name='person'),
                        url(r'^(?P<section_slug>[^/]+)/$', views.section, name='section'),
                        url(r'^(?P<section_name>[^/]+)/(?P<article_id>\d+)/(?P<article_name>.+)/$', views.article,

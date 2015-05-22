@@ -53,14 +53,8 @@ def person(request, person_id, person_name='ZQ'):
         return render(request, 'photographer.html', {"sections": sections, "photographs": photographs})
     return HttpResponse('His/Her profile is not public.')
 
-def staff(request):
-    return HttpResponse('Staff page')
-
-def subscriptions(request):
-    return HttpResponse('Subscriptions page')
-
-def about(request):
-    return HttpResponse('About page')
+def about(request, info):
+    return render(request,"about.html",{'info':info+".html"})
 
 def archives(request):
     return HttpResponse('Archives page')
