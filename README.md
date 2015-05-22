@@ -6,7 +6,7 @@ Running Locally/Selenium Tests
 
 - Navigate to project's root directory
 - Install [Python 3.4+](https://www.python.org/downloads/)
-- Enter <code>bash setup_and_test.sh</code>
+- Enter <code>bash simple_setup_and_test.sh</code>
 - Enter <code>python3 manage.py runserver</code> or <code>python manage.py runserver</code> to start up website
 - Check out localhost:8000 on your favorite browser
 - Check out localhost:8000/workflow (Login: kshikama, Password: tsl)

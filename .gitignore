@@ -69,3 +69,5 @@ website/static/
 ve/*
 .vagrant
 nohup.out
+db.sqlite3-journal
+.dat030d.164
