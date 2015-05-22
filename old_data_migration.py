@@ -1,6 +1,6 @@
 import psycopg2
 from workflow.models import Profile
-from mainsite.models import Article, Section, Issue
+from mainsite.models import Article, Section, Issue, Album
 
 conn = psycopg2.connect("dbname=postgres user=postgres password=794613852")
 
@@ -99,6 +99,8 @@ while True:
             published=published,
             legacy_id=legacy_id
         )
+        album = Album(article=article)
+        album.save()
         new_article.save()
         print("Add article: "+str(legacy_id)+" "+title)
         new_article.authors.add(author)

@@ -25,3 +25,9 @@ $("#btnRight2").click(function () {
 $("#rightValues2").change(function () {
     var selectedItem = $("#rightValues2 option:selected");
 });
+
+$('#submit_button').click(function(){
+    $('#rightValues option').prop("selected",true);
+    $('#rightValues2 option').prop("selected",true);
+    $('#real_submit').trigger('click');
+})
