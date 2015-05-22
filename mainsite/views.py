@@ -60,7 +60,7 @@ def archives(request):
 
 # Create json objects for an article
 def article_ajax_object(article):
-    fmt = '%Y-%m-%d'
+    fmt = '%b. %d, %Y, %I:%M %p'
     obj = dict()
     obj['url'] = article.get_absolute_url()
     obj['title'] = article.title

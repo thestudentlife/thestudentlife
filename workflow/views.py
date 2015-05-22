@@ -252,7 +252,7 @@ def comment(request,article_id,user_id):
     comment.save()
     obj = dict()
     obj['author'] = [comment.author.profile.position,comment.author.profile.display_name]
-    fmt = '%Y-%m-%d %H:%M'
+    fmt = '%b. %d, %Y, %I:%M %p'
     obj['created_date'] = comment.created_date.strftime(fmt)
     obj['body'] = comment.body
     return HttpResponse(json.dumps(obj),content_type='application/json')
