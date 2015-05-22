@@ -60,3 +60,4 @@ author_select = WebDriverWait(selenium, 10).until(expected_conditions.element_to
 author_select.click()
 submit = selenium.find_element_by_id("edit")
 submit.click()
+selenium.get("http://localhost:8000/workflow/logout/")
