@@ -43,11 +43,10 @@ class Issue(models.Model):
         return reverse_lazy('issue', kwargs={'issue_id': self.id})
 
 class Copy(models.Model):
-    title = models.CharField(max_length=200)
     created_date = models.DateTimeField(default=datetime.datetime.now)
     file = models.FileField(upload_to='archives/')
     def __str__(self):
-        return self.title
+        return self.file.name
 
 class Article(models.Model):
     title = models.CharField(max_length=200)
@@ -178,10 +177,7 @@ class ArticleForm(autocomplete_light.ModelForm):
         fields = ['title', 'content', 'section', 'issue','authors']
         autocomplete_fields = ('authors')
 
-class CopyForm(ModelForm):
-    class Meta:
-        model = Copy
-        fields = ['title', 'file']
+
 
 
 

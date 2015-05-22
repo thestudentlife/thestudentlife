@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.utils import timezone
-from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, FrontArticle, CarouselArticle, Copy, CopyForm
+from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, FrontArticle, CarouselArticle, Copy
 from workflow.models import Assignment, RegisterForm, LoginForm, Revision, ProfileForm, RegisterForm2, Comment
 import os, subprocess,json
 from workflow.static import getText
@@ -275,13 +275,11 @@ def copies(request):
         return redirect(reverse('copies'))
     copies = Copy.objects.order_by('-created_date')
     if request.method=='POST':
-        file = CopyForm(request.POST,request.FILES)
-        if file.is_valid():
-            file.save()
-            return redirect(reverse('copies'))
-        return render(request,'copies.html',{'copies':copies,'form':file})
-    form = CopyForm()
-    return render(request,'copies.html',{'copies':copies,'form':form})
+        files = request.FILES.getlist('files')
+        for file in files:
+            copy = Copy(file=file)
+            copy.save()
+    return render(request,'copies.html',{'copies':copies})
 
 @group_required('silver')
 def publish(request,article_id):
