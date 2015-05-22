@@ -149,21 +149,16 @@ class RegisterForm(ModelForm):
 class RegisterForm2(ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email']
+        fields = ['username','email']
         widgets = {
             'email': EmailInput(attrs={
                 'required': True
-            }),
-            'first_name': TextInput(attrs={
-                'required': True
-            }),
-            'last_name': TextInput(attrs={
-                'required': True
-            }),
+            })
         }
 
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ['position']
+        fields = ['display_name','position']
+
 
