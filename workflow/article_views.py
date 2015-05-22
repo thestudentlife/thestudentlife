@@ -17,7 +17,7 @@ class ArticleCreateView(CreateView):
     model = Article
     fields = ['title', 'content', 'section']
     template_name = 'articles/new_article.html'
-    success_url = reverse_lazy('whome') #TODO: Change to appropriate issue id
+    success_url = reverse_lazy('latest_article')
 
     def form_valid(self, form):
         article = form.save(commit=False)
@@ -78,3 +78,7 @@ class ArticleDeleteView(DeleteView):
     model = Article
     template_name = "articles/article_confirm_delete.html"
     success_url = reverse_lazy('whome')
+
+def latest_article(request):
+    article = Article.objects.order_by('-updated_date')[0]
+    return redirect(reverse('warticle',args=[article.issue.pk,article.pk]))
