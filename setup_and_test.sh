@@ -33,12 +33,15 @@ mkdir website/media/photo/;
 mkdir website/media/thumbs/;
 rm -rf website/media/photo/*;
 rm -rf website/media/thumbs/*;
+# TURN POSTGRES ON
 python3 manage.py migrate;
 python3 manage.py collectstatic --noinput;
 python3 manage.py test;
 nohup python3 manage.py runserver < /dev/null &
 python3 manage.py shell_plus << END
 exec(open('scripts/edit_article.py').read())
+exec(open('scripts/create_article.py').read())
 exec(open('scripts/upload_images.py').read())
+exec(open('scripts/front_page.py').read())
 END
 python3 manage.py dumpdata > website/fixtures/initial_data.json

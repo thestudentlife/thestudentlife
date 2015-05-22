@@ -1,22 +1,39 @@
 {% extends 'workflow_base.html' %}
+{% load static from staticfiles %}
+{% load widget_tweaks %}
 
 {% block title_block %}
     <title>New Article</title>
 {% endblock %}
 
 {% block content_block %}
-    {% load staticfiles %}
     <div class="margin10"></div>
     <form method="POST" action="">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Submit"/>
+        {% for field in form %}
+            {% if field|widget_type == "select" %}
+                {% render_field field class+="combobox margin-vertical-10" placeholder=field.label %}
+            {% elif field|widget_type == "textarea" %}
+                {% render_field field class+="" placeholder=field.label %}
+            {% else %}
+                {% render_field field class+="form-control margin-vertical-10 margin-bottom-20 edit-title" placeholder=field.label %}
+            {% endif %}
+        {% endfor %}
+        <div class="widthCenter50">
+            <input id="create" class="btn btn-default btn-primary btn-block" type="submit" value="Create Article"/>
+        </div>
     </form>
+{% endblock %}
+{% block additional_scripts_block %}
     <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
     <script>
-
         CKEDITOR.replace(id_content, {
             customConfig: '{% static 'ckeditor_config.js' %}'
         })
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.combobox').combobox();
+        });
     </script>
 {% endblock %}

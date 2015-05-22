@@ -1,11 +1,10 @@
 {% extends 'workflow_base.html' %}
-{% load static %}
+{% load static from staticfiles %}
+{% load widget_tweaks %}
 
 {% block title_block %}
     <title>Edit {{ article.title }}</title>
 {% endblock %}
-
-{% load widget_tweaks %}
 
 {% block breadcrumb %}
     <ol class="breadcrumb breadcrumbAdjust">
@@ -17,7 +16,6 @@
 {% endblock %}
 
 {% block content_block %}
-    {% load staticfiles %}
     <form method="POST" action="">
         {% csrf_token %}
         {% for field in form %}
@@ -35,10 +33,14 @@
             {{ original_content }}
         </textarea>
         <input type="hidden" name="original_second" value="{{ original_second }}">
+
         <div class="widthCenter50">
             <input id="edit" class="btn btn-default btn-primary btn-block" type="submit" value="Edit Article"/>
         </div>
     </form>
+{% endblock %}
+
+{% block additional_scripts_block %}
     <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
     <script>
         CKEDITOR.replace(id_content, {
@@ -46,14 +48,9 @@
             filebrowserBrowseUrl: '{% url 'select_photos' article.issue.id article.album.id %}'
         })
     </script>
-{% endblock %}
-
-{% block additional_scripts_block %}
-
-
     {% include 'autocomplete_light/static.html' %}
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('.combobox').combobox();
         });
     </script>

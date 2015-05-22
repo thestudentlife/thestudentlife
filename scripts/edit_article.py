@@ -27,8 +27,7 @@ ckeditor = selenium.find_element_by_class_name("cke_wysiwyg_frame")
 selenium.switch_to.frame(ckeditor)
 content = selenium.find_element_by_tag_name('body')
 content.clear()
-content.send_keys("""
-Walking through the Robert A. Millikan Laboratory, Pomona College's new physics and mathematics building, it is easy to visualize what the building will look like next fall. Light from the ceiling's skylight reaches all three floors, helping to illuminate the scattered study spaces and blackboards. A floating staircase connects the first floor to the second floor, where the atom sculpture from the original Millikan can be seen in the window. Although workers are still putting the finishing touches on the 75,000-square-foot building, testing lighting and touching up paint, Millikan is almost ready for faculty to move in to their new offices and for spaces to host students.
+content.send_keys("""Walking through the Robert A. Millikan Laboratory, Pomona College's new physics and mathematics building, it is easy to visualize what the building will look like next fall. Light from the ceiling's skylight reaches all three floors, helping to illuminate the scattered study spaces and blackboards. A floating staircase connects the first floor to the second floor, where the atom sculpture from the original Millikan can be seen in the window. Although workers are still putting the finishing touches on the 75,000-square-foot building, testing lighting and touching up paint, Millikan is almost ready for faculty to move in to their new offices and for spaces to host students.
 The $63 million construction project began in fall 2014 after three years of planning and is scheduled for completion by June 1.
 Assistant Vice President of Facilities and Campus Services Bob Robinson said that the construction process for Millikan was faster than anticipated due to efficient construction methods, careful planning and favorable weather conditions, among other factors.
 “I’d have to say that of all the projects I've been involved with here, this one, without a doubt, was the smoothest I've experienced ever, which is maybe a testament to the planning,” Robinson said. “Because of its prominent location and the heavy foot traffic and so on, we tried to plan for every contingency.”
@@ -60,4 +59,9 @@ author_select = WebDriverWait(selenium, 10).until(expected_conditions.element_to
 author_select.click()
 submit = selenium.find_element_by_id("edit")
 submit.click()
+
+# WArticle
+publish = selenium.find_element_by_id("pub_but")
+publish.click()
+
 selenium.get("http://localhost:8000/workflow/logout/")

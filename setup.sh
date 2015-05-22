@@ -30,8 +30,6 @@ python3 manage.py makemigrations;
 mkdir website/media/;
 mkdir website/media/photo/;
 mkdir website/media/thumbs/;
-rm -rf website/media/photo/*;
-rm -rf website/media/thumbs/*;
 python3 manage.py migrate;
 python3 manage.py loaddata website/fixtures/initial_data.json;
 python3 manage.py collectstatic --noinput;
