@@ -11,6 +11,10 @@
     padding: 10px;
 }
 
+.paddingH20 {
+    padding: 0px 20px;
+}
+
 body {
     background-color: #FDFDFD;
 }

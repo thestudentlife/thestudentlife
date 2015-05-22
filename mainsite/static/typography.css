@@ -29,8 +29,7 @@ div p a:active {
 
 p {
     padding-top: 0;
-    margin: 0 auto;
-    text-indent: 5%;
+    margin: 15px auto;
 }
 
 @media (min-width: 43.75em) {
