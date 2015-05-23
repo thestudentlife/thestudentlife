@@ -1,12 +1,16 @@
 {% extends 'workflow_base.html' %}
+{% load widget_tweaks %}
 
 {% block title_block %}
     <title>Edit Issue</title>
 {% endblock %}
 
 {% block content_block %}
-    <form action="" method="post">{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Edit"/>
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            {% render_field field class+="form-control margin-vertical-10" placeholder=field.label %}
+        {% endfor %}
+        <input class="btn btn-default btn-primary btn-50" type="submit" value="Edit"/>
     </form>
 {% endblock %}
