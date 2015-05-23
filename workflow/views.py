@@ -192,6 +192,11 @@ def revision(request, pk):
 # assignments
 @group_required('bronze')
 def assignments(request):
+    if request.is_ajax():
+        if request.GET['action']=='accept':
+            asgt = Assignment.objects.get(id=int(request.GET['id']))
+            asgt.accepted=True
+            asgt.save()
     assignments = Assignment.objects.all()
     if request.GET.get('type'):
         assignments = assignments.filter(type=request.GET.get('type'))

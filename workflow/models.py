@@ -28,6 +28,9 @@ class Profile(models.Model):
     def is_editor(self):
         return "editor" in self.position
 
+    def num_assignments(self):
+        return len(self.assignment_received.all().filter(accepted=False))
+
     def ideal_group_names(self):
         if self.position == 'chief_editor' or self.position == 'web_developer':
             return ['gold','silver','bronze']
@@ -97,13 +100,15 @@ class Assignment(models.Model):
     section = models.ForeignKey('mainsite.Section')
     created_date = models.DateTimeField(default=datetime.datetime.now)
     due_date = models.DateTimeField(default=datetime.datetime.now)
+    accepted = models.BooleanField(default=False)
+    finished = models.BooleanField(default=False)
     response_article = models.ForeignKey('mainsite.Article', related_name="assignment", null=True)
     response_photo = models.ForeignKey('mainsite.Photo', related_name="assignment", null=True)
 
     def progress(self):
-        if self.response_article is not None or self.response_photo is not None:
+        if self.finished:
             return "finished"
-        elif self.receiver is not None:
+        elif self.accepted:
             return "in progress"
         else:
             return "not started"

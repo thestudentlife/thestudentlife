@@ -17,3 +17,21 @@
         </ul>
     </div>
 {% endblock %}
+
+
+{% block additional_scripts_block %}
+    <script>
+        function accept(i){
+            $.ajax({
+                url:'',
+                data:{action:'accept', id:i},
+                success:function(){
+                    $('#'+i+"_but").replaceWith('<span class="badge">Assignment accepted</span>');
+                },
+                error: function (xhr, message, exception) {
+                           alert('error occurs: ' + exception);
+                }
+            })
+        }
+    </script>
+{% endblock %}
