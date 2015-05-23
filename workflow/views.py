@@ -193,12 +193,12 @@ def revision(request, pk):
 @group_required('bronze')
 def assignments(request):
     assignments = Assignment.objects.all()
+    if request.GET.get('type'):
+        assignments = assignments.filter(type=request.GET.get('type'))
+    if request.GET.get('section_id'):
+        section = Section.objects.get(id=int(request.GET.get('section_id')))
+        assignments = assignments.filter(section=section)
     return render(request, 'assignment/assignments.html', {'assignments': assignments})
-
-@group_required('bronze')
-def assignment(request, assignment_id):
-    assignment = Assignment.objects.get(id=assignment_id)
-    return render(request, 'assignment/assignment.html', {'assignment': assignment})
 
 @group_required('silver')
 def new_assignment(request):
@@ -242,16 +242,6 @@ def filter_by_receiver(request, profile_id):
     return render(request, 'assignment/assignments.html',
                   {'assignments': assignments})
 
-@group_required('bronze')
-def filter_by_section(request, section_id):
-    section = Section.objects.get(pk=section_id)
-    assignments = Assignment.objects.filter(section=section)
-    return render(request, 'assignment/assignments.html', {'assignments': assignments})
-
-@group_required('bronze')
-def filter_by_type(request, type_name):
-    assignments = Assignment.objects.filter(type=type_name)
-    return render(request, 'assignment/assignments.html', {'assignments': assignments})
 
 @group_required('bronze')
 def comment(request,article_id,user_id):

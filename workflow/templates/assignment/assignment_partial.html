@@ -1,13 +1,13 @@
 <article>
         <br />
         <div class="long_article_title_div">
-            <h2 class="long_article_title"><a href="{{ assignment.get_absolute_url }}">{{ assignment.title }}</a></h2>
+            <h2 class="long_article_title">{{ assignment.title }}</h2>
         </div>
         <p>
-        Category: <a href="{% url 'filter_by_section' assignment.section.pk %}">{{ assignment.section.name }}</a>
+        Category: <a href="{% url 'assignments' %}?section={{ assignment.section.id }}">{{ assignment.section.name }}</a>
 ,
         {% if assignment.receiver %}
-            Received by <a href="{% url 'filter_by_receiver' assignment.receiver.id %}">{{ assignment.receiver.user.username }}</a>,
+            Received by <a href="{% url 'filter_by_receiver' assignment.receiver.id %}">{{ assignment.receiver.display_name }}</a>,
         {% endif %}
 
         Assignment Due: {{ assignment.due_date }},
