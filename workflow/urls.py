@@ -49,13 +49,6 @@ urlpatterns = patterns('',
                        url(r'^album/(?P<issue_id>\d+)/(?P<album_id>\d+)/edit/$', photo_views.edit_album, name="edit_album"),
                        url(r'^album/(?P<issue_id>\d+)/(?P<album_id>\d+)/select/$', photo_views.select_photos, name="select_photos"),
 
-                       #photos
-                       url(r'^photos/$', photo_views.photos, name="photos"),
-                       #    url(r'^photos/(?P<photo_id>[0-9]+)/$',views.photo,name="photo"),
-                       #    url(r'^photos/new/',PhotoCreateView.as_view(),name="new_photo"),
-                       #    url(r'^photos/(?P<photo_id>[0-9]+)/edit/',views.edit_photo,name="edit_photo"),
-                       #    url(r'^photos/upload/', login_required(PhotoCreateView.as_view()), name="upload_photo"),
-
                        #assignments
                        url(r'^assignments/$', views.assignments, name="assignments"),
                        url(r'^assignments/new/$', views.new_assignment, name="new_assignment"),

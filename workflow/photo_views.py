@@ -5,15 +5,6 @@ from django.template import RequestContext
 from mainsite.models import Album, Photo, Issue
 from workflow.views import group_required
 
-# photos
-@group_required('silver')
-def photos(request):
-    return HttpResponse('These are the photos.')
-
-@group_required('bronze')
-def photo(request, photo_id):
-    return HttpResponse('This is photo ' + str(photo_id))
-
 class PhotoForm(ModelForm):
     class Meta:
         model = Photo
