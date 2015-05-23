@@ -33,5 +33,18 @@
                 }
             })
         }
+
+        function finish(i){
+            $.ajax({
+                url:'',
+                data:{action:'finish', id:i},
+                success: function(){
+                    $('#'+i+'_finish_but').replaceWith('<span class="badge">Assignment finished</span>');
+                },
+                error: function(xhr, message, exception) {
+                    alert('error occurs: ' + exception);
+                }
+            })
+        }
     </script>
 {% endblock %}

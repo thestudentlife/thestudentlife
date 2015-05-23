@@ -29,6 +29,8 @@ class Profile(models.Model):
         return "editor" in self.position
 
     def num_assignments(self):
+        if self.is_editor():
+            return len(Assignment.objects.filter(accepted=False))
         return len(self.assignment_received.all().filter(accepted=False))
 
     def ideal_group_names(self):

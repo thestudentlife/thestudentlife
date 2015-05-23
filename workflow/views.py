@@ -197,11 +197,15 @@ def assignments(request):
             asgt = Assignment.objects.get(id=int(request.GET['id']))
             asgt.accepted=True
             asgt.save()
+        if request.GET['action']=='finish':
+            asgt = Assignment.objects.get(id=int(request.GET['id']))
+            asgt.finished=True
+            asgt.save()
     assignments = Assignment.objects.all()
     if request.GET.get('type'):
         assignments = assignments.filter(type=request.GET.get('type'))
-    if request.GET.get('section_id'):
-        section = Section.objects.get(id=int(request.GET.get('section_id')))
+    if request.GET.get('section'):
+        section = Section.objects.get(id=int(request.GET.get('section')))
         assignments = assignments.filter(section=section)
     return render(request, 'assignment/assignments.html', {'assignments': assignments})
 
