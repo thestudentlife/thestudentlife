@@ -30,7 +30,7 @@ class Profile(models.Model):
 
     def num_assignments(self):
         if self.is_editor():
-            return len(Assignment.objects.filter(accepted=False))
+            return len(Assignment.objects.filter(finished=False))
         return len(self.assignment_received.all().filter(accepted=False))
 
     def ideal_group_names(self):
@@ -114,6 +114,14 @@ class Assignment(models.Model):
             return "in progress"
         else:
             return "not started"
+
+    def progress_status(self):
+        if self.finished:
+            return 0
+        elif self.accepted:
+            return 1
+        else:
+            return 2
 
     def __str__(self):
         return self.title

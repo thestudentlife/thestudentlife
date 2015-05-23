@@ -202,6 +202,14 @@ def assignments(request):
             asgt.finished=True
             asgt.save()
     assignments = Assignment.objects.all()
+    if request.GET.get('progress'):
+        p = int(request.GET.get('progress'))
+        if p == 0:
+            assignments = assignments.filter(finished=True)
+        elif p == 1:
+            assignments = assignments.filter(finished=False).filter(accepted=True)
+        else:
+            assignments = assignments.filter(accepted=False)
     if request.GET.get('type'):
         assignments = assignments.filter(type=request.GET.get('type'))
     if request.GET.get('section'):
