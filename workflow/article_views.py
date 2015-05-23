@@ -1,13 +1,12 @@
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView
 from django.views.generic.detail import DetailView
-from mainsite.models import Article, Issue,ArticleForm, Album
+from mainsite.models import Article, Issue, ArticleForm, Album
 from workflow.models import WArticle, Revision
 from workflow.views import group_required
 from django.utils import timezone
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
-import subprocess
 
 class ArticleDetailView(DetailView):
     model = Article
@@ -31,50 +30,36 @@ class ArticleCreateView(CreateView):
         return super(ArticleCreateView, self).form_valid(form)
 
 @group_required('silver')
-def article_edit(request,issue_id,pk):
-    original_article = Article.objects.get(pk=pk)
-    original_content = original_article.content
+def article_edit(request, issue_id, pk):
+    article = Article.objects.get(pk=pk)
     if request.method == 'GET':
-        original_content = original_article.content
-        original_second = original_article.updated_date.second
-        form = ArticleForm(instance=original_article)
-        return render(request,'articles/edit_article.html',
-                      {'form':form, 'article': original_article, 'original_content':original_content,'original_second':original_second})
+        original_time = article.updated_date.second
+        form = ArticleForm(instance=article)
+        return render(request, 'articles/edit_article.html',
+                      {'form': form, 'article': article, 'time': original_time})
     else:
-        base_content = request.POST['original_content']
-        base_second = request.POST['original_second']
-        form = ArticleForm(request.POST, instance=original_article)
+        original_time = request.POST['time']
+        form = ArticleForm(request.POST, instance=article)
         if form.is_valid():
-            if base_second == str(original_article.updated_date.second):
+            currently_saved_time = article.updated_date.second
+            if original_time == str(currently_saved_time):
                 article = form.save(commit=False)
                 article.updated_date = timezone.now()
                 article.save()
             else:
-                article = form.save(commit=False)
-                base = open('base','w')
-                me = open('v1','w')
-                other = open('v2','w')
-                base.write(base_content)
-                base.close()
-                me.write(article.content)
-                me.close()
-                other.write(original_content)
-                other.close()
-                command=['bash','merge.sh']
-                p = subprocess.Popen(command, stdout=subprocess.PIPE,shell=True)
-                (output, err) = p.communicate()
-                article.content = output
-                article.updated_date = timezone.now()
-                article.save()
-            revision = Revision(article=original_article,
-                                    editor=request.user.profile, body=original_article.content)
+                overwrite_message = "This article was edited while you were making changes. " \
+                                    "Please click edit again if you indeed want to overwrite the recent edit. " \
+                                    "Otherwise, save your edits elsewhere, exit this page, and try editing again."
+                return render(request, 'articles/edit_article.html',
+                              {'form': form, 'article': article,
+                               'time': currently_saved_time, 'overwrite': overwrite_message})
+            revision = Revision(article=article,
+                                editor=request.user.profile, body=article.content)
             revision.save()
             form.save_m2m()
-            return redirect(reverse('warticle',args=[issue_id,pk]))
+            return redirect(reverse('warticle', args=[issue_id, pk]))
         else:
-            return render(request,'articles/edit_article.html',{'form':form, 'article': original_article})
-
-
+            return render(request, 'articles/edit_article.html', {'form': form, 'article': article})
 
 class ArticleDeleteView(DeleteView):
     model = Article
@@ -83,4 +68,4 @@ class ArticleDeleteView(DeleteView):
 
 def latest_article(request):
     article = Article.objects.order_by('-updated_date')[0]
-    return redirect(reverse('warticle',args=[article.issue.pk,article.pk]))
+    return redirect(reverse('warticle', args=[article.issue.pk, article.pk]))

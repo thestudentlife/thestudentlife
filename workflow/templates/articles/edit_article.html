@@ -29,11 +29,7 @@
                 {% render_field field class+="form-control margin-vertical-10 margin-bottom-20 edit-title" placeholder=field.label %}
             {% endif %}
         {% endfor %}
-        <textarea name='original_content' style="display:none">
-            {{ original_content }}
-        </textarea>
-        <input type="hidden" name="original_second" value="{{ original_second }}">
-
+        <input type="hidden" name="time" value="{{ time }}">
         <div class="widthCenter50">
             <input id="edit" class="btn btn-default btn-primary btn-block" type="submit" value="Edit Article"/>
         </div>
@@ -52,6 +48,9 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('.combobox').combobox();
+            {% if overwrite %}
+                alert('{{ overwrite }}');
+            {% endif %}
         });
     </script>
 {% endblock %}
