@@ -51,7 +51,9 @@ def article_edit(request,issue_id,pk):
                 article.save()
             else:
                 article = form.save(commit=False)
-                base = open('base','w');me = open('v1','w');other = open('v2','w')
+                base = open('base','w')
+                me = open('v1','w')
+                other = open('v2','w')
                 base.write(base_content)
                 base.close()
                 me.write(article.content)

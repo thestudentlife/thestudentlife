@@ -5,7 +5,7 @@ from website import settings
 
 selenium = webdriver.Chrome()
 selenium.maximize_window()
-selenium.get("http://localhost:8000/workflow/album/85/2906/")
+selenium.get("http://localhost:8000/workflow/album/85/4263/")
 username = selenium.find_element_by_id("id_username")
 password = selenium.find_element_by_id("id_password")
 username.send_keys("zxiong")
@@ -26,7 +26,7 @@ submit = selenium.find_element_by_id("edit")
 submit.click()
 
 # Article - When Nerdy Becomes Trendy
-selenium.get("http://localhost:8000/workflow/album/85/2907/")
+selenium.get("http://localhost:8000/workflow/album/85/4264/")
 # Workflow Album View Page
 edit = selenium.find_element_by_id("edit")
 edit.click()
