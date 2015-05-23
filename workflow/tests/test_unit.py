@@ -42,7 +42,8 @@ class WorkflowModels(TestCase):
         articles = Article.objects.all()
         for article in articles:
             print("article title: " + article.title)
-            print("article author: " + article.authors.all()[0].user.username)
+            if article.authors.all()[0].user:
+                print("article author: " + article.authors.all()[0].user.username)
             print("article content: " + article.content)
 
     def print_sections(self):
@@ -53,5 +54,6 @@ class WorkflowModels(TestCase):
     def print_profiles(self):
         profiles = Profile.objects.all()
         for profile in profiles:
-            print("profile user: " + profile.user.username)
-            print("profile position: " + profile.position)
+            if profile.user:
+                print("profile user: " + profile.user.username)
+                print("profile position: " + profile.position)

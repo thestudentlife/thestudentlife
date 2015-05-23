@@ -4560,6 +4560,7 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
     line-height: 23px
 }
 
+
 @media (max-width: 767px) {
     .navbar-nav .open .dropdown-menu {
         position: static;
@@ -4772,7 +4773,7 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
 }
 
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-    color: #212121;
+    color: #2196f3;
     background-color: transparent
 }
 
@@ -5187,7 +5188,7 @@ a.label:hover, a.label:focus {
     vertical-align: baseline;
     white-space: nowrap;
     text-align: center;
-    background-color: #bbbbbb;
+    background-color: #2196f3;
     border-radius: 10px
 }
 

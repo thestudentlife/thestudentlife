@@ -17,6 +17,7 @@ body {
 
 .tsl-container {
     padding: 0% 2% 0% 2%;
+    overflow: overlay;
 }
 
 .tsl-disqus {

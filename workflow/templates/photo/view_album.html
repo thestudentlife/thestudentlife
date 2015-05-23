@@ -14,7 +14,7 @@
             <li class="active">Photos for {{ album.article.title }}</li>
         </ol>
     </span>
-    <a class="btn btn-default btn-primary btn-right" href="{% url 'edit_album' issue.id album.pk %}">Upload/Edit Photos</a>
+    <a id="edit" class="btn btn-default btn-primary btn-right" href="{% url 'edit_album' issue.id album.pk %}">Upload/Edit Photos</a>
 {% endblock %}
 
 {% block content_block %}
