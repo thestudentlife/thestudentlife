@@ -17,9 +17,6 @@ class WorkflowModels(TestCase):
         self.assertEqual("vlatina", latina.username)
         print("password for latina: " + latina.password)
 
-        issue = Issue.objects.all()[0]
-        self.assertEqual("SP 2015 1", issue.name)
-
         self.print_profiles()
         self.print_sections()
         self.print_articles()

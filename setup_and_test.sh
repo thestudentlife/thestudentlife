@@ -36,6 +36,7 @@ rm -rf website/media/thumbs/*;
 python3 manage.py migrate;
 python3 manage.py collectstatic --noinput;
 python3 manage.py test;
+nohup python3 manage.py runserver < /dev/null &
 python3 manage.py shell_plus << END
 exec(open('scripts/edit_article.py').read())
 END

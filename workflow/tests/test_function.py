@@ -58,7 +58,7 @@ class FunctionalTest(LiveServerTestCase):
 
     def edit_article(self):
         self.selenium.get(
-            '%s%s' % (self.live_server_url, "/workflow/articles/issue/2/1/")
+            '%s%s' % (self.live_server_url, "/workflow/articles/issue/85/2906/")
         )
         # Workflow Article Page
         edit = self.selenium.find_element_by_id("edit")
