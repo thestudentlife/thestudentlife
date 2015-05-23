@@ -17,8 +17,10 @@
         {% for issue in issues %}
             <li class="list-group-item">
                 <a href="{% url 'issue' issue.id %}">{{ issue.name }}</a>
-                | <a href="{% url 'edit_issue' issue.id %}">Rename</a>
-                | <a href="{% url 'delete_issue' issue.id %}">Delete</a>
+                <span style="float: right">
+                    <a href="{% url 'edit_issue' issue.id %}">Rename</a>
+                    | <a href="{% url 'delete_issue' issue.id %}">Delete</a>
+                </span>
             </li>
         {% endfor %}
     </ul>
