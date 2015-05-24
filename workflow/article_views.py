@@ -32,45 +32,21 @@ class ArticleCreateView(CreateView):
 
 @group_required('silver')
 def article_edit(request,issue_id,pk):
-    original_article = Article.objects.get(pk=pk)
-    original_content = original_article.content
+    article = Article.objects.get(pk=pk)
     if request.method == 'GET':
-        original_content = original_article.content
-        original_second = original_article.updated_date.second
-        form = ArticleForm(instance=original_article)
-        return render(request,'articles/edit_article.html',
-                      {'form':form, 'article': original_article, 'original_content':original_content,'original_second':original_second})
+        form = ArticleForm(instance=article)
+        return render(request,'articles/edit_article.html',{'form':form, 'article': article})
     else:
-        base_content = request.POST['original_content']
-        base_second = request.POST['original_second']
-        form = ArticleForm(request.POST, instance=original_article)
+        form = ArticleForm(request.POST, instance=article)
         if form.is_valid():
-            if base_second == str(original_article.updated_date.second):
-                article = form.save(commit=False)
-                article.updated_date = timezone.now()
-                article.save()
-            else:
-                article = form.save(commit=False)
-                base = open('base','w');me = open('v1','w');other = open('v2','w')
-                base.write(base_content)
-                base.close()
-                me.write(article.content)
-                me.close()
-                other.write(original_content)
-                other.close()
-                command=['bash','merge.sh']
-                p = subprocess.Popen(command, stdout=subprocess.PIPE,shell=True)
-                (output, err) = p.communicate()
-                article.content = output
-                article.updated_date = timezone.now()
-                article.save()
-            revision = Revision(article=original_article,
-                                    editor=request.user.profile, body=original_article.content)
+            article = form.save(commit=False)
+            article.updated_date = timezone.now()
+            article.save()
+            revision = Revision(article=article,editor=request.user.profile, body=article.content)
             revision.save()
-            form.save_m2m()
             return redirect(reverse('warticle',args=[issue_id,pk]))
         else:
-            return render(request,'articles/edit_article.html',{'form':form, 'article': original_article})
+            return render(request,'articles/edit_article.html',{'form':form, 'article': article})
 
 
 
