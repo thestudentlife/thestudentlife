@@ -1,5 +1,21 @@
-<div class="photo_block">
-    {% for photo in photographs %}
-        <img src="/media/{{ photo.image.url }}"/>
-    {% endfor %}
-</div>
+{% extends 'base.html' %}
+
+{% block title_block %}
+    <title>{{ person }}</title>
+{% endblock %}
+
+{% block body_block %}
+    <ol class="breadcrumb breadcrumbAdjust">
+        <li>Photographs by {{ person }}</li>
+    </ol>
+    <div class="tsl-container">
+        <div class="article-previews col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            <div class="padding10"></div>
+            <div class="padding10"></div>
+            {% for photo in images %}
+                <img src="{{ photo.thumbnail.url }}"/>
+            {% endfor %}
+        </div>
+        {% include 'side_menu.html' %}
+    </div>
+{% endblock %}
