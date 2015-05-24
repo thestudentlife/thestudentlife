@@ -8,18 +8,18 @@ from workflow.views import group_required
 class PhotoForm(ModelForm):
     class Meta:
         model = Photo
-        fields = ['image', 'caption']
+        fields = ['image', 'caption', 'credit']
 
-@group_required('bronze')
+@group_required('silver')
 def edit_photo(request, photo_id):
     return HttpResponse('You are going to edit photo ' + str(photo_id))
 
-@group_required('bronze')
+@group_required('silver')
 def albums(request):
     issues = Issue.objects.order_by('-created_date')
     return render(request, 'photo/albums.html', {'issues': issues})
 
-@group_required('bronze')
+@group_required('silver')
 def issue_albums(request, issue_id):
     issue = Issue.objects.get(pk=issue_id)
     albums = Album.objects.all()
@@ -29,13 +29,13 @@ def issue_albums(request, issue_id):
             filtered_albums.append(album)
     return render(request, 'photo/issue_albums.html', {'albums': filtered_albums, 'issue': issue})
 
-@group_required('bronze')
+@group_required('silver')
 def view_album(request, issue_id, album_id):
     issue = Issue.objects.get(pk=issue_id)
     album = Album.objects.get(pk=album_id)
     return render(request, 'photo/view_album.html', {'album': album, 'issue': issue})
 
-@group_required('bronze')
+@group_required('silver')
 def edit_album(request, issue_id, album_id):
     album = Album.objects.get(pk=album_id)
     issue = Issue.objects.get(pk=issue_id)
@@ -43,13 +43,7 @@ def edit_album(request, issue_id, album_id):
     if request.method == "POST":
         formset = PhotoInlineFormSet(request.POST, request.FILES, instance=album)
         if formset.is_valid():
-            instances = formset.save(commit=False)
-            for instance in instances:
-                instance.credit = request.user.profile
-                instance.save()
-            for obj in formset.deleted_objects:
-                obj.delete()
-            formset.save_m2m()
+            formset.save()
             return render(request, 'photo/view_album.html', {'album': album, 'issue': issue})
     else:
         formset = PhotoInlineFormSet(instance=album)
