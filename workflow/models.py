@@ -35,11 +35,11 @@ class Profile(models.Model):
 
     def ideal_group_names(self):
         if self.position == 'chief_editor' or self.position == 'web_developer':
-            return ['gold','silver','bronze']
+            return ['gold','silver','bronze','plastic']
         elif self.position == 'editor':
-            return ['silver','bronze']
+            return ['silver','bronze','plastic']
         else:
-            return ['bronze']
+            return ['bronze','plastic']
 
     def get_absolute_url(self):
         return reverse('person', kwargs={'person_id': self.id})

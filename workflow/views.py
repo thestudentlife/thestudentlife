@@ -49,8 +49,8 @@ def register(request):
         })
 
 def setting(request,user_id):
-    if request.user.id != user_id:
-        return HttpResponse("You are not supposed to do this.")
+    if request.user.id != int(user_id):
+        return render(request,'permission.html')
     user = User.objects.get(pk=user_id)
     if request.method=='GET':
         form = RegisterForm(instance=user)
