@@ -25,7 +25,7 @@
 |
         Assignment Due: {{ assignment.due_date }}|
 
-        <b>{{ assignment.progress }}</b>
+        <b><a href="{% url 'assignments' %}?progress={{ assignment.progress_status }}">{{ assignment.progress }}</a></b>
         </p>
     <p class="assignment_content">
         {{ assignment.content }}
