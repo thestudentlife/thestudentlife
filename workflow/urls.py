@@ -8,6 +8,7 @@ from workflow import views, issue_views, photo_views, article_views
 urlpatterns = patterns('',
                        url(r'^$', views.whome, name='whome'),
 
+                       url(r'^denied/$',views.deny,name='denied'),
                        # login/register
                        url(r'^register/$', views.register, name="register"),
                        url(r'^login/$', views.login, name="login"),
@@ -34,7 +35,7 @@ urlpatterns = patterns('',
                        #articles
                       url(r'^articles/latest-article/$', article_views.latest_article, name='latest_article'),
                        url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<pk>[0-9]+)/$',
-                           group_required('silver')(ArticleDetailView.as_view()), name='warticle'),
+                           group_required('plastic')(ArticleDetailView.as_view()), name='warticle'),
                        url(r'^articles/issue/(?P<issue_id>[0-9]+)/new/$', login_required(ArticleCreateView.as_view()),
                            name='new_article'),
                        url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<pk>[0-9]+)/edit/$',
@@ -61,4 +62,5 @@ urlpatterns = patterns('',
 
                        #archives
                        url(r'^copies/$',views.copies,name='copies'),
+
 )

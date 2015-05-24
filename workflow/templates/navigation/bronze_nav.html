@@ -14,10 +14,6 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Articles <span class="sr-only">(current)</span></a></li>
-                <li class="{% active_nav request 'album' %}"><a href="{% url 'albums' %}">Photos</a></li>
-            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="{% active_nav request 'assignments' %}">
                     <a href="{% url 'filter_by_receiver' user.id %}">Assignments
@@ -29,7 +25,7 @@
                         <li><a href="{% url 'setting' request.user.id %}">Change Account Info</a></li>
                         <li><a href="#">Help</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">Log out</a></li>
+                        <li><a href="{% url 'logout' %}">Log out</a></li>
                     </ul>
                 </li>
             </ul>

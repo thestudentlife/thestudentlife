@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.utils import timezone
-from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, FrontArticle, CarouselArticle, Copy
+from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, FrontArticle, CarouselArticle, Copy, Photo
 from workflow.models import Assignment, RegisterForm, LoginForm, Revision, ProfileForm, RegisterForm2, Comment
 import os, subprocess,json
 from workflow.static import getText
@@ -18,14 +18,17 @@ def group_required(*group_names):
                 return True
         return False
 
-    return user_passes_test(in_groups, '/workflow/login')
+    return user_passes_test(in_groups, '/workflow/denied/')
+
+def deny(request):
+    return render(request,'permission.html')
 
 def register(request):
     if request.method == "POST":
         registerForm = RegisterForm(request.POST)
         if registerForm.is_valid():
 
-            user = registerForm.save(commit=False)
+            user = registerForm.save()
             display_name = user.first_name+" "+user.last_name
             profile = Profile(user=user,display_name=display_name)
             profile.save()
@@ -46,6 +49,8 @@ def register(request):
         })
 
 def setting(request,user_id):
+    if request.user.id != user_id:
+        return HttpResponse("You are not supposed to do this.")
     user = User.objects.get(pk=user_id)
     if request.method=='GET':
         form = RegisterForm(instance=user)
@@ -97,8 +102,12 @@ def whome(request):
         latest = Issue.objects.latest('created_date')
         return redirect(latest.get_absolute_url())
     else:
-        id = request.user.id
-        return redirect(reverse('filter_by_receiver', args=[id]))
+        issue = Issue.objects.order_by('-created_date')[0]
+        sections = Section.objects.all()
+        photos = Photo.objects.filter(credit=request.user.profile)
+        articles = request.user.profile.article_set.order_by('-created_date')
+        return render(request, 'whome.html', {'issue': issue, 'sections': sections, 'articles': articles,
+                                                              'photos':photos})
 
 
 @group_required('gold')
@@ -115,15 +124,15 @@ def manage_one(request,user_id):
         return render(request,'setting.html',{'form':form,'second_form':second_form})
     else:
         form = RegisterForm2(request.POST,instance=user)
-        if form.is_valid():
-            user = form.save(commit=False)
-        else:
-            return render(request,'setting.html',{'form':form})
         second_form = ProfileForm(request.POST,instance=user.profile)
+        if form.is_valid():
+            user = form.save()
+        else:
+            return render(request,'setting.html',{'form':form,'second_form':second_form})
         if second_form.is_valid():
             second_form.save()
         else:
-            return render(request,'setting.html',{'form':form})
+            return render(request,'setting.html',{'form':form,'second_form':second_form})
         for group in user.groups.all():
             group.user_set.remove(user)
         for group in user.profile.ideal_group_names():
