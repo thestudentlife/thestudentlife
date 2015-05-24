@@ -66,6 +66,7 @@ class ArticleDeleteView(DeleteView):
     template_name = "articles/article_confirm_delete.html"
     success_url = reverse_lazy('whome')
 
+group_required('plastic')
 def latest_article(request):
     article = Article.objects.order_by('-updated_date')[0]
     return redirect(reverse('warticle', args=[article.issue.pk, article.pk]))

@@ -6,16 +6,24 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <ol class="breadcrumb breadcrumbAdjust">
-        <li><a href="{% url 'issues' %}">Issues</a></li>
-        <li><a href="{% url 'issue' article.issue.pk %}">Issue {{ article.issue.name }}</a></li>
-        <li class="active">{{ article.title }}</li>
-    </ol>
-    {% if article.published %}
-        <a class="btn btn-default btn-warning btn-right" href="javascript:void(0)" id='unpub_but' onclick="unpub();">Unpublish</a>
+    {% if 'silver' in request.user.profile.get_highest_group %}
+        <ol class="breadcrumb breadcrumbAdjust">
+            <li><a href="{% url 'issues' %}">Issues</a></li>
+            <li><a href="{% url 'issue' article.issue.pk %}">Issue {{ article.issue.name }}</a></li>
+            <li class="active">{{ article.title }}</li>
+        </ol>
+        {% if article.published %}
+            <a class="btn btn-default btn-warning btn-right" href="javascript:void(0)" id='unpub_but'
+               onclick="unpub();">Unpublish</a>
+        {% else %}
+            <a class="btn btn-default btn-success btn-right" href="javascript:void(0)" id='pub_but'
+               onclick="pub();">Publish</a>
+        {% endif %}
     {% else %}
-        <a class="btn btn-default btn-success btn-right" href="javascript:void(0)" id='pub_but'
-           onclick="pub();">Publish</a>
+        <ol class="breadcrumb breadcrumbAdjust">
+            <li><a href="{% url 'whome' %}">My Works</a></li>
+            <li class="active">{{ article.title }}</li>
+        </ol>
     {% endif %}
 {% endblock %}
 
@@ -26,9 +34,11 @@
     <div class="comment_block">
         {% include 'articles/comments_partial.html' %}
     </div>
+    {% if 'silver' in request.user.profile.get_highest_group %}
     <div class="revision_block">
         {% include 'articles/revision_list_partial.html' %}
     </div>
+    {% endif %}
 {% endblock %}
 
 {% block additional_scripts_block %}

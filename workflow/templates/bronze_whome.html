@@ -1,0 +1,32 @@
+{% extends 'workflow_base.html' %}
+{% load static %}
+
+{% block title_block %}
+    <title>Issue {{ issue.name }}</title>
+{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb breadcrumbAdjust">
+        <li class="active">My Works</li>
+    </ol>
+    {% if articles %}
+        <a class="btn btn-default btn-primary btn-right" href="{% url 'new_article' issue.id %}">New Article</a>
+    {% endif %}
+{% endblock %}
+
+{% block content_block %}
+    {% if articles %}
+        <div class="articles" id="article-works">
+            {% for article in articles %}
+                {% include 'articles/workflow_short_article_partial.html' %}
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if photos %}
+        <div class="articles" id="photo-works">
+            {% for photo in photos %}
+                <img src="{{ photo.thumbnail.url }}">
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

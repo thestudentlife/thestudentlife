@@ -17,7 +17,6 @@ def group_required(*group_names):
             if bool(u.groups.filter(name__in=group_names)) | u.is_superuser:
                 return True
         return False
-
     return user_passes_test(in_groups, '/workflow/denied/')
 
 def deny(request):
@@ -27,7 +26,6 @@ def register(request):
     if request.method == "POST":
         registerForm = RegisterForm(request.POST)
         if registerForm.is_valid():
-
             user = registerForm.save()
             display_name = user.first_name+" "+user.last_name
             profile = Profile(user=user,display_name=display_name)
@@ -101,19 +99,18 @@ def logout(request):
     return redirect(reverse('home'))
 
 def whome(request):
-    if request.user.is_anonymous():
+    user = request.user
+    latest = Issue.objects.latest('created_date')
+    if user.is_anonymous():
         return redirect(reverse('login'))
-    elif isMember(request.user, "silver"):
-        latest = Issue.objects.latest('created_date')
+    elif Group.objects.get(name='silver') in user.groups.all():
         return redirect(latest.get_absolute_url())
-    else:
-        issue = Issue.objects.order_by('-created_date')[0]
-        sections = Section.objects.all()
+    elif user.profile.position == "photographer" or user.profile.position == "graphic_designer":
         photos = Photo.objects.filter(credit=request.user.profile)
+        return render(request, 'bronze_whome.html', {'issue': latest, 'photos':photos})
+    else:
         articles = request.user.profile.article_set.order_by('-created_date')
-        return render(request, 'whome.html', {'issue': issue, 'sections': sections, 'articles': articles,
-                                                              'photos':photos})
-
+        return render(request, 'bronze_whome.html', {'issue': latest, 'articles': articles})
 
 @group_required('gold')
 def manage(request):
@@ -174,7 +171,7 @@ def front(request):
             carousel.save()
         return redirect(reverse('front'))
 
-@group_required('silver')
+@group_required('bronze')
 def article_xml(request, article_id):
     article = Article.objects.get(id=article_id)
     paragraphs = getText.dehtml(article.content).split('\n\n')
@@ -309,9 +306,3 @@ def publish(request,article_id):
     article.published_date = timezone.now()
     article.save()
     return HttpResponse('success')
-
-
-def isMember(user, group_name):
-    groups = user.groups.all()
-    group = Group.objects.get(name=group_name)
-    return group in groups

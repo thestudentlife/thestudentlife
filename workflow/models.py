@@ -9,32 +9,30 @@ class Profile(models.Model):
     user = models.OneToOneField(User,null=True)
     POSITIONS_CHOICES = (
         ('chief_editor', 'Editor-in-Chief'),
-        ('editor', 'Section Editor'),
-        ('photographer', 'Photographer'),
-        ('author', 'Author'),
-        ('graphic_designer', 'Graphic Designer'),
+        ('administrator', 'Administrator'),
         ('web_developer', 'Web Developer'),
+        ('editor', 'Section Editor'),
+        ('author', 'Author'),
+        ('guest', 'Guest Author'),
+        ('photographer', 'Photographer'),
+        ('graphic_designer', 'Graphic Designer'),
     )
     position = models.CharField(choices=POSITIONS_CHOICES, max_length=50, default='author')
     display_name = models.CharField(blank=True,max_length=50)
     legacy_id = models.PositiveIntegerField(null=True)
 
     def slug(self):
-        return slugify(self.get_profile().display_name())
+        return slugify(self.display_name)
 
     def __str__(self):
         return self.display_name
 
-    def is_editor(self):
-        return "editor" in self.position
-
     def num_assignments(self):
-        if self.is_editor():
-            return len(Assignment.objects.filter(finished=False))
-        return len(self.assignment_received.all().filter(accepted=False))
+        assignments = self.assignment_received.all().filter(accepted=False)
+        return len(assignments)
 
     def ideal_group_names(self):
-        if self.position == 'chief_editor' or self.position == 'web_developer':
+        if self.position == 'chief_editor' or self.position == 'web_developer' or self.position == 'administrator':
             return ['gold','silver','bronze','plastic']
         elif self.position == 'editor':
             return ['silver','bronze','plastic']
