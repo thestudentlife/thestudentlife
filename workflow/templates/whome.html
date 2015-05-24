@@ -15,7 +15,7 @@
 
     <a class="btn btn-primary" href="{% url 'new_article' issue.id %}">New Article</a>
     {% if 'bronze' in request.user.profile.get_highest_group %}
-        <a class="btn btn-success" href="{% url 'issue_albums' issue.id %}"
+        <a class="btn btn-success" href="{% url 'issue_albums' issue.id %}">New Photo</a>
     {% endif %}
 
 
