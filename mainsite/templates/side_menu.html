@@ -1,4 +1,20 @@
 <aside class="side-menu col-md-4 col-lg-4">
+    <section class="columnGroup mostPopular">
+        <div id="popularthreads" class="dsq-widget">
+            <h2 class="dsq-widget-title">Most Discussed</h2>
+            <script type="text/javascript"
+                    src="http://pomonatsl.disqus.com/popular_threads_widget.js?num_items=5"></script>
+        </div>
+    </section>
+    <section>
+        <h2>Most Viewed</h2>
+        {% for article in populars %}
+            <a href="{{ article.get_absolute_url }}">
+                <div>{{ article.title }}</div>
+            </a>
+            <p class="dsq-widget-meta">{{ article.clicks }} views</p>
+        {% endfor %}
+    </section>
     <section>
         <h2>Most Recent</h2>
         {% for article in recents %}
@@ -7,20 +23,5 @@
             </a>
             <p class="dsq-widget-meta">{{ article.updated_date }}</p>
         {% endfor %}
-    </section>
-    <section>
-        <h2>Most Popular</h2>
-        {% for article in populars %}
-            <a href="{{ article.get_absolute_url }}">
-                <div>{{ article.title }}</div>
-            </a>
-            <p class="dsq-widget-meta">{{ article.clicks }} views</p>
-        {% endfor %}
-    </section>
-     <section class="columnGroup mostPopular">
-        <div id="popularthreads" class="dsq-widget">
-            <h2 class="dsq-widget-title">Most Discussed</h2>
-            <script type="text/javascript" src="http://pomonatsl.disqus.com/popular_threads_widget.js?num_items=5"></script>
-        </div>
     </section>
 </aside>
