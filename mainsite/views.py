@@ -40,17 +40,18 @@ def article(request, section_name, article_id, article_name='default'):
 def person(request, person_id, person_name='ZQ'):
     sections = Section.objects.all()
     person = Profile.objects.get(pk=person_id)
-    if person.position == "author":
+    if person.position == "author" or len(person.article_set.all().filter(published=True)) > 0:
         articles = person.article_set.all().filter(published=True)
         recents = person.article_set.all().filter(published=True).order_by('-published_date')[:5]
         populars = person.article_set.all().filter(published=True).order_by('-clicks')[:5]
         return render(request, 'author.html',
                       {"person": person, "sections": sections, "articles": articles, 'recents': recents, 'populars': populars})
-    if person.position == "photographer" or person.position == "graphic_designer":
+    elif person.position == "photographer" or person.position == "graphic_designer":
         images = person.photo_set.all()
         return render(request, 'photographer.html',
                       {"person": person, "sections": sections, "images": images, 'recents': get_recent(5), 'populars': get_popular(5)})
-    return HttpResponse('His/Her profile is not public.')
+    else:
+        return HttpResponse('His/Her profile is not public.')
 
 def other(request, info):
     sections = Section.objects.all()
