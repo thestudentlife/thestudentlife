@@ -43,7 +43,7 @@ def person(request, person_id, person_name='ZQ'):
     if person.position == "author":
         articles = person.article_set.all().filter(published=True)
         recents = person.article_set.all().order_by('-published_date')[:5]
-        return render(request, 'author.html', {"sections": sections, "articles": articles, 'recents': recents})
+        return render(request, 'author.html', {"author":person,"sections": sections, "articles": articles, 'recents': recents})
     if person.position == "photographer" or person.position == "graphic_designer":
         photographs = person.photo_set.all()
         return render(request, 'photographer.html', {"sections": sections, "photographs": photographs})
