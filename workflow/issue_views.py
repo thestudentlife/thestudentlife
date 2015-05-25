@@ -17,6 +17,7 @@ def issue(request, issue_id):
     articles = Article.objects.filter(issue=issue)
     return render(request, 'articles/issues/issue.html', {'issue': issue, 'sections': sections, 'articles': articles})
 
+@group_required('silver')
 def latest_issue(request):
     latest = Issue.objects.latest('created_date')
     return issue(request, latest.pk)
