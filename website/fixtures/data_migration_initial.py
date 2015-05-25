@@ -147,19 +147,19 @@ class Migration(migrations.Migration):
         kent.set_password("tsl")
         kent.save()
         kent.groups.add(gold, silver, bronze, plastic)
-        kent_profile = Profile(user=kent, position="author", display_name="kshikama")
+        kent_profile = Profile(user=kent, position="web_developer", display_name="kshikama")
         kent_profile.save();
         zq = User(username="zxiong")
         zq.set_password("tsl")
         zq.save()
         zq.groups.add(gold, silver, bronze, plastic)
-        zq_profile = Profile(user=zq, position="author", display_name="zxiong")
+        zq_profile = Profile(user=zq, position="web_developer", display_name="zxiong")
         zq_profile.save();
         latina = User(username="vlatina")
         latina.set_password("tsl")
         latina.save()
         latina.groups.add(gold, silver, bronze, plastic)
-        latina_profile = Profile(user=latina, position="photographer", display_name="vlatina")
+        latina_profile = Profile(user=latina, position="web_developer", display_name="vlatina")
         latina_profile.save()
         return kent, kent_profile, zq, zq_profile, latina, latina_profile
 

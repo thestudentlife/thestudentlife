@@ -6,7 +6,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 # Workflow Login Page
 selenium = webdriver.Chrome()
 selenium.maximize_window()
-selenium.get("http://localhost:8000/workflow/articles/issue/85/4263/")
+selenium.get("http://localhost:8000/workflow/articles/issue/86/4263/")
 username = selenium.find_element_by_id("id_username")
 password = selenium.find_element_by_id("id_password")
 username.send_keys("zxiong")
