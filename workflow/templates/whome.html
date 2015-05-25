@@ -1,0 +1,35 @@
+{% extends 'workflow_base.html' %}
+
+{% block title_block %}
+    <title>Issue {{ issue.name }}</title>
+    <style>
+        .btn{float:right; margin-top:1em}
+    </style>
+{% endblock %}
+
+
+{% load widget_tweaks %}
+
+{% block content_block %}
+    {% load static %}
+
+    <a class="btn btn-primary" href="{% url 'new_article' issue.id %}">New Article</a>
+    {% if 'bronze' in request.user.profile.get_highest_group %}
+        <a class="btn btn-success" href="{% url 'issue_albums' issue.id %}"
+    {% endif %}
+
+
+        <div class="articles" id="article-works">
+        <h3>My Articles</h3>
+            {% for article in articles %}
+                    {% include 'articles/workflow_short_article_partial.html' %}
+            {% endfor %}
+        </div>
+
+        <div class="articles" id="photo-works">
+        <h3>My Photos</h3>
+            {% for photo in photos %}
+                    <img src="{{ photo.image.url }}">
+            {% endfor %}
+        </div>
+{% endblock %}

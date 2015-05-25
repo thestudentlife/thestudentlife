@@ -38,13 +38,13 @@ def issue_albums(request, issue_id):
             filtered_albums.append(album)
     return render(request, 'photo/issue_albums.html', {'albums': filtered_albums, 'issue': issue})
 
-@group_required('silver')
+@group_required('bronze')
 def view_album(request, issue_id, album_id):
     issue = Issue.objects.get(pk=issue_id)
     album = Album.objects.get(pk=album_id)
     return render(request, 'photo/view_album.html', {'album': album, 'issue': issue})
 
-@group_required('silver')
+@group_required('bronze')
 def edit_album(request, issue_id, album_id):
     album = Album.objects.get(pk=album_id)
     issue = Issue.objects.get(pk=issue_id)

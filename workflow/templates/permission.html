@@ -1,0 +1,27 @@
+{% extends 'workflow_base.html' %}
+{% load static %}
+
+{% block title_block %}
+    <title>Permission Denied</title>
+{% endblock %}
+
+{% load widget_tweaks %}
+
+{% block vertical_center_start %}
+    <div class="vertical-center">
+{% endblock %}
+
+{% block content_block %}
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+        <div><img src="{% static 'permissions-denied.png' %}"</div>
+        <p>You don't have permission to see this page. Believe this is a mistake? Contact:</p>
+        <ul>
+            <li>Chief Editors</li>
+            <li>Web Developers</li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block vertical_center_end %}
+    </div>
+{% endblock %}
