@@ -4,8 +4,14 @@
 {% block title_block %}
     <title>Archives</title>
     <style>
-    #id_title {font-size: 1em;padding:0}
-    .db{color:#ff0000}
+        #id_title {
+            font-size: 1em;
+            padding: 0
+        }
+
+        .db {
+            color: #ff0000
+        }
     </style>
 {% endblock %}
 
@@ -13,14 +19,17 @@
 {% block content_block %}
     <div class="padding10"></div>
     <form enctype="multipart/form-data" action='' method="POST">
-    {% csrf_token %}
-        <input type="file" multiple="multiple" name="files">
-        <input type="submit">
+        <input class="form-control" type="file" multiple="multiple" name="files">
+        <div class="widthCenter50">
+            <input id="upload" class="btn btn-default btn-primary btn-block" type="submit" value="Upload"/>
+        </div>
     </form>
+    <div class="padding10"></div>
     <ul class="list-group">
-        {%  for copy in copies %}
-            <li><a href="{{ copy.file.url }}">{{ copy.file.name }}</a>
-                <a class='db' href="{% url 'copies' %}?delete={{ copy.id }}">delete</a>
+        {% for copy in copies %}
+            <li class="list-group-item">
+                <a href="{{ copy.file.url }}">{{ copy.file.name }}</a>
+                <a class='db' href="{% url 'copies' %}?delete={{ copy.id }}"><i class="fa fa-ban"></i></a>
             </li>
         {% endfor %}
     </ul>
