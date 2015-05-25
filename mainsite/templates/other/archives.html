@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title_block %}
+    <title>Archives</title>
+{% endblock %}
+
+{% block body_block %}
+    <h1>Archives</h1>
+    {% for copy in copies %}
+        <p><a href="{{ copy.file.url }}">{{ copy.file.name }}</a></p>
+    {% endfor %}
+{% endblock %}

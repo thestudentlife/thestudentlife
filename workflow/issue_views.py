@@ -1,7 +1,7 @@
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DeleteView
 from mainsite.models import Issue, Section, Article
 from workflow.views import group_required
 
@@ -32,3 +32,8 @@ class IssueEditView(UpdateView):
     fields = ['name']
     successful_url = reverse_lazy('issues')
     template_name = "articles/issues/edit_issue.html"
+
+class IssueDeleteView(DeleteView):
+    model = Issue
+    template_name = "articles/issues/issue_confirm_delete.html"
+    success_url = reverse_lazy('issues')

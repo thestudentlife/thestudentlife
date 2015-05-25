@@ -3,7 +3,7 @@ from mainsite import views
 
 urlpatterns = patterns('',
                        url(r'^$', views.home, name='home'),
-                       url(r'^about/(?P<info>\w+)/$', views.about, name='about'),
+                       url(r'^other/(?P<info>\w+)/$', views.other, name='other'),
                        url(r'^archives/$', views.archives, name='archives'),
                        url(r'^person/(?P<person_id>\d+)/$', views.person, name='person'),
                        url(r'^(?P<section_slug>[^/]+)/$', views.section, name='section'),

@@ -4,13 +4,23 @@
     <title>Issues</title>
 {% endblock %}
 
+{% block breadcrumb %}
+    <ol class="breadcrumb breadcrumbAdjust">
+        <li class="active">Issues</li>
+    </ol>
+    <a class="btn btn-default btn-primary btn-right" href="{% url 'new_issue' %}">New Issue</a>
+{% endblock %}
+
 {% block content_block %}
     <div class="padding10"></div>
-    <a class="btn btn-primary" href="{% url 'new_issue' %}">New Issue</a>
     <ul class="list-group">
         {% for issue in issues %}
             <li class="list-group-item">
-                <a href="{% url 'issue' issue.id %}">{{ issue.name }}</a>> | <a href="{% url 'edit_issue' issue.id %}">edit</a>
+                <a href="{% url 'issue' issue.id %}">{{ issue.name }}</a>
+                <span style="float: right">
+                    <a href="{% url 'edit_issue' issue.id %}">Rename</a>
+                    | <a href="{% url 'delete_issue' issue.id %}">Delete</a>
+                </span>
             </li>
         {% endfor %}
     </ul>

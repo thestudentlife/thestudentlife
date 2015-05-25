@@ -12,8 +12,8 @@ autocomplete_light.autodiscover()
 
 class Section(models.Model):
     name = models.CharField(max_length=50)
-    priority = models.IntegerField(null=True)
-    legacy_id = models.PositiveIntegerField(null=True)
+    priority = models.IntegerField(blank=True, null=True)
+    legacy_id = models.PositiveIntegerField(blank=True, null=True)
     def __str__(self):
         return self.name
 

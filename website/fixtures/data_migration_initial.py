@@ -31,6 +31,9 @@ class Migration(migrations.Migration):
         #save the issues
         issues.execute("SELECT * FROM issues")
         issues = issues.fetchall()
+        random_issue = Issue(name="Random", legacy_id=0)
+        random_issue.save()
+        random_issue_id = random_issue.legacy_id;
         for issue in issues:
             name = recode(issue[1])
             legacy_id = issue[0]
@@ -48,7 +51,6 @@ class Migration(migrations.Migration):
             priority = section[2]
             new_section = Section(name=name,legacy_id=legacy_id,priority=priority)
             new_section.save()
-            print("Save section: "+ name)
 
         #save the authors
         authors.execute("SELECT * FROM authors")
@@ -78,6 +80,8 @@ class Migration(migrations.Migration):
                 articles.execute("SELECT * FROM articles WHERE id = %s", (articleID,))
                 article = articles.fetchone()
                 issueID = article[5]
+                if not issueID:
+                    issueID = random_issue_id
                 sectionID = article[2]
                 section = Section.objects.filter(legacy_id=sectionID)[0]
                 if section is None:
@@ -89,10 +93,8 @@ class Migration(migrations.Migration):
                 title = recode(article[9])
                 if title is None:
                     continue
-                content = recode(article[6])
+                content =  recode(article[6])
                 if content is '':
-                    continue
-                if not Issue.objects.filter(legacy_id=issueID):
                     continue
                 issue = Issue.objects.filter(legacy_id=issueID)[0]
                 created_date = article[3]

@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 from workflow.article_views import ArticleCreateView, ArticleDetailView, article_edit, ArticleDeleteView
-from workflow.issue_views import IssueCreateView, IssueEditView
+from workflow.issue_views import IssueCreateView, IssueEditView, IssueDeleteView
 from workflow.views import group_required
 from workflow import views, issue_views, photo_views, article_views
 
@@ -29,6 +29,8 @@ urlpatterns = patterns('',
                            name="new_issue"),
                        url(r'^articles/issue/(?P<pk>[0-9]+)/edit/$', group_required('silver')(IssueEditView.as_view()),
                            name="edit_issue"),
+                      url(r'^articles/issue/(?P<pk>[0-9]+)/delete/$', group_required('silver')(IssueDeleteView.as_view()),
+                           name="delete_issue"),
 
                        #articles
                       url(r'^articles/latest-article/$', article_views.latest_article, name='latest_article'),
@@ -49,13 +51,6 @@ urlpatterns = patterns('',
                        url(r'^album/(?P<issue_id>\d+)/(?P<album_id>\d+)/$', photo_views.view_album, name="view_album"),
                        url(r'^album/(?P<issue_id>\d+)/(?P<album_id>\d+)/edit/$', photo_views.edit_album, name="edit_album"),
                        url(r'^album/(?P<issue_id>\d+)/(?P<album_id>\d+)/select/$', photo_views.select_photos, name="select_photos"),
-
-                       #photos
-                       url(r'^photos/$', photo_views.photos, name="photos"),
-                       #    url(r'^photos/(?P<photo_id>[0-9]+)/$',views.photo,name="photo"),
-                       #    url(r'^photos/new/',PhotoCreateView.as_view(),name="new_photo"),
-                       #    url(r'^photos/(?P<photo_id>[0-9]+)/edit/',views.edit_photo,name="edit_photo"),
-                       #    url(r'^photos/upload/', login_required(PhotoCreateView.as_view()), name="upload_photo"),
 
                        #assignments
                        url(r'^assignments/$', views.assignments, name="assignments"),

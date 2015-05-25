@@ -1,0 +1,14 @@
+{% extends "workflow_base.html" %}
+
+{% block title_block %}
+    <title>Issue Deletion Confirmation</title>
+{% endblock %}
+
+{% block content_block %}
+    <p class="confirm_delete_info">Are you sure you want to delete this issue?</p>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input class="btn btn-default btn-danger btn-40-side-by-side" type="submit" value="DELETE">
+        <a class="btn btn-default btn-40-side-by-side" href="#" onclick="window.history.back(); return false;" class="button cancel-link">Cancel</a>
+    </form>
+{% endblock %}
