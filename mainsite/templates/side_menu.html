@@ -5,6 +5,7 @@
             <a href="{{ article.get_absolute_url }}">
                 <div>{{ article.title }}</div>
             </a>
+            <p class="dsq-widget-meta">{{ article.updated_date }}</p>
         {% endfor %}
     </section>
     <section>
@@ -13,6 +14,7 @@
             <a href="{{ article.get_absolute_url }}">
                 <div>{{ article.title }}</div>
             </a>
+            <p class="dsq-widget-meta">{{ article.clicks }} views</p>
         {% endfor %}
     </section>
      <section class="columnGroup mostPopular">
