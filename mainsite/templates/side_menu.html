@@ -1,6 +1,6 @@
 <aside class="side-menu col-md-4 col-lg-4">
     <section>
-        <h1>Most Recent</h1>
+        <h2>Most Recent</h2>
         {% for article in recents %}
             <a href="{{ article.get_absolute_url }}">
                 <div>{{ article.title }}</div>
@@ -8,7 +8,7 @@
         {% endfor %}
     </section>
     <section>
-        <h1>Most Popular</h1>
+        <h2>Most Popular</h2>
         {% for article in populars %}
             <a href="{{ article.get_absolute_url }}">
                 <div>{{ article.title }}</div>
