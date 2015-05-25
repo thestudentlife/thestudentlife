@@ -20,6 +20,8 @@ def group_required(*group_names):
     return user_passes_test(in_groups, '/workflow/login/')
 
 def deny(request):
+    if request.user.is_anonymous():
+        return redirect(reverse('login'))
     return render(request,'permission.html')
 
 def register(request):
