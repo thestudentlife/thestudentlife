@@ -207,6 +207,7 @@ footer {
 
 .side-menu {
     display: none;
+    padding-left: 20px;
 }
 @media (min-width: 992px) {
     .side-menu {
