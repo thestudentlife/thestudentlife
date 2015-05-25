@@ -10,7 +10,7 @@
 {% block body_block %}
     {% if flavour == "mobile" %}
         <div class="tsl-container">
-            <section class="article-previews col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            <section class="article-previews">
                 {% for front in features %}
                     {% include 'front_article_partial.html' %}
                 {% endfor %}
@@ -39,7 +39,7 @@
             {% endfor %}
         </div>
         <div class="tsl-container">
-            <section class="article-previews col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            <section id="content" class="article-previews">
                 {% for front in fronts %}
                     {% include 'front_article_partial.html' %}
                 {% endfor %}
@@ -51,6 +51,7 @@
 
 {% block script_block %}
     <script type="text/javascript" src="{% static 'jquery.bxslider.js' %}"></script>
+    <script type="text/javascript" src="{% static 'masonry.pkgd.min.js' %}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('.bxslider').bxSlider({
@@ -60,6 +61,12 @@
                                         pagerCustom: '#bx-pager'
                                     });
         });
+        $(window).load(function () {
+            var container = document.querySelector('.article-previews');
+            var msnry = new Masonry(container, {
+                itemSelector: '.article-preview'
+            });
+        });
     </script>
-        <script type="text/javascript" src="{% static 'disqus.js' %}"></script>
+    <script type="text/javascript" src="{% static 'disqus.js' %}"></script>
 {% endblock %}

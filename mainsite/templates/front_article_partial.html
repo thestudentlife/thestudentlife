@@ -1,4 +1,4 @@
-<article class="col-xs-12 col-sm-6 col-md-6 col-lg-6 article-preview">
+<article class="article-preview">
     <h3><a href="{% url 'article' front.article.section.slug front.article.id %}">
         {{ front.article.title }}</a></h3>
     {% if front.article.album.photo_set.all.count != 0 %}
