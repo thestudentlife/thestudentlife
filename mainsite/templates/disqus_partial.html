@@ -3,11 +3,7 @@
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = 'pomonatsl';
     var disqus_title = '{{ article.title }}';
-    {% if article.legacy_id %}
-        var disqus_identifier = 'aardvark_{{ article.legacy_id }}';
-    {% else %}
-        var disqus_identifier = 'wolverine_{{ article.id }}';
-    {% endif %}
+    var disqus_identifier = '{{ article.disqus_id }}';
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function () {
         var dsq = document.createElement('script');

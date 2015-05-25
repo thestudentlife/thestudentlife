@@ -38,8 +38,10 @@ class Profile(models.Model):
             return ['gold','silver','bronze','plastic']
         elif self.position == 'editor':
             return ['silver','bronze','plastic']
-        else:
+        elif self.position == 'photographer' or self.position == 'author':
             return ['bronze','plastic']
+        else:
+            return ['plastic']
 
     def get_absolute_url(self):
         return reverse('person', kwargs={'person_id': self.id})

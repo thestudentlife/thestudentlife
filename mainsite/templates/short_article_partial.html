@@ -5,7 +5,8 @@
 
     <p class="article_info">
         {% for author in article.authors.all %}
-            <a href="{{ author.get_absolute_url }}">{{ author.display_name }}</a>
+            <a href="{{ author.get_absolute_url }}">
+                {{ author.display_name }}</a>
         {% endfor % %}
         | {{ article.published_date }}
     </p>

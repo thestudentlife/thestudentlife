@@ -71,6 +71,12 @@ class Article(models.Model):
     def has_photo(self):
         return self.album.photo_set is not None
 
+    def disqus_id(self):
+        if self.legacy_id:
+            return "aardvark_"+str(self.legacy_id)
+        else:
+            return 'wolverine_'+str(self.id)
+
     def slug(self):
         return slugify(self.title)
 
