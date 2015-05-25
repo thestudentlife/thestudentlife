@@ -35,7 +35,12 @@ def register(request):
             user.set_password(request.POST['password'])
             user.save()
             plastic = Group.objects.get(name='plastic')
-            user.groups.add(plastic)
+            bronze = Group.objects.get(name='bronze')
+            print(request.POST['position'])
+            if request.POST['position'] == 'guest':
+                user.groups.add(plastic)
+            else:
+                user.groups.add(bronze)
             return redirect(reverse('whome'))
 
         else:

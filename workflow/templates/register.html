@@ -19,6 +19,12 @@
         {% for field in form %}
             {% render_field field class+="form-control margin10" placeholder=field.label %}
         {% endfor %}
+        <select class="form-control margin10" name="position">
+                <option value="guest" selected>Guest</option>
+                <option value="author">Author</option>
+                <option value="photographer">Photographer</option>
+                <option value="designer">Graphical Designer</option>
+        </select>
         <input class="btn btn-default btn-block btn-primary margin10" id="register" type="submit"
                value="Register"/>
     </form>
