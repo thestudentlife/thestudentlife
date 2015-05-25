@@ -1,3 +1,4 @@
+import os
 import autocomplete_light
 from django.db import models
 from django.contrib.auth.models import User
@@ -46,7 +47,7 @@ class Copy(models.Model):
     created_date = models.DateTimeField(default=datetime.datetime.now)
     file = models.FileField(upload_to='archives/')
     def __str__(self):
-        return self.file.name
+        return os.path.basename(self.file.name)
 
 class Article(models.Model):
     title = models.CharField(max_length=200)
