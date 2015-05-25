@@ -44,19 +44,6 @@ class Profile(models.Model):
     def get_absolute_url(self):
         return reverse('person', kwargs={'person_id': self.id})
 
-    def get_highest_group(self):
-        groups = self.user.groups.all();
-        if Group.objects.all()[3] in groups:
-            return 'gold'
-        elif Group.objects.all()[2] in groups:
-            return 'silver'
-        elif Group.objects.all()[1] in groups:
-            return 'bronze'
-        elif Group.objects.all()[0] in groups:
-            return 'plastic'
-        else:
-            return 'none'
-
 class WArticle(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now)
     article = models.OneToOneField('mainsite.Article')
