@@ -17,11 +17,9 @@ $(window).scroll(function () {
                                                     });
                            for (a in articles) {
                                article = articles[a];
-                               $('#article_ls').append($(process(article))).masonry('appended', $(process(article)));
+                               var el = $(process(article))
+                               $('#article_ls').append(el).masonry( 'appended', el, true );
                            }
-                           $('article_ls').imagesLoaded( function() {
-                               $('article_ls').masonry('layout');
-                           });
                        },
                        error: function (xhr, message, exception) {
                            console.log(exception);
