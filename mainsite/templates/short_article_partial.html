@@ -9,7 +9,7 @@
                 {{ author.display_name }}</a>
         {% endfor % %}
         | {{ article.published_date }}
-        | <a href="{{ article.get_absolute_url }}#disqus_thread" class="disqus-comment-count" data-disqus-identifier="{{ article.disqus_id }}"></a>
+        | <i class="fa fa-comment-o"></i><a href="{{ article.get_absolute_url }}#disqus_thread" class="disqus-comment-count" data-disqus-identifier="{{ article.disqus_id }}"></a>
     </p>
 
     <p class="article_content">
