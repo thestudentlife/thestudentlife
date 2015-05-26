@@ -28,14 +28,14 @@ def register(request):
         if registerForm.is_valid():
             user = registerForm.save()
             display_name = user.first_name+" "+user.last_name
-            profile = Profile(user=user,display_name=display_name)
+            position = request.POST['position']
+            profile = Profile(user=user,display_name=display_name,position=position)
             profile.save()
             user.set_password(request.POST['password'])
             user.save()
             plastic = Group.objects.get(name='plastic')
             bronze = Group.objects.get(name='bronze')
-            print(request.POST['position'])
-            if request.POST['position'] == 'guest':
+            if position == 'guest':
                 user.groups.add(plastic)
             else:
                 user.groups.add(bronze)

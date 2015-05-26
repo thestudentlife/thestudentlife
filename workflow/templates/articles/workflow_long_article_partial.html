@@ -2,7 +2,7 @@
 <article>
     <div class="long_article_title_div">
         <h1 class="long_article_title">{{ article.title }}</h1>
-        {% if 'silver' in request.user.profile.get_highest_group %}
+        {% if 'silver' in request.user.profile.ideal_group_names %}
             <span class="padding-h5"></span>
             <a class="delete_button_transparent" href="{% url 'delete_article' article.issue.id article.id %}"><i
                     class="fa fa-4x fa-ban"></i></a>
@@ -17,7 +17,7 @@
         Last updated: {{ article.updated_date }}
         <a href="{% url 'article_xml' article.id %}"><i class="fa fa-download"></i> Download XML</a>
     </p>
-    {% if 'silver' in request.user.profile.get_highest_group %}
+    {% if 'silver' in request.user.profile.ideal_group_names %}
         <a id="edit" class="btn btn-default btn-primary btn-50"
            href="{% url 'edit_article' article.issue.id article.id %}">Edit</a>
     {% endif %}
