@@ -86,7 +86,6 @@ class Assignment(models.Model):
     title = models.CharField(max_length=200)
     type = models.CharField(choices=TYPES_CHOICES, max_length=50, default='photo_assignment')
     content = models.TextField(blank=True)
-    section = models.ForeignKey('mainsite.Section')
     created_date = models.DateTimeField(default=datetime.datetime.now)
     due_date = models.DateTimeField(default=datetime.datetime.now)
     accepted = models.BooleanField(default=False)

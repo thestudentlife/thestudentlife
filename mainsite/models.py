@@ -8,7 +8,6 @@ from workflow.models import Profile, Assignment, WArticle
 from django.core.urlresolvers import reverse, reverse_lazy
 from workflow.models import Profile, Assignment, WArticle, Revision
 import re
-from string import punctuation
 
 autocomplete_light.autodiscover()
 
@@ -183,7 +182,7 @@ class Photo(models.Model):
 class AssignmentForm(ModelForm):
     class Meta:
         model = Assignment
-        fields = ['title', 'content', 'section', 'type', 'receiver', 'due_date']
+        fields = ['title', 'content', 'type', 'receiver', 'due_date']
         widgets = {
             'due_date': TextInput(attrs={
                 'type': 'date',
