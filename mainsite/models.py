@@ -90,10 +90,10 @@ class Article(models.Model):
 
     def length(self):
         str = self.content
-        r = re.compile(r'[{}]'.format(punctuation))
-        new_str = r.sub(' ',str)
-        return len(new_str.split())
-
+        str_without_img_tags = re.sub("<img[^>]*>","", str)
+        str_without_tags = re.sub("<[/]*\w+>","", str_without_img_tags)
+        str_without_special_char = re.sub("&[^;]*;","", str_without_tags)
+        return len(str_without_special_char.split())
 
 class FrontArticle(models.Model):
     article = models.OneToOneField(Article)
