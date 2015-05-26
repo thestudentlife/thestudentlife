@@ -1,7 +1,7 @@
 {% load url from future %}
 <article>
     <div class="long_article_title_div">
-        <h1 class="long_article_title">{{ article.title }}</h1>
+        <h2 class="long_article_title">{{ article.title }}</h2>
         {% if 'silver' in request.user.profile.ideal_group_names %}
             <span class="padding-h5"></span>
             <a class="delete_button_transparent" href="{% url 'delete_article' article.issue.id article.id %}"><i
@@ -10,7 +10,11 @@
     </div>
     <p>
         Section: <a href="{% url 'section' article.section.slug %}">{{ article.section }}</a>,
-        Authors:
+        {% if article.authors.all.count > 1 %}
+            Authors:
+        {% else %}
+            Author:
+        {% endif %}
         {% for author in article.authors.all %}
             <a href="{{ author.get_absolute_url }}">{{ author.display_name }}</a>
         {% endfor %},
@@ -21,6 +25,7 @@
         <a id="edit" class="btn btn-default btn-primary btn-50"
            href="{% url 'edit_article' article.issue.id article.id %}">Edit</a>
     {% endif %}
+    <div class="padding10"></div>
     <section class="article_content">
         {{ article.content | safe }}
     </section>
