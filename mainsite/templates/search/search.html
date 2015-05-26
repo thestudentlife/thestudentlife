@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block body_block %}
-    {% load static %}
     <div class="tsl-container">
         <section id="article_ls" class="article-previews">
             <h2>Search Results for '{{ word }}'</h2>
-            <div class="padding10"></div>
             {% for result in qs %}
                 {% include 'short_article_partial.html' with article=result.object %}
                 {% empty %}
@@ -17,6 +16,15 @@
 {% endblock %}
 
 {% block script_block %}
-    <script src="{% static 'disqus.js'  %}"></script>
+    <script src="{% static 'disqus.js' %}"></script>
     <script src="{% static 'search_scroll.js' %}"></script>
+    <script type="text/javascript">
+        function adjustLeftMargin() {
+            var leftMargin = $('.article_info').css('margin-left');
+            $('.article_title').css('margin-left', leftMargin);
+        }
+        $(window).resize(function () {
+            adjustLeftMargin();
+        });
+    </script>
 {% endblock %}
