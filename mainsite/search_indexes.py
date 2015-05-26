@@ -14,4 +14,5 @@ class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
     def index_queryset(self, using=None):
         return self.get_model().objects.filter(published=True)
 
-
+    def get_updated_field(self):
+        return "published_date"

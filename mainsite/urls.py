@@ -3,6 +3,7 @@ from mainsite import views
 
 urlpatterns = patterns('',
                        url(r'^$', views.home, name='home'),
+                       url(r'^search/$', views.search_query, name='search'),
                        url(r'^other/(?P<info>\w+)/$', views.other, name='other'),
                        url(r'^archives/$', views.archives, name='archives'),
                        url(r'^person/(?P<person_id>\d+)/$', views.person, name='person'),

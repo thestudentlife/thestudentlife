@@ -1,4 +1,13 @@
 <aside class="side-menu">
+    <div class="padding10"></div>
+    <form action="{% url 'search' %}" role="search" method="GET">
+        <div class="input-group">
+            <input name="search" type="text" class="form-control" placeholder="Search for..."/>
+            <span class="input-group-btn">
+                <button class="btn btn-default btn-primary" type="button">Search</button>
+            </span>
+        </div>
+    </form>
     <section class="columnGroup mostPopular">
         <div id="popularthreads" class="dsq-widget">
             <h2 class="dsq-widget-title">Most Discussed</h2>

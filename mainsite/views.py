@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from haystack.query import SearchQuerySet
 from mainsite.models import Section, Article, Profile, FrontArticle, CarouselArticle, Copy
 import json
 
@@ -83,3 +84,9 @@ def get_recent(n):
 
 def get_popular(n):
     return Article.objects.all().filter(published=True).order_by('-clicks')[:n]
+
+def search_query(request):
+    sections = Section.objects.all()
+    query = request.GET['search']
+    query_set = SearchQuerySet().filter(content=query)[:100]
+    return render(request, "search/search.html", {"sections": sections, "word": query, "qs": query_set, 'recents': get_recent(5), 'populars': get_popular(5)})
