@@ -1,4 +1,6 @@
 {% extends 'workflow_base.html' %}
+{% load static from staticfiles %}
+{% load widget_tweaks %}
 
 {% block title_block %}
     <title>New Assignment</title>
@@ -7,7 +9,41 @@
 {% block content_block %}
     <form method="POST" action="">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input id="submit_assignment" type="submit" value="Submit"/>
+        {% for field in form %}
+            {% if field|widget_type == "select" %}
+                <span class="control-label inline-block" for="{{ field.auto_id }}"><p>{{ field.label }}: &nbsp;</p></span>
+                <div class="inline-block" style="width: 300px;">
+                    {% render_field field class+="combobox margin-top-20" %}
+                </div>
+                <div></div>
+            {% elif field|widget_type == "textarea" %}
+                {% render_field field class+="" placeholder=field.label %}
+            {% elif field.auto_id == "id_due_date" %}
+                <span class="control-label inline-block" for="{{ field.auto_id }}"><p>Due Date: &nbsp;</p></span>
+                <span class="inline-block">
+                    {% render_field field class+="form-control margin-vertical-10 margin-bottom-20" placeholder=field.label %}
+                </span>
+            {% else %}
+                {% render_field field class+="form-control margin-vertical-10 margin-bottom-20" placeholder=field.label %}
+            {% endif %}
+        {% endfor %}
+        <div class="widthCenter50">
+            <input id="submit_assignment" class="btn btn-default btn-primary btn-block" type="submit" value="Assign"/>
+        </div>
     </form>
+{% endblock %}
+
+{% block additional_scripts_block %}
+    <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+    <script>
+        CKEDITOR.replace(id_content, {
+            customConfig: '{% static 'ckeditor_config.js' %}',
+        })
+    </script>
+    {% include 'autocomplete_light/static.html' %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.combobox').combobox();
+        });
+    </script>
 {% endblock %}

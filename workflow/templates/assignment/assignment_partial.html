@@ -1,33 +1,30 @@
 <article>
-        <br />
-        <div class="long_article_title_div">
-            <h4 class="long_article_title">{{ assignment.title }}</h4>
-            {% if assignment.receiver.id == request.user.profile.id %}
-                {% if not assignment.accepted %}
-                    <a class="btn btn-default btn-info btn-right" href="javascript:void(0)" class='accept_but'
-                       onclick="accept({{ assignment.id }});" id="{{ assignment.id }}_but">Accept</a>
-                {% endif %}
-            {% endif %}
-            {% if user.profile.get_highest_group == 'silver' or user.profile.get_highest_group == 'gold'%}
-                {% if not assignment.finished %}
+    <div class="long_article_title_div">
+        <h3 class="long_article_title">{{ assignment.title }}</h3>
+        {% if 'silver' in request.user.profile.ideal_group_names %}
+            {% if not assignment.finished %}
                 <a class="btn btn-default btn-success btn-right" href="javascript:void(0)" class='finish_but'
-                       onclick="finish({{ assignment.id }});" id="{{ assignment.id }}_finish_but">Mark as finished</a>
-                    {% endif %}
+                   onclick="finish({{ assignment.id }});" id="finish_but">Mark as finished</a>
             {% endif %}
-        </div>
-        <p>
-        Type: <a href="{% url 'assignments' %}?type={{ assignment.type }}">{{ assignment.type }}</a>|
-        Category: <a href="{% url 'assignments' %}?section={{ assignment.section.id }}">{{ assignment.section.name }}</a>
-|
-        {% if assignment.receiver %}
-            Received by <a href="{% url 'filter_by_receiver' assignment.receiver.id %}">{{ assignment.receiver.display_name }}</a>,
         {% endif %}
-|
-        Assignment Due: {{ assignment.due_date }}|
+    </div>
+    <p>
+        Type: <a href="{% url 'assignments' %}?type={{ assignment.type }}">{{ assignment.get_type_display }}</a> |
+        {% if 'silver' in request.user.profile.ideal_group_names %}
+        Received by <a
+            href="{% url 'filter_by_receiver' assignment.receiver.id %}">{{ assignment.receiver.display_name }}</a> |
+        {% endif %}
+        Due: {{ assignment.due_date }} |
+        {% if assignment.receiver.id == request.user.profile.id and not assignment.accepted %}
+            <a class="btn btn-default btn-warning" href="javascript:void(0)" class='accept_but'
+               onclick="accept({{ assignment.id }});" id="{{ assignment.id }}_but">Accept</a>
+        {% else %}
+            <a href="{% url 'assignments' %}?progress={{ assignment.progress_status }}"
+               id="{{ assignment.id }}_but">{{ assignment.progress }}</a>
+        {% endif %}
+    </p>
 
-        <b><a href="{% url 'assignments' %}?progress={{ assignment.progress_status }}">{{ assignment.progress }}</a></b>
-        </p>
     <p class="assignment_content">
-        {{ assignment.content }}
+        {{ assignment.content | safe }}
     </p>
 </article>

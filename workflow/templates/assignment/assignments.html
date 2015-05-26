@@ -5,7 +5,27 @@
 {% endblock %}
 
 {% block breadcrumb %}
+    <ol class="breadcrumb breadcrumbAdjust">
+        {% if type == "all" %}
+            <li class="active">Assignments</li>
+        {% elif type == "progress" %}
+            <li><a href="{% url 'assignments' %}">Assignments</a></li>
+            {% if assignments.0.progress == "Finished" %}
+                <li class="active">{{ assignments.0.progress }}</li>
+            {% else %}
+                <li class="active">Not Finished</li>
+            {% endif %}
+        {% elif type == "type" %}
+            <li><a href="{% url 'assignments' %}">Assignments</a></li>
+            <li class="active">{{ assignments.0.get_type_display }}</li>
+        {% elif type == "receiver" %}
+            <li><a href="{% url 'assignments' %}">Assignments</a></li>
+            <li class="active">{{ assignments.0.receiver.display_name }}</li>
+        {% endif %}
+    </ol>
+    {% if 'silver' in request.user.profile.ideal_group_names %}
     <a class="btn btn-default btn-primary btn-right" href="{% url 'new_assignment' %}">Create New Assignment</a>
+    {% endif %}
 {% endblock %}
 
 {% block content_block %}
@@ -20,31 +40,31 @@
 
 
 {% block additional_scripts_block %}
-    <script>
-        function accept(i){
+    <script type="text/javascript">
+        function accept(i) {
             $.ajax({
-                url:'',
-                data:{action:'accept', id:i},
-                success:function(){
-                    $('#'+i+"_but").replaceWith('<span class="badge">Assignment accepted</span>');
-                },
-                error: function (xhr, message, exception) {
+                       url: '',
+                       data: {action: 'accept', id: i},
+                       success: function () {
+                           $('#' + i + "_but").replaceWith('Just Accepted');
+                       },
+                       error: function (xhr, message, exception) {
                            alert('error occurs: ' + exception);
-                }
-            })
+                       }
+                   })
         }
-
-        function finish(i){
+        function finish(i) {
             $.ajax({
-                url:'',
-                data:{action:'finish', id:i},
-                success: function(){
-                    $('#'+i+'_finish_but').replaceWith('<span class="badge">Assignment finished</span>');
-                },
-                error: function(xhr, message, exception) {
-                    alert('error occurs: ' + exception);
-                }
-            })
+                       url: '',
+                       data: {action: 'finish', id: i},
+                       success: function () {
+                           $('#' + i + '_but').replaceWith('Just Finished');
+                           $('#finish_but').replaceWith('');
+                       },
+                       error: function (xhr, message, exception) {
+                           alert('error occurs: ' + exception);
+                       }
+                   })
         }
     </script>
 {% endblock %}

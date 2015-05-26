@@ -82,7 +82,7 @@ class Assignment(models.Model):
         ('article', 'Article Assignment')
     )
     sender = models.ForeignKey(Profile, related_name="assignment_created")
-    receiver = models.ForeignKey(Profile, related_name="assignment_received", null=True)
+    receiver = models.ForeignKey(Profile, related_name="assignment_received")
     title = models.CharField(max_length=200)
     type = models.CharField(choices=TYPES_CHOICES, max_length=50, default='photo_assignment')
     content = models.TextField(blank=True)

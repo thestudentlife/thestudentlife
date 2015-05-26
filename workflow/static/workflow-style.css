@@ -1,3 +1,7 @@
+.inline-block {
+    display: inline-block;
+}
+
 p {
     font-size: 1.2em;
 }
@@ -6,8 +10,11 @@ p {
     margin: 10px 0px 10px 0px;
 }
 
+.margin-top-20 {
+    margin-top: 20px;
+}
 .margin-bottom-20 {
-    margin: 10px 0px 20px 0px;
+    margin-bottom: 20px;
 }
 
 .margin10 {
@@ -127,8 +134,7 @@ footer {
 }
 
 .long_article_title_div {
-    margin-bottom: 20px;
-    margin-left: -3px;
+    margin-bottom: 10px;
 }
 
 .padding-h5 {

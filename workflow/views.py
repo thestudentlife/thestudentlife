@@ -229,18 +229,28 @@ def assignments(request):
             asgt = Assignment.objects.get(id=int(request.GET['id']))
             asgt.finished=True
             asgt.save()
-    assignments = Assignment.objects.all()
+    assignments = Assignment.objects.all().order_by('accepted','finished')
+    type = "all"
     if request.GET.get('progress'):
+        type = "progress"
         p = int(request.GET.get('progress'))
         if p == 0:
             assignments = assignments.filter(finished=True)
-        elif p == 1:
-            assignments = assignments.filter(finished=False).filter(accepted=True)
         else:
-            assignments = assignments.filter(accepted=False)
+            assignments = assignments.filter(finished=False)
     if request.GET.get('type'):
+        type = "type"
         assignments = assignments.filter(type=request.GET.get('type'))
-    return render(request, 'assignment/assignments.html', {'assignments': assignments})
+    if not Group.objects.get(name='silver') in request.user.groups.all():
+        assignments = assignments.filter(receiver=request.user.profile.id)
+    return render(request, 'assignment/assignments.html', {'assignments': assignments, 'type': type})
+
+@group_required('bronze')
+def filter_by_receiver(request, profile_id):
+    profile = Profile.objects.get(id=profile_id)
+    assignments = Assignment.objects.filter(receiver=profile).order_by('accepted','finished')
+    return render(request, 'assignment/assignments.html',
+                  {'assignments': assignments, 'type': "receiver"})
 
 @group_required('silver')
 def new_assignment(request):
@@ -276,14 +286,6 @@ def edit_assignment(request, assignment_id):
         return render(request, 'assignment/new_assignment.html', {
             'form': form
         })
-
-@group_required('bronze')
-def filter_by_receiver(request, profile_id):
-    profile = Profile.objects.get(id=profile_id)
-    assignments = Assignment.objects.filter(receiver=profile)
-    return render(request, 'assignment/assignments.html',
-                  {'assignments': assignments})
-
 
 @group_required('bronze')
 def comment(request,article_id,user_id):
