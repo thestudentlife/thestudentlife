@@ -50,6 +50,10 @@ p {
     float: none;
 }
 
+.badge {
+    padding: 3px 7px;
+}
+
 .textAreaFull {
     width: 100%;
 }
