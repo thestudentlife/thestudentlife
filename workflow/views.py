@@ -25,6 +25,15 @@ def deny(request):
     else:
         return render(request,'permission.html')
 
+def get_old_profile(display_name):
+    old_profile = None
+    if Profile.objects.filter(display_name=display_name)!=0:
+        profiles = Profile.objects.filter(display_name=display_name)
+        for profile in profiles:
+            if profile.user is None:
+                old_profile = profile
+    return old_profile
+
 def register(request):
     if request.method == "POST":
         registerForm = RegisterForm(request.POST)
@@ -32,8 +41,13 @@ def register(request):
             user = registerForm.save()
             display_name = user.first_name+" "+user.last_name
             position = request.POST['position']
-            profile = Profile(user=user,display_name=display_name,position=position)
-            profile.save()
+            old_profile = get_old_profile(display_name)
+            if old_profile:
+                old_profile.user = request.user
+                old_profile.save()
+            else:
+                profile = Profile(user=user,display_name=display_name,position=position)
+                profile.save()
             user.set_password(request.POST['password'])
             user.save()
             plastic = Group.objects.get(name='plastic')
@@ -309,3 +323,4 @@ def publish(request,article_id):
     article.published_date = timezone.now()
     article.save()
     return HttpResponse('success')
+
