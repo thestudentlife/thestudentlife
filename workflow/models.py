@@ -95,11 +95,11 @@ class Assignment(models.Model):
 
     def progress(self):
         if self.finished:
-            return "finished"
+            return "Finished"
         elif self.accepted:
-            return "in progress"
+            return "In Progress"
         else:
-            return "not started"
+            return "Not Started"
 
     def progress_status(self):
         if self.finished:
