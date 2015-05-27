@@ -6,12 +6,13 @@
         {% for author in article.authors.all %}
             <a href="{{ author.get_absolute_url }}">{{ author.display_name }}</a>
         {% endfor % %}
-        | {{ article.published_date }}
+        | {{ article.published_date }} {% include 'share_buttons.html' %}
     </p>
     <div class="margin10"></div>
     <div class="article_content">
         {{ article.content|safe }}
     </div>
+    {% include 'share_buttons_large.html' %}
     <div class="margin10"></div>
     <div class="margin10"></div>
 </article>
