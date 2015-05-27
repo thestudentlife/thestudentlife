@@ -8,9 +8,9 @@
     {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-combobox.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'workflow-style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'workflow-style.css' %}"/>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="shortcut icon" href="{% static 'favicon.ico'%}" />
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}"/>
     {% block title_block %}
 
     {% endblock %}
@@ -19,7 +19,7 @@
 
 <body>
 {% load url from future %}
-{% if 'gold' in request.user.profile.ideal_group_names  %}
+{% if 'gold' in request.user.profile.ideal_group_names %}
     {% include 'navigation/gold_nav.html' %}
 {% elif 'silver' in request.user.profile.ideal_group_names %}
     {% include 'navigation/silver_nav.html' %}
@@ -38,22 +38,7 @@
 
         {% endblock %}
     </div>
-    <div class="container">
-        <hr>
-        <footer class="footer">
-            <div id="info-menu">
-                <a>About</a>
-                <a>Contact</a>
-                <a>Advertise</a>
-                <a>Subscribe</a>
-                <a>Print Issues</a>
-                <span class="stretch"></span>
-            </div>
-            &copy; 2015 The Student Life
-            <br/>
-            Website created by Kent Shikama '18, Latina Vidolova '15, Ziqi Xiong '17.
-        </footer>
-    </div>
+    {% include 'footer.html' %}
 </div>
 {% block vertical_center_end %}
 {% endblock %}
