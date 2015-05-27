@@ -6,24 +6,31 @@
 {% endblock %}
 
 {% block content_block %}
-<form method="post" enctype="multipart/form-data" action="">
-    {% csrf_token %}
-    {{ formset.management_form }}
-    {% for form in formset %}
-        {% for field in form %}
-            {% if field|widget_type == "textarea" %}
-                {% render_field field class+="form-control margin10 album-caption" placeholder=field.label %}
-            {% elif field|widget_type == "checkboxinput" %}
-                {% render_field field class+="album-checkboxinput" placeholder=field.label %}
-            {% else %}
-                {% render_field field class+="form-control margin10" placeholder=field.label %}
-            {% endif %}
+    <div class="padding10"></div>
+    <form method="post" enctype="multipart/form-data" action="">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        {% for form in formset %}
+            {% for field in form %}
+                {% if field|widget_type == "textarea" %}
+                    {% render_field field class+="form-control margin10 album-caption" placeholder=field.label %}
+                {% elif field|widget_type == "checkboxinput" %}
+                    {% render_field field class+="album-checkboxinput" placeholder=field.label %}
+                {% else %}
+                    {% render_field field class+="form-control margin10" placeholder=field.label %}
+                {% endif %}
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
-    <input id="edit" class="btn btn-default btn-primary btn-50" type="submit" value="Edit Album"/>
-</form>
+        <div class="text-center">
+            <input id="edit" class="btn btn-default btn-primary btn-50" type="submit" value="Edit Album"/>
+        </div>
+    </form>
 {% endblock %}
 
 {% block additional_scripts_block %}
     {% include 'autocomplete_light/static.html' %}
+    <script type="text/javascript">
+        $('.autocomplete-light-widget').addClass('margin10');
+        $('.deck').css('font-size', '1.5em');
+    </script>
 {% endblock %}
