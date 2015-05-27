@@ -36,7 +36,7 @@ class Profile(models.Model):
             return ['gold','silver','bronze','plastic']
         elif self.position == 'editor':
             return ['silver','bronze','plastic']
-        elif self.position == 'photographer' or self.position == 'author':
+        elif self.position == 'photographer' or self.position == 'author' or self.position == 'graphic_designer':
             return ['bronze','plastic']
         else:
             return ['plastic']
