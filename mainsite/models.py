@@ -1,3 +1,4 @@
+import os
 import autocomplete_light
 from django.db import models
 from django.contrib.auth.models import User
