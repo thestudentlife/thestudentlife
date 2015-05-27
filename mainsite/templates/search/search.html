@@ -20,8 +20,8 @@
     <script src="{% static 'search_scroll.js' %}"></script>
     <script type="text/javascript">
         function adjustLeftMargin() {
-            var leftMargin = $('.article_info').css('margin-left');
-            $('.article_title').css('margin-left', leftMargin);
+            var leftMargin = $('.article_info').offset().left;;
+            $('.article_title').offset({left: leftMargin});
         }
         $(window).resize(function () {
             adjustLeftMargin();
