@@ -13,11 +13,11 @@
         <li><a href="{% url 'warticle' article.issue.id article.pk %}">{{ article.title }}</a></li>
         <li class="active">Edit</li>
     </ol>
+    <a class="btn btn-success btn-right" href="javascript:void(0)"
+       onclick="window.open('{% url 'edit_album' article.issue.id article.album.id %}',300,500)">Update Album</a>
 {% endblock %}
 
 {% block content_block %}
-    <a class="btn btn-success btn-right" href="javascript:void(0)"
-       onclick="window.open('{% url 'edit_album' article.issue.id article.album.id %}',300,500)">View/Edit Album</a>
     <form method="POST" action="">
         {% csrf_token %}
         {% for field in form %}
@@ -32,6 +32,7 @@
             {% endif %}
         {% endfor %}
         <input type="hidden" name="time" value="{{ time }}">
+
         <div class="widthCenter50">
             <input id="edit" class="btn btn-default btn-primary btn-block" type="submit" value="Edit Article"/>
         </div>
