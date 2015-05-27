@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static from staticfiles %}
+
+
+{% block title_block %}
+    <title>Search Results for {{ word }}</title>
+{% endblock %}
 
 {% block body_block %}
     <div class="tsl-container">
