@@ -72,7 +72,7 @@ def article_ajax_object(article):
     obj['section'] = {'name': article.section.name,
                       'url': article.section.get_absolute_url()}
     obj['published_date'] = article.published_date.strftime(fmt)
-    obj['content'] = article.content[0:100] + '...'
+    obj['content'] = article.content[0:200] + '...'
     obj['authors'] = []
     for author in article.authors.all():
         obj['authors'].append({'name': author.display_name,
@@ -88,5 +88,12 @@ def get_popular(n):
 def search_query(request):
     sections = Section.objects.all()
     query = request.GET['search']
-    query_set = SearchQuerySet().filter(content=query)[:100]
+    if request.is_ajax():
+        count = int(request.GET['count'])
+        articles = SearchQuerySet().filter(content=query)[count:count+10]
+        articles_in_json = []
+        for article in articles:
+            articles_in_json.append(article_ajax_object(article.object))
+        return HttpResponse(json.dumps(articles_in_json), content_type='application/json')
+    query_set = SearchQuerySet().filter(content=query)[:10]
     return render(request, "search/search.html", {"sections": sections, "word": query, "qs": query_set, 'recents': get_recent(5), 'populars': get_popular(5)})

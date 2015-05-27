@@ -1,18 +1,22 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
+    {% load static %}
     <div class="tsl-container">
         <section id="article_ls" class="article-previews">
             <h2>Search Results for '{{ word }}'</h2>
             <div class="padding10"></div>
             {% for result in qs %}
-                <p>
-                    <a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a>
-                </p>
+                {% include 'short_article_partial.html' with article=result.object %}
                 {% empty %}
                 <p>No results found.</p>
             {% endfor %}
         </section>
         {% include 'side_menu.html' %}
     </div>
+{% endblock %}
+
+{% block script_block %}
+    <script src="{% static 'disqus_count.js'  %}"></script>
+    <script src="{% static 'search_scroll.js' %}"></script>
 {% endblock %}

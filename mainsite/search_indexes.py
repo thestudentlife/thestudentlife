@@ -12,7 +12,7 @@ class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
         return Article
 
     def index_queryset(self, using=None):
-        return self.get_model().objects.filter(published=True)
+        return self.get_model().objects.filter(published=True).order_by('published_date')
 
     def get_updated_field(self):
         return "published_date"
