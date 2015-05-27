@@ -73,6 +73,7 @@ def article_ajax_object(article):
                       'url': article.section.get_absolute_url()}
     obj['published_date'] = article.published_date.strftime(fmt)
     obj['content'] = article.content[0:200] + '...'
+    obj['disqus_id'] = article.disqus_id()
     obj['authors'] = []
     for author in article.authors.all():
         obj['authors'].append({'name': author.display_name,
