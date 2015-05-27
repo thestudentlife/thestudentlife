@@ -4,7 +4,8 @@ The New TSL Website
 Running Locally/Selenium Tests
 --------------------------
 
-- Navigate to project's root directory
+- Clone this repository
+- Navigate to this project's root directory on your computer
 - Install [Python 3.4+](https://www.python.org/downloads/)
 - Enter <code>bash setup.sh</code>
 - Check out localhost:8000 on your favorite browser
@@ -27,5 +28,4 @@ Virtual Machine Configuration Instructions (Outdated)
 Optional Configuration Items (Will Be Added Later)
 --------------------------------------------------
 
-- Install a copy of CKEditor and put it in workflow/static/ (if you want to use the CKEditor when editing articles)
 - Install Solr 4.10.2 and run it (if you want to test the search functionality)
