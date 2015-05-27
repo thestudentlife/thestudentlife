@@ -14,7 +14,7 @@
         {% for author in article.authors.all %}
             <a href="{{ author.get_absolute_url }}">{{ author.display_name }}</a>
         {% endfor %},
-        Last updated: {{ article.updated_date }}
+        Last updated: {{ article.updated_date }}, <b>{{ article.length }}</b> words,
         <a href="{% url 'article_xml' article.id %}"><i class="fa fa-download"></i> Download XML</a>
     </p>
     {% if 'silver' in request.user.profile.ideal_group_names %}
