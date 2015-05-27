@@ -16,6 +16,8 @@
 {% endblock %}
 
 {% block content_block %}
+    <a class="btn btn-success btn-right" href="javascript:void(0)"
+       onclick="window.open('{% url 'edit_album' article.issue.id article.album.id %}',300,500)">View/Edit Album</a>
     <form method="POST" action="">
         {% csrf_token %}
         {% for field in form %}
