@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static from staticfiles %}
 
 {% block title_block %}
     <title>{{ person }}</title>
@@ -9,13 +10,26 @@
         <li>Articles by {{ person }}</li>
     </ol>
     <div class="tsl-container">
-        <div class="article-previews col-xs-12 col-sm-12 col-md-8 col-lg-8">
+        <div class="article-previews">
             {% for article in articles %}
-                <span class="col-xs-12 col-sm-6 col-md-6 col-lg-6 article-preview">
+                <span class="article-preview">
                     {% include 'short_article_partial.html' %}
                 </span>
             {% endfor %}
         </div>
         {% include 'side_menu.html' %}
     </div>
+{% endblock %}
+
+{% block script_block %}
+    <script type="text/javascript" src="{% static 'imagesloaded.pkgd.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'masonry.pkgd.min.js' %}"></script>
+    <script type="text/javascript">
+        $(window).load(function () {
+            var container = (document.querySelector('.article-previews'));
+            var msnry = new Masonry(container, {
+                itemSelector: '.article-preview'
+            });
+        });
+    </script>
 {% endblock %}

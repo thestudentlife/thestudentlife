@@ -26,12 +26,8 @@ def albums(request):
 @group_required('silver')
 def issue_albums(request, issue_id):
     issue = Issue.objects.get(pk=issue_id)
-    albums = Album.objects.all()
-    filtered_albums = []
-    for album in albums:
-        if (issue_id == str(album.article.issue.pk)):
-            filtered_albums.append(album)
-    return render(request, 'photo/issue_albums.html', {'albums': filtered_albums, 'issue': issue})
+    albums = Album.objects.filter(article__issue__pk=issue_id)
+    return render(request, 'photo/issue_albums.html', {'albums': albums, 'issue': issue})
 
 @group_required('silver')
 def view_album(request, issue_id, album_id):

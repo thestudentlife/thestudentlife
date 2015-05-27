@@ -1,4 +1,3 @@
-import os
 import autocomplete_light
 from django.db import models
 from django.contrib.auth.models import User
@@ -135,13 +134,19 @@ class Photo(models.Model):
 
         THUMBNAIL_SIZE = (300,300)
 
-        DJANGO_TYPE = self.image.file.content_type
-        if DJANGO_TYPE == 'image/jpeg':
+        from mimetypes import MimeTypes
+        mime = MimeTypes()
+        mime_type = mime.guess_type(self.image.url)
+
+        DJANGO_TYPE = mime_type
+        if DJANGO_TYPE[0] == 'image/jpeg':
             PIL_TYPE = 'jpeg'
             FILE_EXTENSION = 'jpg'
-        elif DJANGO_TYPE == 'image/png':
+        elif DJANGO_TYPE[0] == 'image/png':
             PIL_TYPE = 'png'
             FILE_EXTENSION = 'png'
+        else:
+            return
 
         # Open original photo which we want to thumbnail using PIL's Image
         r = BytesIO(self.image.read())
@@ -166,7 +171,6 @@ class Photo(models.Model):
 
 
     def save(self):
-        self.thumbnail.delete()
         self.create_thumbnail()
         super(Photo, self).save()
 

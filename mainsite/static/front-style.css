@@ -23,6 +23,16 @@ body {
     background-color: #FDFDFD;
 }
 
+.photo-previews {
+    width: 100%;
+    float: left;
+    padding-top: 20px;
+}
+@media (min-width: 992px) {
+    .photo-previews {
+        width: 66.66666667%;
+    }
+}
 .article-previews {
     width: 100%;
     float: left;
@@ -207,6 +217,7 @@ footer {
 
 .side-menu {
     display: none;
+    padding-left: 20px;
 }
 @media (min-width: 992px) {
     .side-menu {
