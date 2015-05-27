@@ -262,7 +262,7 @@ def new_assignment(request):
             new_assignment.sender = request.user.profile
             new_assignment.save()
             form.save_m2m
-            return redirect(reverse("assignments"))
+            return redirect(reverse("assignments") + "?progress=1")
         else:
             return render(request, 'assignment/new_assignment.html', {
                 'form': form
