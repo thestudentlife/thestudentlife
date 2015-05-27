@@ -4,11 +4,15 @@ from django.shortcuts import render_to_response, render
 from django.template import RequestContext
 from mainsite.models import Album, Photo, Issue
 from workflow.views import group_required
+import autocomplete_light
 
-class PhotoForm(ModelForm):
+autocomplete_light.autodiscover()
+
+class PhotoForm(autocomplete_light.ModelForm):
     class Meta:
         model = Photo
         fields = ['image', 'caption', 'credit']
+        autocomplete_fields = ('credit')
 
 @group_required('silver')
 def edit_photo(request, photo_id):

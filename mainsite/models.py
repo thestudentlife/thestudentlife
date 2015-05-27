@@ -9,6 +9,8 @@ from workflow.models import Profile, Assignment, WArticle
 from django.core.urlresolvers import reverse, reverse_lazy
 from workflow.models import Profile, Assignment, WArticle, Revision
 import re
+from string import punctuation
+
 autocomplete_light.autodiscover()
 
 class Section(models.Model):
@@ -86,6 +88,13 @@ class Article(models.Model):
 
     def click(self):
         self.clicks += 1
+
+    def length(self):
+        str = self.content
+        r = re.compile(r'[{}]'.format(punctuation))
+        new_str = r.sub(' ',str)
+        return len(new_str.split())
+
 
 class FrontArticle(models.Model):
     article = models.OneToOneField(Article)
