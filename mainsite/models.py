@@ -117,10 +117,18 @@ class Album(models.Model):
 class Photo(models.Model):
     def validate_image(fieldfile_obj):
         file_size = fieldfile_obj.file.size
-        max_mb = 1.0
-        if file_size > max_mb*1024*1024:
-            raise ValidationError("Max file size is %sMB" % str(max_mb))
-    image = models.ImageField(upload_to='photo/',validators=[validate_image])
+        if file_size > 1024*1024:
+            raise ValidationError("Max file size is 1MB")
+    def validate_height(value):
+        if value > 3000:
+            raise ValidationError("Max height is 3000px")
+    def validate_width(value):
+        if value > 4000:
+            raise ValidationError("Max width is 4000px")
+    image = models.ImageField(upload_to='photo/',height_field = 'height',
+                              width_field = 'width',validators=[validate_image])
+    height = models.IntegerField(blank=True,validators=[validate_height])
+    width = models.IntegerField(blank=True,validators=[validate_width])
     date = models.DateTimeField(default=datetime.datetime.now)
     thumbnail = models.ImageField(upload_to='thumbs/',blank=True,null=True)
     caption = models.TextField(max_length=100, blank=True)
