@@ -28,7 +28,7 @@ body {
     float: left;
     padding-top: 20px;
 }
-@media (min-width: 992px) {
+@media (min-width: 768px) {
     .photo-previews {
         width: 66.66666667%;
     }
@@ -37,7 +37,7 @@ body {
     width: 100%;
     float: left;
 }
-@media (min-width: 992px) {
+@media (min-width: 768px) {
     .article-previews {
         width: 66.66666667%;
     }
@@ -46,7 +46,7 @@ body {
     width: 100%;
     overflow: overlay;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
     .article-preview {
         width: 50%;
         padding: 0px 20px 0px 20px;
@@ -55,7 +55,7 @@ body {
 
 .tsl-container {
     padding: 0% 2% 0% 2%;
-    overflow: overlay;
+    overflow: auto;
 }
 
 .tsl-disqus {
@@ -219,7 +219,7 @@ footer {
     display: none;
     padding-left: 20px;
 }
-@media (min-width: 992px) {
+@media (min-width: 768px) {
     .side-menu {
         display: inline-block;
         width: 33.33333333%;

@@ -16,13 +16,13 @@ $(window).scroll(function () {
                            for (a in articles) {
                                article = articles[a];
                                var el = process(article);
-                               console.log(el);
                                $('#article_ls').append(el);
                            }
-                           var s = document.createElement('script'); s.async = true;
-                            s.type = 'text/javascript';
-                            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
-                            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+                           var s = document.createElement('script');
+                           s.async = true;
+                           s.type = 'text/javascript';
+                           s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+                           (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
                        },
                        error: function (xhr, message, exception) {
                            console.log(exception);
@@ -51,18 +51,16 @@ function author_name(authors) {
 }
 
 function process(article) {
-    return "<span class='article-preview'>" +
-        "<article>" +
+    return "<article>" +
         "<h3 class='article_title'><a href='{url}'>{title}</a>".supplant({
                                                                              url: article['url'],
                                                                              title: article['title']
                                                                          }) + "</h3>" +
         "<p class='article_info'>" + author_name(article.authors) +
-        " | " + article['published_date'] + " | "+
-        "<i class='fa fa-comment-o'></i><a href='"+article['url']+"#disqus_thread' class='disqus_comment_count'" +
-        "data-disqus-identifier='"+article['disqus_id']+"'></a>"+
+        " | " + article['published_date'] + " | " +
+        "<i class='fa fa-comment-o'></i><a href='" + article['url'] + "#disqus_thread' class='disqus_comment_count'" +
+        "data-disqus-identifier='" + article['disqus_id'] + "'></a>" +
         "</p>" +
         "<p class='article_content'>{content}</p>".supplant({content: article['content']}) + "" +
-        "</article>" +
-        "</span>";
+        "</article>";
 }

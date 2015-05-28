@@ -25,6 +25,20 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul id="main-menu" class="nav navbar-nav navbar-right">
+                {% if flavour == "mobile" %}
+                    <li>
+                        <a href="#">
+                            <form action="{% url 'search' %}" role="search" method="GET">
+                                <div class="input-group">
+                                    <input name="search" type="text" class="form-control" placeholder="Search for..."/>
+                                    <span class="input-group-btn">
+                                        <input class="btn btn-default btn-primary" type="submit" value="Search"/>
+                                    </span>
+                                </div>
+                            </form>
+                        </a>
+                    </li>
+                {% endif %}
                 {% for section in sections %}
                     <li class="{% active_nav request section.slug %}"><a
                             href="{{ section.get_absolute_url }}">{{ section.name }}</a></li>

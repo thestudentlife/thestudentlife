@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url
-from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
 from workflow.article_views import ArticleCreateView, ArticleDetailView, article_edit, ArticleDeleteView
 from workflow.issue_views import IssueCreateView, IssueEditView, IssueDeleteView
 from workflow.views import group_required
@@ -9,6 +9,7 @@ urlpatterns = patterns('',
                        url(r'^$', views.whome, name='whome'),
 
                        url(r'^denied/$',views.deny,name='denied'),
+                       url(r'^help/$', TemplateView.as_view(template_name="help.html"), name='help'),
                        # login/register
                        url(r'^register/$', views.register, name="register"),
                        url(r'^login/$', views.login, name="login"),

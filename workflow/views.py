@@ -52,12 +52,10 @@ def register(request):
             user.save()
             plastic = Group.objects.get(name='plastic')
             bronze = Group.objects.get(name='bronze')
-            if position == 'guest':
-                user.groups.add(plastic)
-            else:
+            user.groups.add(plastic)
+            if not position == 'guest':
                 user.groups.add(bronze)
             return redirect(reverse('whome'))
-
         else:
             return render(request, 'register.html', {
                 'form': registerForm
@@ -264,7 +262,7 @@ def new_assignment(request):
             new_assignment.sender = request.user.profile
             new_assignment.save()
             form.save_m2m
-            return redirect(reverse("assignments"))
+            return redirect(reverse("assignments") + "?progress=1")
         else:
             return render(request, 'assignment/new_assignment.html', {
                 'form': form
