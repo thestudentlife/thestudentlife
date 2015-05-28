@@ -1,0 +1,28 @@
+{% load staticfiles %}
+
+<a id="top-btn" href="javascript:void()" onclick='scrollToTop();' class="btn btn-success">Back to Top</a>
+<style>
+    #top-btn{position: fixed;
+        top: 5%;
+        right: 5%;}
+</style>
+<script src="{% static 'jquery-2.1.3.min.js' %}"></script>
+<script>
+    $('#top-btn').hide();
+    $(window).scroll(function () {
+        if ($(window).scrollTop()>2000){
+            $('#top-btn').show();
+        }else{
+            $('#top-btn').hide();
+        }
+    })
+
+    var timeOut;
+    function scrollToTop() {
+      if (document.body.scrollTop!=0 || document.documentElement.scrollTop!=0){
+        window.scrollBy(0,-50);
+        timeOut=setTimeout('scrollToTop()',10);
+      }
+      else clearTimeout(timeOut);
+    }
+</script>
