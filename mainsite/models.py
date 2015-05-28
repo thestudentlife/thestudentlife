@@ -9,6 +9,7 @@ from workflow.models import Profile, Assignment, WArticle
 from django.core.urlresolvers import reverse, reverse_lazy
 from workflow.models import Profile, Assignment, WArticle, Revision
 import re
+from django.core.exceptions import ValidationError
 
 autocomplete_light.autodiscover()
 
@@ -114,8 +115,13 @@ class Album(models.Model):
         return self.article.title
 
 class Photo(models.Model):
+    def validate_image(fieldfile_obj):
+        file_size = fieldfile_obj.file.size
+        max_mb = 1.0
+        if file_size > max_mb*1024*1024:
+            raise ValidationError("Max file size is %sMB" % str(max_mb))
+    image = models.ImageField(upload_to='photo/',validators=[validate_image])
     date = models.DateTimeField(default=datetime.datetime.now)
-    image = models.ImageField(upload_to='photo/')
     thumbnail = models.ImageField(upload_to='thumbs/',blank=True,null=True)
     caption = models.TextField(max_length=100, blank=True)
     credit = models.ForeignKey(Profile)
