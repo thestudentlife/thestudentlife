@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login as do_login, logout as do_lo
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import Group, User
 from django.template.loader import render_to_string
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.utils import timezone
@@ -134,7 +134,7 @@ def manage(request):
 
 @group_required('gold')
 def manage_one(request,user_id):
-    user = User.objects.get(pk=user_id)
+    user = get_object_or_404(User,pk=user_id)
     if request.method=='GET':
         form = RegisterForm2(instance=user)
         second_form = ProfileForm(instance=user.profile)
@@ -188,14 +188,14 @@ def front(request):
 
 @group_required('bronze')
 def article_xml(request, article_id):
-    article = Article.objects.get(id=article_id)
+    article = get_object_or_404(Article,pk=article_id)
     paragraphs = getText.dehtml(article.content).split('\n\n')
     data = render_to_string('articles/article_xml.xml', {'article': article, 'paragraphs': paragraphs})
     return HttpResponse(data, content_type='application/xml')
 
 @group_required('silver')
 def revision(request, pk):
-    revision = Revision.objects.get(pk=pk);
+    revision = get_object_or_404(Revision,pk=id);
     article = revision.article;
     index = list(article.revision_set.order_by('date')).index(revision)
     if index > 0:
@@ -245,7 +245,7 @@ def assignments(request):
 
 @group_required('bronze')
 def filter_by_receiver(request, profile_id):
-    profile = Profile.objects.get(id=profile_id)
+    profile = get_object_or_404(Profile,pk=profile_id)
     assignments = Assignment.objects.filter(receiver=profile).order_by('accepted','finished')
     return render(request, 'assignment/assignments.html',
                   {'assignments': assignments, 'type': "receiver"})
@@ -270,7 +270,7 @@ def new_assignment(request):
 
 @group_required('silver')
 def edit_assignment(request, assignment_id):
-    assignment = Assignment.objects.get(id=assignment_id)
+    assignment = get_object_or_404(Assignment,pk=assignment_id)
     if request.method == 'GET':
         form = AssignmentForm(instance=assignment)
         return render(request, 'assignment/new_assignment.html', {
@@ -287,7 +287,7 @@ def edit_assignment(request, assignment_id):
 
 @group_required('bronze')
 def comment(request,article_id,user_id):
-    user = User.objects.get(id=user_id)
+    user = get_object_or_404(User,pk=user_id)
     article = Article.objects.get(id=article_id)
     body = request.GET['body']
     comment = Comment(article=article,author=user,body=body)

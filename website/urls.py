@@ -3,6 +3,8 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
 
+handler404 = "mainsite.views.error404"
+
 urlpatterns = patterns('',
                        url(r'^autocomplete/', include('autocomplete_light.urls')),
                        url(r'^admin/', include(admin.site.urls)),

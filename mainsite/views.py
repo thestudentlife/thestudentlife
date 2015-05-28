@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from haystack.query import SearchQuerySet
 from mainsite.models import Section, Article, Profile, FrontArticle, CarouselArticle, Copy
@@ -18,6 +18,8 @@ def section(request, section_slug):
     for section in sections:
         if section.slug() == section_slug:
             this_section = section;
+    if this_section == 0:
+        return error404(request);
     if request.is_ajax():
         count = int(request.GET['count'])
         articles = this_section.articles.order_by('-published_date')[count:count + 10]
@@ -32,15 +34,18 @@ def section(request, section_slug):
 
 def article(request, section_name, article_id, article_name='default'):
     sections = Section.objects.all()
-    article = Article.objects.get(pk=article_id)
+    article = get_object_or_404(Article,pk=article_id)
     article.click()
     article.save()
     return render(request, 'article.html', {"sections": sections, "article": article, 'recents': get_recent(5),
                                             'populars': get_popular(5)})
 
+def error404(request):
+    return HttpResponse('404')
+
 def person(request, person_id, person_name='ZQ'):
     sections = Section.objects.all()
-    person = Profile.objects.get(pk=person_id)
+    person = get_object_or_404(Profile,pk=person_id)
     if person.position == "author" or len(person.article_set.all().filter(published=True)) > 0:
         articles = person.article_set.all().filter(published=True)
         recents = person.article_set.all().filter(published=True).order_by('-published_date')[:5]
