@@ -4,6 +4,7 @@ from haystack.query import SearchQuerySet
 from mainsite.models import Section, Article, Profile, FrontArticle, CarouselArticle, Copy
 import json
 
+
 def home(request):
     sections = Section.objects.all()
     features = CarouselArticle.objects.all()
@@ -103,3 +104,4 @@ def search_query(request):
         return HttpResponse(json.dumps(articles_in_json), content_type='application/json')
     query_set = SearchQuerySet().filter(content=query)[:10]
     return render(request, "search/search.html", {"sections": sections, "word": query, "qs": query_set, 'recents': get_recent(5), 'populars': get_popular(5)})
+

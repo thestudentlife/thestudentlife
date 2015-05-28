@@ -10,6 +10,7 @@ from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, Fr
 from workflow.models import Assignment, RegisterForm, LoginForm, Revision, ProfileForm, RegisterForm2, Comment
 import os, subprocess,json
 from workflow.static import getText
+from workflow.tsl_email import assignment_email
 
 def group_required(*group_names):
     def in_groups(u):
@@ -261,7 +262,7 @@ def new_assignment(request):
             new_assignment = form.save(commit=False)
             new_assignment.sender = request.user.profile
             new_assignment.save()
-            form.save_m2m
+            assignment_email(new_assignment.sender.user,new_assignment.receiver.user,new_assignment)
             return redirect(reverse("assignments") + "?progress=1")
         else:
             return render(request, 'assignment/new_assignment.html', {

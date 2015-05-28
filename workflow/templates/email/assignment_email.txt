@@ -1,0 +1,11 @@
+Hi {{receiver.first_name}},
+
+You received a new assignment from {{sender.profile.display_name}} on TSL workflow website:
+
+{{assignment.title}}
+{{assignment.content}}
+
+Please accept this assignment on workflow and complete it before {{assignment.due_date}}.
+
+Best,
+TSL admin
