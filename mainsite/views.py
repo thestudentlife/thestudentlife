@@ -41,7 +41,7 @@ def article(request, section_name, article_id, article_name='default'):
                                             'populars': get_popular(5)})
 
 def error404(request):
-    return HttpResponse('404')
+    return render(request,'404.html')
 
 def person(request, person_id, person_name='ZQ'):
     sections = Section.objects.all()
