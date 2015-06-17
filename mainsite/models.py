@@ -10,6 +10,7 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from workflow.models import Profile, Assignment, WArticle, Revision
 import re
 from django.core.exceptions import ValidationError
+from geoposition.fields import GeopositionField
 
 autocomplete_light.autodiscover()
 
@@ -64,7 +65,7 @@ class Article(models.Model):
     published_date = models.DateTimeField(null=True)
     updated_date = models.DateTimeField(default=datetime.datetime.now)
     legacy_id = models.PositiveIntegerField(null=True)
-
+    position = GeopositionField(blank=True,null=True)
     def __str__(self):
         return self.title
 
@@ -199,7 +200,7 @@ class AssignmentForm(ModelForm):
 class ArticleForm(autocomplete_light.ModelForm):
     class Meta:
         model = Article
-        fields = ['title', 'content', 'section', 'issue','authors']
+        fields = ['title', 'content', 'section', 'issue','authors','position']
         autocomplete_fields = ('authors')
 
 

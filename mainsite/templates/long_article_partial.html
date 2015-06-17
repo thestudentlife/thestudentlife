@@ -9,6 +9,9 @@
         | {{ article.published_date }} {% include 'share_buttons.html' %}
     </p>
     <div class="margin10"></div>
+    {% if article.position %}
+        <div id="map-canvas"></div>
+    {% endif %}
     <div class="article_content">
         {{ article.content|safe }}
     </div>

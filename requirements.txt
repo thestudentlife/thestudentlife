@@ -1,6 +1,7 @@
 Django==1.7.1
 django-autocomplete-light==2.1.1
 django-extensions==1.5.1
+django-geoposition==0.2.2
 django-haystack==2.3.1
 django-mobile==0.5.0
 django-selenium==0.9.8

@@ -4,6 +4,7 @@
 
 {% block title_block %}
     <title>Edit {{ article.title }}</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -20,6 +21,7 @@
 {% block content_block %}
     <form method="POST" action="">
         {% csrf_token %}
+    {{ form.media }}
         {% for field in form %}
             {% if field|widget_type == "select" %}
                 {% render_field field class+="combobox margin-vertical-10" placeholder=field.label %}

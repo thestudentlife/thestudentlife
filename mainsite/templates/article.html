@@ -4,6 +4,7 @@
 {% block title_block %}
     <title>{{ article.title }}</title>
     <style rel="stylesheet" type="text/css" href="{% static 'share_buttons.css' %}"></style>
+    {% include 'geolocation_partial.html' %}
 {% endblock %}
 
 {% block body_block %}
@@ -14,7 +15,7 @@
         {% include 'side_menu.html' %}
     </div>
     <div class="text-center">{% include 'share_buttons_large.html' %}</div>
-    <div class="tsl-disqus">
+    <div class="tsl-disqus col-sm-8 col-md-8 col-lg-8">
         {% include 'disqus_partial.html' %}
     </div>
 

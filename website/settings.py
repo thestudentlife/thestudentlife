@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django_mobile',
     'pysolr',
     'haystack',
+    'geoposition',
     'widget_tweaks',
     'autocomplete_light',
     'mainsite',
@@ -102,9 +103,11 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
-STATIC_URL = '/static/'
+
 
 ENV_PATH = os.path.abspath(os.path.dirname(__file__))
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(ENV_PATH, 'static/')
 MEDIA_ROOT = os.path.join(ENV_PATH, 'media/')
 MEDIA_URL = "/media/"
 
@@ -117,6 +120,7 @@ STATICFILES_DIRS = (
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
 STATIC_ROOT = os.path.join(ENV_PATH, 'static')
@@ -156,3 +160,5 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'claremont_academia@yahoo.com'
 EMAIL_HOST_PASSWORD = '794613852'
 DEFAULT_FROM_EMAIL = 'claremont_academia@yahoo.com'
+
+GEOPOSITION_MAP_WIDGET_HEIGHT = 240
