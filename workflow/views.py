@@ -196,7 +196,7 @@ def article_xml(request, article_id):
 
 @group_required('silver')
 def revision(request, pk):
-    revision = get_object_or_404(Revision,pk=id);
+    revision = get_object_or_404(Revision,pk=pk);
     article = revision.article;
     index = list(article.revision_set.order_by('date')).index(revision)
     if index > 0:
