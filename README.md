@@ -1,6 +1,8 @@
 The New TSL Website
 ===================
 
+[![Code Climate](https://codeclimate.com/github/thestudentlife/Manhattan-Project/badges/gpa.svg)](https://codeclimate.com/github/thestudentlife/Manhattan-Project)
+
 Running Locally/Selenium Tests
 --------------------------
 
