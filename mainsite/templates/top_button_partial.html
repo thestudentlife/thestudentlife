@@ -2,9 +2,11 @@
 
 <a id="top-btn" href="javascript:void(0)" onclick='scrollToTop();' class="btn btn-success">Back to Top</a>
 <style>
-    #top-btn{position: fixed;
-        top: 5%;
-        right: 5%;}
+    #top-btn{
+        position: fixed;
+        top: 10%;
+        right: 5%;
+    }
 </style>
 <script src="{% static 'jquery-2.1.3.min.js' %}"></script>
 <script>
@@ -19,10 +21,11 @@
 
     var timeOut;
     function scrollToTop() {
-      if (document.body.scrollTop!=0 || document.documentElement.scrollTop!=0){
-        window.scrollBy(0,-50);
-        timeOut=setTimeout('scrollToTop()',10);
+      if (document.body.scrollTop != 0 || document.documentElement.scrollTop != 0){
+        window.scrollBy(0, -50);
+        timeOut=setTimeout('scrollToTop()', 10);
+      } else {
+          clearTimeout(timeOut);
       }
-      else clearTimeout(timeOut);
     }
 </script>
