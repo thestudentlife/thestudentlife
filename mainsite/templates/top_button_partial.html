@@ -1,6 +1,6 @@
 {% load staticfiles %}
 
-<a id="top-btn" href="javascript:void(0)" onclick='scrollToTop();' class="btn btn-success">Back to Top</a>
+<a id="top-btn" style="display: none" href="javascript:void(0)" onclick='scrollToTop();' class="btn btn-success">Back to Top</a>
 <style>
     #top-btn{position: fixed;
         top: 5%;
@@ -8,7 +8,6 @@
 </style>
 <script src="{% static 'jquery-2.1.3.min.js' %}"></script>
 <script>
-    $('#top-btn').hide();
     $(window).scroll(function () {
         if ($(window).scrollTop()>2000){
             $('#top-btn').show();
