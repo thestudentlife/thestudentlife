@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 cwd=$(pwd)
-echo $(pip --version)
-pip install virtualenv
+echo $(pip3 --version)
+pip3 install virtualenv
 if [ ! -d "$cwd/ve" ]; then
     virtualenv -p $(which python3) -q $cwd/ve
     echo "Virtualenv created."
@@ -11,7 +11,7 @@ fi
 source $cwd/ve/bin/activate
 
 if [ ! -f "$cwd/ve/updated" -o $cwd/requirements.txt -nt $cwd/ve/updated ]; then
-    pip install -r $cwd/requirements.txt
+    pip3 install -r $cwd/requirements.txt
     touch $cwd/ve/updated
     echo "Requirements for TSL installed"
 fi
