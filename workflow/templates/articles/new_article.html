@@ -11,6 +11,7 @@
     <form method="POST" action="">
         {% csrf_token %}
         {% for field in form %}
+            {{ field.errors|striptags }}
             {% if field|widget_type == "select" %}
                 {% render_field field class+="combobox margin-vertical-10" placeholder=field.label %}
             {% elif field|widget_type == "textarea" %}

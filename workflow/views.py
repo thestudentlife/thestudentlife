@@ -18,13 +18,13 @@ def group_required(*group_names):
             if bool(u.groups.filter(name__in=group_names)) | u.is_superuser:
                 return True
         return False
-    return user_passes_test(in_groups, '/workflow/denied/')
+    return user_passes_test(in_groups, "/workflow/denied/")
 
 def deny(request):
     if request.user.is_anonymous():
-        return redirect(reverse('login'))
+        return redirect('%s?next=%s' % (reverse('login'), request.GET.get("next")))
     else:
-        return render(request,'permission.html')
+        return render(request, 'permission.html')
 
 def get_old_profile(display_name):
     old_profile = None
