@@ -9,9 +9,7 @@
     <ol class="breadcrumb breadcrumbAdjust">
         <li class="active">My Works</li>
     </ol>
-    {% if articles %}
         <a class="btn btn-default btn-primary btn-right" href="{% url 'new_article' issue.id %}">New Article</a>
-    {% endif %}
 {% endblock %}
 
 {% block content_block %}
