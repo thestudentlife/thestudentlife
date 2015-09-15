@@ -42,7 +42,8 @@ def article(request, section_name, article_id, article_name='default'):
                                             'populars': get_popular(5)})
 
 def legacy_article(request,legacy_id):
-    return article(request,'articles',article_id=legacy_id)
+    a = Article.objects.get(legacy_id=legacy_id)
+    return article(request,'articles',article_id=a.id)
 
 def error404(request):
     return render(request,'404.html')
