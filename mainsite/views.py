@@ -41,6 +41,9 @@ def article(request, section_name, article_id, article_name='default'):
     return render(request, 'article.html', {"sections": sections, "article": article, 'recents': get_recent(5),
                                             'populars': get_popular(5)})
 
+def legacy_article(request,legacy_id):
+    return article(request,'articles',article_id=legacy_id)
+
 def error404(request):
     return render(request,'404.html')
 
