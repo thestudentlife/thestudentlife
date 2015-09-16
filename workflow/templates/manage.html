@@ -10,6 +10,7 @@
         {% for user in users %}
             <li class="list-group-item">
                 <a href="{% url 'manage_one' user.id %}">{{ user.username }}</a> ({{user.profile.display_name}})
+                <a style="color:red" href="{% url 'delete_user' user.id %}">Delete</a>
             </li>
         {% endfor %}
     </ul>

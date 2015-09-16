@@ -17,6 +17,7 @@ urlpatterns = patterns('',
                        url(r'^settings/(?P<user_id>[0-9]+)/$',views.setting,name="setting"),
                        url(r'^manage/$',views.manage,name='manage'),
                        url(r'^manage/(?P<user_id>[0-9]+)/$',views.manage_one,name='manage_one'),
+                       url(r'^delete_user/(?P<user_id>\d+)/$',views.delete_user,name='delete_user'),
 
                        #front
                        url(r'^front/$', views.front, name="front"),

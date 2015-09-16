@@ -44,7 +44,7 @@ def register(request):
             position = request.POST['position']
             old_profile = get_old_profile(display_name)
             if old_profile:
-                old_profile.user = request.user
+                old_profile.user = user
                 old_profile.save()
             else:
                 profile = Profile(user=user,display_name=display_name,position=position)
@@ -84,8 +84,10 @@ def setting(request,user_id):
         else:
             return render(request,'setting.html',{'form':form})
 
-
-
+def delete_user(request,user_id):
+    user = User.objects.get(id=user_id)
+    user.delete()
+    return redirect(reverse('manage'))
 
 def login(request):
     if request.method == "POST":
