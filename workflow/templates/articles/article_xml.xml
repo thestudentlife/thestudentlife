@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <article>
+  
     <title>{{ article.title }}</title>
     {% for author in article.authors.all %}
         <author>{{ author.display_name }}</author>
@@ -7,4 +8,5 @@
     {% for paragraph in paragraphs %}
         <p>{{ paragraph }}</p>
     {% endfor %}
+
 </article>

@@ -28,7 +28,7 @@
                          onclick="javascript:location.href='{% url 'article' feature.article.section.slug feature.article.id %}';"
                          link="{% url 'article' feature.article.section.slug feature.article.id %}"/>
 
-                    <div class="caption">{{ feature.article.content_with_no_images | truncatechars:150 | safe }}</div>
+                    <div class="caption">{{ feature.article.content_with_no_images | truncatechars:150 | safe }}</em></div>
                 </li>
             {% endfor %}
         </ul>

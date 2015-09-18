@@ -193,7 +193,7 @@ def front(request):
 def article_xml(request, article_id):
     article = get_object_or_404(Article,pk=article_id)
     paragraphs = getText.dehtml(article.content).split('\n\n')
-    data = render_to_string('articles/article_xml.xml', {'article': article, 'paragraphs': paragraphs})
+    data = render(request,'articles/article_xml.xml', {'article': article, 'paragraphs': paragraphs})
     return HttpResponse(data, content_type='application/xml')
 
 @group_required('silver')
