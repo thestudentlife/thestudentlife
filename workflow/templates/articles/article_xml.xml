@@ -2,7 +2,7 @@
 <article>
     <title>{{ article.title }}</title>
     {% for author in article.authors.all %}
-        <author>{{ author.user.username }}</author>
+        <author>{{ author.display_name }}</author>
     {% endfor %}
     {% for paragraph in paragraphs %}
         <p>{{ paragraph }}</p>
