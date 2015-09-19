@@ -26,6 +26,14 @@
            href="{% url 'edit_article' article.issue.id article.id %}">Edit</a>
     {% endif %}
     <div class="padding10"></div>
+    {% if article.edited_by.all %}
+            <p style="color:red">
+                {% for editor in article.edited_by.all %}
+                    {{  editor.profile.display_name }}
+                {% endfor %}
+                is working on this article.
+            </p>
+    {% endif %}
     <section class="article_content">
         {{ article.content | safe }}
     </section>

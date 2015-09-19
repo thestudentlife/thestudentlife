@@ -18,6 +18,14 @@
         </p>
     </hgroup>
     <p class="article_content">
-        {{ article.content_with_no_images | truncatechars:200 | safe }}
+        {{ article.content_with_no_images | truncatechars:200 | safe }} </em>
     </p>
+    {% if article.edited_by.all %}
+        <p style="color:red">
+            {% for editor in article.edited_by.all %}
+                {{  editor.profile.display_name }}
+            {% endfor %}
+            is working on this article.
+        </p>
+    {% endif %}
 </article>

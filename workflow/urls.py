@@ -45,6 +45,8 @@ urlpatterns = patterns('',
                        url(r'^articles/issue/(?P<issue_id>[0-9]+)/(?P<pk>[0-9]+)/delete/$',
                            group_required('silver')(ArticleDeleteView.as_view()), name='delete_article'),
                        url(r'^articles/xml/(?P<article_id>\d+)', views.article_xml, name="article_xml"),
+                       url(r'^connect/(?P<article_id>\d+)/(?P<user_id>[0-9]+)/$',views.connect,name='connect'),
+                       url(r'^disconnect/(?P<article_id>\d+)/(?P<user_id>[0-9]+)/$',views.disconnect,name='disconnect'),
                        url(r'^articles/revision/(?P<pk>\d+)/$', views.revision, name="revision"),
                        url(r'^comment/(?P<article_id>\d+)/(?P<user_id>\d+)/$', views.comment,name="comment"),
 

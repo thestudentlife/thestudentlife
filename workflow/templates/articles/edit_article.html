@@ -59,4 +59,19 @@
             {% endif %}
         });
     </script>
+    <script>
+
+        $(window).load(function(){
+            $.ajax({
+                url: "{% url 'connect' article.id request.user.id %}"
+            })
+        })
+
+        $( window ).on('beforeunload',function() {
+            $.ajax({
+                url: "{% url 'disconnect' article.id request.user.id %}"
+            })
+        })
+
+    </script>
 {% endblock %}
