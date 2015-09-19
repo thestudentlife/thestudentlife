@@ -325,3 +325,18 @@ def publish(request,article_id):
     article.save()
     return HttpResponse('success')
 
+
+def connect(request,article_id,user_id):
+    user = get_object_or_404(User,pk=user_id)
+    article = get_object_or_404(Article,pk=article_id)
+    article.edited_by.add(user)
+    article.save()
+    return HttpResponse('success')
+
+def disconnect(request,article_id,user_id):
+    user = get_object_or_404(User,pk=user_id)
+    article = get_object_or_404(Article,pk=article_id)
+    article.edited_by.remove(user)
+    article.save()
+    return HttpResponse('success')
+

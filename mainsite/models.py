@@ -66,6 +66,7 @@ class Article(models.Model):
     updated_date = models.DateTimeField(default=datetime.datetime.now)
     legacy_id = models.PositiveIntegerField(null=True)
     position = GeopositionField(blank=True,null=True)
+    edited_by = models.ManyToManyField(User,null=True,related_name='edited_article')
     def __str__(self):
         return self.title
 
