@@ -123,9 +123,6 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-STATIC_ROOT = os.path.join(ENV_PATH, 'static')
-
-
 LOGIN_URL = '/workflow/login'
 
 HAYSTACK_CONNECTIONS = {
