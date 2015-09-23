@@ -192,7 +192,8 @@ def front(request):
 @group_required('bronze')
 def article_xml(request, article_id):
     article = get_object_or_404(Article,pk=article_id)
-    paragraphs = getText.dehtml(article.content).split('\n\n')
+    replaced = article.content.replace("&lsquo;","\'").replace("&rsquo;","\'").replace("&ldquo;","\"").replace("&rdquo;","\"").replace("&#39;","\'").replace("&quot;","\"").replace("&ndash;","-")
+    paragraphs = getText.dehtml(replaced).split('\n\n')
     data = render(request,'articles/article_xml.xml', {'article': article, 'paragraphs': paragraphs})
     return HttpResponse(data, content_type='application/xml')
 
