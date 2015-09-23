@@ -1,0 +1,7 @@
+# Save as .codeclimate.yml (note leading .) in project root directory
+languages:
+  JavaScript: true
+  Python: true
+exclude_paths:
+- mainsite/static/*
+- workflow/static/*
