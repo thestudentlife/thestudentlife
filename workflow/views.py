@@ -104,7 +104,8 @@ def login(request):
                 return HttpResponseRedirect(request.GET['next'])
         else:
             return render(request, 'login.html', {
-                'form': loginForm
+                'form': loginForm,
+                'error': 'Authentication failed.'
             })
     else:
         loginForm = LoginForm()

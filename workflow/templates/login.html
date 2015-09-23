@@ -19,6 +19,7 @@
             {% for field in form %}
                 {% render_field field class+="form-control margin10" placeholder=field.label %}
             {% endfor %}
+            <span style="color:red">{{ error }}</span>
             <input class="btn btn-default btn-block btn-primary margin10" id="login" type="submit"
                    value="Login"/>
         </form>
