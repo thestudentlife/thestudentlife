@@ -118,8 +118,8 @@ class Album(models.Model):
 class Photo(models.Model):
     def validate_image(fieldfile_obj):
         file_size = fieldfile_obj.file.size
-        if file_size > 1024*1024:
-            raise ValidationError("Max file size is 1MB")
+        if file_size > 4096*4096:
+            raise ValidationError("Max file size is 4MB")
     def validate_height(value):
         if value > 3000:
             raise ValidationError("Max height is 3000px")
