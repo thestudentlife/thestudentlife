@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, FrontArticle, CarouselArticle, Copy, Photo
 from workflow.models import Assignment, RegisterForm, LoginForm, Revision, ProfileForm, RegisterForm2, Comment
-import os, subprocess,json
+import os, subprocess,json, dropbox
 from workflow.static import getText
 from workflow.tsl_email import assignment_email
 
@@ -190,13 +190,18 @@ def front(request):
             carousel.save()
         return redirect(reverse('front'))
 
+def sendToBox(file_name,body):
+    client = dropbox.client.DropboxClient('dq6VsaADppcAAAAAAAAUupdbN-TBR3IPS-DXvJ09vs-ByN4x8qfRINLPy5mLhnuI')
+    client.put_file('/'+file_name, body,overwrite=True)
+
 @group_required('bronze')
 def article_xml(request, article_id):
     article = get_object_or_404(Article,pk=article_id)
     replaced = article.content.replace("&lsquo;","\'").replace("&rsquo;","\'").replace("&ldquo;","\"").replace("&rdquo;","\"").replace("&#39;","\'").replace("&quot;","\"").replace("&ndash;","-")
     paragraphs = getText.dehtml(replaced).split('\n\n')
-    data = render(request,'articles/article_xml.xml', {'article': article, 'paragraphs': paragraphs})
-    return HttpResponse(data, content_type='application/xml')
+    data = render_to_string('articles/article_xml.xml', {'article': article, 'paragraphs': paragraphs})
+    sendToBox(article.title,data)
+    return redirect(reverse('warticle',kwargs={'issue_id':article.issue.id,'pk':article.id}))
 
 @group_required('silver')
 def revision(request, pk):
