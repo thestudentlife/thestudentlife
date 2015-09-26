@@ -4,7 +4,7 @@
 
 body {
     font-family: 'Libre Baskerville', serif;
-    font-size: 160%;
+    font-size: 150%;
 }
 
 div p a:link {
@@ -23,13 +23,22 @@ div p a:active {
     text-decoration: underline;
 }
 
+.article_content {
+    font-size: 120%;
+}
+@media (min-width: 56.25em) {
+    .article_content > p {
+        max-width: 31.65em;
+    }
+}
+
 .article_info {
     text-indent: 0px;
 }
 
 p {
     padding-top: 0;
-                    margin: 15px auto;
+    margin: 15px auto;
 }
 
 @media (min-width: 48em) {
