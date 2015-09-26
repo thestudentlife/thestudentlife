@@ -59,7 +59,7 @@ body {
 }
 
 .tsl-disqus {
-    margin: 0px 50px;
+    margin: 40px 50px;
 }
 
 a.dsq-widget-thread {
@@ -73,8 +73,8 @@ footer {
 
 #tslLogo {
     display: inline-block;
-    margin: 0px 10px 0px 0px;
-    width: 10%;
+    margin: -3px 10px 0px 0px;
+    width: 12%;
 }
 
 .tsl.navbar-brand {
@@ -88,7 +88,7 @@ footer {
 }
 
 #tslLogoText {
-    margin-top: 10px;
+    font-size: 110%;
 }
 
 #tslNavbar {
