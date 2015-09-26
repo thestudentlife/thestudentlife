@@ -72,4 +72,4 @@ ve/*
 nohup.out
 db.sqlite3-journal
 .dat030d.164
-settings.py
+website/settings.py
