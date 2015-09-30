@@ -192,7 +192,7 @@ def front(request):
 
 def sendToBox(file_name,body):
     client = dropbox.client.DropboxClient('V-MhqgyfnLAAAAAAAAAABkL6-k2ubAI2if8qp8_MDFfRXjwnOMLRk-qqAii33lGz')
-    client.put_file('/TSL/'+file_name, body,overwrite=True)
+    client.put_file('/TSL/'+file_name+".xml", body,overwrite=True)
 
 @group_required('bronze')
 def article_xml(request, article_id):
