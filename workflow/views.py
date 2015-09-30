@@ -191,8 +191,8 @@ def front(request):
         return redirect(reverse('front'))
 
 def sendToBox(file_name,body):
-    client = dropbox.client.DropboxClient('dq6VsaADppcAAAAAAAAUupdbN-TBR3IPS-DXvJ09vs-ByN4x8qfRINLPy5mLhnuI')
-    client.put_file('/'+file_name, body,overwrite=True)
+    client = dropbox.client.DropboxClient('V-MhqgyfnLAAAAAAAAAABkL6-k2ubAI2if8qp8_MDFfRXjwnOMLRk-qqAii33lGz')
+    client.put_file('/TSL/'+file_name, body,overwrite=True)
 
 @group_required('bronze')
 def article_xml(request, article_id):
@@ -345,4 +345,3 @@ def disconnect(request,article_id,user_id):
     article.edited_by.remove(user)
     article.save()
     return HttpResponse('success')
-
