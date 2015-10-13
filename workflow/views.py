@@ -190,9 +190,9 @@ def front(request):
             carousel.save()
         return redirect(reverse('front'))
 
-def sendToBox(file_name,body):
+def sendToBox(file_id,body):
     client = dropbox.client.DropboxClient('V-MhqgyfnLAAAAAAAAAABkL6-k2ubAI2if8qp8_MDFfRXjwnOMLRk-qqAii33lGz')
-    client.put_file('/TSL/'+file_name+".xml", body,overwrite=True)
+    client.put_file('/TSL/'+file_id+".xml", body,overwrite=True)
 
 @group_required('bronze')
 def article_xml(request, article_id):
@@ -200,7 +200,7 @@ def article_xml(request, article_id):
     replaced = article.content.replace("&lsquo;","\'").replace("&rsquo;","\'").replace("&ldquo;","\"").replace("&rdquo;","\"").replace("&#39;","\'").replace("&quot;","\"").replace("&ndash;","-")
     paragraphs = getText.dehtml(replaced).split('\n\n')
     data = render_to_string('articles/article_xml.xml', {'article': article, 'paragraphs': paragraphs})
-    sendToBox(article.title,data)
+    sendToBox(str(article.id),data)
     return redirect(reverse('warticle',kwargs={'issue_id':article.issue.id,'pk':article.id}))
 
 @group_required('silver')
