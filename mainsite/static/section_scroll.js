@@ -53,6 +53,10 @@ function author_name(authors) {
     return str;
 }
 
+function no_image(text){
+    return text.replace(/<img[^>]*>/g,"");
+}
+
 function process(article) {
     return "<span class='article-preview'>" +
         "<article>" +
@@ -65,7 +69,7 @@ function process(article) {
         "<i class='fa fa-comment-o'></i><a href='"+article['url']+"#disqus_thread' class='disqus_comment_count'" +
         "data-disqus-identifier='"+article['disqus_id']+"'></a>"+
         "</p>" +
-        "<p class='article_content'>{content}</p>".supplant({content: article['content']}) + "" +
+        "<p class='article_content'>{content}</p>".supplant({content: no_image(article['content'])}) + "" +
         "</article>" +
         "</span>";
 }
