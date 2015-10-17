@@ -17,5 +17,5 @@
     {% endif %}
     <i class="fa fa-comment-o"></i>
     <a href="{{ front.article.get_absolute_url }}#disqus_thread" class="disqus-comment-count" data-disqus-identifier="{{ front.article.disqus_id }}"></a>
-    <p>{{ front.article.content_with_no_images | truncatechars:150 | safe }}</p>
+    <p>{{ front.article.content_with_no_images | truncatechars:150 | safe }}</em></p>
 </article>
