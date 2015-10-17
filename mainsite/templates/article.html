@@ -4,7 +4,6 @@
 {% block title_block %}
     <title>{{ article.title }}</title>
     <style rel="stylesheet" type="text/css" href="{% static 'share_buttons.css' %}"></style>
-    {% include 'geolocation_partial.html' %}
 {% endblock %}
 
 {% block body_block %}
@@ -23,5 +22,8 @@
 {% endblock %}
 
 {% block script_block %}
+    <script src="{% static 'ElementQueries.js' %}"></script>
+     <script src="{% static 'ResizeSensor.js' %}"></script>
     <script src="{% static 'social_button.js' %}"></script>
+    <script src="{% static 'resize_image.js' %}"></script>
 {% endblock %}
