@@ -96,16 +96,17 @@ def get_recent(n):
 def get_popular(n):
     return Article.objects.all().filter(published=True).order_by('-clicks')[:n]
 
+from haystack.inputs import AutoQuery
+from django.db.models import Q
 def search_query(request):
     sections = Section.objects.all()
     query = request.GET['search']
     if request.is_ajax():
         count = int(request.GET['count'])
-        articles = SearchQuerySet().filter(content=query)[count:count+10]
+        articles = SearchQuerySet().filter(Q(authors=AutoQuery(query)) | Q(content=query))[count:count+10]
         articles_in_json = []
         for article in articles:
             articles_in_json.append(article_ajax_object(article.object))
         return HttpResponse(json.dumps(articles_in_json), content_type='application/json')
-    query_set = SearchQuerySet().filter(content=query)[:10]
+    query_set = SearchQuerySet().filter(Q(authors=AutoQuery(query)) | Q(content=query))[:10]
     return render(request, "search/search.html", {"sections": sections, "word": query, "qs": query_set, 'recents': get_recent(5), 'populars': get_popular(5)})
-
