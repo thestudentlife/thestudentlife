@@ -1,5 +1,5 @@
 <aside class="side-menu">
-    <div class="padding10"></div>
+
     <form action="{% url 'search' %}" role="search" method="GET">
         <div class="input-group">
             <input name="search" type="text" class="form-control" placeholder="Search for..."/>
@@ -8,11 +8,29 @@
             </span>
         </div>
     </form>
-    <section>
-	<h2>Most Discussed</h2>
+
+    <div class="padding10"></div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#discussed" aria-controls="discussed" role="tab" data-toggle="tab">Most Discussed</a></li>
+    <li role="presentation"><a href="#viewed" aria-controls="viewed" role="tab" data-toggle="tab">Most Viewed</a></li>
+    <li role="presentation"><a href="#recent" aria-controls="recent" role="tab" data-toggle="tab">Most Recent</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="discussed">
+        <section>
+	    <h2>Most Discussed</h2>
         <script type="text/javascript" src="http://pomonatsl.disqus.com/popular_threads_widget.js?num_items=5"></script>
-    </section>
-    <section>
+        </section>
+    </div>
+
+
+    <div role="tabpanel" class="tab-pane" id="viewed">
+
+         <section>
         <h2>Most Viewed</h2>
         {% for article in populars %}
             <a href="{{ article.get_absolute_url }}">
@@ -21,7 +39,11 @@
             <p class="dsq-widget-meta">{{ article.clicks }} views</p>
         {% endfor %}
     </section>
-    <section>
+
+    </div>
+
+    <div role="tabpanel" class="tab-pane" id="recent">
+        <section>
         <h2>Most Recent</h2>
         {% for article in recents %}
             <a href="{{ article.get_absolute_url }}">
@@ -29,5 +51,8 @@
             </a>
             <p class="dsq-widget-meta">{{ article.updated_date }}</p>
         {% endfor %}
-    </section>
+        </section>
+    </div>
+  </div>
+
 </aside>
