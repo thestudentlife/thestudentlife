@@ -1,4 +1,5 @@
 <ls class='comments_block'>
     <p class='commentBody'> {{ comment.body }} </p>
+    <a href="javascript:void(0)" class="comment-delete-button" comment_id="{{ comment.id }}">delete</a>
     <p class='commentHeader'> {{ comment.author.profile.display_name }} | {{ comment.created_date }}</p>
 </ls>

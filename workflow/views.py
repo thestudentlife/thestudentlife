@@ -307,7 +307,14 @@ def comment(request,article_id,user_id):
     fmt = '%b. %d, %Y, %I:%M %p'
     obj['created_date'] = comment.created_date.strftime(fmt)
     obj['body'] = comment.body
+    obj['id'] = comment.id
     return HttpResponse(json.dumps(obj),content_type='application/json')
+
+@group_required('bronze')
+def delete_comment(request,comment_id):
+    comment = Comment.objects.get(id=comment_id)
+    comment.delete()
+    return HttpResponse('success')
 
 @group_required('silver')
 def copies(request):

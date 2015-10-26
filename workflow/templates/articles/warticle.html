@@ -89,24 +89,44 @@
             console.log(obj);
             return "<ls class='comments_block'>" +
                     "<p class='commentBody'>" + obj.body + "</p>" +
+                    "<a href='javascript:void(0)' class='comment-delete-button' comment_id='"+ obj.id+"'>delete</a>"+
                     "<p class='commentHeader'>" + obj.author[1] + " | " + obj.created_date +
                     "</p></ls>";
         }
 
         $('#new_comment_btn').click(function () {
             comment_content = $('#new_comment').val();
-            $('#new_comment').val('');
-            $.ajax({
-                       url: '/workflow/comment/{{ article.id }}/{{ request.user.id }}/',
-                       data: {body: comment_content},
-                       success: function (obj) {
-                           $('#comments_ls').append(wrap(obj));
-                           History.replaceState({comment: true, obj: obj}, "", "?comment=true");
-                       },
-                       error: function (xhr, message, exception) {
-                           alert('error occurs: ' + exception);
-                       }
-                   })
+            if (comment_content.trim() != ""){
+                $('#new_comment').val('');
+                $.ajax({
+                           url: '/workflow/comment/{{ article.id }}/{{ request.user.id }}/',
+                           data: {body: comment_content},
+                           success: function (obj) {
+                               $('#comments_ls').append(wrap(obj));
+                               History.replaceState({comment: true, obj: obj}, "", "?comment=true");
+                               addListener();
+                           },
+                           error: function (xhr, message, exception) {
+                               alert('error occurs: ' + exception);
+                           }
+                       })
+            }
         });
+
+        function addListener(){
+            $('.comment-delete-button').click(function () {
+            var comment_id = $(this).attr('comment_id');
+            $(this).parent().fadeOut();
+            $.ajax({
+                url: '/workflow/comment/delete/'+comment_id+"/",
+                success: function (obj) {
+                    History.replaceState({delete: true, obj: obj}, "", "?delete=true");
+                },
+                error: function (xhr, message, exception) {
+                }
+            })
+        });
+        }
+        addListener();
     </script>
 {% endblock %}

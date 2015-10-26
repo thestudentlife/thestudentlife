@@ -49,6 +49,7 @@ urlpatterns = patterns('',
                        url(r'^disconnect/(?P<article_id>\d+)/(?P<user_id>[0-9]+)/$',views.disconnect,name='disconnect'),
                        url(r'^articles/revision/(?P<pk>\d+)/$', views.revision, name="revision"),
                        url(r'^comment/(?P<article_id>\d+)/(?P<user_id>\d+)/$', views.comment,name="comment"),
+                       url(r'^comment/delete/(?P<comment_id>\d+)/$', views.delete_comment,name="delete_comment"),
 
                        url(r'^albums$', photo_views.albums,name='albums'),
                        url(r'^album/(?P<issue_id>\d+)$', photo_views.issue_albums, name="issue_albums"),
