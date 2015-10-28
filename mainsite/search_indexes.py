@@ -16,7 +16,7 @@ class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
         return [profile.display_name for profile in object.authors.all()]
 
     def index_queryset(self, using=None):
-        return self.get_model().objects.filter(published=True).order_by('published_date')
+        return self.get_model().objects.filter(published=True).order_by('-published_date')
 
     def get_updated_field(self):
         return "published_date"
