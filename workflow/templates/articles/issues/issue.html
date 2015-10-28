@@ -17,7 +17,7 @@
     <div class="horizontal-center">
         <ul id="sectionNavigation" class="nav nav-tabs">
             {% for section in sections %}
-                <li class="section-tab" id="{{ section.slug }}"><a class="sizeH3" href="#">{{ section.name }}</a></li>
+                <li class="section-tab" id="{{ section.slug }}"><a class="sizeH3" href="#{{section.name}}">{{ section.name }}</a></li>
             {% endfor %}
         </ul>
     </div>
@@ -35,4 +35,3 @@
 {% block additional_scripts_block %}
     <script type="text/javascript" src="{% static 'issue_tab.js' %}"></script>
 {% endblock %}
-
