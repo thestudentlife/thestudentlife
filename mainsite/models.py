@@ -74,7 +74,7 @@ class Article(models.Model):
         return re.sub("<img[^>]*>","", re.sub("<a[^>]*>","", self.content));
 
     def has_photo(self):
-        return self.album.photo_set is not None
+        return len(self.album.photo_set.all()) != 0
 
     def disqus_id(self):
         if self.legacy_id:
@@ -203,11 +203,3 @@ class ArticleForm(autocomplete_light.ModelForm):
         model = Article
         fields = ['title', 'content', 'section', 'issue','authors','position']
         autocomplete_fields = ('authors')
-
-
-
-
-
-
-
-
