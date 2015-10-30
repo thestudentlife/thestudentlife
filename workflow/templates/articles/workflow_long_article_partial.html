@@ -24,6 +24,9 @@
         {% if article.has_photo %}
         <span class="label label-success">Photos Received</span>
         {% endif %}
+        {% if article.published %}
+        <span class="label label-info">Published</span>
+        {% endif %}
     </p>
     {% if 'silver' in request.user.profile.ideal_group_names %}
         <a id="edit" class="btn btn-default btn-primary btn-50"
