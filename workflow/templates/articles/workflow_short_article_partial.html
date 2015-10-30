@@ -19,6 +19,9 @@
             {% if article.has_photo %}
             <span class="label label-success">Photos Received</span>
             {% endif %}
+            {% if article.published %}
+            <span class="label label-info">Published</span>
+            {% endif %}
         </p>
     </hgroup>
     <p class="article_content">
