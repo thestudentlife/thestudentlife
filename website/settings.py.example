@@ -7,4 +7,7 @@ TEMPLATE_DEBUG = False
 STATIC_ROOT = '/srv/www/tsl/public/static/'
 MEDIA_ROOT = '/srv/www/tsl/local/Manhattan-Project/website/media/'
 
+EMAIL_HOST_USER = 'claremont_academia@yahoo.com'
+EMAIL_HOST_PASSWORD = '794613852'
+
 from website.configuration import *

@@ -1,7 +1,7 @@
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 from django.template import Context
-from website import settings
+from django.conf import settings
 
 def assignment_email(sender,receiver,assignment):
     text = get_template('email/assignment_email.txt')

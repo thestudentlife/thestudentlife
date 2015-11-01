@@ -137,8 +137,6 @@ SELENIUM_DRIVER_OPTS = getattr(settings, 'SELENIUM_DRIVER_OPTS', dict())
 EMAIL_USE_TLS = True
 EMAIL_HOST = "smtp.mail.yahoo.com"
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'claremont_academia@yahoo.com'
-EMAIL_HOST_PASSWORD = '794613852'
 DEFAULT_FROM_EMAIL = 'claremont_academia@yahoo.com'
 
 GEOPOSITION_MAP_WIDGET_HEIGHT = 240
