@@ -148,7 +148,7 @@ class Photo(models.Model):
         from django.core.files.uploadedfile import SimpleUploadedFile
         import os
 
-        THUMBNAIL_SIZE = (300,300)
+        THUMBNAIL_SIZE = (500,500)
 
         from mimetypes import MimeTypes
         mime = MimeTypes()
