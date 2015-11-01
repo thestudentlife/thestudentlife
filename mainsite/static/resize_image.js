@@ -13,3 +13,6 @@ function resize(){
 new ResizeSensor(jQuery('.article_content'), resize);
 
 resize();
+
+
+

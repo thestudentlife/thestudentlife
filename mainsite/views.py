@@ -9,9 +9,13 @@ def home(request):
     sections = Section.objects.all()
     features = CarouselArticle.objects.all()
     fronts = FrontArticle.objects.all()
+    comics = Article.objects.filter(title__startswith="Weekly Comic").order_by('-created_date')
+    if len(comics) > 0:
+        comic = comics[0]
+        comic_url = comic.album.photo_set.all()[0].image.url
     return render(request, 'index.html',
                   {'sections': sections, 'features': features, 'fronts': fronts, 'recents': get_recent(5),
-                   'populars': get_popular(5)})
+                   'populars': get_popular(5), 'comic_url': comic_url})
 
 def section(request, section_slug):
     sections = Section.objects.all()

@@ -57,4 +57,11 @@
     </div>
   </div>
 
+    {% if comic_url %}
+        <section class="comic">
+        <h2>Weekly Comic</h2>
+        <img src="{{ comic_url }}" style="max-width: 80%">
+        </section>
+    {% endif %}
+
 </aside>
