@@ -13,18 +13,6 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'random_for_development'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-TEMPLATE_DEBUG = True
-
 ALLOWED_HOSTS = ['.tsl.pomona.edu','127.0.0.1','localhost']
 
 
@@ -103,9 +91,7 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 ENV_PATH = os.path.abspath(os.path.dirname(__file__))
-STATIC_URL = '/static/'
-STATIC_ROOT = '/srv/www/tsl/public/static/'
-MEDIA_ROOT = '/srv/www/tsl/local/Manhattan-Project/website/media/'
+STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
 
 PROJECT_PATH = os.path.join(ENV_PATH, os.pardir)
