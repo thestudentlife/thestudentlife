@@ -4,7 +4,7 @@
 
 body {
     font-family: 'Libre Baskerville', serif;
-    font-size: 150%;
+    font-size: 125%;
 }
 
 div p a:link {
@@ -28,7 +28,7 @@ div p a:active {
 }
 @media (min-width: 56.25em) {
     .article_content > p {
-        max-width: 31.65em;
+        max-width: 38.65em;
     }
 }
 
@@ -43,13 +43,12 @@ p {
 
 @media (min-width: 48em) {
     p {
-        max-width: 36em;
     }
 }
 
 @media (min-width: 56.25em) {
     p {
-        max-width: 38em;
+        max-width: 46.25em;
     }
 }
 
@@ -69,15 +68,10 @@ h1 {
 @media (min-width: 48em) {
     h1 {
         font-size: 2.5em;
-        /* 2.5x body copy size = 40px */
         letter-spacing: normal;
         line-height: 1.125;
-        /* 45px / 40px */
         margin-top: 0.73333334em;
-        /* (22px / 45px) * 1.5 */
         margin-bottom: 0.24444445em;
-        /* (22px / 45px) * .5 */
-        max-width: 14.4em;
         margin-left: auto;
         margin-right: auto;
     }
@@ -94,7 +88,7 @@ h1 {
         /* (22px / 48px) * 1.5 */
         margin-bottom: 0.22916667em;
         /* (22px / 48px) * .5 */
-        max-width: 12.66667em;
+        max-width: 15.66667em;
         margin-left: auto;
         margin-right: auto;
     }
@@ -143,7 +137,7 @@ h2 {
         /* (22px / 32px) * 1.5 */
         margin-bottom: 0.34375em;
         /* (22px / 32px) * .5 */
-        max-width: 16.88889em;
+        max-width: 20.5em;
         margin-left: auto;
         margin-right: auto;
     }
@@ -173,7 +167,6 @@ h3 {
         /* (22px / 24px) * 1.5 */
         margin-bottom: 0.45833334em;
         /* (22px / 24px) * .5 */
-        max-width: 26.18182em;
         margin-left: auto;
         margin-right: auto;
     }
@@ -188,7 +181,7 @@ h3 {
         /* (22px / 24px) * 1.5 */
         margin-bottom: 0.45833334em;
         /* (22px / 24px) * .5 */
-        max-width: 21.71429em;
+        max-width: 26.5em;
         margin-left: auto;
         margin-right: auto;
     }

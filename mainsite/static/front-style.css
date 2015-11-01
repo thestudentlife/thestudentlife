@@ -103,6 +103,10 @@ footer {
     margin-bottom: 0px;
 }
 
+li.dsq-widget-item {
+    margin: 0px !important;
+}
+
 /*header*/
 #header {
     display: table-cell;
