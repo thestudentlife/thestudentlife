@@ -3,5 +3,5 @@ languages:
   JavaScript: true
   Python: true
 exclude_paths:
-- mainsite/static/*
-- workflow/static/*
+- "mainsite/static/*"
+- "workflow/static/*"
