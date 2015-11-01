@@ -1,4 +1,4 @@
-from configuration import *
+from website.configuration import *
 
 # Set secret key
 SECRET_KEY = 'SET_SECRET_KEY'
