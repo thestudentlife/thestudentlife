@@ -1,13 +1,13 @@
-The New TSL Website
+The TSL Website
 ===================
 
 [![Code Climate](https://codeclimate.com/github/thestudentlife/Manhattan-Project/badges/gpa.svg)](https://codeclimate.com/github/thestudentlife/Manhattan-Project)
+[![Build Status](https://travis-ci.org/thestudentlife/thestudentlife.svg?branch=master)](https://travis-ci.org/thestudentlife/thestudentlife)
 
 Configuration
 --------------------------
 
 - Clone this repository
-- Navigate to this project's root directory on your computer
 - Install [Python 3.4+](https://www.python.org/downloads/)
 - Copy `website/settings.py.example` to `website/settings.py`
 - Enter <code>bash setup.sh</code>
