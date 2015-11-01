@@ -10,3 +10,5 @@ MEDIA_ROOT = os.path.join(ENV_PATH, 'media')
 
 EMAIL_HOST_USER = 'claremont_academia@yahoo.com'
 EMAIL_HOST_PASSWORD = 'random_for_travis'
+
+DROPBOX_CLIENT_ID = ''

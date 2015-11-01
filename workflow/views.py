@@ -7,6 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from mainsite.models import Issue, Article, Section, Profile, AssignmentForm, FrontArticle, CarouselArticle, Copy, Photo
+from django.conf import settings
 from workflow.models import Assignment, RegisterForm, LoginForm, Revision, ProfileForm, RegisterForm2, Comment
 import os, subprocess,json, dropbox
 from workflow.static import getText
@@ -191,7 +192,7 @@ def front(request):
         return redirect(reverse('front'))
 
 def sendToBox(file_id,body):
-    client = dropbox.client.DropboxClient('V-MhqgyfnLAAAAAAAAAABkL6-k2ubAI2if8qp8_MDFfRXjwnOMLRk-qqAii33lGz')
+    client = dropbox.client.DropboxClient(settings.DROPBOX_CLIENT_ID)
     client.put_file('/TSL/'+file_id+".xml", body,overwrite=True)
 
 @group_required('bronze')
