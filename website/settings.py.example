@@ -1,13 +1,13 @@
-# Set secret key
+from website.settings_shared import *
+
 SECRET_KEY = 'SET_SECRET_KEY'
 
-DEBUG = False
-TEMPLATE_DEBUG = False
+DEBUG = True
+TEMPLATE_DEBUG = True
 
-STATIC_ROOT = '/srv/www/tsl/public/static/'
-MEDIA_ROOT = '/srv/www/tsl/local/Manhattan-Project/website/media/'
+STATIC_ROOT = os.path.join(ENV_PATH, 'static')
+MEDIA_ROOT = os.path.join(ENV_PATH, 'media')
 
 EMAIL_HOST_USER = 'claremont_academia@yahoo.com'
-EMAIL_HOST_PASSWORD = '794613852'
+EMAIL_HOST_PASSWORD = 'SET_PASSWORD'
 
-from website.configuration import *

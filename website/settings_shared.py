@@ -15,7 +15,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 ALLOWED_HOSTS = ['.tsl.pomona.edu','127.0.0.1','localhost']
 
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -97,8 +96,8 @@ MEDIA_URL = "/media/"
 PROJECT_PATH = os.path.join(ENV_PATH, os.pardir)
 
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_PATH, 'workflow', 'static'),
     os.path.join(PROJECT_PATH, 'mainsite', 'static'),
+    os.path.join(PROJECT_PATH, 'workflow', 'static')
 )
 
 STATICFILES_FINDERS = (
@@ -114,24 +113,6 @@ HAYSTACK_CONNECTIONS = {
         'URL': 'http://tsl.pomona.edu:8983/solr'
     },
 }
-
-from django.conf import settings
-# Specify the selenium test runner
-SELENIUM_TEST_RUNNER = getattr(settings, 'SELENIUM_TEST_RUNNER',
-                               'django_selenium.selenium_runner.SeleniumTestRunner')
-
-SELENIUM_TIMEOUT = getattr(settings, 'SELENIUM_TIMEOUT', 120)
-SELENIUM_DRIVER_TIMEOUT = getattr(settings, 'SELENIUM_DRIVER_TIMEOUT', 10)
-# Specify max waiting time for server to finish processing request and deactivates
-SELENIUM_TEST_SERVER_TIMEOUT = getattr(settings, 'SELENIUM_TEST_SERVER_TIMEOUT', 300)
-SELENIUM_TESTSERVER_HOST = getattr(settings, 'SELENIUM_TESTSERVER_HOST', 'localhost')
-SELENIUM_TESTSERVER_PORT = getattr(settings, 'SELENIUM_TESTSERVER_PORT', 8011)
-SELENIUM_HOST = getattr(settings, 'SELENIUM_HOST', None)
-SELENIUM_PORT = getattr(settings, 'SELENIUM_PORT', 4444)
-SELENIUM_DISPLAY = getattr(settings, 'SELENIUM_DISPLAY', ':0')
-# Set the drivers that you want to run your tests against
-SELENIUM_DRIVER = getattr(settings, 'SELENIUM_DRIVER', 'Firefox')
-SELENIUM_DRIVER_OPTS = getattr(settings, 'SELENIUM_DRIVER_OPTS', dict())
 
 # Only for development
 EMAIL_USE_TLS = True
