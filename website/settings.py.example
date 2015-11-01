@@ -1,0 +1,7 @@
+from configuration import *
+
+# Set secret key
+SECRET_KEY = 'SET_SECRET_KEY'
+
+DEBUG = False
+TEMPLATE_DEBUG = False
