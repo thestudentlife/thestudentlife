@@ -1,5 +1,4 @@
 <aside class="side-menu">
-
     <form action="{% url 'search' %}" role="search" method="GET">
         <div class="input-group">
             <input name="search" type="text" class="form-control" placeholder="Search for..."/>
@@ -9,9 +8,7 @@
         </div>
     </form>
 
-    <div class="padding10"></div>
-
-  <!-- Nav tabs -->
+  <div class="padding10"></div>  <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#discussed" aria-controls="discussed" role="tab" data-toggle="tab">Most Discussed</a></li>
     <li role="presentation"><a href="#viewed" aria-controls="viewed" role="tab" data-toggle="tab">Most Viewed</a></li>
@@ -55,4 +52,23 @@
     </div>
   </div>
 
+
+
+  <div class="fb-page" data-href="https://www.facebook.com/thestudentlife/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false">
+    <div class="fb-xfbml-parse-ignore">
+      <blockquote cite="https://www.facebook.com/thestudentlife/">
+        <a href="https://www.facebook.com/thestudentlife/">The Student Life</a>
+      </blockquote>
+    </div>
+  </div>
+
 </aside>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
