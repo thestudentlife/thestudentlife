@@ -11,8 +11,14 @@ def home(request):
     fronts = FrontArticle.objects.all()
     comics = Article.objects.filter(title__startswith="Weekly Comic").order_by('-created_date')
     if len(comics) > 0:
-        comic = comics[0]
-        comic_url = comic.album.photo_set.all()[0].image.url
+        k = 0
+        comic = comics[k]
+        while len(comic.album.photo_set.all()) == 0 and k<len(comics):
+            comic = comics[k]
+            k+=1
+        comic_url = None
+        if len(comic.album.photo_set.all()) > 0:
+            comic_url = comic.album.photo_set.all()[0].image.url
     return render(request, 'index.html',
                   {'sections': sections, 'features': features, 'fronts': fronts, 'recents': get_recent(5),
                    'populars': get_popular(5), 'comic_url': comic_url})
