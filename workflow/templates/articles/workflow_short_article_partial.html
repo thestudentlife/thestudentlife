@@ -16,6 +16,7 @@
             {% endfor %},
             Updated: {{ article.updated_date }}, <b>{{ article.length }}</b> words,
             <a href="{% url 'article_xml' article.id %}"><i class="fa fa-download"></i> Download XML</a>
+            <a href="{% url 'view_album' article.issue.id article.id %}"><i class="fa fa-file-image-o"></i> View Album</a>
             {% if article.has_photo %}
             <span class="label label-success">Photos Received</span>
             {% endif %}
