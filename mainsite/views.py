@@ -48,6 +48,8 @@ def article(request, section_name, article_id, article_name='default'):
     article = get_object_or_404(Article,pk=article_id)
     article.click()
     article.save()
+    if not article.published:
+        return error404(request)
     return render(request, 'article.html', {"sections": sections, "article": article, 'recents': get_recent(5),
                                             'populars': get_popular(5)})
 
