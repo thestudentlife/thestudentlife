@@ -21,7 +21,7 @@ Sever Maintenance (Pushing Changes)
 - Switch to user tsl: `sudo -u tsl -i`
 - Change your directory to the tsl repository: `cd thestudentlife`
 - Pull in changes from upstream: `git pull origin master`
-- Reload gunicorn: `kill -HUP \`cat run/gunicorn.pid\``
+- Reload gunicorn: ``kill -HUP `cat run/gunicorn.pid` ``
 
 Optional Configuration Items
 --------------------------------------------------
