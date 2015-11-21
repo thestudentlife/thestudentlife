@@ -13,7 +13,7 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-ALLOWED_HOSTS = ['.tsl.pomona.edu','127.0.0.1','localhost']
+ALLOWED_HOSTS = ['.tsl.news','.tsl.pomona.edu','127.0.0.1','localhost']
 
 # Application definition
 
@@ -32,7 +32,7 @@ INSTALLED_APPS = (
     'widget_tweaks',
     'autocomplete_light',
     'mainsite',
-    'workflow',
+    'workflow'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -121,3 +121,5 @@ EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = 'claremont_academia@yahoo.com'
 
 GEOPOSITION_MAP_WIDGET_HEIGHT = 240
+
+FILE_UPLOAD_PERMISSIONS = 0644
