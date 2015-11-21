@@ -14,6 +14,15 @@ Configuration
 - Check out localhost:8000 on your favorite browser
 - Check out localhost:8000/workflow (Login: kshikama, Password: tsl)
 
+Sever Maintenance (Pushing Changes)
+---------------------------
+
+- SSH into Peninsula
+- Switch to user tsl: `sudo -u tsl -i`
+- Change your directory to the tsl repository: `cd thestudentlife`
+- Pull in changes from upstream: `git pull origin master`
+- Reload gunicorn: `kill -HUP \`cat run/gunicorn.pid\``
+
 Optional Configuration Items
 --------------------------------------------------
 
