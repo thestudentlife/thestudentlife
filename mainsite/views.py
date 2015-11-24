@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from haystack.query import SearchQuerySet
+from django.views.decorators.clickjacking import xframe_options_exempt
 from mainsite.models import Section, Article, Profile, FrontArticle, CarouselArticle, Copy
 import json
 
@@ -43,6 +44,8 @@ def section(request, section_slug):
     return render(request, 'section.html', {"section": this_section, "sections": sections, "articles": articles,
                                             'recents': get_recent(5), 'populars': get_popular(5)});
 
+
+@xframe_options_exempt
 def article(request, section_name, article_id, article_name='default'):
     sections = Section.objects.all()
     article = get_object_or_404(Article,pk=article_id)
