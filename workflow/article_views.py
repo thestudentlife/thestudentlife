@@ -32,11 +32,12 @@ class ArticleCreateView(CreateView):
 @group_required('silver')
 def article_edit(request, issue_id, pk):
     article = Article.objects.get(pk=pk)
+    locked_by = request.user in article.edited_by.all()
     if request.method == 'GET':
         original_time = article.updated_date.second
         form = ArticleForm(instance=article)
         return render(request, 'articles/edit_article.html',
-                      {'form': form, 'article': article, 'time': original_time})
+                      {'form': form, 'article': article, 'time': original_time,'locked_by':locked_by})
     else:
         original_time = request.POST['time']
         form = ArticleForm(request.POST, instance=article)
@@ -52,14 +53,14 @@ def article_edit(request, issue_id, pk):
                                     "Otherwise, save your edits elsewhere, exit this page, and try editing again."
                 return render(request, 'articles/edit_article.html',
                               {'form': form, 'article': article,
-                               'time': currently_saved_time, 'overwrite': overwrite_message})
+                               'time': currently_saved_time, 'overwrite': overwrite_message,'locked_by':locked_by})
             revision = Revision(article=article,
                                 editor=request.user.profile, body=article.content)
             revision.save()
             form.save_m2m()
             return redirect(reverse('article_xml', kwargs={'article_id':pk}))
         else:
-            return render(request, 'articles/edit_article.html', {'form': form, 'article': article})
+            return render(request, 'articles/edit_article.html', {'form': form, 'article': article,'locked_by':locked_by})
 
 class ArticleDeleteView(DeleteView):
     model = Article
