@@ -56,6 +56,7 @@ body {
 .tsl-container {
     padding: 0% 2% 0% 2%;
     overflow: auto;
+    margin-top: 65px;
 }
 
 .tsl-disqus {
@@ -260,4 +261,8 @@ li.dsq-widget-item {
     vertical-align: top;
     margin-left: 15px;
     font-size: 1.5em;
+}
+
+.bx-wrapper {
+    margin-top: 65px !important;
 }
