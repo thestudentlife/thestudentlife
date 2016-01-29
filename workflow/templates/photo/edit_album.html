@@ -21,6 +21,8 @@
                     {% render_field field class+="form-control margin10" placeholder=field.label %}
                 {% endif %}
             {% endfor %}
+            <br />
+            Delete: {{ form.DELETE }}
         {% endfor %}
         <div class="text-center">
             <input id="edit" class="btn btn-default btn-primary btn-50" type="submit" value="Edit Album"/>
