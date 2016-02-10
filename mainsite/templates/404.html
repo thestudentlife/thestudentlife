@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+
 {% block title_block %}
 <title>404 Not Found</title>
 {% endblock %}
 
 
 {% block body_block %}
-    {% load static %}
     <div class="vertical-center">
         <p><img src="{% static '404.jpg' %}"></p>
         <p>Sorry, we cannot find this page for you. Did you mistype the url? Or perhaps follow an older link? </p>
     </div>
-
 {% endblock %}

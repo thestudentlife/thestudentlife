@@ -55,6 +55,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.request',
     'django_mobile.context_processors.flavour',
+    'mainsite.context_processors.section'
 )
 
 TEMPLATE_LOADERS = (

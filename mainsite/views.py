@@ -7,7 +7,6 @@ import json
 
 
 def home(request):
-    sections = Section.objects.all().order_by('priority')
     features = CarouselArticle.objects.all()
     fronts = FrontArticle.objects.all()
     comics = Article.objects.filter(title__startswith="Weekly Comic").order_by('-created_date')
@@ -20,9 +19,8 @@ def home(request):
             k+=1
         if len(comic.album.photo_set.all()) > 0:
             comic_url = comic.album.photo_set.all()[0].image.url
-    return render(request, 'index.html',
-                  {'sections': sections, 'features': features, 'fronts': fronts, 'recents': get_recent(5),
-                   'populars': get_popular(5), 'comic_url': comic_url})
+    return render(request, 'index.html', {'features': features, 'fronts': fronts, 'recents': get_recent(5),
+                                          'populars': get_popular(5), 'comic_url': comic_url})
 
 def section(request, section_slug):
     sections = Section.objects.all().order_by('priority')
@@ -41,53 +39,46 @@ def section(request, section_slug):
                 articles_in_json.append(article_ajax_object(article))
         return HttpResponse(json.dumps(articles_in_json), content_type='application/json')
     articles = this_section.articles.filter(published=True).order_by('-published_date')[:10]
-    return render(request, 'section.html', {"section": this_section, "sections": sections, "articles": articles,
-                                            'recents': get_recent(5), 'populars': get_popular(5)});
-
+    return render(request, 'section.html', {"section": this_section, "articles": articles, 'recents': get_recent(5), 'populars': get_popular(5)})
 
 @xframe_options_exempt
 def article(request, section_name, article_id, article_name='default'):
-    sections = Section.objects.all().order_by('priority')
     article = get_object_or_404(Article,pk=article_id)
     article.click()
     article.save()
     if not article.published:
         return error404(request)
-    return render(request, 'article.html', {"sections": sections, "article": article, 'recents': get_recent(5),
-                                            'populars': get_popular(5)})
+    return render(request, 'article.html', {"article": article, 'recents': get_recent(5), 'populars': get_popular(5)})
 
 def legacy_article(request,legacy_id):
     a = Article.objects.get(legacy_id=legacy_id)
     return article(request,'articles',article_id=a.id)
 
 def error404(request):
-    return render(request,'404.html')
+    return render(request, '404.html')
 
 def person(request, person_id, person_name='ZQ'):
-    sections = Section.objects.all().order_by('priority')
-    person = get_object_or_404(Profile,pk=person_id)
+    person = get_object_or_404(Profile, pk=person_id)
     if person.position == "author" or len(person.article_set.all().filter(published=True)) > 0:
         articles = person.article_set.all().filter(published=True)
         recents = person.article_set.all().filter(published=True).order_by('-published_date')[:5]
         populars = person.article_set.all().filter(published=True).order_by('-clicks')[:5]
         return render(request, 'author.html',
-                      {"person": person, "sections": sections, "articles": articles, 'recents': recents, 'populars': populars})
+                      {"person": person, "articles": articles, 'recents': recents, 'populars': populars})
     elif person.position == "photographer" or person.position == "graphic_designer":
         images = person.photo_set.all()
         return render(request, 'photographer.html',
-                      {"person": person, "sections": sections, "images": images, 'recents': get_recent(5), 'populars': get_popular(5)})
+                      {"person": person, "images": images, 'recents': get_recent(5), 'populars': get_popular(5)})
     else:
         return HttpResponse('His/Her profile is not public.')
 
 def other(request, info):
-    sections = Section.objects.all().order_by('priority')
     template = "other/" + info + ".html";
-    return render(request, "other/about.html", {"sections": sections, 'info': template})
+    return render(request, "other/about.html", {'info': template})
 
 def archives(request):
-    sections = Section.objects.all().order_by('priority')
     copies = Copy.objects.all()
-    return render(request, 'other/archives.html', {"sections": sections, 'copies': copies})  # Create json objects for an article
+    return render(request, 'other/archives.html', {'copies': copies})  # Create json objects for an article
 
 def article_ajax_object(article):
     fmt = '%b. %d, %Y, %I:%M %p'
@@ -101,8 +92,7 @@ def article_ajax_object(article):
     obj['disqus_id'] = article.disqus_id()
     obj['authors'] = []
     for author in article.authors.all():
-        obj['authors'].append({'name': author.display_name,
-                               'url': author.get_absolute_url()})
+        obj['authors'].append({'name': author.display_name, 'url': author.get_absolute_url()})
     return obj
 
 def get_recent(n):
@@ -114,7 +104,6 @@ def get_popular(n):
 from haystack.inputs import AutoQuery
 from django.db.models import Q
 def search_query(request):
-    sections = Section.objects.all().order_by('priority')
     query = request.GET['search']
     if request.is_ajax():
         count = int(request.GET['count'])
@@ -124,4 +113,4 @@ def search_query(request):
             articles_in_json.append(article_ajax_object(article.object))
         return HttpResponse(json.dumps(articles_in_json), content_type='application/json')
     query_set = SearchQuerySet().filter(Q(authors=AutoQuery(query)) | Q(content=query))[:10]
-    return render(request, "search/search.html", {"sections": sections, "word": query, "qs": query_set, 'recents': get_recent(5), 'populars': get_popular(5)})
+    return render(request, "search/search.html", {"word": query, "qs": query_set, 'recents': get_recent(5), 'populars': get_popular(5)})
