@@ -5,7 +5,7 @@ $(" .article_content img").each(function() {
         var imgWidth = $(this).width();
         var imgHeight = $(this).height();
         var position = $(this).position();
-        $("<br><span class='img-caption'><em>" + imageCaption +
-            "</em></span>").insertAfter(this);
+        $("<br><span class='img-caption'>" + imageCaption +
+            "</span>").insertAfter(this);
     }
 });
