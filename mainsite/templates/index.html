@@ -20,6 +20,7 @@
             {% include 'side_menu.html' %}
         </div>
     {% else %}
+        <div class="loader"></div>
         <ul class="bxslider">
             {% for feature in features %}
                 <li>
@@ -53,6 +54,10 @@
     <script type="text/javascript" src="{% static 'masonry.pkgd.min.js' %}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            $(window).load(function() {
+                $(".loader").fadeOut("slow");
+                $(".bx-wrapper").fadeIn("fast");
+            })
             $('.bxslider').bxSlider({
                                         adaptiveHeight: true,
                                         mode: 'fade',
