@@ -59,14 +59,14 @@ class Article(models.Model):
     issue = models.ForeignKey(Issue)
     authors = models.ManyToManyField(Profile)
     clicks = models.IntegerField(default=0)
-    subsections = models.ManyToManyField(Subsection, null=True)
+    subsections = models.ManyToManyField(Subsection)
     created_date = models.DateTimeField(default=datetime.datetime.now)
     published = models.BooleanField(default=False)
     published_date = models.DateTimeField(null=True)
     updated_date = models.DateTimeField(default=datetime.datetime.now)
     legacy_id = models.PositiveIntegerField(null=True)
     position = GeopositionField(blank=True,null=True)
-    edited_by = models.ManyToManyField(User,null=True,related_name='edited_article')
+    edited_by = models.ManyToManyField(User,related_name='edited_article')
     def __str__(self):
         return self.title
 

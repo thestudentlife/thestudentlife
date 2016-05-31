@@ -1,13 +1,9 @@
 from django.test import LiveServerTestCase
 from pyvirtualdisplay import Display
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.support.wait import WebDriverWait
 
 class FunctionalTest(LiveServerTestCase):
-    fixtures = ["initial_data_workflow.json"]
+    fixtures = ["initial_data.json"]
     
     def setUp(self):
         self.display = Display(visible=0, size=(1024, 768))
