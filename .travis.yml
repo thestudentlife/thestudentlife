@@ -10,5 +10,8 @@ env:
 install:
   - pip install -r requirements.txt
 
+before_script:
+  - python3 manage.py migrate
+
 # command to run tests
-script: python manage.py test
+script: python3 manage.py test
