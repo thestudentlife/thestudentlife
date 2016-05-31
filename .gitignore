@@ -60,12 +60,10 @@ target/
 .DS_Store
 
 workflow/static/ckeditor/*
-migrations/
-workflow/migrations/data_migration_initial.py
 website/static/
-ve/*
 .vagrant
 nohup.out
 db.sqlite3-journal
 website/settings.py
 tsl.mp4
+ve/
