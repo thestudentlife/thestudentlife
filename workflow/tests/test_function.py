@@ -29,7 +29,4 @@ class FunctionalTest(LiveServerTestCase):
 
     def test_functions(self):
         self.login()
-        self.selenium.get(
-            '%s%s' % (self.live_server_url, "/workflow/logout/")
-        )
 

@@ -8,12 +8,11 @@ Configuration
 --------------------------
 
 - Clone this repository
-- Install [Python 3.4](https://www.python.org/downloads/)
-  - Note we currently have an issue with Python 3.5
+- Install [Python 3.5](https://www.python.org/downloads/)
 - Copy `website/settings.py.example` to `website/settings.py`
 - Enter <code>bash setup.sh</code>
 - Check out localhost:8000 on your favorite browser
-- Check out localhost:8000/workflow (Login: kshikama, Password: tsl)
+- Check out localhost:8000/workflow
 
 Sever Maintenance (Pushing Changes)
 ---------------------------
