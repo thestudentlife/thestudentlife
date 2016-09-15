@@ -9,6 +9,7 @@ CKEDITOR.editorConfig = function (config) {
         {name: 'insert', items: ['Image', 'Link', 'Iframe']},
         {name: 'font', items: ['Bold', 'Italic']},
         {name: 'operation', items: ['Undo', 'Redo']},
+        {name: 'document', items:['Source']}
     ];
 
     config.uiColor = '#ffffff';
