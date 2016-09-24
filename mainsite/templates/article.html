@@ -4,6 +4,8 @@
 {% block title_block %}
     <title>{{ article.title }}</title>
     <style rel="stylesheet" type="text/css" href="{% static 'share_buttons.css' %}"></style>
+    <link rel="stylesheet" href="{% static 'dist/photoswipe.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/default-skin/default-skin.css' %}">
 {% endblock %}
 
 {% block body_block %}
@@ -17,8 +19,6 @@
     <div class="tsl-disqus col-sm-8 col-md-8 col-lg-8">
         {% include 'disqus_partial.html' %}
     </div>
-
-
 {% endblock %}
 
 {% block script_block %}
@@ -27,4 +27,10 @@
     <script src="{% static 'social_button.js' %}"></script>
     <script src="{% static 'resize_image.js' %}"></script>
     <script src="{% static 'imageCaption.js' %}"></script>
+    <script src="{% static 'dist/photoswipe.min.js' %}"></script>
+    <script src="{% static 'dist/photoswipe-ui-default.min.js' %}"></script>
+
+    {% if article.has_photo %}
+        {% include 'photo_slide.html' %}
+    {% endif %}
 {% endblock %}
