@@ -67,3 +67,5 @@ db.sqlite3-journal
 website/settings.py
 tsl.mp4
 ve/
+
+website/media/*
