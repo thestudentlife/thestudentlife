@@ -1,22 +1,14 @@
 <article class="article-preview">
-    <h3><a href="{% url 'article' front.article.section.slug front.article.id %}">
-        {{ front.article.title }}</a></h3>
-    {% if front.article.album.photo_set.all.count != 0 %}
+    <h3><a href="{% url 'article' front.section.slug front.id %}">
+        {{ front.title }}</a></h3>
+    {% if front.album.photo_set.all.count != 0 %}
         <div class="frame">
-            <img src="{{ front.article.album.photo_set.all.0.thumbnail.url }}"/>
+            <img src="{{ front.album.photo_set.all.0.thumbnail.url }}"/>
         </div>
     {% endif %}
-    {% if front.article.section.slug == "news" %}
-        <span class="label label-warning">News</span>
-    {% elif front.article.section.slug == "life-style" %}
-        <span class="label label-success">Life and Style</span>
-    {% elif front.article.section.slug == "sports" %}
-        <span class="label label-info">Sports</span>
-    {% else %}
-        <span class="label label-primary">Opinions</span>
-    {% endif %}
-    <span>{{ front.article.published_date }}</span> | 
+    <a href="{% url 'person' front.authors.first.id %}">{{ front.authors.first }}</a> |
+    <span>{{ front.published_date }}</span> |
     <i class="fa fa-comment-o"></i>
-    <a href="{{ front.article.get_absolute_url }}#disqus_thread" class="disqus-comment-count" data-disqus-identifier="{{ front.article.disqus_id }}"></a>
-    <p>{{ front.article.content_with_no_images | truncatechars:150 | safe }}</em></b></strong></p>
+    <a href="{{ front.get_absolute_url }}#disqus_thread" class="disqus-comment-count" data-disqus-identifier="{{ front.disqus_id }}"></a>
+    <p>{{ front.content_with_no_images | truncatechars:150 | safe }}</em></b></strong></p>
 </article>

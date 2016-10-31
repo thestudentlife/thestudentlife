@@ -8,7 +8,7 @@ import json
 
 def home(request):
     features = CarouselArticle.objects.all()
-    fronts = FrontArticle.objects.all()
+    fronts = list(map(lambda x: x.article, FrontArticle.objects.order_by("article__section__name").all()))
     comics = Article.objects.filter(title__startswith="Weekly Comic").order_by('-created_date')
     comic_url = None
     if len(comics) > 0:

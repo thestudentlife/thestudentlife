@@ -33,15 +33,7 @@ body {
         width: 66.66666667%;
     }
 }
-.article-previews {
-    width: 100%;
-    float: left;
-}
-@media (min-width: 768px) {
-    .article-previews {
-        width: 66.66666667%;
-    }
-}
+
 .article-preview {
     width: 100%;
     overflow: overlay;
@@ -49,7 +41,7 @@ body {
 @media (min-width: 992px) {
     .article-preview {
         width: 50%;
-        padding: 0px 20px 0px 20px;
+        padding: 0px 20px 0px 0px;
     }
 }
 
