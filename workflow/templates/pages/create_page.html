@@ -1,5 +1,6 @@
 {% extends 'workflow_base.html' %}
 {% load widget_tweaks %}
+{% load static %}
 
 {% block title_block %}
     <title>Create Page</title>
@@ -14,4 +15,13 @@
         {% endfor %}
         <input class="btn btn-default btn-primary btn-50" type="submit" value="Create"/>
     </form>
+{% endblock %}
+
+{% block additional_scripts_block %}
+    <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+    <script>
+        CKEDITOR.replace(id_content, {
+            customConfig: '{% static 'ckeditor_config.js' %}'
+        })
+    </script>
 {% endblock %}
