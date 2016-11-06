@@ -1,0 +1,26 @@
+{% extends 'workflow_base.html' %}
+
+{% block title_block %}
+    <title>Static Pages</title>
+{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb breadcrumbAdjust">
+        <li class="active">Pages</li>
+    </ol>
+    <a class="btn btn-default btn-primary btn-right" href="{% url 'new_page' %}">New Page</a>
+{% endblock %}
+
+{% block content_block %}
+    <div class="padding10"></div>
+    <ul class="list-group">
+        {% for page in pages %}
+            <li class="list-group-item">
+                <a href="{% url 'edit_page' page.id %}">{{ page.title }}</a>
+                <span style="float: right">
+                    <a href="{% url 'delete_page' page.id %}">Delete</a>
+                </span>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

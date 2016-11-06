@@ -48,10 +48,9 @@
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu tsl-dropdown-menu" role="menu">
                         <li><a href="{% url 'archives' %}">Archives</a></li>
-                        <li><a href="{% url 'other' 'contact' %}">Contact</a></li>
-                        <li><a href="{% url 'other' 'about_tsl' %}">About</a></li>
-                        <li><a href="{% url 'other' 'subscriptions' %}">Subscribe</a></li>
-                        <li><a href="{% url 'other' 'staff' %}">Staff</a></li>
+                        {% for page in pages %}
+                             <li><a href="{% url 'page' page.name %}">{{ page.title }}</a></li>
+                        {% endfor %}
                     </ul>
                 </li>
             </ul>

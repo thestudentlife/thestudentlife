@@ -1,0 +1,27 @@
+{% extends 'workflow_base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block title_block %}
+    <title>Edit Page</title>
+{% endblock %}
+
+{% block content_block %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            {{ field.errors|striptags }}
+            {% render_field field class+="form-control margin-vertical-10" placeholder=field.label %}
+        {% endfor %}
+        <input class="btn btn-default btn-primary btn-50" type="submit" value="Edit"/>
+    </form>
+{% endblock %}
+
+{% block additional_scripts_block %}
+    <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+    <script>
+        CKEDITOR.replace(id_content, {
+            customConfig: '{% static 'ckeditor_config.js' %}'
+        })
+    </script>
+{% endblock %}

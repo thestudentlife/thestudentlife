@@ -1,5 +1,6 @@
-from mainsite.models import Section
+from mainsite.models import Section, StaticPage
 
 def section(request):
     sections = Section.objects.all().order_by('priority')
-    return {'sections': sections}
+    pages = StaticPage.objects.all()
+    return {'sections': sections, 'pages':pages}

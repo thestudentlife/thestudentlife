@@ -185,6 +185,15 @@ class Photo(models.Model):
     def __str__(self):
         return self.image.url
 
+class StaticPage(models.Model):
+    title = models.CharField(max_length=20)
+    name = models.CharField(max_length=20)
+    content = models.TextField()
+    updated_date = models.DateTimeField(default=datetime.datetime.now)
+
+    def get_absolute_url(self):
+        return reverse('page', kwargs={'name': self.name})
+
 # The assignment form is currently in the mainsite
 # because of a circular dependency on Section.
 # Ideally, this class should be moved back to workflow/models.

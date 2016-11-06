@@ -8,6 +8,7 @@ CKEDITOR.editorConfig = function (config) {
     config.toolbar = [
         {name: 'insert', items: ['Image', 'Link', 'Iframe']},
         {name: 'font', items: ['Bold', 'Italic']},
+        {name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
         {name: 'operation', items: ['Undo', 'Redo']},
         {name: 'document', items:['Source']}
     ];

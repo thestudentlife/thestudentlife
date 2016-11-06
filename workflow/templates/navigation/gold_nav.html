@@ -18,6 +18,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="{% active_nav request 'articles' %}"><a href="{% url 'latest_issue' %}">Articles</a></li>
+                <li class="{% active_nav request 'pages' %}"><a href="{% url 'pages' %}">Static Pages</a></li>
                 <li class="{% active_nav request 'front' %}"><a href="{% url 'front' %}">Front Page</a></li>
                 <li class="{% active_nav request 'album' %}"><a href="{% url 'albums' %}">Photos</a></li>
                 <li class="{% active_nav request 'copy' %}"><a href="{% url 'copies' %}">Archives</a></li>

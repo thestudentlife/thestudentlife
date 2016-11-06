@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title_block %}
+    <title>{{ page.title }}</title>
+{% endblock %}
+
+{% block body_block %}
+    <div class="paddingH20">
+        <article>{{ page.content|safe }}</article>
+    </div>
+{% endblock %}

@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from haystack.query import SearchQuerySet
 from django.views.decorators.clickjacking import xframe_options_exempt
-from mainsite.models import Section, Article, Profile, FrontArticle, CarouselArticle, Copy
+from mainsite.models import Section, Article, Profile, FrontArticle, CarouselArticle, Copy, StaticPage
 import json
 
 
@@ -21,6 +21,10 @@ def home(request):
             comic_url = comic.album.photo_set.all()[0].image.url
     return render(request, 'index.html', {'features': features, 'fronts': fronts, 'recents': get_recent(5),
                                           'populars': get_popular(5), 'comic_url': comic_url})
+
+def page(request, name):
+    page = StaticPage.objects.get(name=name)
+    return render(request, 'static.html', {'page': page})
 
 def section(request, section_slug):
     sections = Section.objects.all().order_by('priority')

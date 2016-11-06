@@ -2,8 +2,9 @@ from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
 from workflow.article_views import ArticleCreateView, ArticleDetailView, article_edit, ArticleDeleteView
 from workflow.issue_views import IssueCreateView, IssueEditView, IssueDeleteView
+from workflow.page_views import PageCreateView, PageDeleteView, PageEditView
 from workflow.views import group_required
-from workflow import views, issue_views, photo_views, article_views
+from workflow import views, issue_views, photo_views, article_views, page_views
 
 urlpatterns = patterns('',
                        url(r'^$', views.whome, name='whome'),
@@ -33,6 +34,15 @@ urlpatterns = patterns('',
                            name="edit_issue"),
                       url(r'^articles/issue/(?P<pk>[0-9]+)/delete/$', group_required('silver')(IssueDeleteView.as_view()),
                            name="delete_issue"),
+
+                       #pages
+                       url(r'^pages/$', page_views.pages, name="pages"),
+                       url(r'^page/new/$', group_required('silver')(PageCreateView.as_view()),
+                           name="new_page"),
+                       url(r'^page/(?P<pk>[0-9]+)/edit/$', group_required('silver')(PageEditView.as_view()),
+                           name="edit_page"),
+                      url(r'^page/(?P<pk>[0-9]+)/delete/$', group_required('silver')(PageDeleteView.as_view()),
+                           name="delete_page"),
 
                        #articles
                        url(r'^articles/latest-article/$', article_views.latest_article, name='latest_article'),
