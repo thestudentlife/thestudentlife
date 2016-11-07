@@ -20,27 +20,27 @@
             {% include 'side_menu.html' %}
         </div>
     {% else %}
+        <div class="loader"></div>
+        <ul class="bxslider">
+            {% for feature in features %}
+                <li>
+                    <img src="{{ feature.article.album.photo_set.all.0 }}"
+                         title="{{ feature.article.title }}" class="tsl-slider-image"
+                         onclick="javascript:location.href='{% url 'article' feature.article.section.slug feature.article.id %}';"
+                         link="{% url 'article' feature.article.section.slug feature.article.id %}"/>
+
+                    <div class="caption">
+                        {{ feature.article.content_with_no_images | truncatechars:150 | safe }}</em></div>
+                </li>
+            {% endfor %}
+        </ul>
+        <div id="bx-pager" class="tsl-pager">
+            {% for feature in features %}
+                <a data-slide-index="{{ forloop.counter0 }}" href=""><i class="fa fa-circle-o"></i></a>
+            {% endfor %}
+        </div>
         <div class="tsl-container">
             <div class="col-md-8">
-                <div class="loader"></div>
-                <ul class="bxslider">
-                    {% for feature in features %}
-                        <li>
-                            <img src="{{ feature.article.album.photo_set.all.0 }}"
-                                 title="{{ feature.article.title }}" class="tsl-slider-image"
-                                 onclick="javascript:location.href='{% url 'article' feature.article.section.slug feature.article.id %}';"
-                                 link="{% url 'article' feature.article.section.slug feature.article.id %}"/>
-
-                            <div class="caption">
-                                {{ feature.article.content_with_no_images | truncatechars:150 | safe }}</em></div>
-                        </li>
-                    {% endfor %}
-                </ul>
-                <div id="bx-pager" class="tsl-pager">
-                    {% for feature in features %}
-                        <a data-slide-index="{{ forloop.counter0 }}" href=""><i class="fa fa-circle-o"></i></a>
-                    {% endfor %}
-                </div>
                 {% regroup fronts by section as fronts_by_section %}
                 {% for section_of_front in fronts_by_section %}
                     <div class="tsl-section-header">{{ section_of_front.grouper }}</div>
