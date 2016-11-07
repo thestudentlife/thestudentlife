@@ -11,7 +11,7 @@
         <div class="tsl-container">
             <section class="article-previews">
                 {% for front in features %}
-                    {% include 'front_article_partial.html' %}
+                    {% include 'front_article_partial.html' with front=front.article %}
                 {% endfor %}
                 {% for front in fronts %}
                     {% include 'front_article_partial.html' %}
@@ -44,16 +44,14 @@
                 {% regroup fronts by section as fronts_by_section %}
                 {% for section_of_front in fronts_by_section %}
                     <div class="tsl-section-header">{{ section_of_front.grouper }}</div>
-                    <section id="content" class="article-previews">
+                    <section id="content" class="front-article-previews">
                         {% for front in section_of_front.list %}
                             {% include 'front_article_partial.html' %}
                         {% endfor %}
                     </section>
                 {% endfor %}
             </div>
-            <div class="col-md-4">
-                {% include 'side_menu.html' %}
-            </div>
+            {% include 'side_menu.html' %}
         </div>
     {% endif %}
 {% endblock %}
@@ -75,7 +73,7 @@
             });
         });
         $(window).load(function () {
-            $('.article-previews').masonry({
+            $('.front-article-previews').masonry({
                 itemSelector: '.article-preview'
             });
         });
