@@ -49,7 +49,7 @@ body {
 @media (min-width: 992px) {
     .article-preview {
         width: 50%;
-        padding: 0px 20px 0px 20px;
+        padding: 0px 20px 0px 0px;
     }
 }
 

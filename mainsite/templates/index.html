@@ -11,7 +11,7 @@
         <div class="tsl-container">
             <section class="article-previews">
                 {% for front in features %}
-                    {% include 'front_article_partial.html' %}
+                    {% include 'front_article_partial.html' with front=front.article %}
                 {% endfor %}
                 {% for front in fronts %}
                     {% include 'front_article_partial.html' %}
@@ -29,7 +29,8 @@
                          onclick="javascript:location.href='{% url 'article' feature.article.section.slug feature.article.id %}';"
                          link="{% url 'article' feature.article.section.slug feature.article.id %}"/>
 
-                    <div class="caption">{{ feature.article.content_with_no_images | truncatechars:150 | safe }}</em></div>
+                    <div class="caption">
+                        {{ feature.article.content_with_no_images | truncatechars:150 | safe }}</em></div>
                 </li>
             {% endfor %}
         </ul>
@@ -39,11 +40,17 @@
             {% endfor %}
         </div>
         <div class="tsl-container">
-            <section id="content" class="article-previews">
-                {% for front in fronts %}
-                    {% include 'front_article_partial.html' %}
+            <div class="col-md-8">
+                {% regroup fronts by section as fronts_by_section %}
+                {% for section_of_front in fronts_by_section %}
+                    <div class="tsl-section-header">{{ section_of_front.grouper }}</div>
+                    <section id="content" class="front-article-previews">
+                        {% for front in section_of_front.list %}
+                            {% include 'front_article_partial.html' %}
+                        {% endfor %}
+                    </section>
                 {% endfor %}
-            </section>
+            </div>
             {% include 'side_menu.html' %}
         </div>
     {% endif %}
@@ -54,20 +61,19 @@
     <script type="text/javascript" src="{% static 'masonry.pkgd.min.js' %}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $(window).load(function() {
+            $(window).load(function () {
                 $(".loader").fadeOut("slow");
             })
             $('.bxslider').bxSlider({
-                                        adaptiveHeight: true,
-                                        mode: 'fade',
-                                        captions: true,
-                                        auto:true,
-                                        pagerCustom: '#bx-pager'
-                                    });
+                adaptiveHeight: true,
+                mode: 'fade',
+                captions: true,
+                auto: true,
+                pagerCustom: '#bx-pager'
+            });
         });
         $(window).load(function () {
-            var container = document.querySelector('.article-previews');
-            var msnry = new Masonry(container, {
+            $('.front-article-previews').masonry({
                 itemSelector: '.article-preview'
             });
         });
