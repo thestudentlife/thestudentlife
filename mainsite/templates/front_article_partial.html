@@ -1,14 +1,14 @@
 <article class="article-preview">
     <h3><a href="{% url 'article' front.section.slug front.id %}">
         {{ front.title }}</a></h3>
+    <a href="{% url 'person' front.authors.first.id %}">{{ front.authors.first }}</a> |
+    <span>{{ front.published_date }}</span> |
+    <i class="fa fa-comment-o"></i>
+    <a href="{{ front.get_absolute_url }}#disqus_thread" class="disqus-comment-count" data-disqus-identifier="{{ front.disqus_id }}"></a>
     {% if front.album.photo_set.all.count != 0 %}
         <div class="frame">
             <img src="{{ front.album.photo_set.all.0.thumbnail.url }}"/>
         </div>
     {% endif %}
-    <a href="{% url 'person' front.authors.first.id %}">{{ front.authors.first }}</a> |
-    <span>{{ front.published_date }}</span> |
-    <i class="fa fa-comment-o"></i>
-    <a href="{{ front.get_absolute_url }}#disqus_thread" class="disqus-comment-count" data-disqus-identifier="{{ front.disqus_id }}"></a>
-    <p>{{ front.content_with_no_images | truncatechars:150 | safe }}</em></b></strong></p>
+    <p>{{ front.content_with_no_images | truncatechars:800 | safe }}</em></b></strong></p>
 </article>
