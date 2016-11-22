@@ -1,16 +1,20 @@
 <aside class="side-menu">
 
     <div class="padding10"></div>
-    
-    <form action="{% url 'search' %}" role="search" method="GET">
-        <div class="input-group">
-            <input name="search" type="text" class="form-control" placeholder="Search for..."/>
-            <span class="input-group-btn">
-                <button class="btn btn-default btn-primary" type="submit">Search</button>
-            </span>
-        </div>
-    </form>
-
+    {% if not is_search %}
+        <script>
+          (function() {
+            var cx = '{{ cx }}';
+            var gcse = document.createElement('script');
+            gcse.type = 'text/javascript';
+            gcse.async = true;
+            gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(gcse, s);
+          })();
+        </script>
+    {% endif %}
+    <gcse:searchbox-only resultsUrl="{% url 'search' %}">Search</gcse:searchbox-only>
     <div class="padding10"></div>
 
   <!-- Nav tabs -->

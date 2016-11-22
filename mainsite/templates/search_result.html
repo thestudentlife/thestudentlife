@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+
+
+{% block title_block %}
+    <title>Search Results for {{ query }}</title>
+{% endblock %}
+
+{% block body_block %}
+    <div class="tsl-container">
+        <section id="article_ls" class="article-previews">
+            <h2>Search Results for '{{ query }}'</h2>
+            <script>
+              (function() {
+                var cx = '{{ cx }}';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+              })();
+            </script>
+            <gcse:searchresults-only></gcse:searchresults-only>
+        </section>
+        {% include 'side_menu.html' with is_search=True%}
+        {% include 'top_button_partial.html' %}
+    </div>
+{% endblock %}
