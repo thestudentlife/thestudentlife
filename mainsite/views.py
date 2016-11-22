@@ -76,6 +76,11 @@ def person(request, person_id, person_name='ZQ'):
     else:
         return HttpResponse('His/Her profile is not public.')
 
+
+def google_search(request):
+    query = request.GET.get('q')
+    return render(request, "search_result.html", {'query':query})
+
 def other(request, info):
     template = "other/" + info + ".html";
     return render(request, "other/about.html", {'info': template})
