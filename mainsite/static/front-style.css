@@ -316,3 +316,7 @@ div .gs-title{
     color: #0055aa !important;
     text-decoration: none !important;
 }
+
+.gsc-adBlock{
+    display: none !important;
+}
