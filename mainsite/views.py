@@ -4,6 +4,7 @@ from haystack.query import SearchQuerySet
 from django.views.decorators.clickjacking import xframe_options_exempt
 from mainsite.models import Section, Article, Profile, FrontArticle, CarouselArticle, Copy, StaticPage
 import json
+from datetime import datetime, timedelta
 
 
 def home(request):
@@ -105,10 +106,12 @@ def article_ajax_object(article):
     return obj
 
 def get_recent(n):
-    return Article.objects.all().filter(published=True).order_by('-published_date')[:n]
+    last_month = datetime.today() - timedelta(days=30)
+    return Article.objects.all().filter(published=True, published_date__gte=last_month).order_by('-published_date')[:n]
 
 def get_popular(n):
-    return Article.objects.all().filter(published=True).order_by('-clicks')[:n]
+    last_month = datetime.today() - timedelta(days=30)
+    return Article.objects.all().filter(published=True, published_date__gte=last_month).order_by('-clicks')[:n]
 
 from haystack.inputs import AutoQuery
 from django.db.models import Q
