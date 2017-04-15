@@ -68,4 +68,4 @@ website/settings.py
 tsl.mp4
 ve/
 
-website/media/*
+website/media/**

@@ -17,8 +17,8 @@ class Profile(models.Model):
         ('photographer', 'Photographer'),
         ('graphic_designer', 'Graphic Designer'),
     )
-    position = models.CharField(choices=POSITIONS_CHOICES, max_length=50, default='author')
-    display_name = models.CharField(blank=True,max_length=50)
+    position = models.CharField(choices=POSITIONS_CHOICES, max_length=256, default='author')
+    display_name = models.CharField(blank=True,max_length=256)
     legacy_id = models.PositiveIntegerField(null=True)
 
     def slug(self):
