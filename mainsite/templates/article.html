@@ -6,6 +6,7 @@
     <style rel="stylesheet" type="text/css" href="{% static 'share_buttons.css' %}"></style>
     <link rel="stylesheet" href="{% static 'photoslide/photoswipe.css' %}">
     <link rel="stylesheet" href="{% static 'photoslide/default-skin/default-skin.css' %}">
+    <meta property="og:description" content="{{ article.content_with_no_images | truncatechars:150 | safe | striptags}}" />
     {% if article.album.photo_set.all.count == 0 %}
         <meta property="og:image" content="http://tsl.news/static/share_thumbnail.jpg" />
         <meta property="og:image:width" content="2048" />
