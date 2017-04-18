@@ -37,7 +37,7 @@ def section(request, section_slug):
         return error404(request)
     if request.is_ajax():
         count = int(request.GET['count'])
-        articles = this_section.articles.order_by('-published_date')[count:count + 10]
+        articles = this_section.articles.filter(published=True).order_by('-published_date')[count:count + 10]
         articles_in_json = []
         for article in articles:
             if article.published:
