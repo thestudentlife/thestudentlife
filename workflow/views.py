@@ -165,12 +165,12 @@ def manage_one(request,user_id):
 @group_required('silver')
 def front(request):
     if request.method == "GET":
-        latest_articles_for_front = list(Article.objects.order_by('-published_date')[:40])
+        latest_articles_for_front = list(Article.objects.filter(published=True).order_by('-published_date')[:40])
         fronts = FrontArticle.objects.all()
         for front in fronts:
             if front.article in latest_articles_for_front:
                 latest_articles_for_front.remove(front.article)
-        latest_articles_for_carousel = list(Article.objects.order_by('-published_date')[:40])
+        latest_articles_for_carousel = list(Article.objects.filter(published=True).order_by('-published_date')[:40])
         carousels = CarouselArticle.objects.all()
         for carousel in carousels:
             if carousel.article in latest_articles_for_carousel:
