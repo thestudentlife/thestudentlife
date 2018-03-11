@@ -58,7 +58,8 @@ def article_edit(request, issue_id, pk):
                                 editor=request.user.profile, body=article.content)
             revision.save()
             form.save_m2m()
-            return redirect(reverse('article_xml', kwargs={'article_id':pk}))
+            return render(request, 'articles/edit_article.html',
+                          {'form': form, 'article': article, 'time': original_time, 'locked_by': locked_by})
         else:
             return render(request, 'articles/edit_article.html', {'form': form, 'article': article,'locked_by':locked_by})
 
